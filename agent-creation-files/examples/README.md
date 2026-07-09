@@ -17,7 +17,7 @@ Este directorio contiene ejemplos reales de handoffs para cada transición entre
 ## Nota de Persistencia
 
 - Estos archivos son solo ejemplos estaticos.
-- Los handoffs reales de ejecucion deben persistirse por el Orquestador en `test/Documentation/handoffs/{session_id}/`.
+- Los handoffs reales de ejecucion deben persistirse por el Orquestador en `./tests/Documentation/handoffs/{session_id}/`.
 - Naming recomendado para runtime: `{from}-to-{to}-attempt-{n}-{timestamp}.json`.
 
 ## Contexto de Ejemplos

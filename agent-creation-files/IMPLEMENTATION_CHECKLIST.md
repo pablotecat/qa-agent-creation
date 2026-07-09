@@ -53,7 +53,7 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - [ ] Leer `README.md` sección "Flujo de Implementación Recomendado"
 - [ ] Implementar bootstrap de contexto compartido
 - [ ] Implementar validación previa al routing
-- [ ] Implementar persistencia canónica de handoffs recibidos en `test/Documentation/handoffs/{session_id}/`
+- [ ] Implementar persistencia canónica de handoffs recibidos en `./tests/Documentation/handoffs/{session_id}/`
 - [ ] Implementar naming `{from}-to-{to}-attempt-{n}-{timestamp}.json`
 - [ ] Implementar `manifest.json` por sesión
 - [ ] Implementar `retry_checkpoint.json` por `correlation_id`

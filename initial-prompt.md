@@ -9,9 +9,9 @@ Implementar agentes para un equipo de QA en modo Orchestra. Solo el Orquestador 
 
 # Aclaraciones operativas para esta iteracion
 
-- El root oficial de outputs y trazabilidad es `./test/Documentation/`.
+- El root oficial de outputs y trazabilidad es `./tests/Documentation/`.
 - La persistencia oficial de handoffs es responsabilidad del Orquestador QA.
-- Ruta canonica de persistencia: `./test/Documentation/handoffs/{session_id}/`.
+- Ruta canonica de persistencia: `./tests/Documentation/handoffs/{session_id}/`.
 - Naming obligatorio por transicion/reintento: `{from}-to-{to}-attempt-{n}-{timestamp}.json`.
 - Metaartefactos obligatorios del Orquestador por sesion:
 	- `manifest.json` (indice de handoffs persistidos y estado de validacion)
@@ -39,8 +39,8 @@ Antes de crear o modificar cualquier agente, DEBE leerse y aplicarse este orden:
 - Todo handoff inter-agente DEBE validar contra `./agent-creation-files/handoff-schema.json` antes de enrutarse.
 - Si `validation_checklist.status=failed`, NO se enruta; se registra error y se reintenta segun policy.
 - Toda escalada DEBE seguir `./agent-creation-files/handoff-hooks-routing.md` con destino explicito y rationale.
-- Todo cambio relevante DEBE resumirse en `./test/Documentation/HANDOFF_Summary.md`.
-- Todo fallo DEBE registrarse en `./test/Documentation/escalation_log.md`.
+- Todo cambio relevante DEBE resumirse en `./tests/Documentation/HANDOFF_Summary.md`.
+- Todo fallo DEBE registrarse en `./tests/Documentation/escalation_log.md`.
 - Ningun handoff se considera enrutado hasta que el Orquestador lo haya persistido correctamente en la ruta canonica.
 - Nunca ejecutar procesos manuales para suplir el fallo de un agente.
 
@@ -81,7 +81,7 @@ Paso 2: Crear Test Documentation Agent
 2. Implementar extraccion y normalizacion en Gherkin
 3. Identificar gaps y dependencias
 4. Validar handoff contra schema
-5. Actualizar `./test/Documentation/HANDOFF_Summary.md`
+5. Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 6. Hacerlo `user-invocable: false`
 
 Paso 3: Crear Test Planner Agent
@@ -91,7 +91,7 @@ Paso 3: Crear Test Planner Agent
 3. Modelar cobertura y disenar suites
 4. Definir precondiciones y trazabilidad
 5. Validar handoff contra schema
-6. Actualizar `./test/Documentation/HANDOFF_Summary.md`
+6. Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 7. Hacerlo `user-invocable: false`
 
 Paso 4: Crear Test Prioritization Agent
@@ -101,7 +101,7 @@ Paso 4: Crear Test Prioritization Agent
 3. Evaluar riesgo y factibilidad de automatizacion
 4. Balancear cobertura vs esfuerzo
 5. Validar handoff contra schema
-6. Actualizar `./test/Documentation/HANDOFF_Summary.md`
+6. Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 7. Hacerlo `user-invocable: false`
 
 Paso 5: Validacion End-to-End (sólo ejecutar tras confirmación humana)
@@ -140,7 +140,7 @@ Debe:
 - aplicar `retry_policy max_attempts=3`
 - registrar errores por intento fallido
 - abortar con `status_global=blocked` al agotar intentos
-- persistir todo handoff recibido en `./test/Documentation/handoffs/{session_id}/` antes de enrutar
+- persistir todo handoff recibido en `./tests/Documentation/handoffs/{session_id}/` antes de enrutar
 - mantener `manifest.json` y `retry_checkpoint.json` por sesion
 - NO mutar campos de autoria del handoff persistido
 - NO usar `updated_by=orchestrator` en artifacts especializados

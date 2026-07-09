@@ -103,7 +103,7 @@ Template completo para Test Prioritization Agent.
 ### Paso 1: Crear Orquestador QA
 1. Implementar bootstrap de contexto compartido
 2. Implementar validación previa al routing
-3. Implementar persistencia canonica de handoffs recibidos en `test/Documentation/handoffs/{session_id}/`
+3. Implementar persistencia canonica de handoffs recibidos en `./tests/Documentation/handoffs/{session_id}/`
 4. Implementar `manifest.json` y `retry_checkpoint.json` por sesion
 5. Implementar retry_policy (max_attempts=3)
 6. Implementar manejo de errores y logging

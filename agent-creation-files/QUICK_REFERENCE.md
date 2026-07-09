@@ -173,7 +173,7 @@ Antes de generar un handoff, verificar:
 
 Antes de enrutar un handoff recibido, verificar:
 
-- [ ] Handoff persistido en `test/Documentation/handoffs/{session_id}/{from}-to-{to}-attempt-{n}-{timestamp}.json`
+- [ ] Handoff persistido en `./tests/Documentation/handoffs/{session_id}/{from}-to-{to}-attempt-{n}-{timestamp}.json`
 - [ ] `manifest.json` actualizado con path, correlation_id, retry_count y validation_status
 - [ ] `retry_checkpoint.json` actualizado para la correlacion actual
 - [ ] No se mutaron `metadata.from_agent`, `metadata.to_agent`, `delta_changes.updated_by`

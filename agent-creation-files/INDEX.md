@@ -96,7 +96,7 @@ ajv validate -s agent-creation-files/handoff-schema.json \
 - **Ligero en tokens:** Referencias a archivos + delta changes (no copias)
 - **Ejecutivo:** Summary comprensible sin leer files
 - **Trazable:** `updated_by`, `timestamp`, `rationale`
-- **Persistido por Orquestador:** cada handoff recibido se guarda en `test/Documentation/handoffs/{session_id}/`
+- **Persistido por Orquestador:** cada handoff recibido se guarda en `./tests/Documentation/handoffs/{session_id}/`
 
 ### Flujo Planificación
 ```

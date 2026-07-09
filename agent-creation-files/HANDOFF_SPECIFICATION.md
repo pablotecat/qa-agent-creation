@@ -88,14 +88,14 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
 - **Salida:** Handoff con suites diseñadas, cobertura modelada, precondiciones definidas
 - **Resumen:** `Documentation/HANDOFF_Summary.md` (actualizado)
 - **Validación:** Planner verifica que los gaps no impidan diseño de cobertura
-- **Persistencia:** Orquestador guarda el handoff en `test/Documentation/handoffs/{session_id}/` antes del routing
+- **Persistencia:** Orquestador guarda el handoff en `./tests/Documentation/handoffs/{session_id}/` antes del routing
 
 ### 3. Test Planner → Test Prioritization
 - **Entrada:** Suites diseñadas con escenarios modelados
 - **Salida:** Handoff con matriz de riesgo, selección de automatización, justificación
 - **Resumen:** `Documentation/HANDOFF_Summary.md` (actualizado)
 - **Validación:** Prioritization evalúa factibilidad de cobertura
-- **Persistencia:** Orquestador guarda el handoff en `test/Documentation/handoffs/{session_id}/` antes del routing
+- **Persistencia:** Orquestador guarda el handoff en `./tests/Documentation/handoffs/{session_id}/` antes del routing
 
 ### Retroalimentación (Feedback Loops)
 - Si **Planner** encuentra gaps que bloquean diseño → escalate a **Test Documentation**
