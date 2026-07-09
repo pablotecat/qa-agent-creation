@@ -7,6 +7,17 @@ Implementar agentes para un equipo de QA en modo Orchestra. Solo el Orquestador 
 - Implementar solo Orquestador QA y agentes de la capa de Planificacion.
 - No implementar capas de Creacion, Ejecucion y Analisis en esta iteracion.
 
+# Aclaraciones operativas para esta iteracion
+
+- El root oficial de outputs y trazabilidad es `Documentation/`.
+- Ignorar `./qa-agent-creation/prompt-to-agent.md` en esta iteracion.
+- Los agentes finales deben ubicarse en `.github/agents/` para uso directo por Copilot.
+- Entrada inicial recomendada para `solicitud_qa`:
+	- Necesito una estrategia QA end-to-end para esta aplicacion web de registro y listado de usuarios, incluyendo su API REST. Quiero cobertura funcional, smoke y regresion, con priorizacion por riesgo y seleccion de casos automatizables. Requiero trazabilidad completa entre requisitos, suites, escenarios y decisiones de priorizacion, incluyendo registro de escaladas y justificaciones.
+- Responsabilidad de validacion de schema:
+	- El agente emisor valida su handoff antes de publicarlo.
+	- El Orquestador vuelve a validar antes de enrutar al siguiente agente.
+
 # Fuente de verdad y orden de lectura obligatorio
 
 Antes de crear o modificar cualquier agente, DEBE leerse y aplicarse este orden:
@@ -83,7 +94,7 @@ Paso 4: Crear Test Prioritization Agent
 5. Validar handoff contra schema
 6. Actualizar `Documentation/HANDOFF_Summary.md`
 
-Paso 5: Validacion End-to-End
+Paso 5: Validacion End-to-End (sólo ejecutar tras confirmación humana)
 
 1. Ejecutar flujo completo: Documentation -> Planner -> Prioritization
 2. Validar cada handoff contra schema
