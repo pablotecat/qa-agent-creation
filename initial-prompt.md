@@ -10,6 +10,12 @@ Implementar agentes para un equipo de QA en modo Orchestra. Solo el Orquestador 
 # Aclaraciones operativas para esta iteracion
 
 - El root oficial de outputs y trazabilidad es `./test/Documentation/`.
+- La persistencia oficial de handoffs es responsabilidad del Orquestador QA.
+- Ruta canonica de persistencia: `./test/Documentation/handoffs/{session_id}/`.
+- Naming obligatorio por transicion/reintento: `{from}-to-{to}-attempt-{n}-{timestamp}.json`.
+- Metaartefactos obligatorios del Orquestador por sesion:
+	- `manifest.json` (indice de handoffs persistidos y estado de validacion)
+	- `retry_checkpoint.json` (tracking de retries por `correlation_id`)
 - Los agentes finales deben ubicarse en `.github/agents/` para uso directo por Copilot.
 - Entrada inicial recomendada para `solicitud_qa`:
 	- `./qa-agent-creation/prompt-to-agent.md`
@@ -35,6 +41,7 @@ Antes de crear o modificar cualquier agente, DEBE leerse y aplicarse este orden:
 - Toda escalada DEBE seguir `./agent-creation-files/handoff-hooks-routing.md` con destino explicito y rationale.
 - Todo cambio relevante DEBE resumirse en `./test/Documentation/HANDOFF_Summary.md`.
 - Todo fallo DEBE registrarse en `./test/Documentation/escalation_log.md`.
+- Ningun handoff se considera enrutado hasta que el Orquestador lo haya persistido correctamente en la ruta canonica.
 - Nunca ejecutar procesos manuales para suplir el fallo de un agente.
 
 # Contrato minimo del handoff
@@ -54,6 +61,7 @@ Reglas adicionales de contrato:
 
 - `delta_changes.updated_by` DEBE ser el agente especializado que genera el handoff.
 - El Orquestador NO debe escribir `updated_by=orchestrator` en artifacts especializados.
+- El Orquestador SI debe persistir todos los handoffs recibidos, pero NO debe mutar payload ni autoria (`from_agent`, `to_agent`, `updated_by`).
 - `retry_count` se gestiona con maximo de 3 intentos.
 - Si se agotan intentos, el Orquestador aborta con `status_global=blocked` (estado global del orquestador).
 
@@ -132,7 +140,9 @@ Debe:
 - aplicar `retry_policy max_attempts=3`
 - registrar errores por intento fallido
 - abortar con `status_global=blocked` al agotar intentos
-- NO generar manualmente artifacts especializados
+- persistir todo handoff recibido en `./test/Documentation/handoffs/{session_id}/` antes de enrutar
+- mantener `manifest.json` y `retry_checkpoint.json` por sesion
+- NO mutar campos de autoria del handoff persistido
 - NO usar `updated_by=orchestrator` en artifacts especializados
 
 Skills:

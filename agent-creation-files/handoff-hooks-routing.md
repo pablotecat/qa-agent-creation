@@ -72,8 +72,6 @@ Cada agente SOLO puede escalar a:
 - **Test Planner:** escalate a test_documentation, self (retry), u orchestrator
 - **Test Prioritization:** escalate a test_planner, test_documentation, self (retry), u orchestrator
 
-**Prohibido:** Saltos de niveles (ej: Prioritization NO puede ir directamente a Documentation sin pasar por Planner)
-
 ### Guardrail 3: Rationale Audit
 
 Toda escalada DEBE incluir:
@@ -84,6 +82,16 @@ Toda escalada DEBE incluir:
   }
 }
 ```
+
+### Guardrail 4: Persistencia Previa Al Routing
+
+Toda transicion (nominal o de escalada) DEBE cumplir:
+
+1. Orquestador persiste el handoff recibido en `test/Documentation/handoffs/{session_id}/`.
+2. Orquestador actualiza `manifest.json` y `retry_checkpoint.json`.
+3. Solo despues de persistencia exitosa se considera valida la transicion.
+
+**Regla:** Si la persistencia falla, NO hay routing y se trata como fallo de orquestacion.
 
 ---
 
@@ -152,3 +160,4 @@ Se DEBE mantener un archivo centralizado:
 ✅ **Trazabilidad auditada:** `rationale` + `timestamp` + `correlation_id`
 ✅ **Resolución esperada documentada:** Cada escalada especifica qué se espera del retry
 ✅ **Escalation log centralizado:** Auditoría de todas las escaladas
+✅ **Persistencia canonica garantizada:** No hay transicion efectiva sin handoff persistido

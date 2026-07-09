@@ -103,8 +103,10 @@ Template completo para Test Prioritization Agent.
 ### Paso 1: Crear Orquestador QA
 1. Implementar bootstrap de contexto compartido
 2. Implementar validación previa al routing
-3. Implementar retry_policy (max_attempts=3)
-4. Implementar manejo de errores y logging
+3. Implementar persistencia canonica de handoffs recibidos en `test/Documentation/handoffs/{session_id}/`
+4. Implementar `manifest.json` y `retry_checkpoint.json` por sesion
+5. Implementar retry_policy (max_attempts=3)
+6. Implementar manejo de errores y logging
 
 ### Paso 2: Crear Test Documentation Agent
 1. Basarse en `documentation.agent.md`
@@ -185,10 +187,20 @@ Documentation/
 │   ├── automation_selection.json
 │   └── justification.md
 └── handoffs/                       # Histórico de handoffs
-    ├── doc_to_planner_001.json
-    ├── planner_to_prior_001.json
-    └── ...
+  └── {session_id}/
+    ├── test_documentation-to-test_planner-attempt-1-2026-07-09T00-30-00Z.json
+    ├── test_planner-to-test_prioritization-attempt-1-2026-07-09T00-40-00Z.json
+    ├── test_prioritization-to-orchestrator-attempt-1-2026-07-09T00-50-00Z.json
+    ├── manifest.json
+    └── retry_checkpoint.json
 ```
+
+### Regla de persistencia (MUST)
+
+- El Orquestador persiste todo handoff recibido antes de enrutar al siguiente agente.
+- Si falla la persistencia, no hay routing y se trata como fallo de orquestacion.
+- El Orquestador no muta el payload del handoff persistido.
+- `delta_changes.updated_by` debe seguir siendo el agente productor, nunca `orchestrator`.
 
 ---
 

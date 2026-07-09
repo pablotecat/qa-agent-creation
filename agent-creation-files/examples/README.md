@@ -14,6 +14,12 @@ Este directorio contiene ejemplos reales de handoffs para cada transición entre
 2. **Para testing:** Validar ejemplos contra schema
 3. **Para debugging:** Comparar tu handoff con el ejemplo más similar
 
+## Nota de Persistencia
+
+- Estos archivos son solo ejemplos estaticos.
+- Los handoffs reales de ejecucion deben persistirse por el Orquestador en `test/Documentation/handoffs/{session_id}/`.
+- Naming recomendado para runtime: `{from}-to-{to}-attempt-{n}-{timestamp}.json`.
+
 ## Contexto de Ejemplos
 
 Los ejemplos usan un proyecto ficticio con las funcionalidades:

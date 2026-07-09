@@ -169,6 +169,16 @@ Antes de generar un handoff, verificar:
 - [ ] `feedback_hooks` especifica destino y estrategia
 - [ ] JSON válido contra schema
 
+## Checklist Pre-Routing (Orquestador)
+
+Antes de enrutar un handoff recibido, verificar:
+
+- [ ] Handoff persistido en `test/Documentation/handoffs/{session_id}/{from}-to-{to}-attempt-{n}-{timestamp}.json`
+- [ ] `manifest.json` actualizado con path, correlation_id, retry_count y validation_status
+- [ ] `retry_checkpoint.json` actualizado para la correlacion actual
+- [ ] No se mutaron `metadata.from_agent`, `metadata.to_agent`, `delta_changes.updated_by`
+- [ ] Si persistencia falla, NO enrutar y registrar en `Documentation/escalation_log.md`
+
 ---
 
 ## Manejo de Errores
@@ -178,6 +188,12 @@ Antes de generar un handoff, verificar:
 - Registrar error en `Documentation/escalation_log.md`
 - Incrementar `retry_count`
 - Reintentar si count < 3
+
+**Si la persistencia en Orquestador falla:**
+- NO enrutar el handoff
+- Registrar fallo de persistencia en `Documentation/escalation_log.md`
+- Actualizar `retry_checkpoint.json`
+- Reintentar segun policy (`max_attempts=3`)
 
 **Si retry_count >= 3:**
 - Generar handoff con `context.status = "failed"`
