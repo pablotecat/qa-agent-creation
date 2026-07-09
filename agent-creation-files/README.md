@@ -61,7 +61,8 @@ Ubicados en `./agent-templates/`
 Template completo para Test Documentation Agent.
 
 **Contiene:**
-- Frontmatter con metadata
+- Frontmatter estandar de VS Code para agentes
+- Secciones de dominio en body (Role, Interface, Non-goals, Owned decisions)
 - Objetivo, fases de ejecución, formato de salida
 - Criterios de finalización
 - Guardrails operativos
@@ -140,8 +141,28 @@ Template completo para Test Prioritization Agent.
 
 ## Checklist de Implementación
 
+### Contrato de Frontmatter para `.agent.md`
+
+Campos permitidos para este proyecto:
+- `name`
+- `description`
+- `tools`
+- `user-invocable`
+- `argument-hint` (opcional)
+- `agents` (opcional, recomendado en orquestador)
+
+Campos no permitidos en frontmatter (deben vivir en body markdown):
+- `role`
+- `inputs`
+- `outputs`
+- `non_goals`
+- `owned_decisions`
+- `applyTo`
+
 ### Por Agente
 - [ ] Archivo `.agent.md` creado con frontmatter correcto
+- [ ] Frontmatter usa solo campos permitidos del contrato
+- [ ] Role, Interface, Non-goals y Owned decisions definidos en body
 - [ ] Objetivo y fases documentadas
 - [ ] Formato mínimo de salida especificado
 - [ ] Criterios de finalización claros

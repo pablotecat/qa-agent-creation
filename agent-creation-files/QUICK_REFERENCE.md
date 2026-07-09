@@ -1,5 +1,24 @@
 # Handoff Format - Quick Reference
 
+## Frontmatter Estandar para `.agent.md`
+
+Usar solo campos soportados por VS Code para custom agents:
+
+```yaml
+---
+name: Test Documentation Agent
+description: Extrae y normaliza requisitos QA en formato Gherkin
+tools: [read, search, edit]
+user-invocable: false
+argument-hint: Solicitud QA u origen de requisitos
+---
+```
+
+Reglas de este proyecto:
+- Permitidos: `name`, `description`, `tools`, `user-invocable`, `argument-hint` (opcional), `agents` (opcional)
+- No permitidos en frontmatter: `role`, `inputs`, `outputs`, `non_goals`, `owned_decisions`, `applyTo`
+- Los campos de dominio QA deben ir en body markdown como secciones: `Role`, `Interface`, `Non-goals`, `Owned decisions`
+
 ## Estructura Mínima Requerida
 
 ```json

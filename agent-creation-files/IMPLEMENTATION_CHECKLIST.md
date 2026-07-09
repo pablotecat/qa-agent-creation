@@ -49,6 +49,12 @@ Use este checklist para verificar que toda la estructura de especificación de h
 
 ## 🚀 Próximos Pasos para Implementación
 
+### Validación de Frontmatter Estandar (obligatoria)
+
+- [ ] Cada `.agent.md` usa solo campos permitidos: `name`, `description`, `tools`, `user-invocable`, `argument-hint` (opcional), `agents` (opcional)
+- [ ] No existe en frontmatter: `role`, `inputs`, `outputs`, `non_goals`, `owned_decisions`, `applyTo`
+- [ ] `Role`, `Interface`, `Non-goals` y `Owned decisions` estan documentados como secciones del body
+
 ### Paso 1: Crear Orquestador QA
 - [ ] Leer `README.md` sección "Flujo de Implementación Recomendado"
 - [ ] Implementar bootstrap de contexto compartido
@@ -118,6 +124,15 @@ Use este checklist para verificar que toda la estructura de especificación de h
 ---
 
 ## 🧪 Validación Manual
+
+### Validar frontmatter de templates
+
+```bash
+# Debe retornar 0 ocurrencias dentro de frontmatter en templates
+grep -nE "^(role|inputs|outputs|non_goals|owned_decisions|applyTo):" agent-creation-files/agent-templates/*.agent.md
+```
+
+Esperado: sin coincidencias
 
 ### Validar Schema JSON
 

@@ -169,7 +169,9 @@ Los templates base son obligatorios y deben usarse sin omitir su estructura mini
 
 Cada archivo `.agent.md` debe incluir como minimo:
 
-- frontmatter (`name`, `description`, `role`, `inputs`, `outputs`, `non_goals` y/o `owned_decisions`)
+- frontmatter estandar de VS Code (`name`, `description`, `tools`, `user-invocable`; opcionales `argument-hint` y `agents` para el orquestador)
+- NO incluir en frontmatter: `role`, `inputs`, `outputs`, `non_goals`, `owned_decisions`, `applyTo`
+- mover `role`, `inputs`, `outputs`, `non_goals` y `owned_decisions` al body markdown en secciones dedicadas
 - objetivo
 - pasos/fases
 - formato minimo de salida
