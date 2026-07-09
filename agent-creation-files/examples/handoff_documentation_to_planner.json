@@ -24,9 +24,9 @@
       "recommendation": "Planner debe diseñar suite Auth considerando estos gaps como decision_points. No bloquean el diseño pero impactan cobertura."
     },
     "artifacts_references": {
-      "path_pattern": "Documentation/requirements/extracted/",
-      "summary_md": "Documentation/HANDOFF_Summary.md",
-      "raw_data": "Documentation/requirements/extracted/by_area/",
+      "path_pattern": "./tests/Documentation/requirements/extracted/",
+      "summary_md": "./tests/Documentation/HANDOFF_Summary.md",
+      "raw_data": "./tests/Documentation/requirements/extracted/by_area/",
       "version_hash": "sha256:a1b2c3d4e5f6"
     },
     "delta_changes": {

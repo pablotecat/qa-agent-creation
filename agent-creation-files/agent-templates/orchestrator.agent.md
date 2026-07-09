@@ -28,7 +28,7 @@ Recibir una `solicitud_qa`, determinar el camino de ejecución óptimo (no neces
 - `retry_checkpoint.json`: tracking de retries por `correlation_id`
 - `escalation_log.md`: registro centralizado de todas las escaladas y su resolución
 - `HANDOFF_Summary.md`: resumen ejecutivo actualizado tras cada transición
-- handoffs de despacho hacia agentes subordinados
+- registros de despacho y routing en `manifest.json`
 
 ## Non-goals
 
@@ -152,9 +152,11 @@ SI faltan inputs requeridos → elegir modo de resolución:
 
 Para cada agente que se va a invocar:
 
-1. Construir el handoff de despacho con `from_agent: orchestrator`, `to_agent: {agente}`, instrucciones en `next_agent_instructions`
-2. Persistir el handoff de despacho (ver Protocolo de Persistencia)
+1. Construir la instrucción de despacho operativo con agente destino, `correlation_id` e instrucciones de ejecución
+2. Registrar el despacho en `manifest.json` con `routing_status: pending`
 3. Invocar el agente
+
+> El Orquestador NO emite handoff especializado completo para despacho. Solo valida y persiste handoffs especializados producidos por agentes de dominio.
 
 ### Recepción de handoff entrante
 
@@ -214,9 +216,9 @@ Cuando un agente reporta prerequisitos faltantes via `feedback_hooks`:
 
 | Resultado | Condición | Acción |
 |---|---|---|
-| `valid` | Todos los checks pasan | Continuar con persistencia y routing |
+| `passed` | Todos los checks pasan | Continuar con persistencia y routing |
 | `warning` | Checks no críticos fallan | Persistir con warning, continuar routing, registrar en `escalation_log.md` |
-| `invalid` | Checks críticos fallan | NO enrutar; registrar en `escalation_log.md`; tratar como fallo del agente productor |
+| `failed` | Checks críticos fallan | NO enrutar; registrar en `escalation_log.md`; tratar como fallo del agente productor |
 
 **Regla de no-mutación:** el Orquestador nunca modifica el payload del handoff recibido. Si el handoff es inválido, se rechaza; no se corrige.
 
@@ -225,7 +227,7 @@ Cuando un agente reporta prerequisitos faltantes via `feedback_hooks`:
 
 ## Protocolo de Persistencia
 
-**Ejecutar tras cada validación exitosa (valid o warning), para handoffs recibidos y despachados.**
+**Ejecutar tras cada validación exitosa (passed o warning), para handoffs especializados recibidos.**
 
 ### Naming obligatorio
 ```
@@ -252,7 +254,7 @@ Ejemplo: `test_planner-to-test_documentation-attempt-1-20260709T143022Z.json`
       "timestamp": "ISO8601",
       "retry_count": 0,
       "correlation_id": "string",
-      "validation_status": "valid|warning|invalid",
+      "validation_status": "passed|warning|failed",
       "routing_status": "pending|routed|rejected"
     }
   ]
@@ -263,11 +265,10 @@ Ejemplo: `test_planner-to-test_documentation-attempt-1-20260709T143022Z.json`
 {
   "checkpoints": {
     "{correlation_id}": {
-      "current_retry": 1,
-      "last_attempt": "ISO8601",
-      "last_from": "test_planner",
-      "last_to": "test_documentation",
-      "history": []
+      "max_attempts": 3,
+      "current_retry_count": 1,
+      "last_error": "string",
+      "last_updated": "ISO8601"
     }
   }
 }
@@ -301,9 +302,9 @@ El `retry_count` se rastrea por `correlation_id` en `retry_checkpoint.json`.
    a. Invocar agente de soporte según feedback_hooks.escalate_to
    b. Recibir output del agente de soporte
    c. Persistir handoff del agente de soporte
-   d. Construir nuevo handoff de despacho hacia agente X con output de soporte
-   e. Incrementar retry_count en metadata del nuevo handoff
-   f. Persistir y despachar
+  d. Construir nueva instrucción de despacho hacia agente X con output de soporte
+  e. Registrar incremento de retry para `correlation_id` en `retry_checkpoint.json`
+  f. Registrar despacho en `manifest.json` e invocar agente X
 4. Si retry no permitido (>= 3):
    a. Registrar abort en escalation_log.md
    b. Actualizar manifest.json con status_global=blocked
@@ -426,15 +427,12 @@ Los artefactos del Orquestador son de trazabilidad y control, no de QA. Al cierr
 ├── HANDOFF_Summary.md
 ├── escalation_log.md
 └── handoffs/
-    └── {session_id}/
-        ├── manifest.json
-        ├── retry_checkpoint.json
-        ├── orchestrator-to-test_documentation-attempt-0-{timestamp}.json
-        ├── test_documentation-to-orchestrator-attempt-0-{timestamp}.json
-        ├── orchestrator-to-test_planner-attempt-0-{timestamp}.json
-        ├── test_planner-to-orchestrator-attempt-0-{timestamp}.json
-        ├── orchestrator-to-test_prioritization-attempt-0-{timestamp}.json
-        └── test_prioritization-to-orchestrator-attempt-0-{timestamp}.json
+  └── {session_id}/
+    ├── manifest.json
+    ├── retry_checkpoint.json
+    ├── test_documentation-to-test_planner-attempt-0-{timestamp}.json
+    ├── test_planner-to-test_prioritization-attempt-0-{timestamp}.json
+    └── test_prioritization-to-orchestrator-attempt-0-{timestamp}.json
 ```
 
-> Los handoffs de despacho (`orchestrator-to-{agente}`) y los handoffs de retorno (`{agente}-to-orchestrator`) se persisten por separado. Cada par forma una transición auditada.
+> Los handoffs especializados son producidos por agentes de dominio y validados/persistidos por el Orquestador antes de enrutar. El despacho del Orquestador queda trazado en `manifest.json`.

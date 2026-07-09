@@ -73,13 +73,14 @@ Despues de mover los archivos runtime, para operacion normal de los agentes usar
 
 # Reglas globales obligatorias (MUST)
 
-- Todo handoff inter-agente DEBE cumplir `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`.
-- Todo handoff inter-agente DEBE validar contra `.github/agents/qa-team/docs/handoff-schema.json` antes de enrutarse.
+- Todo handoff especializado inter-agente DEBE cumplir `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`.
+- Todo handoff especializado inter-agente DEBE validar contra `.github/agents/qa-team/docs/handoff-schema.json` antes de enrutarse.
 - Si `validation_checklist.status=failed`, NO se enruta; se registra error y se reintenta segun policy.
 - Toda escalada DEBE seguir `.github/agents/qa-team/docs/handoff-hooks-routing.md` con destino explicito y rationale.
 - Todo cambio relevante DEBE resumirse en `./tests/Documentation/HANDOFF_Summary.md`.
 - Todo fallo DEBE registrarse en `./tests/Documentation/escalation_log.md`.
 - Ningun handoff se considera enrutado hasta que el Orquestador lo haya persistido correctamente en la ruta canonica.
+- El despacho operativo del Orquestador hacia agentes subordinados NO debe usar handoff especializado completo ni mutar autoria de artefactos de dominio.
 - Nunca ejecutar procesos manuales para suplir el fallo de un agente.
 
 # Checklist minimo post-generacion
@@ -180,7 +181,7 @@ Cada archivo `.agent.md` debe incluir como minimo:
 
 # Agentes del Test Team QA
 
-0. Orquestador QA debe: seguir el template de `agent-templates/documentation.agent.md`
+0. Orquestador QA debe: seguir el template de `agent-templates/orchestrator.agent.md`
 
 1. Capa Planificacion
 

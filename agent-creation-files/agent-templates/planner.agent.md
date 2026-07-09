@@ -47,7 +47,7 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 ## Fases de Ejecución
 
 ### Fase 1: Análisis de Requisitos Particionados
-- Leer `Documentation/requirements/extracted/by_area/`
+- Leer `./tests/Documentation/requirements/extracted/by_area/`
 - Entender dependencies y gaps
 - Identificar bloques de funcionalidad para agrupar en suites
 
@@ -75,15 +75,15 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 ### Fase 6: Generación de Handoff
 - Crear JSON de handoff siguiendo `HANDOFF_SPECIFICATION.md`
 - Incluir `executive_summary` con complejidad de suites
-- Actualizar `Documentation/HANDOFF_Summary.md`
+- Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 - Pasar Orquestador para validación
 
 ## Formato Mínimo de Salida
 
 ```
-Documentation/
+./tests/Documentation/
 ├── HANDOFF_Summary.md (actualizado)
-├── planning/
+├── test_planning/
 │   ├── suites/
 │   │   ├── [suite_name].json
 │   │   ├── [suite_name].json
@@ -104,7 +104,7 @@ Documentation/
     {
       "id": "auth_001",
       "title": "Successful login with valid credentials",
-      "gherkin_ref": "Documentation/requirements/extracted/by_area/auth.gherkin#Scenario_1",
+      "gherkin_ref": "./tests/Documentation/requirements/extracted/by_area/auth.gherkin#Scenario_1",
       "prerequisite": "User must be registered",
       "dependencies": [],
       "estimated_duration_seconds": 30
@@ -141,7 +141,7 @@ Documentation/
 ✅ Trazabilidad estructural verificada
 ✅ Dependencies documentadas
 ✅ Handoff validado por Orquestador
-✅ `Documentation/HANDOFF_Summary.md` actualizado
+✅ `./tests/Documentation/HANDOFF_Summary.md` actualizado
 
 ## Guardrails Operativos
 

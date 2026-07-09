@@ -77,7 +77,7 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - [ ] Implementar normalización Gherkin
 - [ ] Implementar identificación de gaps
 - [ ] Implementar generación de handoff (validar contra schema)
-- [ ] Crear `Documentation/HANDOFF_Summary.md`
+- [ ] Crear `./tests/Documentation/HANDOFF_Summary.md`
 
 **Archivos a usar:**
 - `agent-templates/documentation.agent.md` - template
@@ -91,7 +91,7 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - [ ] Implementar modelamiento de cobertura
 - [ ] Implementar definición de precondiciones
 - [ ] Implementar generación de handoff
-- [ ] Actualizar `Documentation/HANDOFF_Summary.md`
+- [ ] Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 
 **Archivos a usar:**
 - `agent-templates/planner.agent.md` - template
@@ -105,7 +105,7 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - [ ] Implementar evaluación de automatización
 - [ ] Implementar balanceo cobertura vs esfuerzo
 - [ ] Implementar generación de handoff
-- [ ] Actualizar `Documentation/HANDOFF_Summary.md`
+- [ ] Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 
 **Archivos a usar:**
 - `agent-templates/prioritization.agent.md` - template
@@ -117,9 +117,9 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - [ ] Verificar que cada handoff queda persistido antes del routing
 - [ ] Verificar integridad de `manifest.json` y `retry_checkpoint.json`
 - [ ] Verificar que no hay bucles infinitos (retry_count <= 3 y abort en `>=3`)
-- [ ] Revisar `Documentation/HANDOFF_Summary.md` tiene actualizaciones de todos
+- [ ] Revisar `./tests/Documentation/HANDOFF_Summary.md` tiene actualizaciones de todos
 - [ ] Probar escaladas (simular gaps y verificar routing)
-- [ ] Revisar `Documentation/escalation_log.md`
+- [ ] Revisar `./tests/Documentation/escalation_log.md`
 
 ---
 
@@ -234,7 +234,7 @@ echo "=== Verification Complete ==="
 2. **Retry Policy:** Max 3 reintentos antes de abortar (implementar en Orquestador)
 3. **Escalation Routing:** Cada escalada DEBE tener destino explícito (ver `handoff-hooks-routing.md`)
 4. **Updated_by Audit:** Todo handoff DEBE tener `updated_by` = nombre del agente que lo genera
-5. **Trazability:** Cada cambio DEBE documentarse en `Documentation/HANDOFF_Summary.md`
+5. **Trazability:** Cada cambio DEBE documentarse en `./tests/Documentation/HANDOFF_Summary.md`
 6. **Persistencia Pre-Routing:** El Orquestador DEBE persistir handoff recibido antes de cualquier transición
 7. **No Mutación de Autoría:** Orquestador NO modifica `from_agent`, `to_agent`, `updated_by`
 

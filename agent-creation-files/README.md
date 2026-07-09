@@ -113,7 +113,7 @@ Template completo para Test Prioritization Agent.
 1. Basarse en `documentation.agent.md`
 2. Implementar Skills de extracción y normalización
 3. Validar outputs contra `handoff-schema.json`
-4. Crear `Documentation/HANDOFF_Summary.md` al finalizar
+4. Crear `./tests/Documentation/HANDOFF_Summary.md` al finalizar
 
 ### Paso 3: Crear Test Planner Agent
 1. Basarse en `planner.agent.md`
@@ -135,7 +135,7 @@ Template completo para Test Prioritization Agent.
 1. Ejecutar flujo completo: Doc → Planner → Prioritization
 2. Validar cada handoff contra schema
 3. Verificar no hay bucles infinitos
-4. Revisar `Documentation/HANDOFF_Summary.md` tiene todas las actualizaciones
+4. Revisar `./tests/Documentation/HANDOFF_Summary.md` tiene todas las actualizaciones
 
 ---
 
@@ -171,7 +171,7 @@ Campos no permitidos en frontmatter (deben vivir en body markdown):
 - [ ] Lógica de handoff generación y validación
 
 ### Sistema Completo
-- [ ] Estructura de `Documentation/` creada
+- [ ] Estructura de `./tests/Documentation/` creada
 - [ ] Schema handoff disponible en runtime
 - [ ] Retry policy implementada en Orquestador
 - [ ] Logging centralizado (escalation_log.md)
@@ -185,7 +185,7 @@ Campos no permitidos en frontmatter (deben vivir en body markdown):
 Al ejecutar el flujo completo, esperamos:
 
 ```
-Documentation/
+./tests/Documentation/
 ├── HANDOFF_Summary.md              # Actualizado por cada agente
 ├── escalation_log.md               # Registra todas las escaladas
 ├── requirements/

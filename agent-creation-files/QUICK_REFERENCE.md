@@ -43,9 +43,9 @@ Reglas de este proyecto:
       "recommendation": "Qué debe enfatizar el siguiente agente"
     },
     "artifacts_references": {
-      "path_pattern": "Documentation/path/",
-      "summary_md": "Documentation/HANDOFF_Summary.md",
-      "raw_data": "Documentation/path/raw/",
+      "path_pattern": "./tests/Documentation/path/",
+      "summary_md": "./tests/Documentation/HANDOFF_Summary.md",
+      "raw_data": "./tests/Documentation/path/raw/",
       "version_hash": "sha256_hash"
     },
     "delta_changes": {
@@ -92,8 +92,8 @@ Reglas de este proyecto:
 - `recommendation`: "Considerar estos gaps al diseñar suites"
 
 **artifacts_references:**
-- `path_pattern`: "Documentation/requirements/extracted/"
-- `raw_data`: "Documentation/requirements/extracted/by_area/"
+- `path_pattern`: "./tests/Documentation/requirements/extracted/"
+- `raw_data`: "./tests/Documentation/requirements/extracted/by_area/"
 
 **delta_changes:**
 - `added`: Áreas/requisitos nuevos
@@ -114,8 +114,8 @@ Reglas de este proyecto:
 - `recommendation`: "Enfatizar en suite Auth; es bloqueante"
 
 **artifacts_references:**
-- `path_pattern`: "Documentation/test_planning/suites/"
-- `raw_data`: "Documentation/test_planning/"
+- `path_pattern`: "./tests/Documentation/test_planning/suites/"
+- `raw_data`: "./tests/Documentation/test_planning/"
 
 **delta_changes:**
 - `added`: Suite names ("Suite: Auth (12 escenarios)")
@@ -136,8 +136,8 @@ Reglas de este proyecto:
 - `recommendation`: "Iniciar implementación por Auth smoke tests"
 
 **artifacts_references:**
-- `path_pattern`: "Documentation/prioritization/"
-- `raw_data`: "Documentation/prioritization/"
+- `path_pattern`: "./tests/Documentation/prioritization/"
+- `raw_data`: "./tests/Documentation/prioritization/"
 
 **delta_changes:**
 - `added`: ["Risk matrix", "Automation selection", "Justification audit"]
@@ -196,7 +196,7 @@ Antes de enrutar un handoff recibido, verificar:
 - [ ] `manifest.json` actualizado con path, correlation_id, retry_count y validation_status
 - [ ] `retry_checkpoint.json` actualizado para la correlacion actual
 - [ ] No se mutaron `metadata.from_agent`, `metadata.to_agent`, `delta_changes.updated_by`
-- [ ] Si persistencia falla, NO enrutar y registrar en `Documentation/escalation_log.md`
+- [ ] Si persistencia falla, NO enrutar y registrar en `./tests/Documentation/escalation_log.md`
 
 ---
 
@@ -204,13 +204,13 @@ Antes de enrutar un handoff recibido, verificar:
 
 **Si validation_checklist.status = "failed":**
 - NO generar handoff
-- Registrar error en `Documentation/escalation_log.md`
+- Registrar error en `./tests/Documentation/escalation_log.md`
 - Incrementar `retry_count`
 - Reintentar si count < 3
 
 **Si la persistencia en Orquestador falla:**
 - NO enrutar el handoff
-- Registrar fallo de persistencia en `Documentation/escalation_log.md`
+- Registrar fallo de persistencia en `./tests/Documentation/escalation_log.md`
 - Actualizar `retry_checkpoint.json`
 - Reintentar segun policy (`max_attempts=3`)
 
@@ -250,9 +250,9 @@ Antes de enrutar un handoff recibido, verificar:
       "recommendation": "Considerar gaps al diseñar suite Auth; marcar como BLOCKER para resolución"
     },
     "artifacts_references": {
-      "path_pattern": "Documentation/requirements/extracted/",
-      "summary_md": "Documentation/HANDOFF_Summary.md",
-      "raw_data": "Documentation/requirements/extracted/by_area/",
+      "path_pattern": "./tests/Documentation/requirements/extracted/",
+      "summary_md": "./tests/Documentation/HANDOFF_Summary.md",
+      "raw_data": "./tests/Documentation/requirements/extracted/by_area/",
       "version_hash": "abc123def456"
     },
     "delta_changes": {

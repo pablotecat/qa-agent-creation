@@ -67,8 +67,8 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 
 ### Fase 5: Generación de Handoff
 - Crear JSON de handoff siguiendo `HANDOFF_SPECIFICATION.md`
-- Actualizar `Documentation/HANDOFF_Summary.md`
-- Pasar a Test Orquestator para su validación.
+- Actualizar `./tests/Documentation/HANDOFF_Summary.md`
+- Pasar a Test Orchestrator para su validación.
 
 ## Formato Mínimo de Salida
 
@@ -124,7 +124,7 @@ Feature: [Feature description]
 ✅ Dependencies mapeadas
 ✅ Trazabilidad a fuentes verificada
 ✅ Handoff validado por Orquestador
-✅ `Documentation/HANDOFF_Summary.md` actualizado con sección "Generado por: Test Documentation"
+✅ `./tests/Documentation/HANDOFF_Summary.md` actualizado con sección "Generado por: Test Documentation"
 
 ## Guardrails Operativos
 

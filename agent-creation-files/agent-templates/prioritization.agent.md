@@ -47,7 +47,7 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 ## Fases de Ejecución
 
 ### Fase 1: Análisis de Riesgo por Suite
-- Leer `Documentation/test_planning/suites/`
+- Leer `./tests/Documentation/test_planning/suites/`
 - Clasificar cada suite por complejidad técnica
 - Evaluar impacto si suite falla (bloqueante, crítica, etc.)
 - Asignar score de riesgo (1-10)
@@ -71,13 +71,13 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 
 ### Fase 5: Generación de Handoff
 - Crear JSON de handoff con matriz de riesgo y selección
-- Actualizar `Documentation/HANDOFF_Summary.md`
+- Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 - Pasar a Orquestador o Test Generator (según fase de implementación)
 
 ## Formato Mínimo de Salida
 
 ```
-Documentation
+./tests/Documentation
 ├── HANDOFF_Summary.md (actualizado)
 ├── prioritization/
 │   ├── risk_matrix.json
@@ -206,7 +206,7 @@ Documentation
 ✅ Orden de prioridad claro
 ✅ Trade-offs auditados
 ✅ Handoff validado contra `handoff-schema.json`
-✅ `Documentation/HANDOFF_Summary.md` actualizado
+✅ `./tests/Documentation/HANDOFF_Summary.md` actualizado
 
 ## Guardrails Operativos
 

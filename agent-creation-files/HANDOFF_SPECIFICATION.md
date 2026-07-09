@@ -13,6 +13,7 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
 
 - **Agente productor:** genera el contenido del handoff y conserva autoria en `metadata.from_agent` y `delta_changes.updated_by`.
 - **Orquestador QA:** persiste todos los handoffs recibidos en almacenamiento canonico antes de enrutar.
+- **Despacho operativo del Orquestador:** el enrutamiento hacia agentes subordinados se registra en `manifest.json` y no se modela como handoff especializado completo.
 - **Regla de no mutacion:** el Orquestador no altera el payload del handoff (incluye `from_agent`, `to_agent`, `updated_by`, `retry_count`).
 - **Regla de transicion efectiva:** una transicion no se considera valida hasta que el handoff quede persistido.
 
@@ -81,19 +82,19 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
 ### 1. Orquestador → Test Documentation
 - **Entrada:** `solicitud_qa` con requisitos generales
 - **Salida:** Handoff con lista de requisitos extraídos, gaps identificados, particionado por área
-- **Resumen:** `Documentation/HANDOFF_Summary.md`
+- **Resumen:** `./tests/Documentation/HANDOFF_Summary.md`
 
 ### 2. Test Documentation → Test Planner
 - **Entrada:** Requisitos normalizados en Gherkin
 - **Salida:** Handoff con suites diseñadas, cobertura modelada, precondiciones definidas
-- **Resumen:** `Documentation/HANDOFF_Summary.md` (actualizado)
+- **Resumen:** `./tests/Documentation/HANDOFF_Summary.md` (actualizado)
 - **Validación:** Planner verifica que los gaps no impidan diseño de cobertura
 - **Persistencia:** Orquestador guarda el handoff en `./tests/Documentation/handoffs/{session_id}/` antes del routing
 
 ### 3. Test Planner → Test Prioritization
 - **Entrada:** Suites diseñadas con escenarios modelados
 - **Salida:** Handoff con matriz de riesgo, selección de automatización, justificación
-- **Resumen:** `Documentation/HANDOFF_Summary.md` (actualizado)
+- **Resumen:** `./tests/Documentation/HANDOFF_Summary.md` (actualizado)
 - **Validación:** Prioritization evalúa factibilidad de cobertura
 - **Persistencia:** Orquestador guarda el handoff en `./tests/Documentation/handoffs/{session_id}/` antes del routing
 
@@ -120,7 +121,7 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
 
 ## Resumen .md Trazable
 
-Cada agente actualiza centralmente `Documentation/HANDOFF_Summary.md`:
+Cada agente actualiza centralmente `./tests/Documentation/HANDOFF_Summary.md`:
 
 ```markdown
 ## Generado por: [Agent Name]
@@ -153,7 +154,7 @@ Cada agente actualiza centralmente `Documentation/HANDOFF_Summary.md`:
 ## Estructura de Directorios Esperada
 
 ```
-Documentation/
+./tests/Documentation/
 ├── HANDOFF_Summary.md              # Resumen trazable (actualizado por cada agente)
 ├── requirements/
 │   ├── extracted/                  # Output de Test Documentation

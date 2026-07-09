@@ -141,7 +141,7 @@ Planner recibe requisitos de Documentation, detecta gap en precondiciones de Aut
 
 Se DEBE mantener un archivo centralizado:
 
-**`Documentation/escalation_log.md`**
+**`./tests/Documentation/escalation_log.md`**
 ```markdown
 # Escalation Log
 
