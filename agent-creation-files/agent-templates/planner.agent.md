@@ -11,11 +11,11 @@ outputs:
   - modelamiento de cobertura
   - trazabilidad estructural
   - precondiciones definidas
-  - handoff híbrido para Test Priorization
+  - handoff híbrido para Test Prioritization
 non_goals:
   - NO priorizar requisitos
   - NO crear test cases detallados (eso es Test Generator)
-  - NO evaluar riesgo (eso es Test Priorization)
+  - NO evaluar riesgo (eso es Test Prioritization)
 owned_decisions:
   - Decisión de suite structure (agrupación de escenarios)
   - Decisión de cobertura model
@@ -26,7 +26,7 @@ owned_decisions:
 
 ## Objetivo Principal
 
-Transformar requisitos normalizados de Test Documentation en un plan de prueba estructurado: suites de prueba organizadas, cobertura modelada, precondiciones definidas y trazabilidad estructural, de forma que Test Priorization pueda evaluar riesgo e implementabilidad.
+Transformar requisitos normalizados de Test Documentation en un plan de prueba estructurado: suites de prueba organizadas, cobertura modelada, precondiciones definidas y trazabilidad estructural, de forma que Test Prioritization pueda evaluar riesgo e implementabilidad.
 
 ## Fases de Ejecución
 
@@ -60,7 +60,7 @@ Transformar requisitos normalizados de Test Documentation en un plan de prueba e
 - Crear JSON de handoff siguiendo `HANDOFF_SPECIFICATION.md`
 - Incluir `executive_summary` con complejidad de suites
 - Actualizar `Documentation/HANDOFF_Summary.md`
-- Pasar a Test Priorization
+- Pasar a Test Prioritization
 
 ## Formato Mínimo de Salida
 
@@ -128,9 +128,9 @@ Documentation/test_planning/
 
 ## Guardrails Operativos
 
-🛑 **NO priorizar:** Test Priorization decide orden de ejecución
+🛑 **NO priorizar:** Test Prioritization decide orden de ejecución
 🛑 **NO crear test cases detallados:** Test Generator lo hace
-🛑 **NO evaluar riesgo:** Test Priorization lo hace
+🛑 **NO evaluar riesgo:** Test Prioritization lo hace
 🛑 **NO abandonar si hay gaps:** Reportar en `next_agent_instructions.decision_points`
 
 ## Manejo de Retroalimentación

@@ -14,12 +14,12 @@ Use este checklist para verificar que toda la estructura de especificación de h
 ### Templates de Agentes
 - [x] `agent-creation-files/agent-templates/documentation.agent.md` - Template Test Documentation
 - [x] `agent-creation-files/agent-templates/planner.agent.md` - Template Test Planner
-- [x] `agent-creation-files/agent-templates/priorization.agent.md` - Template Test Prioritization
+- [x] `agent-creation-files/agent-templates/prioritization.agent.md` - Template Test Prioritization
 
 ### Ejemplos
 - [x] `agent-creation-files/examples/README.md` - Índice de ejemplos
 - [x] `agent-creation-files/examples/handoff_documentation_to_planner.json` - Ejemplo Doc→Planner
-- [x] `agent-creation-files/examples/handoff_planner_to_priorization.json` - Ejemplo Planner→Prior
+- [x] `agent-creation-files/examples/handoff_planner_to_prioritization.json` - Ejemplo Planner→Prior
 - [x] `agent-creation-files/examples/handoff_feedback_gap_escalation.json` - Ejemplo escalada
 
 ### Actualización de Proyecto
@@ -39,11 +39,11 @@ Use este checklist para verificar que toda la estructura de especificación de h
 ├── agent-templates/
 │   ├── documentation.agent.md
 │   ├── planner.agent.md
-│   └── priorization.agent.md
+│   └── prioritization.agent.md
 └── examples/
     ├── README.md
     ├── handoff_documentation_to_planner.json
-    ├── handoff_planner_to_priorization.json
+    ├── handoff_planner_to_prioritization.json
     └── handoff_feedback_gap_escalation.json
 ```
 
@@ -85,11 +85,11 @@ Use este checklist para verificar que toda la estructura de especificación de h
 
 **Archivos a usar:**
 - `agent-templates/planner.agent.md` - template
-- `examples/handoff_planner_to_priorization.json` - ejemplo de salida
+- `examples/handoff_planner_to_prioritization.json` - ejemplo de salida
 - `handoff-hooks-routing.md` - cómo escalar si gaps
 
 ### Paso 4: Crear Test Prioritization Agent
-- [ ] Copiar `agent-templates/priorization.agent.md` como base
+- [ ] Copiar `agent-templates/prioritization.agent.md` como base
 - [ ] Recibir y validar handoff de Planner
 - [ ] Implementar evaluación de riesgo
 - [ ] Implementar evaluación de automatización
@@ -98,13 +98,13 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - [ ] Actualizar `Documentation/HANDOFF_Summary.md`
 
 **Archivos a usar:**
-- `agent-templates/priorization.agent.md` - template
+- `agent-templates/prioritization.agent.md` - template
 - `QUICK_REFERENCE.md` - referencia rápida
 
 ### Paso 5: Testing End-to-End
 - [ ] Ejecutar flujo completo: Doc → Planner → Prior
 - [ ] Validar cada handoff contra `handoff-schema.json`
-- [ ] Verificar no hay bucles infinitos (retry_count < 3)
+- [ ] Verificar que no hay bucles infinitos (retry_count <= 3 y abort en `>=3`)
 - [ ] Revisar `Documentation/HANDOFF_Summary.md` tiene actualizaciones de todos
 - [ ] Probar escaladas (simular gaps y verificar routing)
 - [ ] Revisar `Documentation/escalation_log.md`
@@ -189,8 +189,8 @@ echo -n "✓ documentation.agent.md: "
 echo -n "✓ planner.agent.md: "
 [ -f "agent-creation-files/agent-templates/planner.agent.md" ] && echo "FOUND" || echo "MISSING"
 
-echo -n "✓ priorization.agent.md: "
-[ -f "agent-creation-files/agent-templates/priorization.agent.md" ] && echo "FOUND" || echo "MISSING"
+echo -n "✓ prioritization.agent.md: "
+[ -f "agent-creation-files/agent-templates/prioritization.agent.md" ] && echo "FOUND" || echo "MISSING"
 
 # 3. Verificar ejemplos
 echo -n "✓ Examples count: "

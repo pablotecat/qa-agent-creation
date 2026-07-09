@@ -2,7 +2,7 @@
   "handoff": {
     "metadata": {
       "from_agent": "test_planner",
-      "to_agent": "test_priorization",
+      "to_agent": "test_prioritization",
       "session_id": "550e8400-e29b-41d4-a716-446655440000",
       "timestamp": "2026-07-08T11:15:00Z",
       "retry_count": 0,
@@ -20,7 +20,7 @@
         "🟡 Suite Registration: MEDIUM complexity, 9 escenarios, depende de Auth",
         "🟢 Suite UserMgmt: LOW complexity, 7 escenarios, independiente - puede paralelizarse"
       ],
-      "recommendation": "Priorization debe tratar Auth como CRITICAL y bloqueante. Considerar ejecutar UserMgmt en paralelo con Auth."
+      "recommendation": "Prioritization debe tratar Auth como CRITICAL y bloqueante. Considerar ejecutar UserMgmt en paralelo con Auth."
     },
     "artifacts_references": {
       "path_pattern": "Documentation/test_planning/",
@@ -73,11 +73,11 @@
     "feedback_hooks": {
       "if_gaps_found": {
         "escalate_to": "test_documentation",
-        "note": "Si Priorization identifica gaps que impiden evaluación de riesgo, volver a Documentation para clarificación"
+        "note": "Si Prioritization identifica gaps que impiden evaluación de riesgo, volver a Documentation para clarificación"
       },
       "if_coverage_impossible": {
         "escalate_to": "test_planner",
-        "note": "Si Priorization considera que 92% cobertura no es factible, Planner re-diseña con trade-offs auditados"
+        "note": "Si Prioritization considera que 92% cobertura no es factible, Planner re-diseña con trade-offs auditados"
       },
       "if_conflict_detected": {
         "conflict_resolution_strategy": "Si hay conflicto entre suite complexity y automatización feasibility, escalar a orchestrator con análisis"

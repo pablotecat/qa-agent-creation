@@ -33,7 +33,7 @@
               "enum": [
                 "test_documentation",
                 "test_planner",
-                "test_priorization",
+                "test_prioritization",
                 "orchestrator"
               ]
             },
@@ -42,7 +42,7 @@
               "enum": [
                 "test_documentation",
                 "test_planner",
-                "test_priorization",
+                "test_prioritization",
                 "orchestrator"
               ]
             },
@@ -144,7 +144,7 @@
               "enum": [
                 "test_documentation",
                 "test_planner",
-                "test_priorization"
+                "test_prioritization"
               ]
             },
             "rationale": {

@@ -25,7 +25,7 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
     "context": {
       "user_request_id": "solicitud_qa original",
       "phase": "planning_layer",
-      "status": "ready_for_handoff|escalated|failed"
+      "status": "ready_for_handoff|escalated|failed|completed"
     },
     "executive_summary": {
       "state_snapshot": "descripción compacta del estado actual",
@@ -55,9 +55,15 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
       "decision_points": ["dónde necesita tomar decisiones"]
     },
     "feedback_hooks": {
-      "if_gaps_found": "escalate_to: agent_name",
-      "if_coverage_impossible": "escalate_to: orchestrator",
-      "if_conflict_detected": "conflict_resolution_strategy"
+      "if_gaps_found": {
+        "escalate_to": "agent_name"
+      },
+      "if_coverage_impossible": {
+        "escalate_to": "agent_name"
+      },
+      "if_conflict_detected": {
+        "conflict_resolution_strategy": "texto de estrategia"
+      }
     }
   }
 }
@@ -76,25 +82,26 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
 - **Resumen:** `Documentation/HANDOFF_Summary.md` (actualizado)
 - **Validación:** Planner verifica que los gaps no impidan diseño de cobertura
 
-### 3. Test Planner → Test Priorization
+### 3. Test Planner → Test Prioritization
 - **Entrada:** Suites diseñadas con escenarios modelados
 - **Salida:** Handoff con matriz de riesgo, selección de automatización, justificación
 - **Resumen:** `Documentation/HANDOFF_Summary.md` (actualizado)
-- **Validación:** Priorization evalúa factibilidad de cobertura
+- **Validación:** Prioritization evalúa factibilidad de cobertura
 
 ### Retroalimentación (Feedback Loops)
 - Si **Planner** encuentra gaps que bloquean diseño → escalate a **Test Documentation**
-- Si **Priorization** identifica cobertura imposible → escalate a **Test Planner**
+- Si **Prioritization** identifica cobertura imposible → escalate a **Test Planner**
 - Si hay conflictos irresolubles → escalate a **Orquestador**
 
 ## Guardrails contra Bucles Infinitos
 
 1. **Cada feedback_hook especifica destino y estrategia**
-   - `if_gaps_found: "escalate_to: test_documentation"`
-   - Esto previene que agentes retroalimenten arbitrariamente
+  - `if_gaps_found.escalate_to: test_documentation`
+  - Esto previene que agentes retroalimenten arbitrariamente
 
 2. **Retry policy en Orquestador**
    - Max 3 intentos antes de abortar con `status_global=blocked`
+  - Al agotar intentos, el ultimo handoff debe quedar con `context.status=failed`
    - Cada intento registra error en log
 
 3. **Validation checklist prevé conflictos**
@@ -153,7 +160,7 @@ Documentation/
 │   │   └── user_management_suite.json
 │   └── coverage_model.json
 ├── prioritization/
-│   ├── risk_matrix.json            # Output de Test Priorization
+│   ├── risk_matrix.json            # Output de Test Prioritization
 │   ├── automation_selection.json
 │   └── justification.md
 ```

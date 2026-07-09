@@ -9,7 +9,7 @@ Especificación del formato híbrido de handoff que todos los agentes DEBEN usar
 
 **Contiene:**
 - Estructura JSON base del handoff
-- Flujo de información: Doc → Planner → Priorization
+- Flujo de información: Doc → Planner → Prioritization
 - Guardrails contra bucles infinitos
 - Resumen .md trazable
 - Estructura de directorios esperada
@@ -87,7 +87,7 @@ Template completo para Test Planner Agent.
 
 ---
 
-### **priorization.agent.md**
+### **prioritization.agent.md**
 Template completo para Test Prioritization Agent.
 
 **Contiene:**
@@ -118,10 +118,10 @@ Template completo para Test Prioritization Agent.
 3. Validar usando schema
 4. Implementar lógica de suite design
 5. Crear suites JSON y coverage_model.json
-6. Generar handoff para Priorization
+6. Generar handoff para Prioritization
 
 ### Paso 4: Crear Test Prioritization Agent
-1. Basarse en `priorization.agent.md`
+1. Basarse en `prioritization.agent.md`
 2. Recibir handoff de Planner
 3. Implementar risk scoring
 4. Implementar automation feasibility
@@ -129,7 +129,7 @@ Template completo para Test Prioritization Agent.
 6. Generar handoff para siguiente capa (o Orquestador)
 
 ### Paso 5: Validación End-to-End
-1. Ejecutar flujo completo: Doc → Planner → Priorization
+1. Ejecutar flujo completo: Doc → Planner → Prioritization
 2. Validar cada handoff contra schema
 3. Verificar no hay bucles infinitos
 4. Revisar `Documentation/HANDOFF_Summary.md` tiene todas las actualizaciones
@@ -216,7 +216,7 @@ if (!valid) {
 R: El Orquestador DEBE validarlo contra schema antes de pasar al siguiente agente. Si es inválido:
 1. Registrar error en `escalation_log.md`
 2. Incrementar `retry_count`
-3. Si `retry_count >= 3`, abortar con `status_global=blocked`
+3. Si `retry_count >= 3`, emitir handoff con `context.status=failed` y abortar con `status_global=blocked`
 
 **P: ¿Cómo evito bucles infinitos?**
 R: Implementa guardrails del `handoff-hooks-routing.md`:

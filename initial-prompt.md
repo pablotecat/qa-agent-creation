@@ -1,90 +1,183 @@
-- Implementa unos agentes para un equipo de Testing. Los agentes estarán organizados en modo Orchestra, siendo uno de ellos el que tenga acceso a todos los agentes y seleccione el que usar según la tarea y el momento. Sólo el orquestador QA debe ser invocable por el usuario.
+# Objetivo
 
-- Siempre que un agente tenga que guardar información que pueda necesitar otro agente lo hará en el formato que considere más adecuado a la tarea. 
+Implementar agentes para un equipo de QA en modo Orchestra. Solo el Orquestador QA es invocable por el usuario; el resto de agentes se ejecutan por enrutamiento interno.
 
-- **HANDOFF SPECIFICATION:** Todos los handoffs inter-agente DEBEN seguir el formato híbrido especificado en `./agent-creation-files/HANDOFF_SPECIFICATION.md`. Este formato garantiza eficiencia de tokens, trazabilidad auditada y prevención de bucles infinitos. La validación de handoffs se realiza contra el schema definido en `./agent-creation-files/handoff-schema.json`. El routing de escaladas y feedback hooks está documentado en `./agent-creation-files/handoff-hooks-routing.md`.
+# Alcance de esta version
 
-- Los agentes se dividirán en capas (o áreas) que representan las fases del SDLC desde el punto de vista de QA. Cada Capa tiene sus handouts finales entregables y usables por el resto de Capas. Esta información debe ser trazable, por lo que además del formato que elija para otros agentes se escribirá un resumen en .md en un lenguaje comprensible por un humano. En este resumen, cada Agente indicará los cambios que ha realizado en el handout.
+- Implementar solo Orquestador QA y agentes de la capa de Planificacion.
+- No implementar capas de Creacion, Ejecucion y Analisis en esta iteracion.
 
-- Algunos no los implementaremos de momento, están marcados como tal (están aquí para que se tengan en cuenta y no se añadan sus funciones a los demás). De momento implementaremos los agentes de la capa Planificación, además del Orquestador.
+# Fuente de verdad y orden de lectura obligatorio
 
-- **AGENT TEMPLATES:** Se han preparado templates para los agentes de la capa Planificación en `./agent-creation-files/agent-templates/`. Cada template sigue la estructura requerida:
-  - `documentation.agent.md` - Test Documentation Agent
-  - `planner.agent.md` - Test Planner Agent
-  - `priorization.agent.md` - Test Prioritization Agent
+Antes de crear o modificar cualquier agente, DEBE leerse y aplicarse este orden:
 
-- Cada archivo .agent.md debe incluir: frontmatter (name, description, role, inputs, outputs, non_goals y/o owned_decisions), objetivo, pasos, formato minimo de salida, criterios de finalizacion y seccion Skills operativas consolidadas apuntando a su archivo .skills.md.
+1. `./agent-creation-files/README.md` (guia principal y flujo recomendado)
+2. `./agent-creation-files/HANDOFF_SPECIFICATION.md` (formato hibrido de handoff)
+3. `./agent-creation-files/handoff-schema.json` (validacion formal de handoffs)
+4. `./agent-creation-files/handoff-hooks-routing.md` (routing de escaladas y anti-bucles)
+5. `./agent-creation-files/IMPLEMENTATION_CHECKLIST.md` (gates de implementacion y validacion)
+6. `./agent-creation-files/QUICK_REFERENCE.md` (referencia rapida y checklist pre-handoff)
 
-- En caso de que un agente falle por cualquier motivo, nunca realices procesos manualmente. Registralo en un log de errores e intenta usar el agente de nuevo. Si no funciona aborta la orden e indica en el log los problemas encontrados.
+# Reglas globales obligatorias (MUST)
 
-- El agente Test Documentation debe generar la documentación en distintas carpetas dentro de la carpeta ../Documentation, estas carpetas estarán separadas por funcionalidad, también guardará distintos archivos según su funcionalidad.
+- Todo handoff inter-agente DEBE cumplir `./agent-creation-files/HANDOFF_SPECIFICATION.md`.
+- Todo handoff inter-agente DEBE validar contra `./agent-creation-files/handoff-schema.json` antes de enrutarse.
+- Si `validation_checklist.status=failed`, NO se enruta; se registra error y se reintenta segun policy.
+- Toda escalada DEBE seguir `./agent-creation-files/handoff-hooks-routing.md` con destino explicito y rationale.
+- Todo cambio relevante DEBE resumirse en `Documentation/HANDOFF_Summary.md`.
+- Todo fallo DEBE registrarse en `Documentation/escalation_log.md`.
+- Nunca ejecutar procesos manuales para suplir el fallo de un agente.
 
-- Dónde se encuentra cada descripción de la funcionalidad se mostrará en un archivo en la carpeta raiz de la Documentación
+# Contrato minimo del handoff
 
-Los agentes del Test Team de QA serán:
+Todos los handoffs DEBEN incluir estos bloques minimos:
 
-0. El Orquestador QA debe:
-- aceptar como entrada minima solo solicitud_qa
-- bootstrapear contexto si contexto_compartido no existe
+- `metadata`
+- `context`
+- `executive_summary`
+- `artifacts_references`
+- `delta_changes`
+- `validation_checklist`
+- `next_agent_instructions`
+- `feedback_hooks`
+
+Reglas adicionales de contrato:
+
+- `delta_changes.updated_by` DEBE ser el agente especializado que genera el handoff.
+- El Orquestador NO debe escribir `updated_by=orchestrator` en artifacts especializados.
+- `retry_count` se gestiona con maximo de 3 intentos.
+- Si se agotan intentos, el Orquestador aborta con `status_global=blocked` (estado global del orquestador).
+
+# Flujo de implementacion obligatorio (basado en README)
+
+Paso 1: Crear Orquestador QA
+
+1. Bootstrap de contexto compartido
+2. Validacion previa al routing
+3. Retry policy con `max_attempts=3`
+4. Manejo de errores y logging
+
+Paso 2: Crear Test Documentation Agent
+
+1. Basarse en `./agent-creation-files/agent-templates/documentation.agent.md`
+2. Implementar extraccion y normalizacion en Gherkin
+3. Identificar gaps y dependencias
+4. Validar handoff contra schema
+5. Actualizar `Documentation/HANDOFF_Summary.md`
+
+Paso 3: Crear Test Planner Agent
+
+1. Basarse en `./agent-creation-files/agent-templates/planner.agent.md`
+2. Recibir handoff desde Documentation
+3. Modelar cobertura y disenar suites
+4. Definir precondiciones y trazabilidad
+5. Validar handoff contra schema
+6. Actualizar `Documentation/HANDOFF_Summary.md`
+
+Paso 4: Crear Test Prioritization Agent
+
+1. Basarse en `./agent-creation-files/agent-templates/prioritization.agent.md`
+2. Recibir handoff desde Planner
+3. Evaluar riesgo y factibilidad de automatizacion
+4. Balancear cobertura vs esfuerzo
+5. Validar handoff contra schema
+6. Actualizar `Documentation/HANDOFF_Summary.md`
+
+Paso 5: Validacion End-to-End
+
+1. Ejecutar flujo completo: Documentation -> Planner -> Prioritization
+2. Validar cada handoff contra schema
+3. Verificar retry policy y ausencia de bucles
+4. Verificar que `HANDOFF_Summary.md` y `escalation_log.md` reflejan trazabilidad completa
+
+# Templates obligatorios para agentes activos
+
+Los templates base son obligatorios y deben usarse sin omitir su estructura minima:
+
+- `./agent-creation-files/agent-templates/documentation.agent.md`
+- `./agent-creation-files/agent-templates/planner.agent.md`
+- `./agent-creation-files/agent-templates/prioritization.agent.md`
+
+Cada archivo `.agent.md` debe incluir como minimo:
+
+- frontmatter (`name`, `description`, `role`, `inputs`, `outputs`, `non_goals` y/o `owned_decisions`)
+- objetivo
+- pasos/fases
+- formato minimo de salida
+- criterios de finalizacion
+- seccion de skills operativas consolidadas
+
+# Agentes del Test Team QA
+
+0. Orquestador QA
+
+Debe:
+
+- aceptar entrada minima `solicitud_qa`
+- bootstrapear contexto si `contexto_compartido` no existe
 - validar estructura antes de enrutar
-- aplicar retry_policy max_attempts=3
+- aplicar `retry_policy max_attempts=3`
 - registrar errores por intento fallido
-- abortar con status_global=blocked al agotar intentos
+- abortar con `status_global=blocked` al agotar intentos
 - NO generar manualmente artifacts especializados
-- NO usar updated_by=orchestrator en artifacts especializados
-- Skills:
-    - Bootstrap de contexto compartido
-    - Validacion previa al routing
-    - Enrutamiento por estado de artefactos
-    - Sincronizacion de contexto inter-agente
-    - Resolucion de conflictos de responsabilidad
-    - Replanificacion controlada
-    - Manejo de fallos y reintentos
-    - Guardrails de dominio y auditoria
+- NO usar `updated_by=orchestrator` en artifacts especializados
 
+Skills:
 
-1. Capa Planificación
+- bootstrap de contexto compartido
+- validacion previa al routing
+- enrutamiento por estado de artefactos
+- sincronizacion de contexto inter-agente
+- resolucion de conflictos de responsabilidad
+- replanificacion controlada
+- manejo de fallos y reintentos
+- guardrails de dominio y auditoria
 
-- el Test Documentation debe: 
-    - Extraccion de requisitos
-    - Normalizacion de lenguaje en Gherkin
-    - Trazabilidad a fuentes
-    - Identificacion de huecos
-    - Particionado por area
-    - Mapeo de dependencias
-    - NO debe crear Tests Cases, ni Test Planes, ni priorizar requisitos.
+1. Capa Planificacion
 
+Test Documentation debe:
 
-- Test Planner debe:
-    - Modelado de cobertura
-    - Diseno de suites
-    - Trazabilidad estructural
-    - Definicion de precondiciones
-    - Limite de responsabilidad
-    - NO debe priorizar.
+- extraccion de requisitos
+- normalizacion de lenguaje en Gherkin
+- trazabilidad a fuentes
+- identificacion de huecos
+- particionado por area
+- mapeo de dependencias
+- NO crear test cases
+- NO disenar test plans
+- NO priorizar requisitos
 
+Test Planner debe:
 
-- Test Priorization debe: 
-    - Evaluacion de riesgo
-    - Seleccion de automatizacion
-    - Balance de cobertura
-    - Justificacion auditable
-    - Priorizacion basada en documentacion
+- modelado de cobertura
+- diseno de suites
+- trazabilidad estructural
+- definicion de precondiciones
+- limite de responsabilidad
+- NO priorizar
 
-2. Capa Creación (no la vamos a implementar de momento)
+Test Prioritization debe:
 
-2.1 Test Generator: Crea los Test cases con la estructura generada previamente (No lo vamos a implementar de momento)
-2.2 Test Automation: Implementa los Test Cases automaticos seleccionados previamente (No lo vamos a implementar de momento)
-2.3 Test Load: Crea Tests de Carga (No lo vamos a implementar de momento)
+- evaluacion de riesgo
+- seleccion de automatizacion
+- balance de cobertura
+- justificacion auditable
+- priorizacion basada en documentacion
 
-3. Capa Ejecución (No la vamos a implementar de momento)
+2. Capa Creacion (no implementada en esta version)
 
-3.1 Test CI/CD (No lo vamos a implementar de momento)
-3.2 Test A11y (No lo vamos a implementar de momento)
-3.3 Test Security (No lo vamos a implementar de momento)
+- Test Generator (pendiente)
+- Test Automation (pendiente)
+- Test Load (pendiente)
 
-4. Capa Análisis (No la vamos a implementar de momento)
+3. Capa Ejecucion (no implementada en esta version)
 
-4.1 Test Results (No lo vamos a implementar de momento)
-4.2 Test Logs (No lo vamos a implementar de momento)
-4.3 Test Dashboard (No lo vamos a implementar de momento)
+- Test CI/CD (pendiente)
+- Test A11y (pendiente)
+- Test Security (pendiente)
+
+4. Capa Analisis (no implementada en esta version)
+
+- Test Results (pendiente)
+- Test Logs (pendiente)
+- Test Dashboard (pendiente)

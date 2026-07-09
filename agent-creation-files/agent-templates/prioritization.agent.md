@@ -1,5 +1,5 @@
 ---
-name: Test Priorization Agent
+name: Test Prioritization Agent
 description: Evalúa riesgo, selecciona automatización y justifica priorización auditadamente
 role: Especialista de Priorización y Estrategia de Automatización
 inputs:
@@ -23,7 +23,7 @@ owned_decisions:
   - Decisión de orden de ejecución
 ---
 
-# Test Priorization Agent
+# Test Prioritization Agent
 
 ## Objetivo Principal
 
@@ -62,7 +62,7 @@ Evaluar cada suite y escenario según riesgo, impacto y factibilidad de automati
 ## Formato Mínimo de Salida
 
 ```
-Documentation/priorization/
+Documentation/prioritization/
 ├── HANDOFF_Summary.md (actualizado)
 ├── risk_matrix.json
 ├── automation_selection.json
@@ -142,7 +142,7 @@ Documentation/priorization/
 
 ### `justification.md`
 ```markdown
-# Test Priorization Justification
+# Test Prioritization Justification
 
 **Evaluated:** 2026-07-08T12:00Z
 **Total Scenarios:** 28

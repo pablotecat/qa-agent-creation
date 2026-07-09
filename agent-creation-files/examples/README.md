@@ -5,7 +5,7 @@ Este directorio contiene ejemplos reales de handoffs para cada transición entre
 ## Archivos
 
 - `handoff_documentation_to_planner.json` - Ejemplo: Documentation → Planner
-- `handoff_planner_to_priorization.json` - Ejemplo: Planner → Priorization
+- `handoff_planner_to_prioritization.json` - Ejemplo: Planner → Prioritization
 - `handoff_feedback_gap_escalation.json` - Ejemplo: Planner escalate a Documentation por gaps
 
 ## Cómo Usar

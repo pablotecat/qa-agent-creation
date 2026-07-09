@@ -36,13 +36,13 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 
 ---
 
-### Test Priorization Feedback Hooks
+### Test Prioritization Feedback Hooks
 
 | Condición | Escalate To | Estrategia | Ejemplo |
 |-----------|-------------|-----------|---------|
 | `if_coverage_impossible` | test_planner | Factibilidad de automatización cuestionable | "No hay escenarios de Planner suficientes para cobertura de Smoke → re-design suite" |
 | `if_impossibility_due_to_gaps` | test_documentation | Gaps originales impiden priorización | "Gap en performance reqs impide evaluar riesgo de Auth → volver a Documentation" |
-| `if_conflict_detected` | test_priorization | Conflicto en matriz (riesgo vs costo) | "Suite X marcada CRITICAL pero imposible automatizar → rebalancear" |
+| `if_conflict_detected` | test_prioritization | Conflicto en matriz (riesgo vs costo) | "Suite X marcada CRITICAL pero imposible automatizar → rebalancear" |
 | `if_orchestrator_decision_needed` | orchestrator | Trade-off complejo | "Costo de automatización completa > valor esperado → Orq decide scope" |
 
 **Salida esperada del retry:**
@@ -63,16 +63,16 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 }
 ```
 
-**Regla:** Si `retry_count >= 3`, abortar y escalate a `orchestrator` con `status=blocked`
+**Regla:** Si `retry_count >= 3`, abortar y escalate a `orchestrator` con `context.status=failed` y `status_global=blocked`
 
 ### Guardrail 2: Escalation Path Clarity
 
 Cada agente SOLO puede escalar a:
 - **Test Documentation:** escalate a self (retry) o orchestrator
 - **Test Planner:** escalate a test_documentation, self (retry), u orchestrator
-- **Test Priorization:** escalate a test_planner, test_documentation, self (retry), u orchestrator
+- **Test Prioritization:** escalate a test_planner, test_documentation, self (retry), u orchestrator
 
-**Prohibido:** Saltos de niveles (ej: Priorization NO puede ir directamente a Documentation sin pasar por Planner)
+**Prohibido:** Saltos de niveles (ej: Prioritization NO puede ir directamente a Documentation sin pasar por Planner)
 
 ### Guardrail 3: Rationale Audit
 
@@ -140,7 +140,7 @@ Se DEBE mantener un archivo centralizado:
 | Timestamp | From | To | Reason | Retry_Count | Resolution |
 |-----------|------|-----|--------|-------------|------------|
 | 2026-07-08T10:30Z | test_planner | test_documentation | Gap in Auth preconditions | 1 | ✅ Resolved - session management re-extracted |
-| 2026-07-08T10:45Z | test_priorization | test_planner | Coverage impossible | 1 | ✅ Redesign - added 3 new scenarios |
+| 2026-07-08T10:45Z | test_prioritization | test_planner | Coverage impossible | 1 | ✅ Redesign - added 3 new scenarios |
 ```
 
 ---

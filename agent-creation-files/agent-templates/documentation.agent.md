@@ -116,12 +116,12 @@ Feature: [Feature description]
 
 🛑 **NO generar Test Cases:** Eso es responsabilidad de Test Generator
 🛑 **NO diseñar Test Plans:** Eso es responsabilidad de Test Planner
-🛑 **NO priorizar requisitos:** Eso es responsabilidad de Test Priorization
+🛑 **NO priorizar requisitos:** Eso es responsabilidad de Test Prioritization
 🛑 **NO abandonar si hay ambigüedad:** Registrar como GAP y continuar
 
 ## Manejo de Retroalimentación
 
-Si Test Planner o Test Priorization encuentran gaps que impacten el diseño:
+Si Test Planner o Test Prioritization encuentran gaps que impacten el diseño:
 - Recibirás escalada con `if_gaps_found` desde agente correspondiente
 - Lee el `rationale` en delta_changes
 - Re-procesa requisitos con contexto actualizado

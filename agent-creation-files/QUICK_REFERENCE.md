@@ -6,8 +6,8 @@
 {
   "handoff": {
     "metadata": {
-      "from_agent": "test_documentation|test_planner|test_priorization",
-      "to_agent": "test_documentation|test_planner|test_priorization|orchestrator",
+      "from_agent": "test_documentation|test_planner|test_prioritization",
+      "to_agent": "test_documentation|test_planner|test_prioritization|orchestrator",
       "session_id": "uuid",
       "timestamp": "ISO8601",
       "retry_count": 0,
@@ -87,7 +87,7 @@
 
 ---
 
-### Test Planner → Test Priorization
+### Test Planner → Test Prioritization
 
 **executive_summary:**
 - `state_snapshot`: "Diseño completado: 3 suites, 28 casos, 92% cobertura"
@@ -109,7 +109,7 @@
 
 ---
 
-### Test Priorization → Orchestrator/Generator
+### Test Prioritization → Orchestrator/Generator
 
 **executive_summary:**
 - `state_snapshot`: "Priorización completada: 18 auto, 10 manual, 64% coverage"
@@ -122,7 +122,7 @@
 
 **delta_changes:**
 - `added`: ["Risk matrix", "Automation selection", "Justification audit"]
-- `updated_by`: "test_priorization"
+- `updated_by`: "test_prioritization"
 - `rationale`: "Matriz evaluada por riesgo, costo y factibilidad"
 
 **next_agent_instructions:**
@@ -180,7 +180,8 @@ Antes de generar un handoff, verificar:
 - Reintentar si count < 3
 
 **Si retry_count >= 3:**
-- Generar handoff con `context.status = "blocked"`
+- Generar handoff con `context.status = "failed"`
+- Marcar en el orquestador `status_global=blocked`
 - Escalate siempre a `orchestrator`
 - Incluir logs completos en `rationale`
 

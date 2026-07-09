@@ -29,13 +29,13 @@ Un **sistema completo de handoff para agentes de QA** que incluye:
 ### 🤖 Templates de Agentes
 - **agent-templates/documentation.agent.md** - Test Documentation
 - **agent-templates/planner.agent.md** - Test Planner
-- **agent-templates/priorization.agent.md** - Test Prioritization
+- **agent-templates/prioritization.agent.md** - Test Prioritization
 
 Cada template incluye: frontmatter, objetivo, fases, formato de salida, criterios de finalización, guardrails y manejo de retroalimentación.
 
 ### 💡 Ejemplos Reales
 - **examples/handoff_documentation_to_planner.json** - Ejemplo completo
-- **examples/handoff_planner_to_priorization.json** - Transición real
+- **examples/handoff_planner_to_prioritization.json** - Transición real
 - **examples/handoff_feedback_gap_escalation.json** - Escalada por gaps
 
 ### 🔄 Integración
@@ -57,10 +57,10 @@ agent-creation-files/
 ├── agent-templates/
 │   ├── documentation.agent.md
 │   ├── planner.agent.md
-│   └── priorization.agent.md
+│   └── prioritization.agent.md
 └── examples/
     ├── handoff_documentation_to_planner.json
-    ├── handoff_planner_to_priorization.json
+    ├── handoff_planner_to_prioritization.json
     └── handoff_feedback_gap_escalation.json
 ```
 
@@ -105,7 +105,7 @@ Documentation (extrae requisitos)
     ↓
 Planner (diseña suites)
     ↓
-Priorization (evalúa riesgo)
+Prioritization (evalúa riesgo)
     ↓
 Generator (crea casos)
 ```
@@ -128,7 +128,7 @@ Generator (crea casos)
 | Routing de escaladas | handoff-hooks-routing.md | Manejar retroalimentación |
 | Implementar agente Doc | documentation.agent.md | Copiar template y personalizar |
 | Implementar agente Planner | planner.agent.md | Copiar template y personalizar |
-| Implementar agente Prior | priorization.agent.md | Copiar template y personalizar |
+| Implementar agente Prior | prioritization.agent.md | Copiar template y personalizar |
 | Ver flujo real | examples/*.json | Comparar con mi implementación |
 | Verificar todo OK | IMPLEMENTATION_CHECKLIST.md | Comenzar testing |
 
@@ -181,8 +181,8 @@ Esperado: ✓ Todos los checks pasan
 3. [ ] Implementar modelamiento de cobertura
 4. [ ] Implementar manejo de escaladas
 
-### Fase 5: Test Priorization (6h)
-1. [ ] Copiar `priorization.agent.md`
+### Fase 5: Test Prioritization (6h)
+1. [ ] Copiar `prioritization.agent.md`
 2. [ ] Implementar evaluación de riesgo
 3. [ ] Implementar selección de automatización
 4. [ ] Implementar generación de handoff
@@ -224,7 +224,7 @@ Cuando esto esté listo, podrás:
 
 ### Siguiente semana
 1. Implementa Test Planner Agent
-2. Implementa Test Priorization Agent
+2. Implementa Test Prioritization Agent
 3. Ejecuta flujo completo E2E
 
 ---
