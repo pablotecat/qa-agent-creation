@@ -9,14 +9,12 @@ Implementar agentes para un equipo de QA en modo Orchestra. Solo el Orquestador 
 
 # Aclaraciones operativas para esta iteracion
 
-- El root oficial de outputs y trazabilidad es `Documentation/`.
-- Ignorar `./qa-agent-creation/prompt-to-agent.md` en esta iteracion.
+- El root oficial de outputs y trazabilidad es `./test/Documentation/`.
 - Los agentes finales deben ubicarse en `.github/agents/` para uso directo por Copilot.
 - Entrada inicial recomendada para `solicitud_qa`:
-	- Necesito una estrategia QA end-to-end para esta aplicacion web de registro y listado de usuarios, incluyendo su API REST. Quiero cobertura funcional, smoke y regresion, con priorizacion por riesgo y seleccion de casos automatizables. Requiero trazabilidad completa entre requisitos, suites, escenarios y decisiones de priorizacion, incluyendo registro de escaladas y justificaciones.
+	- `./qa-agent-creation/prompt-to-agent.md`
 - Responsabilidad de validacion de schema:
-	- El agente emisor valida su handoff antes de publicarlo.
-	- El Orquestador vuelve a validar antes de enrutar al siguiente agente.
+	- El Orquestador validar los handoffs antes de enrutar al siguiente agente.
 
 # Fuente de verdad y orden de lectura obligatorio
 
@@ -35,8 +33,8 @@ Antes de crear o modificar cualquier agente, DEBE leerse y aplicarse este orden:
 - Todo handoff inter-agente DEBE validar contra `./agent-creation-files/handoff-schema.json` antes de enrutarse.
 - Si `validation_checklist.status=failed`, NO se enruta; se registra error y se reintenta segun policy.
 - Toda escalada DEBE seguir `./agent-creation-files/handoff-hooks-routing.md` con destino explicito y rationale.
-- Todo cambio relevante DEBE resumirse en `Documentation/HANDOFF_Summary.md`.
-- Todo fallo DEBE registrarse en `Documentation/escalation_log.md`.
+- Todo cambio relevante DEBE resumirse en `./test/Documentation/HANDOFF_Summary.md`.
+- Todo fallo DEBE registrarse en `./test/Documentation/escalation_log.md`.
 - Nunca ejecutar procesos manuales para suplir el fallo de un agente.
 
 # Contrato minimo del handoff
@@ -67,6 +65,7 @@ Paso 1: Crear Orquestador QA
 2. Validacion previa al routing
 3. Retry policy con `max_attempts=3`
 4. Manejo de errores y logging
+5. Hacerlo `user-invocable: true`
 
 Paso 2: Crear Test Documentation Agent
 
@@ -74,7 +73,8 @@ Paso 2: Crear Test Documentation Agent
 2. Implementar extraccion y normalizacion en Gherkin
 3. Identificar gaps y dependencias
 4. Validar handoff contra schema
-5. Actualizar `Documentation/HANDOFF_Summary.md`
+5. Actualizar `./test/Documentation/HANDOFF_Summary.md`
+6. Hacerlo `user-invocable: false`
 
 Paso 3: Crear Test Planner Agent
 
@@ -83,7 +83,8 @@ Paso 3: Crear Test Planner Agent
 3. Modelar cobertura y disenar suites
 4. Definir precondiciones y trazabilidad
 5. Validar handoff contra schema
-6. Actualizar `Documentation/HANDOFF_Summary.md`
+6. Actualizar `./test/Documentation/HANDOFF_Summary.md`
+7. Hacerlo `user-invocable: false`
 
 Paso 4: Crear Test Prioritization Agent
 
@@ -92,7 +93,8 @@ Paso 4: Crear Test Prioritization Agent
 3. Evaluar riesgo y factibilidad de automatizacion
 4. Balancear cobertura vs esfuerzo
 5. Validar handoff contra schema
-6. Actualizar `Documentation/HANDOFF_Summary.md`
+6. Actualizar `./test/Documentation/HANDOFF_Summary.md`
+7. Hacerlo `user-invocable: false`
 
 Paso 5: Validacion End-to-End (sólo ejecutar tras confirmación humana)
 
