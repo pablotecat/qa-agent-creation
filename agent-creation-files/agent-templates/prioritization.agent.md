@@ -3,7 +3,7 @@ name: Test Prioritization Agent
 description: Evalúa riesgo, selecciona automatización y justifica priorización auditadamente
 tools: [read, search, edit]
 user-invocable: false
-argument-hint: Handoff de Test Planner con suites, cobertura y precondiciones
+argument-hint: Handoff de Orquestador con suites, cobertura y precondiciones
 ---
 
 # Test Prioritization Agent

@@ -3,7 +3,7 @@ name: Test Planner Agent
 description: Diseña suites de prueba, modelamiento de cobertura y definición de precondiciones
 tools: [read, search, edit]
 user-invocable: false
-argument-hint: Handoff de Test Documentation con requisitos, dependencias y gaps
+argument-hint: Handoff de Orquestador con requisitos, dependencias y gaps
 ---
 
 # Test Planner Agent

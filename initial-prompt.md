@@ -180,62 +180,13 @@ Cada archivo `.agent.md` debe incluir como minimo:
 
 # Agentes del Test Team QA
 
-0. Orquestador QA
-
-Debe:
-
-- aceptar entrada minima `solicitud_qa`
-- bootstrapear contexto si `contexto_compartido` no existe
-- validar estructura antes de enrutar
-- aplicar `retry_policy max_attempts=3`
-- registrar errores por intento fallido
-- abortar con `status_global=blocked` al agotar intentos
-- persistir todo handoff recibido en `./tests/Documentation/handoffs/{session_id}/` antes de enrutar
-- mantener `manifest.json` y `retry_checkpoint.json` por sesion
-- NO mutar campos de autoria del handoff persistido
-- NO usar `updated_by=orchestrator` en artifacts especializados
-
-Skills:
-
-- bootstrap de contexto compartido
-- validacion previa al routing
-- enrutamiento por estado de artefactos
-- sincronizacion de contexto inter-agente
-- resolucion de conflictos de responsabilidad
-- replanificacion controlada
-- manejo de fallos y reintentos
-- guardrails de dominio y auditoria
+0. Orquestador QA debe: seguir el template de `agent-templates/documentation.agent.md`
 
 1. Capa Planificacion
 
-Test Documentation debe:
-
-- extraccion de requisitos
-- normalizacion de lenguaje en Gherkin
-- trazabilidad a fuentes
-- identificacion de huecos
-- particionado por area
-- mapeo de dependencias
-- NO crear test cases
-- NO disenar test plans
-- NO priorizar requisitos
-
-Test Planner debe:
-
-- modelado de cobertura
-- diseno de suites
-- trazabilidad estructural
-- definicion de precondiciones
-- limite de responsabilidad
-- NO priorizar
-
-Test Prioritization debe:
-
-- evaluacion de riesgo
-- seleccion de automatizacion
-- balance de cobertura
-- justificacion auditable
-- priorizacion basada en documentacion
+- Test Documentation debe: seguir el template de `agent-templates/documentation.agent.md`
+- Test Planner debe: seguir el template de `agent-templates/planner.agent.md`
+- Test Prioritization debe: seguir el template de `agent-templates/prioritization.agent.md`
 
 2. Capa Creacion (no implementada en esta version)
 
