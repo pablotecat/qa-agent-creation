@@ -83,7 +83,7 @@ Paso 4: Crear Test Prioritization Agent
 5. Validar handoff contra schema
 6. Actualizar `Documentation/HANDOFF_Summary.md`
 
-Paso 5: Validacion End-to-End
+Paso 5: Validacion End-to-End (sólo ejecutar tras confirmación humana)
 
 1. Ejecutar flujo completo: Documentation -> Planner -> Prioritization
 2. Validar cada handoff contra schema
