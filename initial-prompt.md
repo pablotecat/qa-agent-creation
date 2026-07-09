@@ -9,20 +9,21 @@ Implementar agentes para un equipo de QA en modo Orchestra. Solo el Orquestador 
 
 # Aclaraciones operativas para esta iteracion
 
-- El root oficial de outputs y trazabilidad es `./tests/Documentation/`.
 - Naming obligatorio por transicion/reintento: `{from}-to-{to}-attempt-{n}-{timestamp}.json`.
 - Metaartefactos obligatorios del Orquestador por sesion:
 	- `manifest.json` (indice de handoffs persistidos y estado de validacion)
 	- `retry_checkpoint.json` (tracking de retries por `correlation_id`)
+
+# Reglas operativas para la creación de Agentes
+- El root oficial de outputs y trazabilidad es `./tests/Documentation/`.
 - Sólo el Agente QA Orchestator debe ubicarse en `.github/agents/` para uso directo por Copilot. 
 - Todos los Qgentes que no sean el Orchestator se guardarán en `.github/agents/qa-team/`. El Orchestator tiene la referencia de esta carpeta para buscar los Agentes
-- Entrada inicial recomendada para `solicitud_qa`:
-	- `.github/prompts/prompt-to-agent.md`
 - Responsabilidad de validacion de schema:
 	- El Orquestador validar los handoffs antes de enrutar al siguiente agente.
 - La persistencia oficial de handoffs es responsabilidad del Orquestador QA.
-- Ruta canonica de persistencia: `./tests/Documentation/handoffs/{session_id}/`.
-
+- Entrada inicial recomendada para `solicitud_qa`:
+	- `.github/prompts/prompt-to-agent.md`
+- Ruta canonica de persistencia de handoffs: `./tests/Documentation/handoffs/{session_id}/`.
 
 # Reubicacion obligatoria de archivos runtime
 
