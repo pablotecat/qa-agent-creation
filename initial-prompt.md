@@ -18,9 +18,37 @@ Implementar agentes para un equipo de QA en modo Orchestra. Solo el Orquestador 
 	- `retry_checkpoint.json` (tracking de retries por `correlation_id`)
 - Los agentes finales deben ubicarse en `.github/agents/` para uso directo por Copilot.
 - Entrada inicial recomendada para `solicitud_qa`:
-	- `./qa-agent-creation/prompt-to-agent.md`
+	- `.github/prompts/prompt-to-agent.md`
 - Responsabilidad de validacion de schema:
 	- El Orquestador validar los handoffs antes de enrutar al siguiente agente.
+
+# Reubicacion obligatoria de archivos runtime
+
+Despues de generar los agentes en `.github/agents/`, mover SOLO estos archivos al proyecto objetivo.
+
+Destino recomendado para soporte runtime: `.github/agents/qa-team/docs/`
+
+1. `./agent-creation-files/HANDOFF_SPECIFICATION.md` -> `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
+2. `./agent-creation-files/handoff-schema.json` -> `.github/agents/qa-team/docs/handoff-schema.json`
+3. `./agent-creation-files/handoff-hooks-routing.md` -> `.github/agents/qa-team/docs/handoff-hooks-routing.md`
+4. `./agent-creation-files/QUICK_REFERENCE.md` -> `.github/agents/qa-team/docs/QUICK_REFERENCE.md`
+5. `./prompt-to-agent.md` -> `.github/prompts/prompt-to-agent.md`
+
+Estos archivos SI son necesarios para el funcionamiento posterior de los agentes.
+
+# Archivos de bootstrap (NO mover al proyecto final)
+
+No mover estos archivos porque son de un solo uso durante creacion/scaffolding:
+
+- `./initial-prompt.md`
+- `./README.md`
+- `./agent-creation-files/README.md`
+- `./agent-creation-files/INDEX.md`
+- `./agent-creation-files/IMPLEMENTATION_CHECKLIST.md`
+- `./agent-creation-files/agent-templates/*`
+- `./agent-creation-files/examples/*`
+
+El objetivo es que, una vez movidos los archivos runtime, la carpeta plantilla pueda eliminarse sin romper el sistema de agentes.
 
 # Fuente de verdad y orden de lectura obligatorio
 
@@ -33,16 +61,33 @@ Antes de crear o modificar cualquier agente, DEBE leerse y aplicarse este orden:
 5. `./agent-creation-files/IMPLEMENTATION_CHECKLIST.md` (gates de implementacion y validacion)
 6. `./agent-creation-files/QUICK_REFERENCE.md` (referencia rapida y checklist pre-handoff)
 
+Despues de mover los archivos runtime, para operacion normal de los agentes usar como fuente de verdad:
+
+1. `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
+2. `.github/agents/qa-team/docs/handoff-schema.json`
+3. `.github/agents/qa-team/docs/handoff-hooks-routing.md`
+4. `.github/agents/qa-team/docs/QUICK_REFERENCE.md`
+
 # Reglas globales obligatorias (MUST)
 
-- Todo handoff inter-agente DEBE cumplir `./agent-creation-files/HANDOFF_SPECIFICATION.md`.
-- Todo handoff inter-agente DEBE validar contra `./agent-creation-files/handoff-schema.json` antes de enrutarse.
+- Todo handoff inter-agente DEBE cumplir `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`.
+- Todo handoff inter-agente DEBE validar contra `.github/agents/qa-team/docs/handoff-schema.json` antes de enrutarse.
 - Si `validation_checklist.status=failed`, NO se enruta; se registra error y se reintenta segun policy.
-- Toda escalada DEBE seguir `./agent-creation-files/handoff-hooks-routing.md` con destino explicito y rationale.
+- Toda escalada DEBE seguir `.github/agents/qa-team/docs/handoff-hooks-routing.md` con destino explicito y rationale.
 - Todo cambio relevante DEBE resumirse en `./tests/Documentation/HANDOFF_Summary.md`.
 - Todo fallo DEBE registrarse en `./tests/Documentation/escalation_log.md`.
 - Ningun handoff se considera enrutado hasta que el Orquestador lo haya persistido correctamente en la ruta canonica.
 - Nunca ejecutar procesos manuales para suplir el fallo de un agente.
+
+# Checklist minimo post-generacion
+
+Antes de eliminar la carpeta plantilla, verificar:
+
+1. Existen en `.github/agents/qa-team/docs/` los 4 archivos runtime (`HANDOFF_SPECIFICATION.md`, `handoff-schema.json`, `handoff-hooks-routing.md`, `QUICK_REFERENCE.md`).
+2. Existe `./prompt-to-agent.md` en el root del proyecto objetivo.
+3. Los agentes generados referencian rutas runtime en `.github/agents/qa-team/docs/` y no rutas `./agent-creation-files/...`.
+4. El Orquestador puede validar handoffs contra `handoff-schema.json` y aplicar routing de escaladas.
+5. Se puede eliminar la carpeta plantilla sin romper validacion ni trazabilidad de handoffs. La carpeta la eliminará el usuario manualmente.
 
 # Contrato minimo del handoff
 
