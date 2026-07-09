@@ -76,20 +76,21 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 - Crear JSON de handoff siguiendo `HANDOFF_SPECIFICATION.md`
 - Incluir `executive_summary` con complejidad de suites
 - Actualizar `Documentation/HANDOFF_Summary.md`
-- Pasar a Test Prioritization
+- Pasar Orquestador para validación
 
 ## Formato Mínimo de Salida
 
 ```
-Documentation/test_planning/
+Documentation/
 ├── HANDOFF_Summary.md (actualizado)
-├── suites/
-│   ├── [suite_name].json
-│   ├── [suite_name].json
-│   └── ...
-├── coverage_model.json
-├── preconditions.md
-└── handoff.json
+├── planning/
+│   ├── suites/
+│   │   ├── [suite_name].json
+│   │   ├── [suite_name].json
+│   │   └── ...
+│   ├── coverage_model.json
+│   ├── preconditions.md
+│   └── handoff.json
 ```
 
 ### Suite JSON Schema
@@ -139,14 +140,14 @@ Documentation/test_planning/
 ✅ Precondiciones definidas por suite
 ✅ Trazabilidad estructural verificada
 ✅ Dependencies documentadas
-✅ Handoff validado contra `handoff-schema.json`
+✅ Handoff validado por Orquestador
 ✅ `Documentation/HANDOFF_Summary.md` actualizado
 
 ## Guardrails Operativos
 
-🛑 **NO priorizar:** Test Prioritization decide orden de ejecución
-🛑 **NO crear test cases detallados:** Test Generator lo hace
-🛑 **NO evaluar riesgo:** Test Prioritization lo hace
+🛑 **NO priorizar:** otros agentes deciden orden de ejecución
+🛑 **NO crear test cases detallados:** otros agentes lo hacen
+🛑 **NO evaluar riesgo:** otros agentes lo hacen
 🛑 **NO abandonar si hay gaps:** Reportar en `next_agent_instructions.decision_points`
 
 ## Manejo de Retroalimentación

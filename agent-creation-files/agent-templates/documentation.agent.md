@@ -81,9 +81,9 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 │   │   │   ├── [area_2].gherkin
 │   │   │   └── ...
 │   │   ├── dependencies.json
-│   │   └── gaps_identified.json
-│   └── [sources] (referencias a archivos originales)
-└── handoff.json
+│   │   ├── gaps_identified.json
+│   │   └── [sources] (referencias a archivos originales)
+│   └── handoff.json
 ```
 
 ### Archivo `.gherkin` por Área
@@ -123,7 +123,7 @@ Feature: [Feature description]
 ✅ Gaps identificados y clasificados
 ✅ Dependencies mapeadas
 ✅ Trazabilidad a fuentes verificada
-✅ Handoff validado contra `handoff-schema.json`
+✅ Handoff validado por Orquestador
 ✅ `Documentation/HANDOFF_Summary.md` actualizado con sección "Generado por: Test Documentation"
 
 ## Guardrails Operativos
