@@ -64,6 +64,9 @@ No implementado en esta versión:
 - Todo handoff inter-agente debe validar contra el schema.
 - Cada handoff incluye metadata, contexto, resumen ejecutivo, referencias de artefactos, delta de cambios, checklist de validación, instrucciones al siguiente agente y feedback hooks.
 - El orquestador aplica retry policy con máximo de 3 intentos y aborta con estado global bloqueado cuando corresponde.
+- El orquestador es el persistidor oficial de handoffs recibidos en `./tests/Documentation/handoffs/{session_id}/`.
+- Ninguna transicion es valida hasta que el handoff quede persistido en almacenamiento canonico.
+- El orquestador no debe alterar autoria ni contenido del handoff (`from_agent`, `to_agent`, `updated_by`).
 
 ## Flujo esperado
 

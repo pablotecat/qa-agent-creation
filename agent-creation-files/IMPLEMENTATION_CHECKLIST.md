@@ -53,6 +53,10 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - [ ] Leer `README.md` sección "Flujo de Implementación Recomendado"
 - [ ] Implementar bootstrap de contexto compartido
 - [ ] Implementar validación previa al routing
+- [ ] Implementar persistencia canónica de handoffs recibidos en `./tests/Documentation/handoffs/{session_id}/`
+- [ ] Implementar naming `{from}-to-{to}-attempt-{n}-{timestamp}.json`
+- [ ] Implementar `manifest.json` por sesión
+- [ ] Implementar `retry_checkpoint.json` por `correlation_id`
 - [ ] Implementar retry_policy (max_attempts=3)
 - [ ] Implementar manejo de errores y logging
 
@@ -104,6 +108,8 @@ Use este checklist para verificar que toda la estructura de especificación de h
 ### Paso 5: Testing End-to-End
 - [ ] Ejecutar flujo completo: Doc → Planner → Prior
 - [ ] Validar cada handoff contra `handoff-schema.json`
+- [ ] Verificar que cada handoff queda persistido antes del routing
+- [ ] Verificar integridad de `manifest.json` y `retry_checkpoint.json`
 - [ ] Verificar que no hay bucles infinitos (retry_count <= 3 y abort en `>=3`)
 - [ ] Revisar `Documentation/HANDOFF_Summary.md` tiene actualizaciones de todos
 - [ ] Probar escaladas (simular gaps y verificar routing)
@@ -214,6 +220,8 @@ echo "=== Verification Complete ==="
 3. **Escalation Routing:** Cada escalada DEBE tener destino explícito (ver `handoff-hooks-routing.md`)
 4. **Updated_by Audit:** Todo handoff DEBE tener `updated_by` = nombre del agente que lo genera
 5. **Trazability:** Cada cambio DEBE documentarse en `Documentation/HANDOFF_Summary.md`
+6. **Persistencia Pre-Routing:** El Orquestador DEBE persistir handoff recibido antes de cualquier transición
+7. **No Mutación de Autoría:** Orquestador NO modifica `from_agent`, `to_agent`, `updated_by`
 
 ---
 

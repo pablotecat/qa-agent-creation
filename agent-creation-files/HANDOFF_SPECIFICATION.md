@@ -9,6 +9,13 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
 - **Evitar bucles:** Feedback hooks explícitos previenen retroalimentación circular
 - **Retroalimentación controlada:** Cada agente sabe a qué agente volver en caso de problemas
 
+## Ownership de Contenido vs Persistencia
+
+- **Agente productor:** genera el contenido del handoff y conserva autoria en `metadata.from_agent` y `delta_changes.updated_by`.
+- **Orquestador QA:** persiste todos los handoffs recibidos en almacenamiento canonico antes de enrutar.
+- **Regla de no mutacion:** el Orquestador no altera el payload del handoff (incluye `from_agent`, `to_agent`, `updated_by`, `retry_count`).
+- **Regla de transicion efectiva:** una transicion no se considera valida hasta que el handoff quede persistido.
+
 ## Estructura Base JSON
 
 ```json
@@ -81,17 +88,20 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
 - **Salida:** Handoff con suites diseñadas, cobertura modelada, precondiciones definidas
 - **Resumen:** `Documentation/HANDOFF_Summary.md` (actualizado)
 - **Validación:** Planner verifica que los gaps no impidan diseño de cobertura
+- **Persistencia:** Orquestador guarda el handoff en `./tests/Documentation/handoffs/{session_id}/` antes del routing
 
 ### 3. Test Planner → Test Prioritization
 - **Entrada:** Suites diseñadas con escenarios modelados
 - **Salida:** Handoff con matriz de riesgo, selección de automatización, justificación
 - **Resumen:** `Documentation/HANDOFF_Summary.md` (actualizado)
 - **Validación:** Prioritization evalúa factibilidad de cobertura
+- **Persistencia:** Orquestador guarda el handoff en `./tests/Documentation/handoffs/{session_id}/` antes del routing
 
 ### Retroalimentación (Feedback Loops)
 - Si **Planner** encuentra gaps que bloquean diseño → escalate a **Test Documentation**
 - Si **Prioritization** identifica cobertura imposible → escalate a **Test Planner**
 - Si hay conflictos irresolubles → escalate a **Orquestador**
+- Cada escalada tambien requiere persistencia previa por el Orquestador.
 
 ## Guardrails contra Bucles Infinitos
 
@@ -163,4 +173,19 @@ Documentation/
 │   ├── risk_matrix.json            # Output de Test Prioritization
 │   ├── automation_selection.json
 │   └── justification.md
+├── handoffs/
+│   └── {session_id}/
+│       ├── {from}-to-{to}-attempt-{n}-{timestamp}.json
+│       ├── manifest.json
+│       └── retry_checkpoint.json
 ```
+
+## Metaartefactos de Orquestacion
+
+### manifest.json
+- Indice oficial de handoffs persistidos por sesion.
+- Debe registrar al menos: `from_agent`, `to_agent`, `path`, `timestamp`, `validation_status`, `correlation_id`, `retry_count`.
+
+### retry_checkpoint.json
+- Estado operativo de reintentos por `correlation_id`.
+- Debe registrar al menos: `max_attempts`, `current_retry_count`, `last_error`, `last_updated`.

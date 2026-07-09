@@ -96,6 +96,7 @@ ajv validate -s agent-creation-files/handoff-schema.json \
 - **Ligero en tokens:** Referencias a archivos + delta changes (no copias)
 - **Ejecutivo:** Summary comprensible sin leer files
 - **Trazable:** `updated_by`, `timestamp`, `rationale`
+- **Persistido por Orquestador:** cada handoff recibido se guarda en `./tests/Documentation/handoffs/{session_id}/`
 
 ### Flujo Planificación
 ```
@@ -115,6 +116,7 @@ Generator (crea casos)
 2. `feedback_hooks` especifica destino
 3. Escalation log centralizado
 4. Orquestador aborta si max intentos
+5. No hay routing efectivo sin persistencia previa del handoff
 
 ---
 
