@@ -1,0 +1,53 @@
+{
+  "automation_strategy": "High-priority critical path tests automated; visual and UX tests manual.",
+  "selections": [
+    {
+      "test_id": "RF-001",
+      "automate": true,
+      "type": "api",
+      "reason": "Registration success path is deterministic and critical."
+    },
+    {
+      "test_id": "RF-002",
+      "automate": true,
+      "type": "api",
+      "reason": "Email validation is critical and programmatically testable."
+    },
+    {
+      "test_id": "RF-003",
+      "automate": false,
+      "type": "manual",
+      "reason": "Phone format varies by region."
+    },
+    {
+      "test_id": "RF-004",
+      "automate": true,
+      "type": "ui",
+      "reason": "Required-field validation is stable in UI automation."
+    },
+    {
+      "test_id": "UL-001",
+      "automate": true,
+      "type": "api",
+      "reason": "List retrieval can be verified reliably through API checks."
+    },
+    {
+      "test_id": "API-001",
+      "automate": true,
+      "type": "api",
+      "reason": "Critical endpoint and response contract stability."
+    },
+    {
+      "test_id": "API-004",
+      "automate": true,
+      "type": "api",
+      "reason": "Duplicate-prevention protects data integrity."
+    },
+    {
+      "test_id": "UL-002",
+      "automate": false,
+      "type": "manual",
+      "reason": "Visual pagination and scrolling require manual inspection."
+    }
+  ]
+}

@@ -9,6 +9,8 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 - Modo de ejecución: secuencial.
 - Resolución de prerequisitos por defecto: **pre-resolución**.
 - Ningún routing es válido sin persistencia previa del handoff recibido.
+- Si el siguiente agente solo necesita parte del contexto, el Orquestador puede generar un **handoff derivado fragmentado** con nueva metadata y referencia explícita al handoff origen.
+- Ningún agente debe inferir datos ausentes de un fragmento; debe pedir el handoff completo o contexto adicional antes de continuar.
 
 ## Matriz de Escaladas
 
@@ -21,8 +23,8 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 
 **Salida esperada del retry:**
 - Requisitos adicionales o clarificados
-- Gherkin re-normalizado
-- Gaps actualizados en `gaps_identified.json`
+- JSON consolidado actualizado
+- `test_documentation-summary.md` actualizado
 
 ---
 
@@ -32,13 +34,11 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 |-----------|-------------|-----------|---------|
 | `if_gaps_found` | test_documentation | Los gaps de Planner van a Documentation | "Gap: precondiciones indefinidas en Auth suite → Documentation debe re-extraer contexto" |
 | `if_coverage_impossible` | test_planner | Re-diseña suite con constraints | "No es posible cubrir 100% con los requisitos dados → redesign suite con cobertura pragmática" |
-| `if_risk_reassessment` | orchestrator | Impacto > 1 suite | "Riesgo de cambio de alcance en Auth afecta todas las suites" |
 
 **Salida esperada del retry:**
-- Suites re-diseñadas
+- JSON consolidado re-diseñado
 - Precondiciones clarificadas
-- Coverage model actualizado
-- Decisión auditada en `decision_log.md`
+- `test_planner-summary.md` actualizado
 
 ---
 
@@ -47,14 +47,43 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 | Condición | Escalate To | Estrategia | Ejemplo |
 |-----------|-------------|-----------|---------|
 | `if_coverage_impossible` | test_planner | Factibilidad de automatización cuestionable | "No hay escenarios de Planner suficientes para cobertura de Smoke → re-design suite" |
-| `if_impossibility_due_to_gaps` | test_documentation | Gaps originales impiden priorización | "Gap en performance reqs impide evaluar riesgo de Auth → volver a Documentation" |
 | `if_conflict_detected` | test_prioritization | Conflicto en matriz (riesgo vs costo) | "Suite X marcada CRITICAL pero imposible automatizar → rebalancear" |
-| `if_orchestrator_decision_needed` | orchestrator | Trade-off complejo | "Costo de automatización completa > valor esperado → Orq decide scope" |
 
 **Salida esperada del retry:**
-- Matriz de riesgo re-evaluada
+- JSON consolidado re-evaluado
 - Selección de automatización justificada
-- `justification.md` con auditoría de decisiones
+- `test_prioritization-summary.md` actualizado
+
+---
+
+## Reglas para Handoffs Fragmentados
+
+### Cuándo fragmentar
+
+El Orquestador solo debe fragmentar cuando:
+
+1. El agente destino no necesita el payload completo para avanzar.
+2. El fragmento puede señalar claramente qué se incluye y qué se omite.
+3. El fragmento conserva referencia al handoff origen persistido.
+
+### Qué debe incluir el fragmento
+
+Todo handoff fragmentado debe incluir `fragment_context` con:
+
+- `source_handoff_correlation_id`
+- `source_handoff_path`
+- `included_sections`
+- `omitted_sections`
+- `consumer_notice`
+- `request_full_context_when_needed=true`
+
+### Obligación del agente receptor
+
+Si el fragmento no basta, el agente receptor debe:
+
+1. Escalar o pedir contexto adicional antes de inferir.
+2. Explicar en `delta_changes.rationale` qué parte faltó.
+3. Mantener la trazabilidad al handoff origen.
 
 ---
 
@@ -133,7 +162,7 @@ Planner recibe requisitos de Documentation, detecta gap en precondiciones de Aut
 
 **Paso 2: Documentation recibe y re-procesa**
 - Re-extrae requisitos de Auth flow
-- Actualiza `gaps_identified.json`
+- Actualiza el JSON consolidado
 - Incrementa `retry_count` a 2
 - Crea nuevo handoff a Planner
 
@@ -168,3 +197,4 @@ Se DEBE mantener un archivo centralizado:
 ✅ **Resolución esperada documentada:** Cada escalada especifica qué se espera del retry
 ✅ **Escalation log centralizado:** Auditoría de todas las escaladas
 ✅ **Persistencia canonica garantizada:** No hay transicion efectiva sin handoff persistido
+✅ **Fragmentación responsable:** todo fragmento declara sus omisiones y obliga a pedir contexto adicional cuando haga falta

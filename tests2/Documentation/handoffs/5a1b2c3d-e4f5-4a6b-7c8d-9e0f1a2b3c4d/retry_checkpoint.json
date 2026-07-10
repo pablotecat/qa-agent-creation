@@ -1,0 +1,37 @@
+{
+  "session_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d",
+  "retry_tracking": {
+    "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.orchestrator-to-test_documentation.0": {
+      "correlation_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.orchestrator-to-test_documentation.0",
+      "retry_count": 0,
+      "status": "completed",
+      "dispatched_at": "2026-07-10T00:00:00Z",
+      "handoff_received_at": "2026-07-10T00:02:00Z",
+      "errors": []
+    },
+    "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_documentation-to-test_planner.0": {
+      "correlation_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_documentation-to-test_planner.0",
+      "retry_count": 0,
+      "status": "completed",
+      "dispatched_at": "2026-07-10T00:05:00Z",
+      "handoff_received_at": "2026-07-10T00:07:00Z",
+      "errors": []
+    },
+    "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_planner-to-test_prioritization.0": {
+      "correlation_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_planner-to-test_prioritization.0",
+      "retry_count": 0,
+      "status": "completed",
+      "dispatched_at": "2026-07-10T00:10:00Z",
+      "handoff_received_at": "2026-07-10T00:12:00Z",
+      "errors": []
+    },
+    "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_prioritization-to-orchestrator.0": {
+      "correlation_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_prioritization-to-orchestrator.0",
+      "retry_count": 0,
+      "status": "completed",
+      "dispatched_at": "2026-07-10T00:15:00Z",
+      "handoff_received_at": "2026-07-10T00:15:00Z",
+      "errors": []
+    }
+  }
+}

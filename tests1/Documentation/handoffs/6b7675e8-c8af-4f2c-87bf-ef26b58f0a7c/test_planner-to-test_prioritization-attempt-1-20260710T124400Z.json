@@ -1,0 +1,74 @@
+{
+  "handoff": {
+    "metadata": {
+      "from_agent": "test_planner",
+      "to_agent": "test_prioritization",
+      "session_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c",
+      "timestamp": "2026-07-10T12:44:00Z",
+      "retry_count": 1,
+      "correlation_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c.test_planner-to-test_prioritization.1"
+    },
+    "context": {
+      "user_request_id": "prompt-to-agent-full-pipeline",
+      "phase": "planning_layer",
+      "status": "ready_for_handoff"
+    },
+    "executive_summary": {
+      "state_snapshot": "Planner produced suites and coverage baseline from extracted requirements.",
+      "critical_findings": [
+        "Validation-related scenarios require focused regression coverage.",
+        "Delete and listing consistency should be prioritized after registration core path.",
+        "API and UI sequencing must respect dependency mapping."
+      ],
+      "recommendation": "Proceed to prioritization for risk/ROI ordering."
+    },
+    "artifacts_references": {
+      "path_pattern": "tests/Documentation/requirements/extracted/**/*",
+      "summary_md": "tests/Documentation/HANDOFF_Summary.md",
+      "raw_data": "tests/Documentation/requirements/extracted",
+      "version_hash": "planner-retry-1"
+    },
+    "delta_changes": {
+      "added": [
+        "planning baseline from extracted requirements"
+      ],
+      "modified": [],
+      "removed": [],
+      "updated_by": "test_planner",
+      "rationale": "Enable downstream prioritization with structured planning outputs."
+    },
+    "validation_checklist": {
+      "status": "passed",
+      "checks": {
+        "schema_blocks_complete": true,
+        "coverage_inputs_present": true,
+        "handoff_ready": true
+      }
+    },
+    "next_agent_instructions": {
+      "must_validate": [
+        "risk scoring per suite",
+        "automation feasibility per scenario"
+      ],
+      "can_skip": [
+        "requirements re-extraction"
+      ],
+      "decision_points": [
+        "smoke vs regression split",
+        "manual-only scenarios"
+      ]
+    },
+    "feedback_hooks": {
+      "if_gaps_found": {
+        "escalate_to": "test_documentation"
+      },
+      "if_coverage_impossible": {
+        "escalate_to": "test_planner"
+      },
+      "if_conflict_detected": {
+        "escalate_to": "orchestrator",
+        "conflict_resolution_strategy": "record conflict and request orchestrator decision"
+      }
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "session_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c",
+  "status_global": "completed_with_warnings",
+  "started_at": "2026-07-10T11:59:30Z",
+  "updated_at": "2026-07-10T12:50:40Z",
+  "routing_decisions": [
+    {
+      "timestamp": "2026-07-10T11:59:40Z",
+      "decision": "entry_agent_selected",
+      "request_type": "full_pipeline",
+      "selected_agent": "test_documentation",
+      "prerequisites": "pre_resolve"
+    },
+    {
+      "timestamp": "2026-07-10T12:01:05Z",
+      "decision": "next_agent_selected",
+      "selected_agent": "test_planner",
+      "reason": "handoff persisted and validation passed"
+    },
+    {
+      "timestamp": "2026-07-10T12:22:30Z",
+      "decision": "routing_aborted",
+      "selected_agent": "test_prioritization",
+      "reason": "retry_count >= 3 and validation_checklist.status=failed"
+    },
+    {
+      "timestamp": "2026-07-10T12:40:30Z",
+      "decision": "retry_reopened",
+      "selected_agent": "test_planner",
+      "reason": "user requested retry"
+    },
+    {
+      "timestamp": "2026-07-10T12:40:35Z",
+      "decision": "handoff_rejected",
+      "selected_agent": "test_prioritization",
+      "reason": "schema pattern violation in feedback_hooks.if_conflict_detected.escalate_to"
+    },
+    {
+      "timestamp": "2026-07-10T12:44:20Z",
+      "decision": "next_agent_selected",
+      "selected_agent": "test_prioritization",
+      "reason": "planner retry handoff validated and persisted"
+    },
+    {
+      "timestamp": "2026-07-10T12:48:20Z",
+      "decision": "handoff_rejected",
+      "selected_agent": "orchestrator",
+      "reason": "prioritization attempt 0 invalid schema blocks (artifacts_references and feedback_hooks)"
+    },
+    {
+      "timestamp": "2026-07-10T12:50:40Z",
+      "decision": "session_closed",
+      "selected_agent": "orchestrator",
+      "reason": "prioritization handoff attempt 1 passed and was persisted"
+    }
+  ],
+  "handoffs": [
+    {
+      "from_agent": "test_documentation",
+      "to_agent": "test_planner",
+      "path": "tests/Documentation/handoffs/6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c/test_documentation-to-test_planner-attempt-0-20260710T120000Z.json",
+      "timestamp": "2026-07-10T12:00:00Z",
+      "validation_status": "passed",
+      "correlation_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c.test_documentation-to-test_planner.0",
+      "retry_count": 0,
+      "persisted": true
+    },
+    {
+      "from_agent": "test_planner",
+      "to_agent": "test_prioritization",
+      "path": "tests/Documentation/handoffs/6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c/test_planner-to-test_prioritization-attempt-3-20260710T122200Z.json",
+      "timestamp": "2026-07-10T12:22:00Z",
+      "validation_status": "failed",
+      "correlation_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c.test_planner-to-test_prioritization.3",
+      "retry_count": 3,
+      "persisted": true,
+      "routed": false
+    },
+    {
+      "from_agent": "test_planner",
+      "to_agent": "test_prioritization",
+      "path": "tests/Documentation/handoffs/6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c/test_planner-to-test_prioritization-attempt-0-20260710T124000Z.json",
+      "timestamp": "2026-07-10T12:40:00Z",
+      "validation_status": "failed",
+      "correlation_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c.test_planner-to-test_prioritization.0",
+      "retry_count": 0,
+      "persisted": true,
+      "routed": false
+    },
+    {
+      "from_agent": "test_planner",
+      "to_agent": "test_prioritization",
+      "path": "tests/Documentation/handoffs/6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c/test_planner-to-test_prioritization-attempt-1-20260710T124400Z.json",
+      "timestamp": "2026-07-10T12:44:00Z",
+      "validation_status": "passed",
+      "correlation_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c.test_planner-to-test_prioritization.1",
+      "retry_count": 1,
+      "persisted": true,
+      "routed": true
+    },
+    {
+      "from_agent": "test_prioritization",
+      "to_agent": "orchestrator",
+      "path": "tests/Documentation/handoffs/6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c/test_prioritization-to-orchestrator-attempt-1-20260710T125000Z.json",
+      "timestamp": "2026-07-10T12:50:00Z",
+      "validation_status": "passed",
+      "correlation_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c.test_prioritization-to-orchestrator.1",
+      "retry_count": 1,
+      "persisted": true,
+      "routed": true
+    }
+  ]
+}

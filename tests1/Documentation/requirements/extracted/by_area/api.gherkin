@@ -1,0 +1,31 @@
+Feature: REST API Endpoints
+
+  Scenario: POST /api/register creates user with required fields
+    Given API endpoint POST /api/register exists
+    When Request body contains name and email
+    Then Response status code is 200
+
+  Scenario: POST /api/register fails with missing name
+    Given API endpoint POST /api/register exists
+    When Request body omits name field
+    Then Response status code is 400
+
+  Scenario: POST /api/register fails with missing email
+    Given API endpoint POST /api/register exists
+    When Request body omits email field
+    Then Response status code is 400
+
+  Scenario: GET /api/users retrieves all users
+    Given Users are registered in the system
+    When GET request is made to /api/users
+    Then Response status code is 200
+
+  Scenario: PUT /api/users/:id updates user
+    Given User with ID exists
+    When PUT request is made with valid data
+    Then Response status code is 200
+
+  Scenario: DELETE /api/users/:id removes user
+    Given User with ID exists
+    When DELETE request is made to /api/users/{id}
+    Then Response status code is 200

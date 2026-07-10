@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "sources": [
+    {
+      "type": "source_code",
+      "file": "server.js",
+      "description": "Node.js server with REST API"
+    },
+    {
+      "type": "ui_component",
+      "file": "public/index.html",
+      "description": "Registration form page"
+    },
+    {
+      "type": "ui_component",
+      "file": "public/users.html",
+      "description": "Users listing page"
+    },
+    {
+      "type": "test_specification",
+      "file": "tests/api/register.api.spec.ts",
+      "description": "Registration API tests"
+    },
+    {
+      "type": "test_specification",
+      "file": "tests/api/users.api.spec.ts",
+      "description": "Users API tests"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+Feature: Users Listing
+
+  Scenario: Display users in table format
+    Given Users exist in the system
+    When User navigates to users listing page
+    Then Users table displays with expected columns
+
+  Scenario: Show empty state when no users
+    Given No users are registered
+    When User navigates to users listing page
+    Then Message "No hay usuarios registrados" is displayed
+
+  Scenario: Edit user via modal dialog
+    Given Users exist in the system
+    When User clicks edit action for a user
+    Then Edit modal dialog opens
+    When User updates fields and saves
+    Then HTTP PUT /api/users/:id succeeds with 200
+
+  Scenario: Cancel edit operation
+    Given Edit modal is open
+    When User clicks "Cancelar" button
+    Then Modal closes without saving
+
+  Scenario: Delete user
+    Given Users exist in the system
+    When User clicks delete action for a user
+    Then HTTP DELETE /api/users/:id succeeds
+
+  Scenario: Navigation from users listing
+    Given User is on users listing page
+    When User clicks "Registro" link
+    Then User navigates to registration form page

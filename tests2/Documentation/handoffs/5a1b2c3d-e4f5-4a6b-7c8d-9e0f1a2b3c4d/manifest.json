@@ -1,0 +1,117 @@
+{
+  "session_metadata": {
+    "session_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d",
+    "initiated_at": "2026-07-10T00:00:00Z",
+    "initiated_by": "orchestrator",
+    "completed_at": "2026-07-10T00:15:00Z",
+    "status_global": "completed"
+  },
+  "user_request": {
+    "type": "full_pipeline",
+    "intent": "Complete web testing flow for web-test-playwright project",
+    "language": "es"
+  },
+  "routing_decisions": [
+    {
+      "decision_order": 1,
+      "from_agent": "orchestrator",
+      "to_agent": "test_documentation",
+      "decision_reason": "Entry point: full_pipeline requires test_documentation to extract and normalize requirements",
+      "dispatch_timestamp": "2026-07-10T00:00:00Z",
+      "status": "completed"
+    },
+    {
+      "decision_order": 2,
+      "from_agent": "test_documentation",
+      "to_agent": "test_planner",
+      "decision_reason": "Handoff received: 18 requirements extracted, 12 gaps identified, validation_checklist=passed",
+      "dispatch_timestamp": "2026-07-10T00:05:00Z",
+      "status": "completed"
+    },
+    {
+      "decision_order": 3,
+      "from_agent": "test_planner",
+      "to_agent": "test_prioritization",
+      "decision_reason": "Handoff received: 5 test suites, 23 scenarios, 85% coverage, all Playwright E2E automation",
+      "dispatch_timestamp": "2026-07-10T00:10:00Z",
+      "status": "completed"
+    },
+    {
+      "decision_order": 4,
+      "from_agent": "test_prioritization",
+      "to_agent": "orchestrator",
+      "decision_reason": "Planning layer complete: MVP identified (3 suites, 30-35 min), 0 blockers, RECOMMENDATION: PROCEED TO EXECUTION",
+      "dispatch_timestamp": "2026-07-10T00:15:00Z",
+      "status": "received_and_analyzed"
+    }
+  ],
+  "handoff_registry": [
+    {
+      "handoff_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_documentation-to-test_planner.0",
+      "filename": "test_documentation-to-test_planner-attempt-0-20260710T000000Z.json",
+      "from_agent": "test_documentation",
+      "to_agent": "test_planner",
+      "status": "persisted_and_validated",
+      "received_at": "2026-07-10T00:02:00Z",
+      "requirements_count": 18,
+      "gaps_count": 12,
+      "validation_status": "passed"
+    },
+    {
+      "handoff_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_planner-to-test_prioritization.0",
+      "filename": "test_planner-to-test_prioritization-attempt-0-20260710T120000Z.json",
+      "from_agent": "test_planner",
+      "to_agent": "test_prioritization",
+      "status": "persisted_and_validated",
+      "received_at": "2026-07-10T00:07:00Z",
+      "test_suites_count": 5,
+      "scenarios_count": 23,
+      "coverage_percentage": 85,
+      "automation_decision": "100% Playwright E2E",
+      "validation_status": "passed"
+    },
+    {
+      "handoff_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_prioritization-to-orchestrator.0",
+      "filename": "test_prioritization-to-orchestrator-attempt-0-20260710T000000Z.json",
+      "from_agent": "test_prioritization",
+      "to_agent": "orchestrator",
+      "status": "persisted_and_validated",
+      "received_at": "2026-07-10T00:12:00Z",
+      "mvp_suites": 3,
+      "mvp_scenarios": 12,
+      "mvp_time_minutes": 33,
+      "blockers_count": 0,
+      "recommendation": "PROCEED_TO_EXECUTION",
+      "validation_status": "passed"
+    }
+  ],
+  "escalations": [],
+  "session_status_history": [
+    {
+      "timestamp": "2026-07-10T00:00:00Z",
+      "status": "initialized",
+      "notes": "Session initialized for full QA testing pipeline"
+    },
+    {
+      "timestamp": "2026-07-10T00:05:00Z",
+      "status": "test_documentation_completed",
+      "notes": "18 requirements extracted, 12 gaps identified, validation_checklist=passed"
+    },
+    {
+      "timestamp": "2026-07-10T00:10:00Z",
+      "status": "test_planner_completed",
+      "notes": "5 test suites designed with 23 scenarios, 85% functional coverage"
+    },
+    {
+      "timestamp": "2026-07-10T00:15:00Z",
+      "status": "test_prioritization_completed",
+      "notes": "MVP identified (3 suites, 30-35 min), risk matrix applied, 0 blockers detected"
+    },
+    {
+      "timestamp": "2026-07-10T00:15:00Z",
+      "status": "planning_layer_completed",
+      "notes": "All handoffs validated and persisted. Session completed. Recommendation: PROCEED TO EXECUTION"
+    }
+  ]
+}
+

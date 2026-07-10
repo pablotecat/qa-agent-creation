@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-07-10T12:00:00Z",
+  "gaps": [
+    {
+      "id": "GAP_001",
+      "area": "registration",
+      "severity": "medium",
+      "title": "Email format validation not implemented",
+      "impact": "Skipped API validation tests"
+    },
+    {
+      "id": "GAP_002",
+      "area": "registration",
+      "severity": "medium",
+      "title": "Phone format validation not implemented",
+      "impact": "Skipped API validation tests"
+    },
+    {
+      "id": "GAP_003",
+      "area": "users_listing",
+      "severity": "high",
+      "title": "Delete endpoint test is skipped",
+      "impact": "Delete flow coverage unknown"
+    }
+  ],
+  "summary": {
+    "total_gaps": 3,
+    "by_severity": {
+      "high": 1,
+      "medium": 2,
+      "low": 0
+    }
+  }
+}
