@@ -1,95 +1,95 @@
 # QA Agent Creation
 
-Repositorio para diseñar e implementar un sistema de agentes QA en modo Orchestra, con handoffs estandarizados, validación formal por schema y trazabilidad entre agentes.
+Repositorio de instalacion para agentes QA en modo Orchestra, con instalacion determinista basada en `install-manifest.json` y runtime mirror.
 
 ## Objetivo
 
-Crear un flujo multiagente donde:
+Construir e instalar un flujo multiagente donde:
 
-- Solo el Orquestador QA es invocable por el usuario.
-- Los agentes de Planificación colaboran mediante handoffs JSON validados.
-- Cada transición mantiene trazabilidad técnica y resumen humano.
+- Solo QA Orchestrator es invocable por el usuario.
+- Los agentes de Planificacion colaboran por handoffs JSON validados.
+- El runtime final queda en estructura estandar de `.github/`.
 
 ## Alcance actual
 
 Implementado/documentado para:
 
-- Orquestador QA
+- QA Orchestrator
 - Test Documentation Agent
 - Test Planner Agent
 - Test Prioritization Agent
 
-No implementado en esta versión:
+No implementado en esta version:
 
-- Capa Creación
-- Capa Ejecución
-- Capa Análisis
+- Capa Creacion
+- Capa Ejecucion
+- Capa Analisis
+
+## Modelo de instalacion
+
+### Fuente de verdad
+
+- Mapeo de archivos: `install-manifest.json`
+- Reglas de comportamiento del instalador: `initial-prompt.md`
+
+Si existe conflicto entre ambos, la instalacion debe abortar con error explicito.
+
+### Politica de overwrite
+
+El agente instalador debe preguntar SIEMPRE antes de copiar:
+
+- `fail_if_exists`
+- `overwrite`
+- `skip_if_exists`
+
+La opcion elegida se aplica globalmente a toda la instalacion.
 
 ## Estructura del repositorio
 
 ```text
 .
-├── initial-prompt.md
-├── prompt-to-agent.md
-└── agent-creation-files/
-    ├── INDEX.md
-    ├── README.md
-    ├── doc/
-    │   ├── QUICK_REFERENCE.md
-    │   ├── HANDOFF_SPECIFICATION.md
-    │   ├── handoff-schema.json
-    │   ├── handoff-hooks-routing.md
-    │   └── orchestration-config.json
-    ├── IMPLEMENTATION_CHECKLIST.md
-    ├── agent-templates/
-    │   ├── documentation.agent.md
-    │   ├── planner.agent.md
-    │   └── prioritization.agent.md
-    └── examples/
-        ├── README.md
-        ├── handoff_documentation_to_planner.json
-        ├── handoff_planner_to_prioritization.json
-        └── handoff_feedback_gap_escalation.json
+|-- initial-prompt.md
+|-- install-manifest.json
+|-- prompt-to-agent.md
+|-- runtime-mirror/
+|   |-- .github/
+|   |   |-- agents/
+|   |   |   |-- qa-orchestrator.agent.md
+|   |   |   |-- qa-team/
+|   |   |   |   |-- test-documentation.agent.md
+|   |   |   |   |-- test-planner.agent.md
+|   |   |   |   |-- test-prioritization.agent.md
+|   |   |   |   `-- contracts/
+|   |   |   |       |-- HANDOFF_SPECIFICATION.md
+|   |   |   |       |-- handoff-schema.json
+|   |   |   |       |-- handoff-hooks-routing.md
+|   |   |   |       `-- orchestration-config.json
+|   |   |-- instructions/
+|   |   |   |-- qa-handoff-format.instructions.md
+|   |   |   |-- qa-routing-guardrails.instructions.md
+|   |   |   `-- qa-orchestrator-policy.instructions.md
+|   |   `-- prompts/
+|   |       `-- prompt-to-agent.md
 ```
 
-## Quick Start
+## Bootstrap vs Runtime
 
-1. Lee la guía principal en `agent-creation-files/README.md`.
-2. Revisa la especificación de handoff en `agent-creation-files/doc/HANDOFF_SPECIFICATION.md`.
-3. Valida estructura y campos con `agent-creation-files/doc/handoff-schema.json`.
-4. Aplica reglas de escalado en `agent-creation-files/doc/handoff-hooks-routing.md`.
-5. Sigue el checklist en `agent-creation-files/IMPLEMENTATION_CHECKLIST.md`.
-6. Usa los templates en `agent-creation-files/agent-templates/` para crear agentes.
+- Runtime (se copia al proyecto destino): contenido en `runtime-mirror/` segun `install-manifest.json`.
+- Bootstrap (no se copia): `initial-prompt.md` y `README.md` de este repositorio instalador.
 
-## Contratos clave
+Los ejemplos son estrictamente bootstrap-only.
 
-- Todo handoff inter-agente debe validar contra el schema.
-- Cada handoff incluye metadata, contexto, resumen ejecutivo, referencias de artefactos, delta de cambios, checklist de validación, instrucciones al siguiente agente y feedback hooks.
-- El orquestador aplica retry policy con máximo de 3 intentos y aborta con estado global bloqueado cuando corresponde.
-- El orquestador es el persistidor oficial de handoffs recibidos en `./tests/Documentation/handoffs/{session_id}/`.
-- Ninguna transicion es valida hasta que el handoff quede persistido en almacenamiento canonico.
-- El orquestador no debe alterar autoria ni contenido del handoff (`from_agent`, `to_agent`, `updated_by`).
+## Contratos clave runtime
 
-## Flujo esperado
-
-Orquestador -> Documentation -> Planner -> Prioritization
-
-Con feedback loops controlados y auditables según la matriz de escaladas.
-
-## Archivos de entrada relevantes
-
-- `initial-prompt.md`: prompt base del sistema y reglas operativas.
-- `prompt-to-agent.md`: ejemplo de solicitud para ejecutar estrategia QA end-to-end.
+- Handoffs validan contra `.github/agents/qa-team/contracts/handoff-schema.json`.
+- El Orchestrator debe cargar en runtime:
+  - `.github/agents/qa-team/contracts/handoff-schema.json`
+  - `.github/agents/qa-team/contracts/orchestration-config.json`
+- El Orchestrator persiste handoffs en `./tests/Documentation/handoffs/{session_id}/` antes de enrutar.
 
 ## Nota operativa
 
-- Los archivos de soporte en `agent-creation-files/` y los templates se **copian** al proyecto objetivo cuando corresponda; los originales se conservan en el paquete plantilla durante el bootstrap.
-
-## Recomendaciones para contribuir
-
-- Mantener consistencia entre especificación, schema, ejemplos y templates.
-- No introducir cambios en el formato de handoff sin actualizar la documentación y el schema.
-- Validar ejemplos JSON tras cualquier cambio estructural.
+`prompt-to-agent.md` es plantilla editable y se instala como `.github/prompts/prompt-to-agent.md`.
 
 ## Licencia
 

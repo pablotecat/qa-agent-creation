@@ -45,9 +45,9 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 
 ## Fuentes Canónicas Obligatorias
 
-1. `.github/agents/qa-team/docs/handoff-schema.json`
-2. `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
-3. `.github/agents/qa-team/docs/handoff-hooks-routing.md`
+1. `.github/agents/qa-team/contracts/handoff-schema.json`
+2. `.github/agents/qa-team/contracts/HANDOFF_SPECIFICATION.md`
+3. `.github/agents/qa-team/contracts/handoff-hooks-routing.md`
 
 
 ## Fases de Ejecución

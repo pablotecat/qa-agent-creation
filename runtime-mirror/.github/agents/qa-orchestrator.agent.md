@@ -205,12 +205,13 @@ Cuando un agente reporta prerequisitos faltantes via `feedback_hooks`:
 
 ### Pasos
 
-1. Cargar schema desde `.github/agents/qa-team/docs/handoff-schema.json`
-2. Validar el handoff recibido contra el schema
-3. Verificar presencia de bloques mínimos obligatorios: `metadata`, `context`, `executive_summary`, `artifacts_references`, `delta_changes`, `validation_checklist`, `next_agent_instructions`, `feedback_hooks`
-4. Verificar que `metadata.from_agent` y `metadata.to_agent` son agentes conocidos
-5. Verificar que `metadata.session_id` coincide con la sesión activa
-6. Verificar que el naming del archivo sigue: `{from}-to-{to}-attempt-{n}-{timestamp}.json`
+1. Cargar schema desde `.github/agents/qa-team/contracts/handoff-schema.json`
+2. Cargar config de orquestacion desde `.github/agents/qa-team/contracts/orchestration-config.json`
+3. Validar el handoff recibido contra el schema
+4. Verificar presencia de bloques mínimos obligatorios: `metadata`, `context`, `executive_summary`, `artifacts_references`, `delta_changes`, `validation_checklist`, `next_agent_instructions`, `feedback_hooks`
+5. Verificar que `metadata.from_agent` y `metadata.to_agent` existen en `agent_catalog` y que la transición está permitida en `transitions.allowed_handoffs`
+6. Verificar que `metadata.session_id` coincide con la sesión activa
+7. Verificar que el naming del archivo sigue: `{from}-to-{to}-attempt-{n}-{timestamp}.json`
 
 ### Resultado de validación
 

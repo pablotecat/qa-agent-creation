@@ -1,0 +1,121 @@
+{
+  "manifest_version": "1.0.0",
+  "installer_mode": "mirror_based",
+  "runtime_mirror_root": "./runtime-mirror",
+  "overwrite_policy": {
+    "selection_mode": "interactive_global_per_run",
+    "allowed_values": [
+      "fail_if_exists",
+      "overwrite",
+      "skip_if_exists"
+    ],
+    "prompt_required": true,
+    "default": null
+  },
+  "precedence": {
+    "file_mapping_source_of_truth": "install-manifest.json",
+    "installer_behavior_source_of_truth": "initial-prompt.md",
+    "on_conflict": "abort_with_error"
+  },
+  "entries": [
+    {
+      "id": "runtime-orchestrator-agent",
+      "source": "./runtime-mirror/.github/agents/qa-orchestrator.agent.md",
+      "destination": ".github/agents/qa-orchestrator.agent.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-doc-agent",
+      "source": "./runtime-mirror/.github/agents/qa-team/test-documentation.agent.md",
+      "destination": ".github/agents/qa-team/test-documentation.agent.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-planner-agent",
+      "source": "./runtime-mirror/.github/agents/qa-team/test-planner.agent.md",
+      "destination": ".github/agents/qa-team/test-planner.agent.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-prioritization-agent",
+      "source": "./runtime-mirror/.github/agents/qa-team/test-prioritization.agent.md",
+      "destination": ".github/agents/qa-team/test-prioritization.agent.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-contract-handoff-spec",
+      "source": "./runtime-mirror/.github/agents/qa-team/contracts/HANDOFF_SPECIFICATION.md",
+      "destination": ".github/agents/qa-team/contracts/HANDOFF_SPECIFICATION.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-contract-handoff-schema",
+      "source": "./runtime-mirror/.github/agents/qa-team/contracts/handoff-schema.json",
+      "destination": ".github/agents/qa-team/contracts/handoff-schema.json",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-contract-hooks-routing",
+      "source": "./runtime-mirror/.github/agents/qa-team/contracts/handoff-hooks-routing.md",
+      "destination": ".github/agents/qa-team/contracts/handoff-hooks-routing.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-contract-orchestration-config",
+      "source": "./runtime-mirror/.github/agents/qa-team/contracts/orchestration-config.json",
+      "destination": ".github/agents/qa-team/contracts/orchestration-config.json",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-instruction-handoff-format",
+      "source": "./runtime-mirror/.github/instructions/qa-handoff-format.instructions.md",
+      "destination": ".github/instructions/qa-handoff-format.instructions.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-instruction-routing-guardrails",
+      "source": "./runtime-mirror/.github/instructions/qa-routing-guardrails.instructions.md",
+      "destination": ".github/instructions/qa-routing-guardrails.instructions.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-instruction-orchestrator-policy",
+      "source": "./runtime-mirror/.github/instructions/qa-orchestrator-policy.instructions.md",
+      "destination": ".github/instructions/qa-orchestrator-policy.instructions.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-prompt-entry",
+      "source": "./runtime-mirror/.github/prompts/prompt-to-agent.md",
+      "destination": ".github/prompts/prompt-to-agent.md",
+      "classification": "runtime",
+      "required": true,
+      "editable_after_copy": true
+    },
+    {
+      "id": "bootstrap-initial-prompt",
+      "source": "./initial-prompt.md",
+      "destination": null,
+      "classification": "bootstrap",
+      "required": false
+    },
+    {
+      "id": "bootstrap-root-readme",
+      "source": "./README.md",
+      "destination": null,
+      "classification": "bootstrap",
+      "required": false
+    }
+  ]
+}
