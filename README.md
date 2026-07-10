@@ -30,7 +30,7 @@ No implementado en esta version:
 ### Fuente de verdad
 
 - Mapeo de archivos: `install-manifest.json`
-- Reglas de comportamiento del instalador: `initial-prompt.md`
+- Reglas de comportamiento del instalador: `install-prompt.md`
 
 Si existe conflicto entre ambos, la instalacion debe abortar con error explicito.
 
@@ -48,7 +48,7 @@ La opcion elegida se aplica globalmente a toda la instalacion.
 
 ```text
 .
-|-- initial-prompt.md
+|-- install-prompt.md
 |-- install-manifest.json
 |-- prompt-to-agent.md
 |-- runtime-mirror/
@@ -75,7 +75,7 @@ La opcion elegida se aplica globalmente a toda la instalacion.
 ## Bootstrap vs Runtime
 
 - Runtime (se copia al proyecto destino): contenido en `runtime-mirror/` segun `install-manifest.json`.
-- Bootstrap (no se copia): `initial-prompt.md` y `README.md` de este repositorio instalador.
+- Bootstrap (no se copia): `install-prompt.md` y `README.md` de este repositorio instalador.
 
 Los ejemplos son estrictamente bootstrap-only.
 

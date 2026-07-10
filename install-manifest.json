@@ -14,7 +14,7 @@
   },
   "precedence": {
     "file_mapping_source_of_truth": "install-manifest.json",
-    "installer_behavior_source_of_truth": "initial-prompt.md",
+    "installer_behavior_source_of_truth": "install-prompt.md",
     "on_conflict": "abort_with_error"
   },
   "entries": [
@@ -104,8 +104,8 @@
       "editable_after_copy": true
     },
     {
-      "id": "bootstrap-initial-prompt",
-      "source": "./initial-prompt.md",
+      "id": "bootstrap-install-prompt",
+      "source": "./install-prompt.md",
       "destination": null,
       "classification": "bootstrap",
       "required": false

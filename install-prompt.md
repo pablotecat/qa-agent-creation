@@ -11,7 +11,7 @@ Solo el QA Orchestrator es invocable por el usuario; el resto de agentes se ejec
 # Contrato de autoridad (sin duplicidad)
 
 - `install-manifest.json` es la unica fuente de verdad para mapeo de archivos (`source -> destination`).
-- `initial-prompt.md` define comportamiento del agente instalador, guardrails y reglas funcionales.
+- `install-prompt.md` define comportamiento del agente instalador, guardrails y reglas funcionales.
 - Si hay conflicto entre rutas declaradas en prompt y manifest, la instalacion DEBE abortar con error explicito.
 
 # Reglas operativas para creacion de agentes
@@ -59,7 +59,7 @@ El instalador NO DEBE:
 
 Los siguientes artefactos son de scaffolding y referencia:
 
-- `./initial-prompt.md`
+- `./install-prompt.md`
 - `./README.md`
 
 # Fuente de verdad para operacion runtime (en destino)
