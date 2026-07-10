@@ -12,10 +12,10 @@ Este contrato define el único formato admitido para transiciones especializadas
 ## Principios
 
 - **JSON único por transición:** toda la información estructurada que el siguiente agente necesite debe vivir en el handoff JSON, aunque el payload sea extenso.
-- **Markdown único por agente:** el resumen humano de cada agente se persiste como `{agent_name}-summary.md`.
+- **Markdown único por agente:** el resumen humano se persiste con naming específico por rol definido en este contrato y en la skill del agente.
 - **Persistencia previa al routing:** ninguna transición es válida hasta que el Orquestador haya persistido el JSON del handoff.
 - **Fragmentación trazable:** si el Orquestador envía solo una parte del contexto, debe crear un nuevo JSON derivado con metadata propia y aviso explícito de contexto parcial.
-- **Sin artefactos redundantes:** este estándar excluye `README.md` dentro de `handoffs/`, `execution-summary.json` por agente y `validation-report.md` por agente.
+- **Sin artefactos redundantes:** este estándar excluye `README.md` dentro de `handoffs/` y `execution-summary.json` por agente.
 
 ## Ownership de Contenido vs Persistencia
 
@@ -50,7 +50,7 @@ Este contrato define el único formato admitido para transiciones especializadas
     },
     "artifacts_references": {
       "path_pattern": "ruta base de la sesión",
-      "summary_md": "ruta a {agent_name}-summary.md",
+      "summary_md": "ruta al markdown de resumen del agente",
       "raw_data": ["rutas o identificadores de los artefactos fuente usados"],
       "version_hash": "checksum o identificador de integridad"
     },
@@ -101,7 +101,10 @@ Este contrato define el único formato admitido para transiciones especializadas
 Cada agente trabajador debe producir exactamente estos artefactos por transición:
 
 1. `{from}-to-{to}-attempt-{retry_count}-{timestamp}.json`
-2. `{agent_name}-summary.md`
+2. Un markdown único con nombre específico por rol:
+  - `test_documentation-analysis-report.md`
+  - `test_planner-execution-summary.md`
+  - `validation-report.md` (baseline temporal para priorización)
 
 El JSON puede incluir bloques enriquecidos extra con requisitos, gaps, suites, matrices o cualquier otra estructura útil para el siguiente agente. Esa información ya no debe repartirse obligatoriamente en archivos auxiliares separados.
 
@@ -121,17 +124,17 @@ El Orquestador mantiene estos artefactos de sesión:
 ### 1. Orquestador → Test Documentation
 - **Entrada:** `solicitud_qa` y contexto de sesión.
 - **Salida esperada:** JSON consolidado con requisitos, fuentes, gaps y demás estructura útil para `test_planner`.
-- **Resumen:** `test_documentation-summary.md`.
+- **Resumen:** `test_documentation-analysis-report.md`.
 
 ### 2. Test Documentation → Test Planner
 - **Entrada:** handoff completo o fragmentado derivado del JSON de Documentation.
 - **Salida esperada:** JSON consolidado con suites, cobertura, precondiciones y trazabilidad útil para `test_prioritization`.
-- **Resumen:** `test_planner-summary.md`.
+- **Resumen:** `test_planner-execution-summary.md`.
 
 ### 3. Test Planner → Test Prioritization
 - **Entrada:** handoff completo o fragmentado derivado del JSON de Planner.
 - **Salida esperada:** JSON consolidado con priorización, riesgo, decisiones de automatización y recomendación final hacia Orquestador.
-- **Resumen:** `test_prioritization-summary.md`.
+- **Resumen:** `validation-report.md`.
 
 ### Retroalimentación
 - Si **Planner** encuentra gaps que bloquean diseño, escala según `feedback_hooks`.
@@ -141,7 +144,7 @@ El Orquestador mantiene estos artefactos de sesión:
 
 ## Resúmenes Markdown
 
-Cada agente trabajador genera su propio `{agent_name}-summary.md`. Como mínimo, ese resumen debe incluir:
+Cada agente trabajador genera su markdown único con naming por rol. Como mínimo, ese resumen debe incluir:
 
 1. Cabecera con `Session ID`, `Agent`, fecha/timestamp y estado.
 2. Resumen ejecutivo u overview.
@@ -176,9 +179,9 @@ Secciones específicas por agente:
         ├── manifest.json
         ├── retry_checkpoint.json
         ├── {from}-to-{to}-attempt-{retry_count}-{timestamp}.json
-        ├── test_documentation-summary.md
-        ├── test_planner-summary.md
-        └── test_prioritization-summary.md
+        ├── test_documentation-analysis-report.md
+        ├── test_planner-execution-summary.md
+        └── validation-report.md
 ```
 
 ## Criterios de Éxito

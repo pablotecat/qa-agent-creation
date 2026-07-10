@@ -28,7 +28,7 @@ Recibir una `solicitud_qa`, determinar el camino de ejecución óptimo (no neces
 - `retry_checkpoint.json`: tracking de retries por `correlation_id`
 - `escalation_log.md`: registro centralizado de todas las escaladas y su resolución
 - `HANDOFF_Summary.md`: resumen ejecutivo actualizado tras cada transición
-- `ORCHESTRATION_FINAL_SUMMARY.md`: conclusiones consolidadas de toda la orquestación
+- `ORCHESTRATION_FINAL_SUMMARY.md`: conclusiones consolidadas de toda la orquestación usando `qa-orchestrator-report/SKILL.md`
 - registros de despacho y routing en `manifest.json`
 
 ## Non-goals
@@ -110,7 +110,8 @@ Aplicar V1 antes de cualquier routing:
 
 1. Verificar ausencia de handoffs `pending`.
 2. Determinar estado global final.
-3. Persistir cierre en `manifest.json` y registrar resumen de cierre.
+3. Generar `ORCHESTRATION_FINAL_SUMMARY.md` usando `qa-orchestrator-report/SKILL.md`.
+4. Persistir cierre en `manifest.json` y registrar resumen de cierre.
 
 ## Guardrails Operativos
 

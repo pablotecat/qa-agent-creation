@@ -24,7 +24,7 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 
 ### Outputs
 - handoff JSON único con evaluación de riesgo, selección de automatización, balance cobertura/esfuerzo y recomendación final
-- `test_prioritization-summary.md` con resumen humano completo y legible
+- `validation-report.md` con resumen humano completo y legible, usando `qa-test-prioritization-report/SKILL.md`
 
 ## Non-goals
 
@@ -72,12 +72,12 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 - Basarse en: Riesgo, Cobertura, Costo, Dependencies
 - Registrar trade-offs y decisiones conflictivas
 - Consolidar la priorización, la recomendación y los trade-offs dentro del mismo JSON
-- Generar `test_prioritization-summary.md`
+- Generar `validation-report.md` usando `qa-test-prioritization-report/SKILL.md`
 
 ### Fase 5: Generación de Handoff
 - Crear JSON de handoff con matriz de riesgo y selección
 - Consolidar la priorización, la recomendación y los trade-offs dentro del mismo JSON
-- Generar `test_prioritization-summary.md`
+- Generar `validation-report.md` usando `qa-test-prioritization-report/SKILL.md`
 - Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 - Pasar a Orquestador o Test Generator (según fase de implementación)
 
@@ -86,7 +86,7 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 ```
 ./tests/Documentation/handoffs/{session_id}/
 ├── test_prioritization-to-orchestrator-attempt-{retry_count}-{timestamp}.json
-└── test_prioritization-summary.md
+└── validation-report.md
 ```
 
 ### Estructura Recomendada dentro del Handoff JSON
@@ -138,18 +138,11 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 }
 ```
 
-### Secciones Mínimas de `test_prioritization-summary.md`
+### Formato del Markdown de Resumen
 
-1. Cabecera con `Session ID`, `Agent`, fecha/timestamp y estado.
-2. Priorización ejecutiva.
-3. Métricas clave.
-4. Matriz de riesgo resumida.
-5. MVP, fases o secuencia de ejecución recomendada.
-6. Bloqueadores y workarounds.
-7. Recomendación final.
-8. Validación/checklist.
-9. Artefactos generados.
-10. Próximo paso y estado del handoff.
+El formato y las secciones obligatorias de `validation-report.md` se definen en:
+
+- `.github/skills/qa-test-prioritization-report/SKILL.md`
 
 ## Criterios de Finalización
 
@@ -160,7 +153,7 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 ✅ Orden de prioridad claro
 ✅ Trade-offs auditados
 ✅ Handoff validado contra `handoff-schema.json`
-✅ `test_prioritization-summary.md` generado
+✅ `validation-report.md` generado
 ✅ `./tests/Documentation/HANDOFF_Summary.md` actualizado
 
 ## Guardrails Operativos
@@ -189,11 +182,3 @@ Si recibes un handoff fragmentado insuficiente:
 - Solicita el handoff completo o un fragmento ampliado antes de priorizar
 - Explica en `delta_changes.rationale` qué información faltó
 
-## Skills Operativas Consolidadas
-
-- Skill: Risk Assessment and Scoring
-- Skill: Automation Feasibility Evaluation
-- Skill: ROI Calculation and Trade-off Analysis
-- Skill: Priority Matrix Construction
-- Skill: Auditable Justification and Documentation
-- Skill: Handoff Generation and Validation

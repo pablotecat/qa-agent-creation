@@ -1,0 +1,50 @@
+{
+  "session_id": "2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91",
+  "status_global": "completed_with_warnings",
+  "created_at": "2026-07-10T12:00:00Z",
+  "dispatches": [
+    {
+      "from_agent": "orchestrator",
+      "to_agent": "test_documentation",
+      "path": "./tests/Documentation/handoffs/2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91/orchestrator-to-test_documentation-attempt-0-20260710T120000Z.json",
+      "timestamp": "2026-07-10T12:00:00Z",
+      "validation_status": "warning",
+      "correlation_id": "2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91.orchestrator-to-test_documentation.0",
+      "retry_count": 0
+    },
+    {
+      "from_agent": "test_documentation",
+      "to_agent": "test_planner",
+      "path": "./tests/Documentation/handoffs/2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91/test_documentation-to-test_planner-attempt-0-20260710T120500Z.json",
+      "timestamp": "2026-07-10T12:05:00Z",
+      "validation_status": "warning",
+      "correlation_id": "2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91.test_documentation-to-test_planner.0",
+      "retry_count": 0
+    },
+    {
+      "from_agent": "test_planner",
+      "to_agent": "test_prioritization",
+      "path": "./tests/Documentation/handoffs/2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91/test_planner-to-test_prioritization-attempt-0-20260710T121000Z.json",
+      "timestamp": "2026-07-10T12:10:00Z",
+      "validation_status": "warning",
+      "correlation_id": "2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91.test_planner-to-test_prioritization.0",
+      "retry_count": 0
+    },
+    {
+      "from_agent": "test_prioritization",
+      "to_agent": "orchestrator",
+      "path": "./tests/Documentation/handoffs/2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91/test_prioritization-to-orchestrator-attempt-0-20260710T121500Z.json",
+      "timestamp": "2026-07-10T12:15:00Z",
+      "validation_status": "warning",
+      "correlation_id": "2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91.test_prioritization-to-orchestrator.0",
+      "retry_count": 0
+    }
+  ],
+  "pending_handoffs": [],
+  "notes": [
+    "La transicion queda persistida como dispatch operativo inicial.",
+    "La ejecucion especializada del agente objetivo no esta disponible en esta sesion de herramientas.",
+    "Se persistio la salida normalizada de documentation hacia planning para continuar el flujo.",
+    "Se persistio la secuencia planning -> prioritization -> orchestrator para cierre auditado."
+  ]
+}

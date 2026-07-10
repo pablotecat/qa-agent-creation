@@ -24,7 +24,7 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 
 ### Outputs
 - handoff JSON único con requisitos normalizados, partición por área, gaps, dependencias, fuentes y contratos API cuando apliquen
-- `test_documentation-summary.md` con resumen humano completo y legible
+- `test_documentation-analysis-report.md` usando el formato definido en `qa-test-documentation-report/SKILL.md`
 
 ## Non-goals
 
@@ -48,15 +48,17 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 
 ## Fases de Ejecución
 
-### Fase 1: Extracción de Requisitos
+### Fase 1: Extracción de Requisitos (Fase Crítica)
 - Leer especificación / documentación funcional
 - Identificar features, user stories, funcionalidades
 - Extraer criterios de aceptación explícitos e implícitos
 - Listar precondiciones y dependencias
+- No asumir que todos los requisitos están incluidos en la documentacón.
+- Repasar la documentación para asegurar que no se omite ningún requisito relevante. Si hay ambigüedad o falta de información, documentar como GAP y continuar.
 
 ### Fase 2: Normalización y Estructuración
 - Convertir criterios a una forma consistente y testeable
-- Usar `Given / When / Then` cuando ayude a la claridad, sin obligarte a generar archivos `.gherkin`
+- Usar `Given / When / Then` en el JSON de handoff
 - Asegurar legibilidad, cobertura semántica y trazabilidad a la fuente original
 
 ### Fase 3: Identificación de Gaps
@@ -72,7 +74,7 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 ### Fase 5: Generación de Handoff
 - Crear JSON de handoff siguiendo `HANDOFF_SPECIFICATION.md`
 - Incluir toda la información estructurada que el siguiente agente u Orquestador puedan necesitar
-- Generar `test_documentation-summary.md`
+- Generar `test_documentation-analysis-report.md` usando el formato definido en `qa-test-documentation-report/SKILL.md`
 - Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 - Pasar a Test Orchestrator para su validación
 
@@ -81,7 +83,7 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 ```
 ./tests/Documentation/handoffs/{session_id}/
 ├── test_documentation-to-test_planner-attempt-{retry_count}-{timestamp}.json
-└── test_documentation-summary.md
+└── test_documentation-analysis-report.md
 ```
 
 ### Estructura Recomendada dentro del Handoff JSON
@@ -136,17 +138,11 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 }
 ```
 
-### Secciones Mínimas de `test_documentation-summary.md`
+### Formato del Markdown de Resumen
 
-1. Cabecera con `Session ID`, `Agent`, fecha/timestamp y estado.
-2. Resumen ejecutivo.
-3. Métricas clave.
-4. Requisitos normalizados por área.
-5. Contratos API y fuentes principales.
-6. Gaps identificados y su impacto.
-7. Validación/checklist.
-8. Artefactos generados.
-9. Próximo paso y estado del handoff.
+El formato y las secciones obligatorias de `test_documentation-analysis-report.md` se definen en:
+
+- `.github/skills/qa-test-documentation-report/SKILL.md`
 
 ## Criterios de Finalización
 
@@ -156,7 +152,7 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 ✅ Dependencies mapeadas
 ✅ Trazabilidad a fuentes verificada
 ✅ Handoff validado por Orquestador
-✅ `test_documentation-summary.md` generado
+✅ `test_documentation-analysis-report.md` generado
 ✅ `./tests/Documentation/HANDOFF_Summary.md` actualizado con sección "Generado por: Test Documentation"
 
 ## Guardrails Operativos
@@ -177,11 +173,3 @@ Si otros agentes encuentran gaps que impacten el diseño:
 - Genera nuevo handoff siguiendo `handoff-schema.json` y `handoff-hooks-routing.md`
 - El control de retry policy y abort pertenece al Orquestador
 
-## Skills Operativas Consolidadas
-
-- Skill: Requirements Extraction
-- Skill: Requirements Normalization
-- Skill: Gap Identification and Classification
-- Skill: Area-based Partitioning
-- Skill: Dependency Mapping
-- Skill: Handoff Generation and Validation

@@ -24,7 +24,7 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 
 ### Outputs
 - handoff JSON único con suites, cobertura, precondiciones, trazabilidad y decisiones de diseño
-- `test_planner-summary.md` con resumen humano completo y legible
+- `test_planner-execution-summary.md` con resumen humano completo y legible, usando `qa-test-planner-report/SKILL.md`
 
 ## Non-goals
 
@@ -80,7 +80,7 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 - Crear JSON de handoff siguiendo `HANDOFF_SPECIFICATION.md`
 - Incluir `executive_summary` con complejidad de suites
 - Consolidar suites, cobertura, precondiciones y trazabilidad dentro del mismo JSON
-- Generar `test_planner-summary.md`
+- Generar `test_planner-execution-summary.md` usando `qa-test-planner-report/SKILL.md`
 - Actualizar `./tests/Documentation/HANDOFF_Summary.md`
 - Pasar Orquestador para validación
 
@@ -89,7 +89,7 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 ```
 ./tests/Documentation/handoffs/{session_id}/
 ├── test_planner-to-test_prioritization-attempt-{retry_count}-{timestamp}.json
-└── test_planner-summary.md
+└── test_planner-execution-summary.md
 ```
 
 ### Estructura Recomendada dentro del Handoff JSON
@@ -136,21 +136,11 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 }
 ```
 
-### Secciones Mínimas de `test_planner-summary.md`
+### Formato del Markdown de Resumen
 
-1. Cabecera con `Session ID`, `Agent`, fecha/timestamp y estado.
-2. Overview o resumen ejecutivo.
-3. Métricas clave.
-4. Suites diseñadas.
-5. Coverage analysis.
-6. Decisiones y supuestos.
-7. Precondiciones y orden de ejecución.
-8. Validación/checklist.
-9. Artefactos generados.
-10. Próximo paso y estado del handoff.
-  }
-}
-```
+El formato y las secciones obligatorias de `test_planner-execution-summary.md` se definen en:
+
+- `.github/skills/qa-test-planner-report/SKILL.md`
 
 ## Criterios de Finalización
 
@@ -160,7 +150,7 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 ✅ Trazabilidad estructural verificada
 ✅ Dependencies documentadas
 ✅ Handoff validado por Orquestador
-✅ `test_planner-summary.md` generado
+✅ `test_planner-execution-summary.md` generado
 ✅ `./tests/Documentation/HANDOFF_Summary.md` actualizado
 
 ## Guardrails Operativos
@@ -189,11 +179,3 @@ Si recibes un handoff fragmentado insuficiente:
 - Solicita el handoff completo o un fragmento ampliado antes de rediseñar cobertura
 - Explica en `delta_changes.rationale` qué información faltó
 
-## Skills Operativas Consolidadas
-
-- Skill: Requirements Analysis for Test Planning
-- Skill: Suite Design and Grouping
-- Skill: Coverage Modeling
-- Skill: Precondition Definition
-- Skill: Structural Traceability
-- Skill: Handoff Generation and Validation

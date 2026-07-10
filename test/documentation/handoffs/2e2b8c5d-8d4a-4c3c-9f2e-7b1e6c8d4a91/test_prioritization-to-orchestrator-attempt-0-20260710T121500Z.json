@@ -1,0 +1,82 @@
+{
+  "handoff": {
+    "metadata": {
+      "from_agent": "test_prioritization",
+      "to_agent": "orchestrator",
+      "session_id": "2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91",
+      "timestamp": "2026-07-10T12:15:00Z",
+      "retry_count": 0,
+      "correlation_id": "2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91.test_prioritization-to-orchestrator.0"
+    },
+    "context": {
+      "user_request_id": "prompt-to-agent.md",
+      "phase": "planning_layer",
+      "status": "completed"
+    },
+    "executive_summary": {
+      "state_snapshot": "Priorizacion completada con smoke, CRUD API/UI y regresion de riesgo ordenados por valor y costo de automatizacion.",
+      "critical_findings": [
+        "Smoke y API contract tests dan el retorno mas alto y deben ejecutarse primero.",
+        "XSS, autenticacion ausente y concurrencia en memoria siguen siendo riesgos criticos que no se resuelven solo con automatizacion.",
+        "DELETE y pruebas de concurrencia requieren mas aislamiento y deben ir despues de las rutas estables."
+      ],
+      "recommendation": "Cerrar la sesion como completed_with_warnings y documentar los riesgos manual-only junto con el backlog de automatizacion tierizado."
+    },
+    "artifacts_references": {
+      "path_pattern": "./tests/Documentation/handoffs/2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91/",
+      "summary_md": "./tests/Documentation/HANDOFF_Summary.md",
+      "raw_data": "./tests/Documentation/handoffs/2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91/test_planner-prioritization-report.md",
+      "version_hash": "pending"
+    },
+    "delta_changes": {
+      "added": [
+        "Matriz de riesgo",
+        "Seleccion de automatizacion por tier",
+        "Justificacion de prioridades",
+        "Recomendacion de ejecucion por smoke/functional/regression"
+      ],
+      "modified": [],
+      "removed": [],
+      "updated_by": "test_prioritization",
+      "rationale": "El cierre requiere una decision de valor tecnico/practico que deje rastreable por que ciertas areas quedan para automatizacion posterior o testing manual."
+    },
+    "validation_checklist": {
+      "status": "warning",
+      "checks": {
+        "risk_matrix_defined": true,
+        "automation_selection_defined": true,
+        "manual_only_items_identified": true,
+        "closure_recommendation_present": true
+      }
+    },
+    "next_agent_instructions": {
+      "must_validate": [
+        "Que smoke y contracts queden como primer bloque de ejecucion",
+        "Que los riesgos criticos esten explicitamente documentados",
+        "Que el estado global cierre sin handoffs pendientes"
+      ],
+      "can_skip": [
+        "Recalculo de riesgo",
+        "Rediseño de suites",
+        "Reextraccion de requisitos"
+      ],
+      "decision_points": [
+        "Estado global final de la sesion",
+        "Registro final de warnings",
+        "Marcado de handoffs completados"
+      ]
+    },
+    "feedback_hooks": {
+      "if_gaps_found": {
+        "escalate_to": "test_documentation"
+      },
+      "if_coverage_impossible": {
+        "escalate_to": "test_planner"
+      },
+      "if_conflict_detected": {
+        "escalate_to": "test_prioritization",
+        "conflict_resolution_strategy": "Rebalancear riesgo y costo sin perder la cobertura smoke y CRUD principal."
+      }
+    }
+  }
+}

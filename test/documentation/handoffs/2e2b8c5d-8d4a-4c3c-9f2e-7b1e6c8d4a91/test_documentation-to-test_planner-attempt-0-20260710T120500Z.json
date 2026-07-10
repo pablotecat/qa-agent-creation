@@ -1,0 +1,83 @@
+{
+  "handoff": {
+    "metadata": {
+      "from_agent": "test_documentation",
+      "to_agent": "test_planner",
+      "session_id": "2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91",
+      "timestamp": "2026-07-10T12:05:00Z",
+      "retry_count": 0,
+      "correlation_id": "2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91.test_documentation-to-test_planner.0"
+    },
+    "context": {
+      "user_request_id": "prompt-to-agent.md",
+      "phase": "planning_layer",
+      "status": "ready_for_handoff"
+    },
+    "executive_summary": {
+      "state_snapshot": "Requisitos QA extraidos para registro, listado, edicion, eliminacion, navegacion y API REST con gaps de seguridad y robustez priorizados.",
+      "critical_findings": [
+        "La app es stateless y de alcance reducido, por lo que conviene priorizar smoke, API contracts y CRUD happy-path primero.",
+        "Hay gaps relevantes de seguridad: XSS por interpolacion de datos en la tabla, ausencia de autenticacion y riesgos de carrera por almacenamiento en memoria.",
+        "Los endpoints soportan CRUD completo y la UI expone flujos de edicion y borrado en modal, lo que exige cobertura de integracion entre API y frontend."
+      ],
+      "recommendation": "Diseñar suites por area funcional con separacion de smoke, funcional y regresion, usando los gaps criticos como input de riesgo y criterio de cobertura priorizada."
+    },
+    "artifacts_references": {
+      "path_pattern": "./tests/Documentation/handoffs/2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91/",
+      "summary_md": "./tests/Documentation/HANDOFF_Summary.md",
+      "raw_data": "./tests/Documentation/handoffs/2e2b8c5d-8d4a-4c3c-9f2e-7b1e6c8d4a91/test_documentation-analysis-report.txt",
+      "version_hash": "pending"
+    },
+    "delta_changes": {
+      "added": [
+        "Mapa de areas funcionales",
+        "Lista de requisitos explicitos e inferidos",
+        "Inventario de gaps y dependencias",
+        "Recomendacion de cobertura smoke/funcional/regresion"
+      ],
+      "modified": [],
+      "removed": [],
+      "updated_by": "test_documentation",
+      "rationale": "El planner necesita la base normalizada y el contexto de riesgo para modelar suites y cobertura sin volver a extraer requisitos."
+    },
+    "validation_checklist": {
+      "status": "warning",
+      "checks": {
+        "requirements_extracted": true,
+        "functional_areas_partitioned": true,
+        "gaps_classified": true,
+        "traceability_context_present": true
+      }
+    },
+    "next_agent_instructions": {
+      "must_validate": [
+        "Cobertura de CRUD completo en API y UI",
+        "Asignacion de suites a areas funcionales",
+        "Precondiciones y dependencias de datos",
+        "Escenarios smoke minimamente viables"
+      ],
+      "can_skip": [
+        "Re-extraccion de requisitos",
+        "Priorizacion final",
+        "Criterios de automatizacion definitiva"
+      ],
+      "decision_points": [
+        "Cuantos escenarios por area son necesarios para cobertura funcional",
+        "Que gaps afectan el diseno de suites",
+        "Como organizar regresion por riesgo"
+      ]
+    },
+    "feedback_hooks": {
+      "if_gaps_found": {
+        "escalate_to": "test_documentation"
+      },
+      "if_coverage_impossible": {
+        "escalate_to": "test_planner"
+      },
+      "if_conflict_detected": {
+        "escalate_to": "test_documentation",
+        "conflict_resolution_strategy": "Recalificar los requisitos conflictivos y volver a normalizarlos antes de redefinir suites."
+      }
+    }
+  }
+}

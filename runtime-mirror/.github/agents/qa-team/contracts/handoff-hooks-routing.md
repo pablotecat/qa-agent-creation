@@ -24,7 +24,7 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 **Salida esperada del retry:**
 - Requisitos adicionales o clarificados
 - JSON consolidado actualizado
-- `test_documentation-summary.md` actualizado
+- `test_documentation-analysis-report.md` actualizado
 
 ---
 
@@ -38,7 +38,7 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 **Salida esperada del retry:**
 - JSON consolidado re-diseñado
 - Precondiciones clarificadas
-- `test_planner-summary.md` actualizado
+- `test_planner-execution-summary.md` actualizado
 
 ---
 
@@ -52,7 +52,7 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 **Salida esperada del retry:**
 - JSON consolidado re-evaluado
 - Selección de automatización justificada
-- `test_prioritization-summary.md` actualizado
+- `validation-report.md` actualizado
 
 ---
 
