@@ -81,6 +81,10 @@ Con feedback loops controlados y auditables según la matriz de escaladas.
 - `initial-prompt.md`: prompt base del sistema y reglas operativas.
 - `prompt-to-agent.md`: ejemplo de solicitud para ejecutar estrategia QA end-to-end.
 
+## Nota operativa
+
+- Los archivos de soporte en `agent-creation-files/` y los templates se **copian** al proyecto objetivo cuando corresponda; los originales se conservan en el paquete plantilla durante el bootstrap.
+
 ## Recomendaciones para contribuir
 
 - Mantener consistencia entre especificación, schema, ejemplos y templates.

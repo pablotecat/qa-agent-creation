@@ -72,7 +72,7 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - `doc/handoff-hooks-routing.md` - para entender escaladas
 
 ### Paso 2: Crear Test Documentation Agent
-- [ ] Copiar `agent-templates/documentation.agent.md` como base
+- [ ] Copiar `agent-templates/documentation.agent.md` como base (conservar el original)
 - [ ] Leer `doc/HANDOFF_SPECIFICATION.md` sección "Estructura Base JSON"
 - [ ] Implementar lógica de extracción de requisitos
 - [ ] Implementar normalización Gherkin
@@ -86,7 +86,7 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - `doc/QUICK_REFERENCE.md` - referencia rápida de estructura
 
 ### Paso 3: Crear Test Planner Agent
-- [ ] Copiar `agent-templates/planner.agent.md` como base
+- [ ] Copiar `agent-templates/planner.agent.md` como base (conservar el original)
 - [ ] Recibir y validar handoff de Documentation
 - [ ] Implementar lógica de diseño de suites
 - [ ] Implementar modelamiento de cobertura
@@ -100,7 +100,7 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - `doc/handoff-hooks-routing.md` - cómo escalar si gaps
 
 ### Paso 4: Crear Test Prioritization Agent
-- [ ] Copiar `agent-templates/prioritization.agent.md` como base
+- [ ] Copiar `agent-templates/prioritization.agent.md` como base (conservar el original)
 - [ ] Recibir y validar handoff de Planner
 - [ ] Implementar evaluación de riesgo
 - [ ] Implementar evaluación de automatización

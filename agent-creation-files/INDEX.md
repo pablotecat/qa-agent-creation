@@ -130,9 +130,9 @@ Generator (crea casos)
 | Especificación completa | doc/HANDOFF_SPECIFICATION.md | Validar mis handoffs |
 | Validar JSON | doc/handoff-schema.json | Automatizar en CI/CD |
 | Routing de escaladas | doc/handoff-hooks-routing.md | Manejar retroalimentación |
-| Implementar agente Doc | documentation.agent.md | Copiar template y personalizar |
-| Implementar agente Planner | planner.agent.md | Copiar template y personalizar |
-| Implementar agente Prior | prioritization.agent.md | Copiar template y personalizar |
+| Implementar agente Doc | documentation.agent.md | Copiar template (conservar el original) y personalizar |
+| Implementar agente Planner | planner.agent.md | Copiar template (conservar el original) y personalizar |
+| Implementar agente Prior | prioritization.agent.md | Copiar template (conservar el original) y personalizar |
 | Ver flujo real | examples/*.json | Comparar con mi implementación |
 | Verificar todo OK | IMPLEMENTATION_CHECKLIST.md | Comenzar testing |
 
@@ -174,19 +174,19 @@ Esperado: ✓ Todos los checks pasan
 4. [ ] Implementar validación de handoffs
 
 ### Fase 3: Test Documentation (6h)
-1. [ ] Copiar `documentation.agent.md`
+1. [ ] Copiar `documentation.agent.md` (conservar el original)
 2. [ ] Implementar extracción de requisitos
 3. [ ] Implementar generación de handoff
 4. [ ] Validar contra schema
 
 ### Fase 4: Test Planner (6h)
-1. [ ] Copiar `planner.agent.md`
+1. [ ] Copiar `planner.agent.md` (conservar el original)
 2. [ ] Implementar diseño de suites
 3. [ ] Implementar modelamiento de cobertura
 4. [ ] Implementar manejo de escaladas
 
 ### Fase 5: Test Prioritization (6h)
-1. [ ] Copiar `prioritization.agent.md`
+1. [ ] Copiar `prioritization.agent.md` (conservar el original)
 2. [ ] Implementar evaluación de riesgo
 3. [ ] Implementar selección de automatización
 4. [ ] Implementar generación de handoff

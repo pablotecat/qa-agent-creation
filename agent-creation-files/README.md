@@ -70,7 +70,7 @@ Template completo para Test Documentation Agent.
 - Skills consolidadas
 
 **Instrucciones de uso:**
-1. Copiar como base para crear `.agent.md` real
+1. Copiar como base para crear `.agent.md` real (conservar el template original)
 2. Reemplazar secciones placeholder
 3. Añadir lógica específica de skills
 4. Validar que outputs match handoff schema

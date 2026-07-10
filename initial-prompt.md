@@ -25,9 +25,9 @@ Implementar agentes para un equipo de QA en modo Orchestra. Solo el Orquestador 
 	- `.github/prompts/prompt-to-agent.md`
 - Ruta canonica de persistencia de handoffs: `./tests/Documentation/handoffs/{session_id}/`.
 
-# Reubicacion obligatoria de archivos runtime
+# Copia obligatoria de archivos runtime
 
-Despues de generar los agentes en `.github/agents/`, mover SOLO estos archivos al proyecto objetivo.
+Despues de generar los agentes en `.github/agents/`, copiar SOLO estos archivos al proyecto objetivo.
 
 Destino recomendado para soporte runtime: `.github/agents/qa-team/docs/`
 
@@ -40,9 +40,9 @@ Destino recomendado para soporte runtime: `.github/agents/qa-team/docs/`
 
 Estos archivos SI son necesarios para el funcionamiento posterior de los agentes.
 
-# Archivos de bootstrap (NO mover al proyecto final)
+# Archivos de bootstrap (NO copiar al proyecto final)
 
-No mover estos archivos porque son de un solo uso durante creacion/scaffolding:
+No copiar estos archivos porque son de un solo uso durante creacion/scaffolding:
 
 - `./initial-prompt.md`
 - `./README.md`
@@ -52,7 +52,7 @@ No mover estos archivos porque son de un solo uso durante creacion/scaffolding:
 - `./agent-creation-files/agent-templates/*`
 - `./agent-creation-files/examples/*`
 
-El objetivo es que, una vez movidos los archivos runtime, la carpeta plantilla pueda eliminarse sin romper el sistema de agentes.
+El objetivo es que, una vez copiados los archivos runtime, la carpeta plantilla pueda eliminarse sin romper el sistema de agentes.
 
 # Fuente de verdad y orden de lectura obligatorio
 
@@ -65,7 +65,7 @@ Antes de crear o modificar cualquier agente, DEBE leerse y aplicarse este orden:
 5. `./agent-creation-files/IMPLEMENTATION_CHECKLIST.md` (gates de implementacion y validacion)
 6. `./agent-creation-files/doc/QUICK_REFERENCE.md` (referencia rapida y checklist pre-handoff)
 
-Despues de mover los archivos runtime, para operacion normal de los agentes usar como fuente de verdad:
+Despues de copiar los archivos runtime, para operacion normal de los agentes usar como fuente de verdad:
 
 1. `.github/agents/qa-team/docs/orchestration-config.json`
 2. `.github/agents/qa-team/docs/handoff-schema.json`
@@ -94,7 +94,7 @@ Antes de eliminar la carpeta plantilla, verificar:
 
 1. Existen en `.github/agents/qa-team/docs/` los 4 archivos runtime (`HANDOFF_SPECIFICATION.md`, `handoff-schema.json`, `handoff-hooks-routing.md`, `QUICK_REFERENCE.md`).
 2. Existe `orchestration-config.json` en `.github/agents/qa-team/docs/`.
-3. Existe `./prompt-to-agent.md` en el root del proyecto objetivo.
+3. Existe `.github/prompts/prompt-to-agent.md`.
 4. Los agentes generados referencian rutas runtime en `.github/agents/qa-team/docs/` y no rutas `./agent-creation-files/...`.
 5. El Orquestador puede validar handoffs contra `handoff-schema.json` y aplicar routing de escaladas.
 6. Se puede eliminar la carpeta plantilla sin romper validacion ni trazabilidad de handoffs. La carpeta la eliminará el usuario manualmente.
@@ -166,24 +166,7 @@ Paso 5: Validacion End-to-End (sólo ejecutar tras confirmación humana)
 3. Verificar retry policy y ausencia de bucles
 4. Verificar que `HANDOFF_Summary.md` y `escalation_log.md` reflejan trazabilidad completa
 
-# Templates obligatorios para agentes activos
 
-Los templates base son obligatorios y deben usarse sin omitir su estructura minima:
-
-- `./agent-creation-files/agent-templates/documentation.agent.md`
-- `./agent-creation-files/agent-templates/planner.agent.md`
-- `./agent-creation-files/agent-templates/prioritization.agent.md`
-
-Cada archivo `.agent.md` debe incluir como minimo:
-
-- frontmatter estandar de VS Code (`name`, `description`, `tools`, `user-invocable`; opcionales `argument-hint` y `agents` para el orquestador)
-- NO incluir en frontmatter: `role`, `inputs`, `outputs`, `non_goals`, `owned_decisions`, `applyTo`
-- mover `role`, `inputs`, `outputs`, `non_goals` y `owned_decisions` al body markdown en secciones dedicadas
-- objetivo
-- pasos/fases
-- formato minimo de salida
-- criterios de finalizacion
-- seccion de skills operativas consolidadas
 
 # Agentes del Test Team QA
 
