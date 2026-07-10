@@ -1,21 +1,28 @@
-# Especificación de Handoff Híbrido para QA
+# Especificación de Handoff para QA
 
-## Descripción General
+## Objetivo
 
-El formato de handoff híbrido fue diseñado para transmitir información eficientemente entre agentes de la capa de Planificación, considerando:
+Este contrato define el único formato admitido para transiciones especializadas entre agentes QA.
 
-- **Eficiencia de tokens:** Referencias a archivos + delta changes (no copias completas)
-- **Trazabilidad auditada:** Cada handoff registro quién, qué, cuándo cambió
-- **Evitar bucles:** Feedback hooks explícitos previenen retroalimentación circular
-- **Retroalimentación controlada:** Cada agente sabe a qué agente volver en caso de problemas
+- Cada transición especializada produce exactamente un archivo JSON de handoff.
+- Cada agente trabajador produce exactamente un archivo Markdown de resumen humano.
+- El Orquestador puede enrutar handoffs completos o generar handoffs fragmentados derivados, pero nunca muta el payload de un handoff ya recibido.
+- El contrato base es obligatorio y los bloques enriquecidos extra están permitidos.
+
+## Principios
+
+- **JSON único por transición:** toda la información estructurada que el siguiente agente necesite debe vivir en el handoff JSON, aunque el payload sea extenso.
+- **Markdown único por agente:** el resumen humano de cada agente se persiste como `{agent_name}-summary.md`.
+- **Persistencia previa al routing:** ninguna transición es válida hasta que el Orquestador haya persistido el JSON del handoff.
+- **Fragmentación trazable:** si el Orquestador envía solo una parte del contexto, debe crear un nuevo JSON derivado con metadata propia y aviso explícito de contexto parcial.
+- **Sin artefactos redundantes:** este estándar excluye `README.md` dentro de `handoffs/`, `execution-summary.json` por agente y `validation-report.md` por agente.
 
 ## Ownership de Contenido vs Persistencia
 
-- **Agente productor:** genera el contenido del handoff y conserva autoria en `metadata.from_agent` y `delta_changes.updated_by`.
-- **Orquestador QA:** persiste todos los handoffs recibidos en almacenamiento canonico antes de enrutar.
-- **Despacho operativo del Orquestador:** el enrutamiento hacia agentes subordinados se registra en `manifest.json` y no se modela como handoff especializado completo.
-- **Regla de no mutacion:** el Orquestador no altera el payload del handoff (incluye `from_agent`, `to_agent`, `updated_by`, `retry_count`).
-- **Regla de transicion efectiva:** una transicion no se considera valida hasta que el handoff quede persistido.
+- **Agente productor:** crea el contenido del handoff y conserva autoría en `metadata.from_agent` y `delta_changes.updated_by`.
+- **Orquestador QA:** valida, persiste y enruta handoffs; también puede crear handoffs fragmentados derivados cuando el siguiente agente no necesita el payload completo.
+- **Regla de no mutación:** el Orquestador no altera un handoff recibido. Si necesita fragmentarlo, crea un handoff nuevo con su propia `metadata`, nueva `correlation_id` y referencia explícita al handoff origen.
+- **Regla de completitud:** todo agente receptor debe pedir el handoff completo o contexto adicional antes de inferir información ausente de un fragmento.
 
 ## Estructura Base JSON
 
@@ -28,7 +35,8 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
       "session_id": "uuid",
       "timestamp": "ISO8601",
       "retry_count": 0,
-      "correlation_id": "{session_id}.{from_agent}-to-{to_agent}.{retry_count}"
+      "correlation_id": "{session_id}.{from_agent}-to-{to_agent}.{retry_count}",
+      "handoff_kind": "full|fragment"
     },
     "context": {
       "user_request_id": "solicitud_qa original",
@@ -41,16 +49,16 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
       "recommendation": "qué debe enfatizar el siguiente agente"
     },
     "artifacts_references": {
-      "path_pattern": "ruta donde buscar los archivos generados",
-      "summary_md": "ruta al resumen .md con cambios",
-      "raw_data": "ruta a archivos especializados",
-      "version_hash": "checksum para validar integridad"
+      "path_pattern": "ruta base de la sesión",
+      "summary_md": "ruta a {agent_name}-summary.md",
+      "raw_data": ["rutas o identificadores de los artefactos fuente usados"],
+      "version_hash": "checksum o identificador de integridad"
     },
     "delta_changes": {
       "added": ["items nuevos"],
       "modified": ["items actualizados"],
       "removed": ["items eliminados"],
-      "updated_by": "nombre del agente",
+      "updated_by": "nombre del agente productor",
       "rationale": "breve explicación de cambios"
     },
     "validation_checklist": {
@@ -73,120 +81,121 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
         "escalate_to": "agent_name",
         "conflict_resolution_strategy": "texto de estrategia"
       }
+    },
+    "fragment_context": {
+      "source_handoff_correlation_id": "correlation_id del handoff origen",
+      "source_handoff_path": "ruta del handoff origen persistido",
+      "included_sections": ["secciones incluidas en el fragmento"],
+      "omitted_sections": ["secciones omitidas"],
+      "consumer_notice": "Este handoff contiene información fragmentada; solicita el contexto completo antes de inferir datos ausentes.",
+      "request_full_context_when_needed": true
     }
   }
 }
 ```
 
+## Reglas de Artefactos
+
+### Agentes trabajadores
+
+Cada agente trabajador debe producir exactamente estos artefactos por transición:
+
+1. `{from}-to-{to}-attempt-{retry_count}-{timestamp}.json`
+2. `{agent_name}-summary.md`
+
+El JSON puede incluir bloques enriquecidos extra con requisitos, gaps, suites, matrices o cualquier otra estructura útil para el siguiente agente. Esa información ya no debe repartirse obligatoriamente en archivos auxiliares separados.
+
+### Orquestador
+
+El Orquestador mantiene estos artefactos de sesión:
+
+1. `manifest.json`
+2. `retry_checkpoint.json`
+3. `HANDOFF_Summary.md`
+4. `ORCHESTRATION_FINAL_SUMMARY.md`
+
+`HANDOFF_Summary.md` es un log transversal de transiciones. `ORCHESTRATION_FINAL_SUMMARY.md` es el resumen final consolidado de la orquestación.
+
 ## Flujo de Información
 
 ### 1. Orquestador → Test Documentation
-- **Entrada:** `solicitud_qa` con requisitos generales
-- **Salida:** Handoff con lista de requisitos extraídos, gaps identificados, particionado por área
-- **Resumen:** `./tests/Documentation/HANDOFF_Summary.md`
+- **Entrada:** `solicitud_qa` y contexto de sesión.
+- **Salida esperada:** JSON consolidado con requisitos, fuentes, gaps y demás estructura útil para `test_planner`.
+- **Resumen:** `test_documentation-summary.md`.
 
 ### 2. Test Documentation → Test Planner
-- **Entrada:** Requisitos normalizados en Gherkin
-- **Salida:** Handoff con suites diseñadas, cobertura modelada, precondiciones definidas
-- **Resumen:** `./tests/Documentation/HANDOFF_Summary.md` (actualizado)
-- **Validación:** Planner verifica que los gaps no impidan diseño de cobertura
-- **Persistencia:** Orquestador guarda el handoff en `./tests/Documentation/handoffs/{session_id}/` antes del routing
+- **Entrada:** handoff completo o fragmentado derivado del JSON de Documentation.
+- **Salida esperada:** JSON consolidado con suites, cobertura, precondiciones y trazabilidad útil para `test_prioritization`.
+- **Resumen:** `test_planner-summary.md`.
 
 ### 3. Test Planner → Test Prioritization
-- **Entrada:** Suites diseñadas con escenarios modelados
-- **Salida:** Handoff con matriz de riesgo, selección de automatización, justificación
-- **Resumen:** `./tests/Documentation/HANDOFF_Summary.md` (actualizado)
-- **Validación:** Prioritization evalúa factibilidad de cobertura
-- **Persistencia:** Orquestador guarda el handoff en `./tests/Documentation/handoffs/{session_id}/` antes del routing
+- **Entrada:** handoff completo o fragmentado derivado del JSON de Planner.
+- **Salida esperada:** JSON consolidado con priorización, riesgo, decisiones de automatización y recomendación final hacia Orquestador.
+- **Resumen:** `test_prioritization-summary.md`.
 
-### Retroalimentación (Feedback Loops)
-- Si **Planner** encuentra gaps que bloquean diseño → escalate a **Test Documentation**
-- Si **Prioritization** identifica cobertura imposible → escalate a **Test Planner**
-- Si hay conflictos irresolubles → `if_conflict_detected.escalate_to` debe apuntar a un agente destino explicito
-- Cada escalada tambien requiere persistencia previa por el Orquestador.
+### Retroalimentación
+- Si **Planner** encuentra gaps que bloquean diseño, escala según `feedback_hooks`.
+- Si **Prioritization** identifica cobertura imposible, escala según `feedback_hooks`.
+- Si un agente recibe un fragmento insuficiente, debe pedir ampliación antes de inferir información faltante.
+- Toda escalada también requiere persistencia previa por el Orquestador.
+
+## Resúmenes Markdown
+
+Cada agente trabajador genera su propio `{agent_name}-summary.md`. Como mínimo, ese resumen debe incluir:
+
+1. Cabecera con `Session ID`, `Agent`, fecha/timestamp y estado.
+2. Resumen ejecutivo u overview.
+3. Métricas clave.
+4. Hallazgos, decisiones o bloqueadores que condicionan al siguiente agente.
+5. Validación o checklist de cierre.
+6. Artefactos generados.
+7. Próximo paso o estado del handoff.
+
+Secciones específicas por agente:
+
+- **Test Documentation:** requisitos por área, contratos API y gaps.
+- **Test Planner:** suites diseñadas, cobertura, precondiciones y orden de ejecución.
+- **Test Prioritization:** matriz de riesgo resumida, MVP/fases, workarounds y recomendación de ejecución.
 
 ## Guardrails contra Bucles Infinitos
 
-1. **Cada feedback_hook especifica destino y estrategia**
-  - `if_gaps_found.escalate_to: test_documentation`
-  - Esto previene que agentes retroalimenten arbitrariamente
+1. **Cada feedback hook especifica destino y estrategia.**
+2. **Retry policy del Orquestador:** máximo 3 intentos por `correlation_id`.
+3. **Validation checklist:** `failed` bloquea routing; `warning` permite routing con trazabilidad explícita.
+4. **Fragmentación responsable:** un handoff fragmentado debe declarar qué omite y obligar al receptor a pedir ampliación si la necesita.
 
-2. **Retry policy en Orquestador**
-   - Max 3 intentos antes de abortar con `status_global=blocked`
-  - Al agotar intentos, el ultimo handoff debe quedar con `context.status=failed`
-   - Cada intento registra error en log
+## Estructura de Directorios Esperada
 
-3. **Validation checklist prevé conflictos**
-   - Antes de handoff, el agente valida sus salidas
-   - Si hay warning/failed, incluye en executive_summary
-
-## Resumen .md Trazable
-
-Cada agente actualiza centralmente `./tests/Documentation/HANDOFF_Summary.md`:
-
-```markdown
-## Generado por: [Agent Name]
-**Timestamp:** [ISO8601]
-**Updated by:** [agent_name]
-**Session ID:** [uuid]
-
-### Cambios Realizados
-- ✅ [logro 1]
-- ✅ [logro 2]
-- ⚠️ [warning con contexto]
-
-### Decisiones Tomadas
-- [decisión y justificación]
-
-### Problemas/Conflictos Detectados
-- [problema y estrategia de resolución]
+```text
+./tests/Documentation/
+├── HANDOFF_Summary.md
+├── ORCHESTRATION_FINAL_SUMMARY.md
+├── escalation_log.md
+└── handoffs/
+    └── {session_id}/
+        ├── manifest.json
+        ├── retry_checkpoint.json
+        ├── {from}-to-{to}-attempt-{retry_count}-{timestamp}.json
+        ├── test_documentation-summary.md
+        ├── test_planner-summary.md
+        └── test_prioritization-summary.md
 ```
 
 ## Criterios de Éxito
 
 | Criterio | Descripción |
 |----------|-------------|
-| **Trazabilidad** | Cada cambio tiene `updated_by`, `timestamp`, `rationale` |
-| **Eficiencia** | No hay duplicación de contenido entre handoffs |
-| **No-bucles** | Feedback hooks explícitos; max 3 reintentos |
-| **Claridad** | Executive summary permite decidir sin leer todos los files |
-| **Auditabilidad** | Logs de error centralizados en caso de fallos |
+| **Trazabilidad** | Cada handoff conserva autoría, `timestamp`, `correlation_id` y `rationale` |
+| **Eficiencia** | La información estructurada vive en un JSON único por transición |
+| **Legibilidad** | Cada agente entrega un Markdown único y legible |
+| **No-bucles** | Feedback hooks explícitos y máximo 3 reintentos |
+| **Auditabilidad** | Orquestador registra persistencia, routing y escaladas |
 
-## Estructura de Directorios Esperada
-
-```
-./tests/Documentation/
-├── HANDOFF_Summary.md              # Resumen trazable (actualizado por cada agente)
-├── requirements/
-│   ├── extracted/                  # Output de Test Documentation
-│   │   ├── by_area/
-│   │   │   ├── auth.gherkin
-│   │   │   ├── registration.gherkin
-│   │   │   └── user_management.gherkin
-│   │   ├── dependencies.json
-│   │   └── gaps_identified.json
-├── test_planning/
-│   ├── suites/                     # Output de Test Planner
-│   │   ├── auth_suite.json
-│   │   ├── registration_suite.json
-│   │   └── user_management_suite.json
-│   └── coverage_model.json
-├── prioritization/
-│   ├── risk_matrix.json            # Output de Test Prioritization
-│   ├── automation_selection.json
-│   └── justification.md
-├── handoffs/
-│   └── {session_id}/
-│       ├── {from}-to-{to}-attempt-{retry_count}-{timestamp}.json
-│       ├── manifest.json
-│       └── retry_checkpoint.json
-```
-
-## Metaartefactos de Orquestacion
+## Metaartefactos de Orquestación
 
 ### manifest.json
-- Indice oficial de handoffs persistidos por sesion.
-- Debe registrar al menos: `from_agent`, `to_agent`, `path`, `timestamp`, `validation_status`, `correlation_id`, `retry_count`.
+- Índice oficial de handoffs persistidos por sesión.
+- Debe registrar al menos: `from_agent`, `to_agent`, `path`, `timestamp`, `validation_status`, `correlation_id`, `retry_count`, `handoff_kind`.
 
 ### retry_checkpoint.json
 - Estado operativo de reintentos por `correlation_id`.

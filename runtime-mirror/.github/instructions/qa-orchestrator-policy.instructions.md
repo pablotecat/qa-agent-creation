@@ -10,3 +10,5 @@ applyTo: ".github/agents/qa-orchestrator.agent.md"
 - The orchestrator must load runtime contracts from `.github/agents/qa-team/contracts/`.
 - Mandatory runtime loads: `handoff-schema.json` and `orchestration-config.json`.
 - Entry request should come from `.github/prompts/prompt-to-agent.md` unless user provides explicit override.
+- The orchestrator may create derived fragmented handoffs, but it must never mutate a previously received specialized handoff.
+- The orchestrator must generate `ORCHESTRATION_FINAL_SUMMARY.md` as the final consolidated summary; `README.md` is not an acceptable final orchestration summary.

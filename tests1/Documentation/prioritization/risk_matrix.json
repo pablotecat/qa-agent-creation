@@ -1,0 +1,31 @@
+{
+  "test_areas": [
+    {
+      "area": "Registration Form Submission",
+      "scenarios": [
+        {"id": "RF-001", "description": "Valid form submission", "risk": "high", "priority": 1, "impact": "core_function"},
+        {"id": "RF-002", "description": "Email validation", "risk": "high", "priority": 1, "impact": "data_integrity"},
+        {"id": "RF-003", "description": "Phone format validation", "risk": "medium", "priority": 2, "impact": "data_quality"},
+        {"id": "RF-004", "description": "Name field required", "risk": "high", "priority": 1, "impact": "core_function"},
+        {"id": "RF-005", "description": "Empty form submission", "risk": "medium", "priority": 2, "impact": "error_handling"}
+      ]
+    },
+    {
+      "area": "Users Listing Display",
+      "scenarios": [
+        {"id": "UL-001", "description": "Display all users", "risk": "high", "priority": 1, "impact": "core_function"},
+        {"id": "UL-002", "description": "Table pagination/scroll", "risk": "low", "priority": 3, "impact": "ux"},
+        {"id": "UL-003", "description": "Empty users list", "risk": "medium", "priority": 2, "impact": "edge_case"}
+      ]
+    },
+    {
+      "area": "API Endpoints",
+      "scenarios": [
+        {"id": "API-001", "description": "POST /register success", "risk": "high", "priority": 1, "impact": "core_function"},
+        {"id": "API-002", "description": "GET /users list", "risk": "high", "priority": 1, "impact": "core_function"},
+        {"id": "API-003", "description": "Invalid request payload", "risk": "medium", "priority": 2, "impact": "error_handling"},
+        {"id": "API-004", "description": "Duplicate email registration", "risk": "high", "priority": 1, "impact": "data_integrity"}
+      ]
+    }
+  ]
+}

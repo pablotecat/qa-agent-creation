@@ -83,6 +83,7 @@ Los siguientes artefactos son de scaffolding y referencia:
 - El Orchestrator usa pre-resolucion de prerequisitos por defecto.
 - Ningun handoff se considera enrutado hasta que el Orchestrator lo haya persistido en la ruta canonica.
 - El Orchestrator NO debe mutar autoria de artefactos especializados (`from_agent`, `to_agent`, `updated_by`).
+- El Orchestrator puede generar handoffs fragmentados solo como nuevos JSON derivados, nunca mutando un handoff ya persistido.
 - Nunca ejecutar procesos manuales para suplir fallo de un agente especializado.
 - El Orchestrator DEBE cargar en runtime `handoff-schema.json` y `orchestration-config.json`.
 
@@ -103,6 +104,9 @@ Reglas adicionales:
 
 - `delta_changes.updated_by` DEBE ser el agente productor.
 - El Orchestrator persiste todos los handoffs recibidos pero NO muta el payload.
+- Cada transición especializada produce exactamente un JSON de handoff y exactamente un resumen Markdown `{agent_name}-summary.md`.
+- No forman parte del estándar `README.md` dentro de `handoffs/`, `execution-summary.json` por agente ni `validation-report.md` por agente.
+- Si `metadata.handoff_kind=fragment`, el handoff DEBE incluir `fragment_context` y avisar que el agente receptor debe pedir el contexto completo antes de inferir datos ausentes.
 - `retry_count` maximo: 3 intentos por `correlation_id`.
 - Si se agotan intentos, el Orchestrator aborta con `status_global=blocked`.
 
@@ -121,31 +125,38 @@ Paso 1: Crear QA Orchestrator
 Paso 2: Crear Test Documentation Agent
 
 1. Basarse en `runtime-mirror/.github/agents/qa-team/test-documentation.agent.md`
-2. Extraer y normalizar requisitos en Gherkin
-3. Identificar gaps y dependencias
+2. Extraer y normalizar requisitos en un handoff JSON consolidado
+3. Identificar gaps, dependencias y contratos necesarios dentro del mismo JSON
 4. Validar handoff contra schema
-5. Actualizar `./tests/Documentation/HANDOFF_Summary.md`
-6. `user-invocable: false`
+5. Generar `test_documentation-summary.md`
+6. Actualizar `./tests/Documentation/HANDOFF_Summary.md`
+7. `user-invocable: false`
 
 Paso 3: Crear Test Planner Agent
 
 1. Basarse en `runtime-mirror/.github/agents/qa-team/test-planner.agent.md`
 2. Recibir handoff de Documentation
-3. Modelar cobertura y disenar suites
-4. Definir precondiciones y trazabilidad
-5. Validar handoff contra schema
-6. Actualizar `./tests/Documentation/HANDOFF_Summary.md`
-7. `user-invocable: false`
+3. Consumir JSON consolidado completo o fragmentado
+4. Pedir contexto adicional si un fragmento no basta
+5. Modelar cobertura y disenar suites
+6. Definir precondiciones y trazabilidad dentro del mismo JSON
+7. Generar `test_planner-summary.md`
+8. Validar handoff contra schema
+9. Actualizar `./tests/Documentation/HANDOFF_Summary.md`
+10. `user-invocable: false`
 
 Paso 4: Crear Test Prioritization Agent
 
 1. Basarse en `runtime-mirror/.github/agents/qa-team/test-prioritization.agent.md`
 2. Recibir handoff de Planner
-3. Evaluar riesgo y factibilidad de automatizacion
-4. Balancear cobertura vs esfuerzo
-5. Validar handoff contra schema
-6. Actualizar `./tests/Documentation/HANDOFF_Summary.md`
-7. `user-invocable: false`
+3. Consumir JSON consolidado completo o fragmentado
+4. Pedir contexto adicional si un fragmento no basta
+5. Evaluar riesgo y factibilidad de automatizacion
+6. Balancear cobertura vs esfuerzo dentro del mismo JSON
+7. Generar `test_prioritization-summary.md`
+8. Validar handoff contra schema
+9. Actualizar `./tests/Documentation/HANDOFF_Summary.md`
+10. `user-invocable: false`
 
 Paso 5: Validacion end-to-end (solo tras confirmacion humana)
 

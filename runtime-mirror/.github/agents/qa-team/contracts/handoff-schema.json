@@ -2,10 +2,12 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Handoff Schema for QA Agents",
   "type": "object",
+  "additionalProperties": false,
   "required": ["handoff"],
   "properties": {
     "handoff": {
       "type": "object",
+      "additionalProperties": true,
       "required": [
         "metadata",
         "context",
@@ -19,13 +21,15 @@
       "properties": {
         "metadata": {
           "type": "object",
+          "additionalProperties": true,
           "required": [
             "from_agent",
             "to_agent",
             "session_id",
             "timestamp",
             "retry_count",
-            "correlation_id"
+            "correlation_id",
+            "handoff_kind"
           ],
           "properties": {
             "from_agent": {
@@ -52,11 +56,16 @@
             "correlation_id": {
               "type": "string",
               "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\.[a-z][a-z0-9_]{2,30}-to-[a-z][a-z0-9_]{2,30}\\.[0-3]$"
+            },
+            "handoff_kind": {
+              "type": "string",
+              "enum": ["full", "fragment"]
             }
           }
         },
         "context": {
           "type": "object",
+          "additionalProperties": true,
           "required": ["user_request_id", "phase", "status"],
           "properties": {
             "user_request_id": {
@@ -74,6 +83,7 @@
         },
         "executive_summary": {
           "type": "object",
+          "additionalProperties": true,
           "required": ["state_snapshot", "critical_findings", "recommendation"],
           "properties": {
             "state_snapshot": {
@@ -92,6 +102,7 @@
         },
         "artifacts_references": {
           "type": "object",
+          "additionalProperties": true,
           "required": ["path_pattern", "summary_md", "raw_data", "version_hash"],
           "properties": {
             "path_pattern": {
@@ -101,7 +112,17 @@
               "type": "string"
             },
             "raw_data": {
-              "type": "string"
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
             },
             "version_hash": {
               "type": "string"
@@ -110,6 +131,7 @@
         },
         "delta_changes": {
           "type": "object",
+          "additionalProperties": true,
           "required": ["added", "modified", "removed", "updated_by", "rationale"],
           "properties": {
             "added": {
@@ -141,6 +163,7 @@
         },
         "validation_checklist": {
           "type": "object",
+          "additionalProperties": true,
           "required": ["status", "checks"],
           "properties": {
             "status": {
@@ -157,6 +180,7 @@
         },
         "next_agent_instructions": {
           "type": "object",
+          "additionalProperties": true,
           "required": ["must_validate", "can_skip", "decision_points"],
           "properties": {
             "must_validate": {
@@ -181,10 +205,12 @@
         },
         "feedback_hooks": {
           "type": "object",
+          "additionalProperties": true,
           "required": ["if_gaps_found", "if_coverage_impossible", "if_conflict_detected"],
           "properties": {
             "if_gaps_found": {
               "type": "object",
+              "additionalProperties": true,
               "required": ["escalate_to"],
               "properties": {
                 "escalate_to": {
@@ -195,6 +221,7 @@
             },
             "if_coverage_impossible": {
               "type": "object",
+              "additionalProperties": true,
               "required": ["escalate_to"],
               "properties": {
                 "escalate_to": {
@@ -205,6 +232,7 @@
             },
             "if_conflict_detected": {
               "type": "object",
+              "additionalProperties": true,
               "required": ["escalate_to", "conflict_resolution_strategy"],
               "properties": {
                 "escalate_to": {
@@ -217,8 +245,65 @@
               }
             }
           }
+        },
+        "fragment_context": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "source_handoff_correlation_id",
+            "source_handoff_path",
+            "included_sections",
+            "omitted_sections",
+            "consumer_notice",
+            "request_full_context_when_needed"
+          ],
+          "properties": {
+            "source_handoff_correlation_id": {
+              "type": "string"
+            },
+            "source_handoff_path": {
+              "type": "string"
+            },
+            "included_sections": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "omitted_sections": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "consumer_notice": {
+              "type": "string"
+            },
+            "request_full_context_when_needed": {
+              "type": "boolean"
+            }
+          }
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "metadata": {
+                "properties": {
+                  "handoff_kind": {
+                    "const": "fragment"
+                  }
+                },
+                "required": ["handoff_kind"]
+              }
+            }
+          },
+          "then": {
+            "required": ["fragment_context"]
+          }
+        }
+      ]
     }
   }
 }

@@ -1,0 +1,81 @@
+{
+  "handoff": {
+    "metadata": {
+      "from_agent": "test_documentation",
+      "to_agent": "test_planner",
+      "session_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c",
+      "timestamp": "2026-07-10T12:00:00Z",
+      "retry_count": 0,
+      "correlation_id": "6b7675e8-c8af-4f2c-87bf-ef26b58f0a7c.test_documentation-to-test_planner.0"
+    },
+    "context": {
+      "user_request_id": "prompt-to-agent-full-pipeline",
+      "phase": "planning_layer",
+      "status": "ready_for_handoff"
+    },
+    "executive_summary": {
+      "state_snapshot": "Requisitos extraidos para registration, users_listing y api; dependencias y gaps documentados.",
+      "critical_findings": [
+        "Hay tests API de validacion y delete actualmente omitidos en la suite.",
+        "La documentacion de requisitos permite pasar a diseno de suites."
+      ],
+      "recommendation": "Proceder a test_planner para disenar suites y modelo de cobertura."
+    },
+    "artifacts_references": {
+      "path_pattern": "tests/Documentation/requirements/extracted/**/*",
+      "summary_md": "tests/Documentation/HANDOFF_Summary.md",
+      "raw_data": "tests/Documentation/requirements/extracted",
+      "version_hash": "v1-doc"
+    },
+    "delta_changes": {
+      "added": [
+        "tests/Documentation/requirements/extracted/by_area/registration.gherkin",
+        "tests/Documentation/requirements/extracted/by_area/users_listing.gherkin",
+        "tests/Documentation/requirements/extracted/by_area/api.gherkin",
+        "tests/Documentation/requirements/extracted/dependencies.json",
+        "tests/Documentation/requirements/extracted/gaps_identified.json",
+        "tests/Documentation/requirements/extracted/sources.json",
+        "tests/Documentation/HANDOFF_Summary.md"
+      ],
+      "modified": [],
+      "removed": [],
+      "updated_by": "test_documentation",
+      "rationale": "Baseline de requisitos para permitir la planificacion de pruebas."
+    },
+    "validation_checklist": {
+      "status": "passed",
+      "checks": {
+        "schema_blocks_complete": true,
+        "gherkin_created": true,
+        "gaps_documented": true,
+        "dependencies_mapped": true,
+        "sources_traced": true
+      }
+    },
+    "next_agent_instructions": {
+      "must_validate": [
+        "Cobertura por area funcional",
+        "Impacto de gaps sobre el diseno de suites"
+      ],
+      "can_skip": [
+        "Reextraccion de requisitos"
+      ],
+      "decision_points": [
+        "Que gaps requieren mitigacion en planning",
+        "Priorizacion inicial de suites smoke y regression"
+      ]
+    },
+    "feedback_hooks": {
+      "if_gaps_found": {
+        "escalate_to": "test_documentation"
+      },
+      "if_coverage_impossible": {
+        "escalate_to": "test_documentation"
+      },
+      "if_conflict_detected": {
+        "escalate_to": "orchestrator",
+        "conflict_resolution_strategy": "Registrar conflicto y escalar al orquestador para decision"
+      }
+    }
+  }
+}
