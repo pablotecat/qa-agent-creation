@@ -34,11 +34,13 @@ No implementado en esta versión:
 └── agent-creation-files/
     ├── INDEX.md
     ├── README.md
-    ├── QUICK_REFERENCE.md
+    ├── doc/
+    │   ├── QUICK_REFERENCE.md
+    │   ├── HANDOFF_SPECIFICATION.md
+    │   ├── handoff-schema.json
+    │   ├── handoff-hooks-routing.md
+    │   └── orchestration-config.json
     ├── IMPLEMENTATION_CHECKLIST.md
-    ├── HANDOFF_SPECIFICATION.md
-    ├── handoff-schema.json
-    ├── handoff-hooks-routing.md
     ├── agent-templates/
     │   ├── documentation.agent.md
     │   ├── planner.agent.md
@@ -53,9 +55,9 @@ No implementado en esta versión:
 ## Quick Start
 
 1. Lee la guía principal en `agent-creation-files/README.md`.
-2. Revisa la especificación de handoff en `agent-creation-files/HANDOFF_SPECIFICATION.md`.
-3. Valida estructura y campos con `agent-creation-files/handoff-schema.json`.
-4. Aplica reglas de escalado en `agent-creation-files/handoff-hooks-routing.md`.
+2. Revisa la especificación de handoff en `agent-creation-files/doc/HANDOFF_SPECIFICATION.md`.
+3. Valida estructura y campos con `agent-creation-files/doc/handoff-schema.json`.
+4. Aplica reglas de escalado en `agent-creation-files/doc/handoff-hooks-routing.md`.
 5. Sigue el checklist en `agent-creation-files/IMPLEMENTATION_CHECKLIST.md`.
 6. Usa los templates en `agent-creation-files/agent-templates/` para crear agentes.
 

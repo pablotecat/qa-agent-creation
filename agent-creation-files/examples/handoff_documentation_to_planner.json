@@ -6,7 +6,7 @@
       "session_id": "550e8400-e29b-41d4-a716-446655440000",
       "timestamp": "2026-07-08T10:30:00Z",
       "retry_count": 0,
-      "correlation_id": "doc-to-planner-cycle-001"
+      "correlation_id": "550e8400-e29b-41d4-a716-446655440000.test_documentation-to-test_planner.0"
     },
     "context": {
       "user_request_id": "solicitud-qa-001",
@@ -81,6 +81,7 @@
         "note": "Si los requisitos actuales no permiten modelar cobertura mínima"
       },
       "if_conflict_detected": {
+        "escalate_to": "test_documentation",
         "conflict_resolution_strategy": "Si hay conflictos en requisitos (ej: email validation rules), contactar test_documentation para clarificación"
       }
     }

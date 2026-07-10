@@ -6,7 +6,7 @@
       "session_id": "550e8400-e29b-41d4-a716-446655440000",
       "timestamp": "2026-07-08T11:45:00Z",
       "retry_count": 1,
-      "correlation_id": "planner-feedback-gap-escalation-001"
+      "correlation_id": "550e8400-e29b-41d4-a716-446655440000.test_planner-to-test_documentation.1"
     },
     "context": {
       "user_request_id": "solicitud-qa-001",
@@ -64,6 +64,7 @@
         "note": "Si Documentation no puede resolver gaps, será decision de Orchestrator avanzar con coverage parcial"
       },
       "if_conflict_detected": {
+        "escalate_to": "orchestrator",
         "conflict_resolution_strategy": "Documentation debe resolver conflictos en requisitos antes de que Planner continúe"
       }
     }

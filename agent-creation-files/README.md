@@ -4,7 +4,7 @@ Este directorio contiene la especificación completa para crear los agentes de l
 
 ## Archivos Principales
 
-### 1. **HANDOFF_SPECIFICATION.md**
+### 1. **doc/HANDOFF_SPECIFICATION.md**
 Especificación del formato híbrido de handoff que todos los agentes DEBEN usar.
 
 **Contiene:**
@@ -21,7 +21,7 @@ Especificación del formato híbrido de handoff que todos los agentes DEBEN usar
 
 ---
 
-### 2. **handoff-schema.json**
+### 2. **doc/handoff-schema.json**
 Schema JSON para validación de handoffs.
 
 **Contiene:**
@@ -36,7 +36,7 @@ Schema JSON para validación de handoffs.
 
 ---
 
-### 3. **handoff-hooks-routing.md**
+### 3. **doc/handoff-hooks-routing.md**
 Guía de routing de feedback hooks y escaladas.
 
 **Contiene:**
@@ -112,7 +112,7 @@ Template completo para Test Prioritization Agent.
 ### Paso 2: Crear Test Documentation Agent
 1. Basarse en `documentation.agent.md`
 2. Implementar Skills de extracción y normalización
-3. Validar outputs contra `handoff-schema.json`
+3. Validar outputs contra `doc/handoff-schema.json`
 4. Crear `./tests/Documentation/HANDOFF_Summary.md` al finalizar
 
 ### Paso 3: Crear Test Planner Agent
@@ -231,7 +231,7 @@ Para validar un handoff antes de procesarlo:
 
 ```bash
 # Usando ajv-cli (si disponible)
-ajv validate -s handoff-schema.json -d handoff.json
+ajv validate -s doc/handoff-schema.json -d handoff.json
 
 # O programáticamente (pseudocódigo)
 const handoff = JSON.parse(fs.readFileSync('handoff.json'));
@@ -252,15 +252,15 @@ R: El Orquestador DEBE validarlo contra schema antes de pasar al siguiente agent
 3. Si `retry_count >= 3`, emitir handoff con `context.status=failed` y abortar con `status_global=blocked`
 
 **P: ¿Cómo evito bucles infinitos?**
-R: Implementa guardrails del `handoff-hooks-routing.md`:
+R: Implementa guardrails del `doc/handoff-hooks-routing.md`:
 1. Cada feedback_hook especifica destino claro
 2. `retry_count` máximo 3
 3. Escalation log centralizado (auditabilidad)
 
 **P: ¿Puedo extender/modificar el formato?**
 R: Solo si es documentado:
-1. Actualiza `HANDOFF_SPECIFICATION.md`
-2. Actualiza `handoff-schema.json`
+1. Actualiza `doc/HANDOFF_SPECIFICATION.md`
+2. Actualiza `doc/handoff-schema.json`
 3. Justifica cambio en código
 4. Ejecuta validación end-to-end nuevamente
 
@@ -268,7 +268,7 @@ R: Solo si es documentado:
 
 ## Recursos Relacionados
 
-- `./HANDOFF_SPECIFICATION.md` - Especificación completa
-- `./handoff-schema.json` - Validación formal
-- `./handoff-hooks-routing.md` - Routing de escaladas
+- `./doc/HANDOFF_SPECIFICATION.md` - Especificación completa
+- `./doc/handoff-schema.json` - Validación formal
+- `./doc/handoff-hooks-routing.md` - Routing de escaladas
 - `./agent-templates/` - Templates por agente

@@ -30,21 +30,11 @@
           "properties": {
             "from_agent": {
               "type": "string",
-              "enum": [
-                "test_documentation",
-                "test_planner",
-                "test_prioritization",
-                "orchestrator"
-              ]
+              "pattern": "^[a-z][a-z0-9_]{2,30}$"
             },
             "to_agent": {
               "type": "string",
-              "enum": [
-                "test_documentation",
-                "test_planner",
-                "test_prioritization",
-                "orchestrator"
-              ]
+              "pattern": "^[a-z][a-z0-9_]{2,30}$"
             },
             "session_id": {
               "type": "string",
@@ -60,7 +50,8 @@
               "maximum": 3
             },
             "correlation_id": {
-              "type": "string"
+              "type": "string",
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\.[a-z][a-z0-9_]{2,30}-to-[a-z][a-z0-9_]{2,30}\\.[0-3]$"
             }
           }
         },
@@ -141,11 +132,7 @@
             },
             "updated_by": {
               "type": "string",
-              "enum": [
-                "test_documentation",
-                "test_planner",
-                "test_prioritization"
-              ]
+              "pattern": "^[a-z][a-z0-9_]{2,30}$"
             },
             "rationale": {
               "type": "string"
@@ -202,11 +189,7 @@
               "properties": {
                 "escalate_to": {
                   "type": "string",
-                  "enum": [
-                    "test_documentation",
-                    "test_planner",
-                    "orchestrator"
-                  ]
+                  "pattern": "^[a-z][a-z0-9_]{2,30}$"
                 }
               }
             },
@@ -216,18 +199,18 @@
               "properties": {
                 "escalate_to": {
                   "type": "string",
-                  "enum": [
-                    "test_documentation",
-                    "test_planner",
-                    "orchestrator"
-                  ]
+                  "pattern": "^[a-z][a-z0-9_]{2,30}$"
                 }
               }
             },
             "if_conflict_detected": {
               "type": "object",
-              "required": ["conflict_resolution_strategy"],
+              "required": ["escalate_to", "conflict_resolution_strategy"],
               "properties": {
+                "escalate_to": {
+                  "type": "string",
+                  "pattern": "^[a-z][a-z0-9_]{2,30}$"
+                },
                 "conflict_resolution_strategy": {
                   "type": "string"
                 }

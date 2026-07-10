@@ -6,7 +6,7 @@
       "session_id": "550e8400-e29b-41d4-a716-446655440000",
       "timestamp": "2026-07-08T11:15:00Z",
       "retry_count": 0,
-      "correlation_id": "planner-to-prior-cycle-001"
+      "correlation_id": "550e8400-e29b-41d4-a716-446655440000.test_planner-to-test_prioritization.0"
     },
     "context": {
       "user_request_id": "solicitud-qa-001",
@@ -80,6 +80,7 @@
         "note": "Si Prioritization considera que 92% cobertura no es factible, Planner re-diseña con trade-offs auditados"
       },
       "if_conflict_detected": {
+        "escalate_to": "orchestrator",
         "conflict_resolution_strategy": "Si hay conflicto entre suite complexity y automatización feasibility, escalar a orchestrator con análisis"
       }
     }

@@ -1,0 +1,83 @@
+{
+  "orchestration": {
+    "mode": "sequential",
+    "prerequisite_resolution_default": "pre_resolve",
+    "max_attempts": 3,
+    "persistence_required_before_routing": true
+  },
+  "validation": {
+    "precedence_mode": "V1",
+    "schema_blocking": true,
+    "checklist_failed_blocking": true,
+    "checklist_warning_allows_routing": true
+  },
+  "naming": {
+    "handoff_filename_pattern": "{from}-to-{to}-attempt-{retry_count}-{timestamp}.json",
+    "agent_name_pattern": "^[a-z][a-z0-9_]{2,30}$",
+    "correlation_id_pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\.[a-z][a-z0-9_]{2,30}-to-[a-z][a-z0-9_]{2,30}\\.[0-3]$"
+  },
+  "status_model": {
+    "handoff_context_status": [
+      "ready_for_handoff",
+      "escalated",
+      "failed",
+      "completed"
+    ],
+    "session_status_global": [
+      "in_progress",
+      "completed",
+      "completed_with_warnings",
+      "blocked",
+      "failed"
+    ]
+  },
+  "agent_catalog": {
+    "orchestrator": {
+      "layer": "orchestration",
+      "user_invocable": true,
+      "path": ".github/agents/"
+    },
+    "test_documentation": {
+      "layer": "planning_layer",
+      "user_invocable": false,
+      "path": ".github/agents/qa-team/"
+    },
+    "test_planner": {
+      "layer": "planning_layer",
+      "user_invocable": false,
+      "path": ".github/agents/qa-team/"
+    },
+    "test_prioritization": {
+      "layer": "planning_layer",
+      "user_invocable": false,
+      "path": ".github/agents/qa-team/"
+    }
+  },
+  "transitions": {
+    "default_entry_agent": {
+      "full_pipeline": "test_documentation",
+      "documentation_only": "test_documentation",
+      "planning_only": "test_planner",
+      "prioritization_only": "test_prioritization"
+    },
+    "allowed_handoffs": [
+      "orchestrator-to-test_documentation",
+      "orchestrator-to-test_planner",
+      "orchestrator-to-test_prioritization",
+      "test_documentation-to-test_planner",
+      "test_planner-to-test_prioritization",
+      "test_prioritization-to-orchestrator",
+      "test_planner-to-test_documentation",
+      "test_prioritization-to-test_planner",
+      "test_prioritization-to-test_documentation",
+      "test_documentation-to-orchestrator",
+      "test_planner-to-orchestrator"
+    ]
+  },
+  "escalation_policy": {
+    "if_conflict_detected_requires_escalate_to": true,
+    "escalate_to_must_match_agent_name_pattern": true,
+    "abort_on_retry_limit": true,
+    "abort_status_global": "blocked"
+  }
+}

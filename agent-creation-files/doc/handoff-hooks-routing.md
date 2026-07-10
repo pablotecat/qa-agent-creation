@@ -4,6 +4,12 @@
 
 Definir explícitamente a qué agente volver en caso de problemas, previniendo bucles infinitos y garantizando que cada escalada tiene un propósito claro.
 
+## Modo Operativo del Orquestador
+
+- Modo de ejecución: secuencial.
+- Resolución de prerequisitos por defecto: **pre-resolución**.
+- Ningún routing es válido sin persistencia previa del handoff recibido.
+
 ## Matriz de Escaladas
 
 ### Test Documentation Feedback Hooks
@@ -157,6 +163,7 @@ Se DEBE mantener un archivo centralizado:
 
 ✅ **No hay bucles infinitos:** max 3 reintentos antes de abortar
 ✅ **Cada escalada tiene destino claro:** `escalate_to` es específico
+✅ **Conflictos enrutable:** `if_conflict_detected` siempre incluye `escalate_to`
 ✅ **Trazabilidad auditada:** `rationale` + `timestamp` + `correlation_id`
 ✅ **Resolución esperada documentada:** Cada escalada especifica qué se espera del retry
 ✅ **Escalation log centralizado:** Auditoría de todas las escaladas

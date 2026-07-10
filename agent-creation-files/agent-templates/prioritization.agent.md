@@ -43,6 +43,12 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 - Decision de prioridad basada en riesgo
 - Decision de orden de ejecucion
 
+## Fuentes Canónicas Obligatorias
+
+1. `.github/agents/qa-team/docs/handoff-schema.json`
+2. `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
+3. `.github/agents/qa-team/docs/handoff-hooks-routing.md`
+
 
 ## Fases de Ejecución
 
@@ -221,11 +227,11 @@ Si encuentras que cobertura es imposible de balancear:
 - Crear handoff con `if_coverage_impossible` → escalate_to: test_planner
 - Especificar en `rationale` qué suite impide priorización
 - Test Planner re-diseñará suites si es necesario
-- Max 3 reintentos; si persiste, escalate a Orquestador
+- El control de retry policy y abort pertenece al Orquestador
 
 Si hay conflicto entre riesgo y automatización:
-- Crear handoff con `if_conflict_detected`
-- Documentar el conflict_resolution_strategy en feedback_hooks
+- Crear handoff con `if_conflict_detected` incluyendo `escalate_to` obligatorio
+- Documentar `conflict_resolution_strategy` en feedback_hooks
 - Ejemplo: "Auth_suite es HIGH risk pero HIGH automate_score → automatizar; costo justificado"
 
 ## Skills Operativas Consolidadas

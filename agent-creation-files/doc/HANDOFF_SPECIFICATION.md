@@ -28,7 +28,7 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
       "session_id": "uuid",
       "timestamp": "ISO8601",
       "retry_count": 0,
-      "correlation_id": "para rastrear retroalimentación"
+      "correlation_id": "{session_id}.{from_agent}-to-{to_agent}.{retry_count}"
     },
     "context": {
       "user_request_id": "solicitud_qa original",
@@ -70,6 +70,7 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
         "escalate_to": "agent_name"
       },
       "if_conflict_detected": {
+        "escalate_to": "agent_name",
         "conflict_resolution_strategy": "texto de estrategia"
       }
     }
@@ -101,7 +102,7 @@ El formato de handoff híbrido fue diseñado para transmitir información eficie
 ### Retroalimentación (Feedback Loops)
 - Si **Planner** encuentra gaps que bloquean diseño → escalate a **Test Documentation**
 - Si **Prioritization** identifica cobertura imposible → escalate a **Test Planner**
-- Si hay conflictos irresolubles → escalate a **Orquestador**
+- Si hay conflictos irresolubles → `if_conflict_detected.escalate_to` debe apuntar a un agente destino explicito
 - Cada escalada tambien requiere persistencia previa por el Orquestador.
 
 ## Guardrails contra Bucles Infinitos
@@ -176,7 +177,7 @@ Cada agente actualiza centralmente `./tests/Documentation/HANDOFF_Summary.md`:
 │   └── justification.md
 ├── handoffs/
 │   └── {session_id}/
-│       ├── {from}-to-{to}-attempt-{n}-{timestamp}.json
+│       ├── {from}-to-{to}-attempt-{retry_count}-{timestamp}.json
 │       ├── manifest.json
 │       └── retry_checkpoint.json
 ```

@@ -43,6 +43,12 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 - Decision de cobertura model
 - Decision de precondiciones por suite
 
+## Fuentes Canónicas Obligatorias
+
+1. `.github/agents/qa-team/docs/handoff-schema.json`
+2. `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
+3. `.github/agents/qa-team/docs/handoff-hooks-routing.md`
+
 
 ## Fases de Ejecución
 
@@ -156,7 +162,7 @@ Si encuentras gaps que bloquean el diseño de cobertura:
 - Crear handoff con `if_gaps_found` → escalate_to: test_documentation
 - Especificar en `rationale` qué gap impide avanzar
 - Test Documentation re-procesará y te enviará nuevo handoff
-- Max 3 reintentos; si persiste, escalate a Orquestador
+- El control de retry policy y abort pertenece al Orquestador
 
 Si cobertura es imposible de alcanzar:
 - Crear handoff con `if_coverage_impossible` → escalate_to: self

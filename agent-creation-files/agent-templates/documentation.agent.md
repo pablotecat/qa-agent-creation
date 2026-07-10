@@ -41,6 +41,12 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 - Decision sobre normalizacion Gherkin
 - Identificacion y clasificacion de gaps
 
+## Fuentes Canónicas Obligatorias
+
+1. `.github/agents/qa-team/docs/handoff-schema.json`
+2. `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
+3. `.github/agents/qa-team/docs/handoff-hooks-routing.md`
+
 
 ## Fases de Ejecución
 
@@ -139,8 +145,8 @@ Si otros agentes encuentran gaps que impacten el diseño:
 - Recibirás escalada con `if_gaps_found` desde agente correspondiente
 - Lee el `rationale` en delta_changes
 - Re-procesa requisitos con contexto actualizado
-- Incrementa `retry_count` y envía nuevo handoff
-- Max 3 reintentos: si sigue fallando, escalate a Orquestador
+- Genera nuevo handoff siguiendo `handoff-schema.json` y `handoff-hooks-routing.md`
+- El control de retry policy y abort pertenece al Orquestador
 
 ## Skills Operativas Consolidadas
 

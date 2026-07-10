@@ -6,7 +6,7 @@
 
 1. **Este archivo** (estás aquí) - Visión general y orientación
 2. **`README.md`** - Descripción detallada de archivos y flujo
-3. **`QUICK_REFERENCE.md`** - Resumen ejecutivo para copiar/pegar
+3. **`doc/QUICK_REFERENCE.md`** - Resumen ejecutivo para copiar/pegar
 4. **`IMPLEMENTATION_CHECKLIST.md`** - Verificar que todo está en lugar
 5. **Templates en `agent-templates/`** - Comenzar a implementar agentes
 
@@ -17,9 +17,9 @@
 Un **sistema completo de handoff para agentes de QA** que incluye:
 
 ### 📚 Especificaciones Técnicas
-- **HANDOFF_SPECIFICATION.md** - Formato híbrido con ejemplos de flujo
-- **handoff-schema.json** - Validación formal (JSON Schema Draft 7)
-- **handoff-hooks-routing.md** - Routing de escaladas y prevención de bucles
+- **doc/HANDOFF_SPECIFICATION.md** - Formato híbrido con ejemplos de flujo
+- **doc/handoff-schema.json** - Validación formal (JSON Schema Draft 7)
+- **doc/handoff-hooks-routing.md** - Routing de escaladas y prevención de bucles
 
 ### 📖 Guías de Implementación
 - **README.md** - Cómo se organiza todo y por dónde empezar
@@ -49,11 +49,13 @@ Cada template incluye: frontmatter, objetivo, fases, formato de salida, criterio
 agent-creation-files/
 ├── INDEX.md  (← TÚ ESTÁS AQUÍ)
 ├── README.md
-├── QUICK_REFERENCE.md
+├── doc/
+│   ├── QUICK_REFERENCE.md
+│   ├── HANDOFF_SPECIFICATION.md
+│   ├── handoff-schema.json
+│   ├── handoff-hooks-routing.md
+│   └── orchestration-config.json
 ├── IMPLEMENTATION_CHECKLIST.md
-├── HANDOFF_SPECIFICATION.md
-├── handoff-schema.json
-├── handoff-hooks-routing.md
 ├── agent-templates/
 │   ├── documentation.agent.md
 │   ├── planner.agent.md
@@ -71,7 +73,7 @@ agent-creation-files/
 ### 1. Entender el Formato (2 min)
 ```bash
 # Lee la estructura básica
-cat agent-creation-files/QUICK_REFERENCE.md | head -60
+cat agent-creation-files/doc/QUICK_REFERENCE.md | head -60
 ```
 
 ### 2. Ver un Ejemplo (2 min)
@@ -84,7 +86,7 @@ cat agent-creation-files/examples/handoff_documentation_to_planner.json | jq '.h
 ```bash
 # Verifica que el JSON es válido
 npm install -g ajv-cli  # si no lo tienes
-ajv validate -s agent-creation-files/handoff-schema.json \
+ajv validate -s agent-creation-files/doc/handoff-schema.json \
              -d agent-creation-files/examples/handoff_documentation_to_planner.json
 ```
 
@@ -124,10 +126,10 @@ Generator (crea casos)
 
 | Necesito... | Leo esto | Después... |
 |---|---|---|
-| Entender formato | QUICK_REFERENCE.md | Implementar primer agente |
-| Especificación completa | HANDOFF_SPECIFICATION.md | Validar mis handoffs |
-| Validar JSON | handoff-schema.json | Automatizar en CI/CD |
-| Routing de escaladas | handoff-hooks-routing.md | Manejar retroalimentación |
+| Entender formato | doc/QUICK_REFERENCE.md | Implementar primer agente |
+| Especificación completa | doc/HANDOFF_SPECIFICATION.md | Validar mis handoffs |
+| Validar JSON | doc/handoff-schema.json | Automatizar en CI/CD |
+| Routing de escaladas | doc/handoff-hooks-routing.md | Manejar retroalimentación |
 | Implementar agente Doc | documentation.agent.md | Copiar template y personalizar |
 | Implementar agente Planner | planner.agent.md | Copiar template y personalizar |
 | Implementar agente Prior | prioritization.agent.md | Copiar template y personalizar |
@@ -142,12 +144,12 @@ Antes de empezar a implementar, verifica esto (1 min):
 
 ```bash
 # 1. Archivos en lugar
-ls -la agent-creation-files/HANDOFF_SPECIFICATION.md
-ls -la agent-creation-files/handoff-schema.json
+ls -la agent-creation-files/doc/HANDOFF_SPECIFICATION.md
+ls -la agent-creation-files/doc/handoff-schema.json
 ls -la agent-creation-files/agent-templates/documentation.agent.md
 
 # 2. Schema es JSON válido
-node -e "JSON.parse(require('fs').readFileSync('agent-creation-files/handoff-schema.json'))" && echo "✓ Schema válido"
+node -e "JSON.parse(require('fs').readFileSync('agent-creation-files/doc/handoff-schema.json'))" && echo "✓ Schema válido"
 
 # 3. Ejemplos son JSON válido
 node -e "JSON.parse(require('fs').readFileSync('agent-creation-files/examples/handoff_documentation_to_planner.json'))" && echo "✓ Ejemplos válidos"
@@ -217,7 +219,7 @@ Cuando esto esté listo, podrás:
 ### Inmediatamente
 1. Lee `README.md` - toma ~15 min
 2. Inspecciona un ejemplo - toma ~5 min
-3. Revisa `QUICK_REFERENCE.md` - toma ~10 min
+3. Revisa `doc/QUICK_REFERENCE.md` - toma ~10 min
 
 ### Esta semana
 1. Implementa Orquestador QA

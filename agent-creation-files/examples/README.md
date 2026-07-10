@@ -18,7 +18,7 @@ Este directorio contiene ejemplos reales de handoffs para cada transición entre
 
 - Estos archivos son solo ejemplos estaticos.
 - Los handoffs reales de ejecucion deben persistirse por el Orquestador en `./tests/Documentation/handoffs/{session_id}/`.
-- Naming recomendado para runtime: `{from}-to-{to}-attempt-{n}-{timestamp}.json`.
+- Naming recomendado para runtime: `{from}-to-{to}-attempt-{retry_count}-{timestamp}.json`.
 
 ## Contexto de Ejemplos
 

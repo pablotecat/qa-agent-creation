@@ -9,7 +9,7 @@ Implementar agentes para un equipo de QA en modo Orchestra. Solo el Orquestador 
 
 # Aclaraciones operativas para esta iteracion
 
-- Naming obligatorio por transicion/reintento: `{from}-to-{to}-attempt-{n}-{timestamp}.json`.
+- Naming obligatorio por transicion/reintento: `{from}-to-{to}-attempt-{retry_count}-{timestamp}.json`.
 - Metaartefactos obligatorios del Orquestador por sesion:
 	- `manifest.json` (indice de handoffs persistidos y estado de validacion)
 	- `retry_checkpoint.json` (tracking de retries por `correlation_id`)
@@ -31,11 +31,12 @@ Despues de generar los agentes en `.github/agents/`, mover SOLO estos archivos a
 
 Destino recomendado para soporte runtime: `.github/agents/qa-team/docs/`
 
-1. `./agent-creation-files/HANDOFF_SPECIFICATION.md` -> `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
-2. `./agent-creation-files/handoff-schema.json` -> `.github/agents/qa-team/docs/handoff-schema.json`
-3. `./agent-creation-files/handoff-hooks-routing.md` -> `.github/agents/qa-team/docs/handoff-hooks-routing.md`
-4. `./agent-creation-files/QUICK_REFERENCE.md` -> `.github/agents/qa-team/docs/QUICK_REFERENCE.md`
-5. `./prompt-to-agent.md` -> `.github/prompts/prompt-to-agent.md`
+1. `./agent-creation-files/doc/HANDOFF_SPECIFICATION.md` -> `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
+2. `./agent-creation-files/doc/handoff-schema.json` -> `.github/agents/qa-team/docs/handoff-schema.json`
+3. `./agent-creation-files/doc/handoff-hooks-routing.md` -> `.github/agents/qa-team/docs/handoff-hooks-routing.md`
+4. `./agent-creation-files/doc/QUICK_REFERENCE.md` -> `.github/agents/qa-team/docs/QUICK_REFERENCE.md`
+5. `./agent-creation-files/doc/orchestration-config.json` -> `.github/agents/qa-team/docs/orchestration-config.json`
+6. `./prompt-to-agent.md` -> `.github/prompts/prompt-to-agent.md`
 
 Estos archivos SI son necesarios para el funcionamiento posterior de los agentes.
 
@@ -58,25 +59,29 @@ El objetivo es que, una vez movidos los archivos runtime, la carpeta plantilla p
 Antes de crear o modificar cualquier agente, DEBE leerse y aplicarse este orden:
 
 1. `./agent-creation-files/README.md` (guia principal y flujo recomendado)
-2. `./agent-creation-files/HANDOFF_SPECIFICATION.md` (formato hibrido de handoff)
-3. `./agent-creation-files/handoff-schema.json` (validacion formal de handoffs)
-4. `./agent-creation-files/handoff-hooks-routing.md` (routing de escaladas y anti-bucles)
+2. `./agent-creation-files/doc/HANDOFF_SPECIFICATION.md` (formato hibrido de handoff)
+3. `./agent-creation-files/doc/handoff-schema.json` (validacion formal de handoffs)
+4. `./agent-creation-files/doc/handoff-hooks-routing.md` (routing de escaladas y anti-bucles)
 5. `./agent-creation-files/IMPLEMENTATION_CHECKLIST.md` (gates de implementacion y validacion)
-6. `./agent-creation-files/QUICK_REFERENCE.md` (referencia rapida y checklist pre-handoff)
+6. `./agent-creation-files/doc/QUICK_REFERENCE.md` (referencia rapida y checklist pre-handoff)
 
 Despues de mover los archivos runtime, para operacion normal de los agentes usar como fuente de verdad:
 
-1. `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
+1. `.github/agents/qa-team/docs/orchestration-config.json`
 2. `.github/agents/qa-team/docs/handoff-schema.json`
-3. `.github/agents/qa-team/docs/handoff-hooks-routing.md`
-4. `.github/agents/qa-team/docs/QUICK_REFERENCE.md`
+3. `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`
+4. `.github/agents/qa-team/docs/handoff-hooks-routing.md`
+5. `.github/agents/qa-team/docs/QUICK_REFERENCE.md`
 
 # Reglas globales obligatorias (MUST)
 
 - Todo handoff especializado inter-agente DEBE cumplir `.github/agents/qa-team/docs/HANDOFF_SPECIFICATION.md`.
 - Todo handoff especializado inter-agente DEBE validar contra `.github/agents/qa-team/docs/handoff-schema.json` antes de enrutarse.
 - Si `validation_checklist.status=failed`, NO se enruta; se registra error y se reintenta segun policy.
+- Si `validation_checklist.status=warning`, se puede enrutar solo con registro de warning en trazabilidad.
 - Toda escalada DEBE seguir `.github/agents/qa-team/docs/handoff-hooks-routing.md` con destino explicito y rationale.
+- `feedback_hooks.if_conflict_detected` DEBE incluir `escalate_to`.
+- El Orquestador usa pre-resolucion de prerequisitos por defecto.
 - Todo cambio relevante DEBE resumirse en `./tests/Documentation/HANDOFF_Summary.md`.
 - Todo fallo DEBE registrarse en `./tests/Documentation/escalation_log.md`.
 - Ningun handoff se considera enrutado hasta que el Orquestador lo haya persistido correctamente en la ruta canonica.
@@ -88,10 +93,11 @@ Despues de mover los archivos runtime, para operacion normal de los agentes usar
 Antes de eliminar la carpeta plantilla, verificar:
 
 1. Existen en `.github/agents/qa-team/docs/` los 4 archivos runtime (`HANDOFF_SPECIFICATION.md`, `handoff-schema.json`, `handoff-hooks-routing.md`, `QUICK_REFERENCE.md`).
-2. Existe `./prompt-to-agent.md` en el root del proyecto objetivo.
-3. Los agentes generados referencian rutas runtime en `.github/agents/qa-team/docs/` y no rutas `./agent-creation-files/...`.
-4. El Orquestador puede validar handoffs contra `handoff-schema.json` y aplicar routing de escaladas.
-5. Se puede eliminar la carpeta plantilla sin romper validacion ni trazabilidad de handoffs. La carpeta la eliminará el usuario manualmente.
+2. Existe `orchestration-config.json` en `.github/agents/qa-team/docs/`.
+3. Existe `./prompt-to-agent.md` en el root del proyecto objetivo.
+4. Los agentes generados referencian rutas runtime en `.github/agents/qa-team/docs/` y no rutas `./agent-creation-files/...`.
+5. El Orquestador puede validar handoffs contra `handoff-schema.json` y aplicar routing de escaladas.
+6. Se puede eliminar la carpeta plantilla sin romper validacion ni trazabilidad de handoffs. La carpeta la eliminará el usuario manualmente.
 
 # Contrato minimo del handoff
 

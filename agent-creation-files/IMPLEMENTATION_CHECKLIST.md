@@ -5,10 +5,10 @@ Use este checklist para verificar que toda la estructura de especificación de h
 ## ✅ Archivos Creados
 
 ### Archivos de Especificación
-- [x] `agent-creation-files/HANDOFF_SPECIFICATION.md` - Especificación completa del formato híbrido
-- [x] `agent-creation-files/handoff-schema.json` - Schema JSON para validación
-- [x] `agent-creation-files/handoff-hooks-routing.md` - Guía de escaladas y feedback hooks
-- [x] `agent-creation-files/QUICK_REFERENCE.md` - Guía rápida para desarrolladores
+- [x] `agent-creation-files/doc/HANDOFF_SPECIFICATION.md` - Especificación completa del formato híbrido
+- [x] `agent-creation-files/doc/handoff-schema.json` - Schema JSON para validación
+- [x] `agent-creation-files/doc/handoff-hooks-routing.md` - Guía de escaladas y feedback hooks
+- [x] `agent-creation-files/doc/QUICK_REFERENCE.md` - Guía rápida para desarrolladores
 - [x] `agent-creation-files/README.md` - Guía de implementación
 
 ### Templates de Agentes
@@ -32,10 +32,11 @@ Use este checklist para verificar que toda la estructura de especificación de h
 ```
 ./agent-creation-files/
 ├── README.md                                    # Guía principal
-├── HANDOFF_SPECIFICATION.md                    # Especificación completa
-├── handoff-schema.json                         # Schema JSON
-├── handoff-hooks-routing.md                    # Routing de escaladas
-├── QUICK_REFERENCE.md                         # Guía rápida
+├── doc/
+│   ├── HANDOFF_SPECIFICATION.md                # Especificación completa
+│   ├── handoff-schema.json                     # Schema JSON
+│   ├── handoff-hooks-routing.md                # Routing de escaladas
+│   └── QUICK_REFERENCE.md                      # Guía rápida
 ├── agent-templates/
 │   ├── documentation.agent.md
 │   ├── planner.agent.md
@@ -60,19 +61,19 @@ Use este checklist para verificar que toda la estructura de especificación de h
 - [ ] Implementar bootstrap de contexto compartido
 - [ ] Implementar validación previa al routing
 - [ ] Implementar persistencia canónica de handoffs recibidos en `./tests/Documentation/handoffs/{session_id}/`
-- [ ] Implementar naming `{from}-to-{to}-attempt-{n}-{timestamp}.json`
+- [ ] Implementar naming `{from}-to-{to}-attempt-{retry_count}-{timestamp}.json`
 - [ ] Implementar `manifest.json` por sesión
 - [ ] Implementar `retry_checkpoint.json` por `correlation_id`
 - [ ] Implementar retry_policy (max_attempts=3)
 - [ ] Implementar manejo de errores y logging
 
 **Archivos a usar:**
-- `handoff-schema.json` - para validar handoffs
-- `handoff-hooks-routing.md` - para entender escaladas
+- `doc/handoff-schema.json` - para validar handoffs
+- `doc/handoff-hooks-routing.md` - para entender escaladas
 
 ### Paso 2: Crear Test Documentation Agent
 - [ ] Copiar `agent-templates/documentation.agent.md` como base
-- [ ] Leer `HANDOFF_SPECIFICATION.md` sección "Estructura Base JSON"
+- [ ] Leer `doc/HANDOFF_SPECIFICATION.md` sección "Estructura Base JSON"
 - [ ] Implementar lógica de extracción de requisitos
 - [ ] Implementar normalización Gherkin
 - [ ] Implementar identificación de gaps
@@ -82,7 +83,7 @@ Use este checklist para verificar que toda la estructura de especificación de h
 **Archivos a usar:**
 - `agent-templates/documentation.agent.md` - template
 - `examples/handoff_documentation_to_planner.json` - ejemplo de salida
-- `QUICK_REFERENCE.md` - referencia rápida de estructura
+- `doc/QUICK_REFERENCE.md` - referencia rápida de estructura
 
 ### Paso 3: Crear Test Planner Agent
 - [ ] Copiar `agent-templates/planner.agent.md` como base
@@ -96,7 +97,7 @@ Use este checklist para verificar que toda la estructura de especificación de h
 **Archivos a usar:**
 - `agent-templates/planner.agent.md` - template
 - `examples/handoff_planner_to_prioritization.json` - ejemplo de salida
-- `handoff-hooks-routing.md` - cómo escalar si gaps
+- `doc/handoff-hooks-routing.md` - cómo escalar si gaps
 
 ### Paso 4: Crear Test Prioritization Agent
 - [ ] Copiar `agent-templates/prioritization.agent.md` como base
@@ -109,11 +110,11 @@ Use este checklist para verificar que toda la estructura de especificación de h
 
 **Archivos a usar:**
 - `agent-templates/prioritization.agent.md` - template
-- `QUICK_REFERENCE.md` - referencia rápida
+- `doc/QUICK_REFERENCE.md` - referencia rápida
 
 ### Paso 5: Testing End-to-End
 - [ ] Ejecutar flujo completo: Doc → Planner → Prior
-- [ ] Validar cada handoff contra `handoff-schema.json`
+- [ ] Validar cada handoff contra `doc/handoff-schema.json`
 - [ ] Verificar que cada handoff queda persistido antes del routing
 - [ ] Verificar integridad de `manifest.json` y `retry_checkpoint.json`
 - [ ] Verificar que no hay bucles infinitos (retry_count <= 3 y abort en `>=3`)
@@ -141,7 +142,7 @@ Esperado: sin coincidencias
 npm install -g ajv-cli
 
 # Validar ejemplos contra schema
-ajv validate -s agent-creation-files/handoff-schema.json \
+ajv validate -s agent-creation-files/doc/handoff-schema.json \
              -d agent-creation-files/examples/handoff_documentation_to_planner.json
 ```
 
@@ -175,10 +176,10 @@ Esperado: Al menos 3 líneas con referencias a:
 
 ## 📖 Documentación Relacionada
 
-- `HANDOFF_SPECIFICATION.md` - Especificación técnica completa
-- `handoff-schema.json` - Schema formal para validación automática
-- `handoff-hooks-routing.md` - Detalles de routing y escaladas
-- `QUICK_REFERENCE.md` - Resumen ejecutivo para developers
+- `doc/HANDOFF_SPECIFICATION.md` - Especificación técnica completa
+- `doc/handoff-schema.json` - Schema formal para validación automática
+- `doc/handoff-hooks-routing.md` - Detalles de routing y escaladas
+- `doc/QUICK_REFERENCE.md` - Resumen ejecutivo para developers
 - `agent-templates/` - Blueprints para cada agente
 - `examples/` - Ejemplos reales de handoffs
 
@@ -195,13 +196,13 @@ echo "=== Handoff System Integration Check ==="
 
 # 1. Verificar archivos de especificación
 echo -n "✓ HANDOFF_SPECIFICATION.md: "
-[ -f "agent-creation-files/HANDOFF_SPECIFICATION.md" ] && echo "FOUND" || echo "MISSING"
+[ -f "agent-creation-files/doc/HANDOFF_SPECIFICATION.md" ] && echo "FOUND" || echo "MISSING"
 
 echo -n "✓ handoff-schema.json: "
-[ -f "agent-creation-files/handoff-schema.json" ] && echo "FOUND" || echo "MISSING"
+[ -f "agent-creation-files/doc/handoff-schema.json" ] && echo "FOUND" || echo "MISSING"
 
 echo -n "✓ handoff-hooks-routing.md: "
-[ -f "agent-creation-files/handoff-hooks-routing.md" ] && echo "FOUND" || echo "MISSING"
+[ -f "agent-creation-files/doc/handoff-hooks-routing.md" ] && echo "FOUND" || echo "MISSING"
 
 # 2. Verificar templates
 echo -n "✓ documentation.agent.md: "
@@ -230,9 +231,9 @@ echo "=== Verification Complete ==="
 
 ## ⚠️ Puntos Críticos
 
-1. **Schema Validation:** Todos los handoffs DEBEN validar contra `handoff-schema.json`
+1. **Schema Validation:** Todos los handoffs DEBEN validar contra `doc/handoff-schema.json`
 2. **Retry Policy:** Max 3 reintentos antes de abortar (implementar en Orquestador)
-3. **Escalation Routing:** Cada escalada DEBE tener destino explícito (ver `handoff-hooks-routing.md`)
+3. **Escalation Routing:** Cada escalada DEBE tener destino explícito (ver `doc/handoff-hooks-routing.md`)
 4. **Updated_by Audit:** Todo handoff DEBE tener `updated_by` = nombre del agente que lo genera
 5. **Trazability:** Cada cambio DEBE documentarse en `./tests/Documentation/HANDOFF_Summary.md`
 6. **Persistencia Pre-Routing:** El Orquestador DEBE persistir handoff recibido antes de cualquier transición
@@ -244,11 +245,11 @@ echo "=== Verification Complete ==="
 
 Si encuentras problemas durante la implementación:
 
-1. **Schema validation falsa:** Ver `QUICK_REFERENCE.md` sección "Validación Rápida"
+1. **Schema validation falsa:** Ver `doc/QUICK_REFERENCE.md` sección "Validación Rápida"
 2. **Estructura de carpetas confusa:** Ver `README.md` sección "Archivos Principales"
-3. **No sé cómo escalar:** Ver `handoff-hooks-routing.md` sección "Matriz de Escaladas"
+3. **No sé cómo escalar:** Ver `doc/handoff-hooks-routing.md` sección "Matriz de Escaladas"
 4. **Template incompleto:** Comparar con ejemplo en `examples/`
-5. **Error en handoff:** Usar `QUICK_REFERENCE.md` checklist pre-handoff
+5. **Error en handoff:** Usar `doc/QUICK_REFERENCE.md` checklist pre-handoff
 
 ---
 
