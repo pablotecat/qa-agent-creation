@@ -24,7 +24,7 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 **Salida esperada del retry:**
 - Requisitos adicionales o clarificados
 - JSON consolidado actualizado
-- `test_documentation-summary.md` actualizado
+- `test_documentation-analysis-report.md` actualizado
 
 ---
 
@@ -38,7 +38,7 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 **Salida esperada del retry:**
 - JSON consolidado re-diseñado
 - Precondiciones clarificadas
-- `test_planner-summary.md` actualizado
+- `test_planner-execution-summary.md` actualizado
 
 ---
 
@@ -52,7 +52,7 @@ Definir explícitamente a qué agente volver en caso de problemas, previniendo b
 **Salida esperada del retry:**
 - JSON consolidado re-evaluado
 - Selección de automatización justificada
-- `test_prioritization-summary.md` actualizado
+- `validation-report.md` actualizado
 
 ---
 
@@ -122,7 +122,7 @@ Toda escalada DEBE incluir:
 
 Toda transicion (nominal o de escalada) DEBE cumplir:
 
-1. Orquestador persiste el handoff recibido en `./tests/Documentation/handoffs/{session_id}/`.
+1. Orquestador persiste el handoff recibido en `./tests/Documentation/handoffs/session_{session_N}_{session_id}/`.
 2. Orquestador actualiza `manifest.json` y `retry_checkpoint.json`.
 3. Solo despues de persistencia exitosa se considera valida la transicion.
 

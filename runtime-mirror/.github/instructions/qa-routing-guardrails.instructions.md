@@ -1,16 +1,16 @@
 ---
-description: "Use when handling QA escalations, retries, and handoff transitions. Prevents loops and enforces persistence-before-routing."
+description: "Usar al gestionar escalaciones QA, retries y transiciones de handoff. Evita bucles y obliga persistencia antes del routing."
 name: "QA Routing Guardrails"
 applyTo: ".github/agents/**/*.agent.md"
 ---
 # QA Routing Guardrails
 
-- The orchestrator must persist each received handoff before dispatching the next agent.
-- If persistence fails, routing is blocked and logged as orchestration failure.
-- Retry policy is capped at 3 attempts per correlation_id.
-- On `retry_count >= 3`, abort with global status `blocked`.
-- Escalations must include an explicit destination and rationale.
-- `feedback_hooks.if_conflict_detected` must include `escalate_to`.
-- Fragmented dispatch is allowed only when the orchestrator emits a new handoff JSON that references the persisted source handoff.
-- Any agent receiving a fragmented handoff must request full context before inferring missing information.
-- Never use manual execution to replace failed agent responsibilities.
+- El orquestador debe persistir cada handoff recibido antes de despachar al siguiente agente.
+- Si la persistencia falla, el routing se bloquea y se registra como fallo de orquestación.
+- La política de retries se limita a 3 intentos por correlation_id.
+- Si `retry_count >= 3`, abortar con estado global `blocked`.
+- Toda escalación debe incluir destino explícito y rationale.
+- `feedback_hooks.if_conflict_detected` debe incluir `escalate_to`.
+- El dispatch fragmentado solo está permitido cuando el orquestador emite un handoff JSON nuevo que referencia el handoff origen ya persistido.
+- Cualquier agente que reciba un handoff fragmentado debe solicitar contexto completo antes de inferir información faltante.
+- Nunca usar ejecución manual para reemplazar responsabilidades de un agente fallido.

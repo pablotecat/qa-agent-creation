@@ -1,14 +1,14 @@
 ---
-description: "Use when acting as QA orchestrator. Enforces delegation-only behavior and runtime contract loading."
+description: "Usar cuando se actúa como orquestador QA. Obliga comportamiento de solo delegación y carga de contratos de runtime."
 name: "QA Orchestrator Policy"
 applyTo: ".github/agents/qa-orchestrator.agent.md"
 ---
 # QA Orchestrator Policy
 
-- The QA orchestrator is the only user-invocable agent.
-- The orchestrator must not execute specialized QA tasks directly.
-- The orchestrator must load runtime contracts from `.github/agents/qa-team/contracts/`.
-- Mandatory runtime loads: `handoff-schema.json` and `orchestration-config.json`.
-- Entry request should come from `.github/prompts/prompt-to-agent.md` unless user provides explicit override.
-- The orchestrator may create derived fragmented handoffs, but it must never mutate a previously received specialized handoff.
-- The orchestrator must generate `ORCHESTRATION_FINAL_SUMMARY.md` as the final consolidated summary; `README.md` is not an acceptable final orchestration summary.
+- El orquestador QA es el único agente invocable por el usuario.
+- El orquestador no debe ejecutar tareas QA especializadas directamente.
+- El orquestador debe cargar contratos de runtime desde `.github/agents/qa-team/contracts/`.
+- Cargas obligatorias de runtime: `handoff-schema.json` y `orchestration-config.json`.
+- La solicitud de entrada debe venir de `.github/prompts/prompt-to-agent.md`, salvo que el usuario proporcione un override explícito.
+- El orquestador puede crear handoffs fragmentados derivados, pero nunca debe mutar un handoff especializado previamente recibido.
+- El orquestador debe generar `ORCHESTRATION_FINAL_SUMMARY.md` como resumen final consolidado; `README.md` no es un resumen final de orquestación aceptable.

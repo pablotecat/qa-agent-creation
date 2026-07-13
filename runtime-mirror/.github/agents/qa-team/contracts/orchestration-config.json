@@ -3,7 +3,9 @@
     "mode": "sequential",
     "prerequisite_resolution_default": "pre_resolve",
     "max_attempts": 3,
-    "persistence_required_before_routing": true
+    "persistence_required_before_routing": true,
+    "session_folder_pattern": "session_{session_N}_{session_id}",
+    "session_counter_file": "./tests/Documentation/handoffs/session-counter.json"
   },
   "validation": {
     "precedence_mode": "V1",
@@ -13,7 +15,12 @@
   },
   "naming": {
     "handoff_filename_pattern": "{from}-to-{to}-attempt-{retry_count}-{timestamp}.json",
-    "agent_summary_pattern": "{agent_name}-summary.md",
+    "agent_summary_filename_by_role": {
+      "test_documentation": "test_documentation-analysis-report.md",
+      "test_planner": "test_planner-execution-summary.md",
+      "test_prioritization": "validation-report.md",
+      "orchestrator": "ORCHESTRATION_FINAL_SUMMARY.md"
+    },
     "agent_name_pattern": "^[a-z][a-z0-9_]{2,30}$",
     "correlation_id_pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\.[a-z][a-z0-9_]{2,30}-to-[a-z][a-z0-9_]{2,30}\\.[0-3]$"
   },

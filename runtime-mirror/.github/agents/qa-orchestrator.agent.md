@@ -28,7 +28,7 @@ Recibir una `solicitud_qa`, determinar el camino de ejecución óptimo (no neces
 - `retry_checkpoint.json`: tracking de retries por `correlation_id`
 - `escalation_log.md`: registro centralizado de todas las escaladas y su resolución
 - `HANDOFF_Summary.md`: resumen ejecutivo actualizado tras cada transición
-- `ORCHESTRATION_FINAL_SUMMARY.md`: conclusiones consolidadas de toda la orquestación
+- `ORCHESTRATION_FINAL_SUMMARY.md`: conclusiones consolidadas de toda la orquestación usando `qa-orchestrator-report/SKILL.md`
 - registros de despacho y routing en `manifest.json`
 
 ## Non-goals
@@ -64,9 +64,12 @@ Si hay contradicción entre documentos, prevalece el orden anterior.
 ### Inicio de sesión
 
 1. Generar `session_id` en formato UUID v4.
-2. Inicializar `manifest.json` y `retry_checkpoint.json` para la sesión.
-3. Preparar `HANDOFF_Summary.md` para trazabilidad de transiciones.
-4. Preparar `ORCHESTRATION_FINAL_SUMMARY.md` para el cierre consolidado.
+2. Calcular `session_N` incremental por proyecto leyendo `./tests/Documentation/handoffs/session-counter.json` (si no existe, usar `0`).
+3. Asignar `session_N = last_session_n + 1` y persistir inmediatamente el nuevo contador.
+4. Crear carpeta de sesión canónica `./tests/Documentation/handoffs/session_{session_N}_{session_id}/`.
+5. Inicializar `manifest.json` y `retry_checkpoint.json` para la sesión en la carpeta canónica.
+6. Preparar `HANDOFF_Summary.md` para trazabilidad de transiciones.
+7. Preparar `ORCHESTRATION_FINAL_SUMMARY.md` para el cierre consolidado.
 
 ### Análisis de intención y entrada
 
@@ -110,7 +113,8 @@ Aplicar V1 antes de cualquier routing:
 
 1. Verificar ausencia de handoffs `pending`.
 2. Determinar estado global final.
-3. Persistir cierre en `manifest.json` y registrar resumen de cierre.
+3. Generar `ORCHESTRATION_FINAL_SUMMARY.md` usando `qa-orchestrator-report/SKILL.md`.
+4. Persistir cierre en `manifest.json` y registrar resumen de cierre.
 
 ## Guardrails Operativos
 

@@ -1,0 +1,1399 @@
+{
+  "handoff": {
+    "metadata": {
+      "from_agent": "test_planner",
+      "to_agent": "test_prioritization",
+      "session_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d",
+      "timestamp": "2026-07-10T12:00:00Z",
+      "retry_count": 0,
+      "correlation_id": "5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d.test_planner-to-test_prioritization.0"
+    },
+    "context": {
+      "user_request_id": "web-test-playwright-full-flow",
+      "phase": "planning_layer",
+      "status": "ready_for_handoff"
+    },
+    "executive_summary": {
+      "state_snapshot": "5 test suites diseñadas covering 18 requisitos funcionales. Suites: Registration (5 scenarios, 100% automatizable), Listing (4 scenarios, 100% automatizable), Management (6 scenarios, 100% automatizable con precondiciones), Navigation (3 scenarios, 100% automatizable), API Contracts (5 scenarios, 100% automatizable). Cobertura funcional modelada: 85% de requisitos directamente testeable. Riesgos mitigables: email validation gap (HTML5 assumed), rate limiting gap (out-of-scope), persistence gap (in-memory accepted). 2 CRITICAL gaps require decision points.",
+      "critical_findings": [
+        "🔴 CRITICAL GAP-001 (Email validation): Registration suite partially blocked - designed to test HTML5 email validation only, backend validation deferred to dev team",
+        "🔴 CRITICAL GAP-002 (Rate limiting): Load/stress testing deferred - marked as 'coverage_blocked_by_gap' in Management suite",
+        "🟡 HIGH GAP-003 (No persistence): All suites designed for in-memory state - setup/teardown ensures clean state between test runs",
+        "🟡 HIGH GAP-004 (No auth): User isolation tests excluded - all users accessible without auth (security gap documented)",
+        "🟢 Design decision: Precondition dependency chain Registration→Listing→Management to leverage created users",
+        "✅ All 5 suites are E2E automatable with Playwright - no manual steps required"
+      ],
+      "recommendation": "Prioritization agent should focus on: (1) Validating cobertura coverage meets 80% threshold, (2) Sequencing suites by dependency (Registration first), (3) Identifying regression risk from in-memory state isolation, (4) Flagging GAP-001 and GAP-002 for explicit dev team communication before load/security testing iterations"
+    },
+    "artifacts_references": {
+      "path_pattern": "./tests/Documentation/handoffs/5a1b2c3d-e4f5-4a6b-7c8d-9e0f1a2b3c4d/",
+      "summary_md": "./tests/Documentation/HANDOFF_Summary.md",
+      "raw_data": "test_documentation-to-test_planner-attempt-0-20260710T000000Z.json (18 requirements, 12 gaps, 5 API endpoints)",
+      "version_hash": "sha256:web-test-playwright-v1.0-planner"
+    },
+    "delta_changes": {
+      "added": [
+        "Suite 1: Registration Form Validation Suite (5 scenarios covering REQ-001 to REQ-005)",
+        "Suite 2: User Listing Suite (4 scenarios covering REQ-006 to REQ-008)",
+        "Suite 3: User Management Suite (6 scenarios covering REQ-009 to REQ-012)",
+        "Suite 4: Navigation Suite (3 scenarios covering REQ-013 to REQ-014)",
+        "Suite 5: API Contract Suite (5 scenarios covering REQ-015 to REQ-018)",
+        "Coverage model: 85% functional coverage (17/18 directly testeable), 100% requirement traceability",
+        "Automation decisions: all suites 100% E2E with Playwright, no manual steps",
+        "Precondition chain: Registration→Listing→Management for data dependency",
+        "Gap mitigation strategies: HTML5 validation assumed, in-memory state isolation via setup/teardown, load testing deferred"
+      ],
+      "modified": [],
+      "removed": [],
+      "updated_by": "test_planner",
+      "rationale": "Planning layer agents transform 18 requirements into executable test suites. Each suite is scoped to one testing area, includes 3-6 scenarios with data inputs, and maps directly to Gherkin requirements. Gaps are evaluated for test-ability: CRITICAL gaps (email validation, rate limiting) are documented as blockers, but suites proceed with assumptions. HIGH gaps (persistence, auth) are accommodated via test design (stateless, in-memory scope). Coverage model ensures 80%+ test execution efficiency."
+    },
+    "validation_checklist": {
+      "status": "passed",
+      "checks": {
+        "five_suites_defined": true,
+        "each_suite_has_three_plus_scenarios": true,
+        "all_requirements_covered": true,
+        "coverage_model_complete": true,
+        "automation_decisions_justified": true,
+        "preconditions_documented": true,
+        "dependencies_mapped": true,
+        "gap_evaluation_complete": true,
+        "data_inputs_specified": true,
+        "gherkin_syntax_valid": true,
+        "trazability_verified": true,
+        "no_redundant_scenarios": true
+      }
+    },
+    "test_suites": [
+      {
+        "suite_id": "SUITE-001",
+        "suite_name": "Registration Form Validation Suite",
+        "area": "User Registration Flow",
+        "requirements_covered": ["REQ-001", "REQ-002", "REQ-003", "REQ-004", "REQ-005"],
+        "description": "Validates user registration form submission, field validation, success message, and form reset",
+        "api_involved": ["POST /api/register"],
+        "pages_involved": ["index.html"],
+        "preconditions": [
+          "Browser navigated to http://localhost:3000/",
+          "Registration form is visible and interactive",
+          "No users exist in the system (fresh start)"
+        ],
+        "postconditions": [
+          "New user created in in-memory storage",
+          "Form cleared for next registration",
+          "Success message displayed (then cleared after 3s)"
+        ],
+        "automation_decision": {
+          "decision": "AUTOMATED",
+          "confidence": "100%",
+          "justification": "All steps are browser-based form interactions, no external dependencies. Playwright can capture form events, API calls, and UI state changes. No external services required.",
+          "automation_type": "E2E"
+        },
+        "functional_coverage": {
+          "percentage": 100,
+          "covered_aspects": ["Form submission", "Field validation", "Success/error messages", "Form reset", "API integration"],
+          "gaps_impacting": ["GAP-001 (email validation - HTML5 only assumed)", "GAP-006 (no field length limits)"]
+        },
+        "risk_coverage": {
+          "xss_injection": "Testing with special characters in name/email fields",
+          "sql_injection": "Not applicable (in-memory storage, no DB)",
+          "boundary_values": "Empty strings, max field lengths (not enforced - gap), unicode characters",
+          "negative_scenarios": "Missing required fields, invalid email format (HTML5 validation)"
+        },
+        "scenarios": [
+          {
+            "scenario_id": "REG-S001",
+            "scenario_name": "Valid registration with all fields",
+            "requirement_id": "REQ-001",
+            "gherkin": "Given user is on registration page (/) and form is visible\nWhen user fills name='John Doe', email='john@example.com', phone='555-1234'\nAnd user clicks 'Registrarse' button\nThen browser sends POST /api/register with {name: 'John Doe', email: 'john@example.com', phone: '555-1234'}\nAnd API responds 200 with {success: true, message: 'Registro exitoso. ¡Gracias!', user: {id, name, email, phone, registeredAt}}\nAnd UI displays success message 'Registro exitoso. ¡Gracias!' for 3 seconds\nAnd form fields are cleared (name, email, phone empty)",
+            "preconditions": ["User is on index.html", "Form fields are empty"],
+            "steps": [
+              "1. Fill name field with 'John Doe'",
+              "2. Fill email field with 'john@example.com'",
+              "3. Fill phone field with '555-1234'",
+              "4. Click 'Registrarse' button",
+              "5. Verify POST request to /api/register was sent",
+              "6. Wait for response",
+              "7. Verify success message appears",
+              "8. Wait 3 seconds and verify message disappears",
+              "9. Verify form fields are empty"
+            ],
+            "test_data": {
+              "name": "John Doe",
+              "email": "john@example.com",
+              "phone": "555-1234",
+              "expected_response_status": 200,
+              "expected_message": "Registro exitoso. ¡Gracias!"
+            },
+            "success_assertions": [
+              "POST request sent to /api/register",
+              "Response status 200",
+              "Response body contains success=true",
+              "Response user object has id, name, email, phone, registeredAt",
+              "UI displays success message",
+              "After 3s, message disappears",
+              "Form fields are empty",
+              "User can submit another registration"
+            ],
+            "edge_cases": [
+              "Name with special characters: 'José García'",
+              "Email with subdomain: 'user+tag@mail.co.uk'",
+              "Phone with formatting: '+1 (555) 123-4567'"
+            ]
+          },
+          {
+            "scenario_id": "REG-S002",
+            "scenario_name": "Registration without required fields",
+            "requirement_id": "REQ-002",
+            "gherkin": "Given user is on registration page\nWhen user submits form without 'name' field\nThen browser HTML5 validation prevents submission (or API returns 400)\nAnd API receives no POST request (if HTML5 blocks) or responds 400 {error: 'Name and email are required'} (if JS sends)\nGiven user submits form without 'email' field\nWhen browser submits\nThen browser HTML5 validation prevents submission (or API returns 400)\nGiven user submits form without both 'name' and 'email'\nWhen browser attempts submit\nThen browser prevents submission",
+            "preconditions": ["User is on index.html", "Form fields are empty or partially filled"],
+            "steps": [
+              "Test Case A (Missing name):",
+              "1. Leave name field empty",
+              "2. Fill email='test@example.com'",
+              "3. Fill phone='555-0000'",
+              "4. Click 'Registrarse'",
+              "5. Verify HTML5 validation error OR API returns 400",
+              "Test Case B (Missing email):",
+              "1. Fill name='Jane Doe'",
+              "2. Leave email field empty",
+              "3. Fill phone='555-0000'",
+              "4. Click 'Registrarse'",
+              "5. Verify HTML5 validation error OR API returns 400",
+              "Test Case C (Missing both):",
+              "1. Leave name and email empty",
+              "2. Click 'Registrarse'",
+              "3. Verify HTML5 validation error"
+            ],
+            "test_data": [
+              {"name": "", "email": "valid@example.com", "phone": "555-0000", "expect_error": true},
+              {"name": "John", "email": "", "phone": "555-0000", "expect_error": true},
+              {"name": "", "email": "", "phone": "555-0000", "expect_error": true}
+            ],
+            "success_assertions": [
+              "HTML5 validation prevents submission with no POST request sent",
+              "If JS sends anyway, API responds 400 with error message",
+              "No user created",
+              "Form retains values (or cleared by validation logic)"
+            ]
+          },
+          {
+            "scenario_id": "REG-S003",
+            "scenario_name": "Registration with optional phone field",
+            "requirement_id": "REQ-003",
+            "gherkin": "Given registration form with phone field (optional)\nWhen user fills name='Alice', email='alice@example.com', phone='555-5678'\nAnd user submits\nThen user is registered with phone stored as-is\nWhen user fills name='Bob', email='bob@example.com', phone='' (empty)\nAnd user submits\nThen user is registered with phone as empty/null\nWhen user fills name='Charlie', email='charlie@example.com' (no phone interaction)\nAnd user submits\nThen user is registered successfully",
+            "preconditions": ["User is on registration form"],
+            "steps": [
+              "Test Case A (With phone):",
+              "1. Fill name='Alice', email='alice@example.com', phone='555-5678'",
+              "2. Submit form",
+              "3. Verify user created",
+              "4. Verify API response includes phone='555-5678'",
+              "Test Case B (Empty phone):",
+              "1. Fill name='Bob', email='bob@example.com', phone=''",
+              "2. Submit form",
+              "3. Verify user created",
+              "4. Verify API response includes phone='' or null",
+              "Test Case C (No phone interaction):",
+              "1. Fill name='Charlie', email='charlie@example.com'",
+              "2. Leave phone field untouched",
+              "3. Submit form",
+              "4. Verify user created"
+            ],
+            "test_data": [
+              {"name": "Alice", "email": "alice@example.com", "phone": "555-5678"},
+              {"name": "Bob", "email": "bob@example.com", "phone": ""},
+              {"name": "Charlie", "email": "charlie@example.com", "phone": null}
+            ],
+            "success_assertions": [
+              "All three users registered successfully",
+              "Phone field is optional (not required)",
+              "Phone value stored exactly as submitted (or null if not provided)",
+              "Success message displayed in all cases"
+            ]
+          },
+          {
+            "scenario_id": "REG-S004",
+            "scenario_name": "Success message displays and auto-clears",
+            "requirement_id": "REQ-004",
+            "gherkin": "Given user submits valid registration\nWhen API responds 200\nThen UI displays message element with text 'Registro exitoso. ¡Gracias!'\nAnd message has CSS class 'message success' for green styling\nAnd after 3000ms, message element is removed or hidden\nAnd user can verify no residual message in DOM",
+            "preconditions": ["Valid registration ready to submit"],
+            "steps": [
+              "1. Submit valid registration form",
+              "2. Verify success message appears immediately after response",
+              "3. Verify message text = 'Registro exitoso. ¡Gracias!'",
+              "4. Verify message DOM element has class 'message' and 'success'",
+              "5. Verify message is visible (display != 'none')",
+              "6. Wait 3 seconds",
+              "7. Verify message disappears from DOM or is hidden",
+              "8. Verify no residual message styling/classes in form"
+            ],
+            "test_data": {
+              "name": "Success Test User",
+              "email": "success@test.com",
+              "phone": "555-9999",
+              "timeout_ms": 3000
+            },
+            "success_assertions": [
+              "Success message appears after form submission",
+              "Message text exact match: 'Registro exitoso. ¡Gracias!'",
+              "Message element has class 'message' and 'success'",
+              "Message is visible on page",
+              "After 3 seconds, message is hidden or removed",
+              "User can submit another registration without residual messages"
+            ]
+          },
+          {
+            "scenario_id": "REG-S005",
+            "scenario_name": "Form reset after successful registration",
+            "requirement_id": "REQ-005",
+            "gherkin": "Given user submits valid registration (name='Maria', email='maria@example.com', phone='555-7777')\nWhen API responds 200\nThen all form input fields are cleared: name='', email='', phone=''\nAnd user can immediately fill and submit another registration\nAnd second registration has no residual data from first registration",
+            "preconditions": ["First registration is valid and submitted"],
+            "steps": [
+              "1. Fill form with user data: name='Maria', email='maria@example.com', phone='555-7777'",
+              "2. Submit registration",
+              "3. Wait for success message",
+              "4. Verify form fields are empty: name='', email='', phone=''",
+              "5. Fill form with second user data: name='Luis', email='luis@example.com', phone='555-8888'",
+              "6. Submit second registration",
+              "7. Verify second user created correctly (no data from Maria)",
+              "8. Verify form is cleared again"
+            ],
+            "test_data": [
+              {"user_1": {"name": "Maria", "email": "maria@example.com", "phone": "555-7777"}},
+              {"user_2": {"name": "Luis", "email": "luis@example.com", "phone": "555-8888"}}
+            ],
+            "success_assertions": [
+              "After first submission, form fields are empty",
+              "Second registration succeeds with only second user's data",
+              "No data contamination between registrations",
+              "Form can be reused immediately after clearing"
+            ]
+          }
+        ]
+      },
+      {
+        "suite_id": "SUITE-002",
+        "suite_name": "User Listing Suite",
+        "area": "User Listing Flow",
+        "requirements_covered": ["REQ-006", "REQ-007", "REQ-008"],
+        "description": "Tests user listing page display, empty state, and user table rendering",
+        "api_involved": ["GET /api/users"],
+        "pages_involved": ["users.html"],
+        "preconditions": [
+          "Browser navigated to http://localhost:3000/users",
+          "API endpoint GET /api/users is accessible",
+          "Table elements and templates are loaded"
+        ],
+        "postconditions": [
+          "Users table displayed with all user fields",
+          "Empty state message shown when no users exist",
+          "Buttons (Edit/Delete) available for each user row"
+        ],
+        "automation_decision": {
+          "decision": "AUTOMATED",
+          "confidence": "100%",
+          "justification": "All steps are page navigation and DOM inspection. Playwright can navigate to /users, call GET /api/users, inspect table HTML, verify element visibility.",
+          "automation_type": "E2E"
+        },
+        "functional_coverage": {
+          "percentage": 100,
+          "covered_aspects": ["Empty state display", "User table rendering", "Column display", "Action buttons"],
+          "gaps_impacting": ["GAP-009 (no pagination - assumed < 1000 users in test)"]
+        },
+        "risk_coverage": {
+          "xss_injection": "User names/emails injected into table - verify no HTML execution",
+          "data_integrity": "Verify all user fields displayed correctly",
+          "performance": "Table rendering with 100 users (performance baseline)",
+          "edge_cases": "Empty table, very long names/emails, special characters in data"
+        },
+        "scenarios": [
+          {
+            "scenario_id": "LIST-S001",
+            "scenario_name": "Display empty state when no users exist",
+            "requirement_id": "REQ-006",
+            "gherkin": "Given no users registered in the system\nWhen user navigates to /users\nAnd page loads GET /api/users\nThen API returns empty array []\nAnd users table is not visible (display: none or hidden attribute)\nAnd message element #noUsers is visible\nAnd message text displays 'No hay usuarios registrados'",
+            "preconditions": ["Fresh system state with no users", "users.html is loaded"],
+            "steps": [
+              "1. Clear any existing users (new test run assumes fresh start)",
+              "2. Navigate to http://localhost:3000/users",
+              "3. Verify page loads successfully",
+              "4. Inspect network: verify GET /api/users returns []",
+              "5. Verify table element is hidden/not displayed",
+              "6. Verify #noUsers message element is visible",
+              "7. Verify message text contains 'No hay usuarios registrados'"
+            ],
+            "test_data": {
+              "users_in_system": 0,
+              "api_endpoint": "GET /api/users",
+              "expected_response": []
+            },
+            "success_assertions": [
+              "GET /api/users returns empty array",
+              "Table element is hidden",
+              "Empty state message is visible",
+              "Message text = 'No hay usuarios registrados'",
+              "No user rows displayed"
+            ]
+          },
+          {
+            "scenario_id": "LIST-S002",
+            "scenario_name": "Display users table after registrations",
+            "requirement_id": "REQ-007",
+            "gherkin": "Given users exist in system (from registration suite precondition)\nWhen user navigates to /users\nThen page calls GET /api/users\nAnd API returns array of user objects [{id, name, email, phone, registeredAt}, ...]\nAnd table is visible\nAnd each user row displays columns: ID, Name, Email, Phone, Registration Date\nAnd each row shows user data in correct columns",
+            "preconditions": [
+              "User has registered 3 test users from Registration suite",
+              "Users persisted in in-memory storage",
+              "users.html page is navigated to"
+            ],
+            "steps": [
+              "1. Ensure 3 users are registered: (John Doe, john@example.com, 555-1234), (Jane Smith, jane@example.com, 555-5678), (Bob Johnson, bob@example.com, 555-9999)",
+              "2. Navigate to /users",
+              "3. Wait for page load and GET /api/users to complete",
+              "4. Verify table is visible",
+              "5. Verify table has 3 rows (no header in count)",
+              "6. Verify row 1: ID (numeric), Name='John Doe', Email='john@example.com', Phone='555-1234', Date (timestamp)",
+              "7. Verify row 2: ID, Name='Jane Smith', Email='jane@example.com', Phone='555-5678', Date",
+              "8. Verify row 3: ID, Name='Bob Johnson', Email='bob@example.com', Phone='555-9999', Date"
+            ],
+            "test_data": {
+              "users": [
+                {"name": "John Doe", "email": "john@example.com", "phone": "555-1234"},
+                {"name": "Jane Smith", "email": "jane@example.com", "phone": "555-5678"},
+                {"name": "Bob Johnson", "email": "bob@example.com", "phone": "555-9999"}
+              ]
+            },
+            "success_assertions": [
+              "Table is visible",
+              "Table contains 3 user rows",
+              "Each row displays: ID, Name, Email, Phone, Registration Date",
+              "User data matches expected values",
+              "No empty cells in user rows",
+              "Dates are formatted as locale strings"
+            ]
+          },
+          {
+            "scenario_id": "LIST-S003",
+            "scenario_name": "Display action buttons for each user",
+            "requirement_id": "REQ-008",
+            "gherkin": "Given users table is displayed with user rows\nWhen table renders each row\nThen each row includes 'Editar' button with class 'btn-edit'\nAnd each row includes 'Eliminar' button with class 'btn-delete'\nAnd both buttons have data-id attribute matching user.id\nAnd buttons are clickable and functional",
+            "preconditions": ["Users are registered and displayed in table"],
+            "steps": [
+              "1. Navigate to /users with 2+ users in system",
+              "2. Wait for table to load",
+              "3. Inspect first user row",
+              "4. Verify 'Editar' button exists with class 'btn-edit'",
+              "5. Verify button has data-id attribute with numeric ID",
+              "6. Verify 'Eliminar' button exists with class 'btn-delete'",
+              "7. Verify button has data-id attribute matching user.id",
+              "8. Repeat for second user row to verify data-id differs",
+              "9. Verify buttons are visible and not disabled"
+            ],
+            "test_data": {
+              "users": [
+                {"name": "User One", "email": "user1@example.com"},
+                {"name": "User Two", "email": "user2@example.com"}
+              ]
+            },
+            "success_assertions": [
+              "Each user row has 'Editar' button with class 'btn-edit'",
+              "Each user row has 'Eliminar' button with class 'btn-delete'",
+              "Each button has data-id attribute",
+              "data-id values are unique per user and match API user.id",
+              "Buttons are visible, enabled, and clickable",
+              "Button styling indicates actionable elements"
+            ]
+          },
+          {
+            "scenario_id": "LIST-S004",
+            "scenario_name": "Handle users with special characters in names/emails",
+            "requirement_id": "REQ-007",
+            "gherkin": "Given users with special characters are registered\nWhen user navigates to /users\nThen table displays all users correctly\nAnd names with accents/unicode are shown properly\nAnd emails with special characters are rendered safely\nAnd no HTML/script injection occurs from user data",
+            "preconditions": ["Users with special characters registered"],
+            "steps": [
+              "1. Register user: name='José María García', email='jose+test@example.co.uk'",
+              "2. Register user: name='李明', email='liming@example.cn'",
+              "3. Navigate to /users",
+              "4. Verify both users appear in table",
+              "5. Verify names display with correct unicode characters",
+              "6. Verify emails display completely",
+              "7. Inspect HTML: verify names/emails are properly escaped (text content, not innerHTML)"
+            ],
+            "test_data": {
+              "users": [
+                {"name": "José María García", "email": "jose+test@example.co.uk", "phone": "555-1111"},
+                {"name": "李明", "email": "liming@example.cn", "phone": "555-2222"}
+              ]
+            },
+            "success_assertions": [
+              "Users with special characters display correctly",
+              "Unicode characters not garbled",
+              "Email addresses with + and dots display fully",
+              "No HTML tags visible in table (escaped properly)",
+              "XSS prevention: user data not executed as HTML/JS"
+            ]
+          }
+        ]
+      },
+      {
+        "suite_id": "SUITE-003",
+        "suite_name": "User Management Suite",
+        "area": "User Management Flow",
+        "requirements_covered": ["REQ-009", "REQ-010", "REQ-011", "REQ-012"],
+        "description": "Tests edit modal, user data updates, deletions with confirmation, and cancel operations",
+        "api_involved": ["GET /api/users/:id", "PUT /api/users/:id", "DELETE /api/users/:id"],
+        "pages_involved": ["users.html"],
+        "preconditions": [
+          "Users exist in system (created from Registration suite)",
+          "User navigated to /users page",
+          "Users table is displayed with action buttons visible"
+        ],
+        "postconditions": [
+          "User data updated or deleted in in-memory storage",
+          "Table reloaded with latest state",
+          "Modal closed after operations"
+        ],
+        "automation_decision": {
+          "decision": "AUTOMATED",
+          "confidence": "100%",
+          "justification": "All interactions (modal open/close, form fill, button clicks, API calls) are browser-automatable with Playwright. No external dependencies.",
+          "automation_type": "E2E"
+        },
+        "functional_coverage": {
+          "percentage": 95,
+          "covered_aspects": ["Edit modal", "User data loading", "Form validation on update", "Deletion with confirmation", "Table refresh"],
+          "gaps_impacting": ["GAP-004 (no auth - user isolation tests N/A)"]
+        },
+        "risk_coverage": {
+          "data_modification": "Verify PUT request payload, response data, table update",
+          "deletion_safety": "Verify confirmation dialog shown, only confirmed deletions persist",
+          "modal_management": "Proper open/close, no data leakage between modal instances",
+          "api_errors": "404 on missing user, 400 on validation failure"
+        },
+        "scenarios": [
+          {
+            "scenario_id": "MGMT-S001",
+            "scenario_name": "Open edit modal and load user data",
+            "requirement_id": "REQ-009",
+            "gherkin": "Given user table is displayed with 2+ users\nWhen user clicks 'Editar' button for a specific user\nThen page calls GET /api/users/{id}\nAnd API responds 200 with user object {id, name, email, phone, registeredAt}\nAnd modal #editModal appears (display='block' or visibility='visible')\nAnd form fields in modal are pre-populated: name, email, phone with user data\nAnd user can modify field values\nAnd modal has 'Guardar' and 'Cancelar' buttons",
+            "preconditions": [
+              "3+ users registered in system",
+              "User navigated to /users and table displayed",
+              "Modal HTML is loaded but initially hidden"
+            ],
+            "steps": [
+              "1. Click 'Editar' button for first user (ID=user1_id, name='John Doe')",
+              "2. Verify GET /api/users/{user1_id} network request",
+              "3. Wait for response",
+              "4. Verify modal appears with display='block'",
+              "5. Verify form field 'name' pre-filled with 'John Doe'",
+              "6. Verify form field 'email' pre-filled with user's email",
+              "7. Verify form field 'phone' pre-filled with user's phone",
+              "8. Verify field values are editable (can type/clear)",
+              "9. Verify 'Guardar' button is visible",
+              "10. Verify 'Cancelar' button is visible"
+            ],
+            "test_data": {
+              "user_to_edit": {
+                "id": "auto_assigned",
+                "name": "John Doe",
+                "email": "john@example.com",
+                "phone": "555-1234"
+              }
+            },
+            "success_assertions": [
+              "GET /api/users/{id} called with correct ID",
+              "API returns 200 with user object",
+              "Modal becomes visible",
+              "All form fields pre-populated with correct user data",
+              "Fields are editable",
+              "Modal buttons present and functional"
+            ]
+          },
+          {
+            "scenario_id": "MGMT-S002",
+            "scenario_name": "Update user data with valid information",
+            "requirement_id": "REQ-010",
+            "gherkin": "Given edit modal is open with user data pre-filled\nWhen user modifies name='Jane Updated', email='jane.new@example.com', phone='555-0000'\nAnd user clicks 'Guardar' button\nThen page sends PUT /api/users/{id} with body {name: 'Jane Updated', email: 'jane.new@example.com', phone: '555-0000'}\nAnd API validates name and email are not empty\nAnd API responds 200 with {success: true, message: 'User updated successfully', user: {...}}\nAnd user record is updated in memory\nAnd modal closes (display='none')\nAnd users table automatically reloads\nAnd updated user row shows new data",
+            "preconditions": ["Edit modal is open with user data loaded"],
+            "steps": [
+              "1. Clear name field, type 'Jane Updated'",
+              "2. Clear email field, type 'jane.new@example.com'",
+              "3. Clear phone field, type '555-0000'",
+              "4. Click 'Guardar' button",
+              "5. Verify PUT request sent to /api/users/{id}",
+              "6. Verify request body contains updated values",
+              "7. Wait for response",
+              "8. Verify response status 200",
+              "9. Verify modal closes",
+              "10. Wait for table reload",
+              "11. Verify table row shows: name='Jane Updated', email='jane.new@example.com', phone='555-0000'"
+            ],
+            "test_data": {
+              "original": {"name": "Jane Smith", "email": "jane@example.com", "phone": "555-5678"},
+              "updated": {"name": "Jane Updated", "email": "jane.new@example.com", "phone": "555-0000"}
+            },
+            "success_assertions": [
+              "PUT request sent with correct user ID",
+              "Request body contains all updated values",
+              "API responds 200",
+              "User record updated in backend",
+              "Modal closes automatically",
+              "Table reloads with updated data",
+              "User can see new data in table immediately"
+            ]
+          },
+          {
+            "scenario_id": "MGMT-S003",
+            "scenario_name": "Reject update with missing required fields",
+            "requirement_id": "REQ-010",
+            "gherkin": "Given edit modal is open\nWhen user clears the 'name' field\nAnd user clicks 'Guardar'\nThen page sends PUT request (or validation prevents it)\nAnd API responds 400 {error: 'Name and email are required'}\nOr HTML5 validation prevents submission\nAnd modal stays open\nAnd user record is not modified\nWhen user clears 'email' field\nAnd clicks 'Guardar'\nThen same validation error occurs\nWhen user clears both 'name' and 'email'\nAnd clicks 'Guardar'\nThen validation error occurs",
+            "preconditions": ["Edit modal is open"],
+            "steps": [
+              "Test Case A (Missing name):",
+              "1. Clear name field (leave empty)",
+              "2. Keep email and phone filled",
+              "3. Click 'Guardar'",
+              "4. Verify HTML5 validation error OR API returns 400",
+              "5. Verify modal stays open",
+              "6. Verify original user data unchanged in table",
+              "Test Case B (Missing email):",
+              "1. Reload modal for fresh user data",
+              "2. Clear email field",
+              "3. Keep name and phone filled",
+              "4. Click 'Guardar'",
+              "5. Verify validation error",
+              "Test Case C (Missing both):",
+              "1. Reload modal",
+              "2. Clear name and email",
+              "3. Click 'Guardar'",
+              "4. Verify validation error"
+            ],
+            "test_data": [
+              {"name": "", "email": "valid@example.com", "phone": "555-1111", "expect_error": true},
+              {"name": "John", "email": "", "phone": "555-1111", "expect_error": true},
+              {"name": "", "email": "", "phone": "555-1111", "expect_error": true}
+            ],
+            "success_assertions": [
+              "HTML5 validation prevents submission OR API returns 400",
+              "No PUT request sent (or request fails with 400)",
+              "Modal remains open",
+              "Original user data preserved in table",
+              "User can correct fields and retry"
+            ]
+          },
+          {
+            "scenario_id": "MGMT-S004",
+            "scenario_name": "Delete user with confirmation dialog",
+            "requirement_id": "REQ-011",
+            "gherkin": "Given user table is displayed\nWhen user clicks 'Eliminar' button for a user\nThen browser shows confirmation dialog with message containing '¿Está seguro...?'\nAnd if user confirms deletion\nThen page sends DELETE /api/users/{id}\nAnd API responds 200 with {success: true, message: 'User deleted successfully', user: {...}}\nAnd user is removed from in-memory storage\nAnd users table reloads\nAnd deleted user is no longer visible in table",
+            "preconditions": ["Users table is displayed with 2+ users"],
+            "steps": [
+              "1. Get user ID and name from first table row",
+              "2. Click 'Eliminar' button for that user",
+              "3. Verify browser confirm() dialog appears",
+              "4. Verify dialog message contains confirmation text about deletion",
+              "5. Click OK in dialog (confirm deletion)",
+              "6. Verify DELETE /api/users/{id} request sent",
+              "7. Wait for response",
+              "8. Verify response status 200",
+              "9. Wait for table reload",
+              "10. Verify deleted user is gone from table",
+              "11. Verify remaining users still in table"
+            ],
+            "test_data": {
+              "users_before": [
+                {"name": "User A", "email": "usera@example.com"},
+                {"name": "User B", "email": "userb@example.com"},
+                {"name": "User C", "email": "userc@example.com"}
+              ],
+              "user_to_delete": 0,
+              "users_after": 2
+            },
+            "success_assertions": [
+              "Confirmation dialog shown before deletion",
+              "DELETE request sent with correct user ID",
+              "API responds 200",
+              "User removed from in-memory storage",
+              "Table reloads automatically",
+              "Deleted user no longer in table",
+              "Other users remain unchanged"
+            ]
+          },
+          {
+            "scenario_id": "MGMT-S005",
+            "scenario_name": "Cancel deletion when user denies confirmation",
+            "requirement_id": "REQ-011",
+            "gherkin": "Given user table is displayed\nWhen user clicks 'Eliminar' button\nAnd browser shows confirmation dialog\nAnd user clicks Cancel in dialog\nThen no DELETE request is sent\nAnd user remains in table\nAnd user data is unchanged",
+            "preconditions": ["Users table displayed"],
+            "steps": [
+              "1. Get initial user count from table",
+              "2. Get user ID and name from first row",
+              "3. Click 'Eliminar' button",
+              "4. Verify confirm() dialog appears",
+              "5. Click Cancel in dialog (do NOT confirm)",
+              "6. Verify NO DELETE request is sent",
+              "7. Verify modal/dialog is closed",
+              "8. Verify user still visible in table",
+              "9. Verify user count unchanged"
+            ],
+            "test_data": {
+              "user_count_before": 3,
+              "user_count_after": 3
+            },
+            "success_assertions": [
+              "Confirmation dialog appears",
+              "No DELETE request sent when user cancels",
+              "Modal closes without deletion",
+              "User data unchanged in table",
+              "User count remains the same"
+            ]
+          },
+          {
+            "scenario_id": "MGMT-S006",
+            "scenario_name": "Cancel edit operation and close modal",
+            "requirement_id": "REQ-012",
+            "gherkin": "Given edit modal is open with user data\nWhen user modifies form fields (e.g., changes name)\nAnd user clicks 'Cancelar' button\nThen modal closes without sending PUT request\nAnd user data in table is unchanged\nWhen user opens same user's edit modal again\nThen original unmodified data is shown",
+            "preconditions": ["Edit modal is open"],
+            "steps": [
+              "1. Get user ID and original name from modal",
+              "2. Clear name field and type new name 'Modified Name'",
+              "3. Verify form shows modified data",
+              "4. Click 'Cancelar' button",
+              "5. Verify modal closes (display='none')",
+              "6. Verify NO PUT request was sent",
+              "7. Verify user in table still shows original name",
+              "8. Click 'Editar' for same user again",
+              "9. Verify modal opens with original unmodified name"
+            ],
+            "test_data": {
+              "original_name": "Original User",
+              "modified_name": "Modified Name",
+              "expected_final_name": "Original User"
+            },
+            "success_assertions": [
+              "Modal closes when Cancel clicked",
+              "No PUT request sent",
+              "User data in table unchanged",
+              "Reopening modal shows original data",
+              "No residual modifications persisted"
+            ]
+          }
+        ]
+      },
+      {
+        "suite_id": "SUITE-004",
+        "suite_name": "Navigation Suite",
+        "area": "Navigation Flow",
+        "requirements_covered": ["REQ-013", "REQ-014"],
+        "description": "Tests navigation between registration and users listing pages",
+        "api_involved": [],
+        "pages_involved": ["index.html", "users.html"],
+        "preconditions": [
+          "Browser has access to http://localhost:3000",
+          "Navigation links are rendered in both pages"
+        ],
+        "postconditions": [
+          "Correct pages loaded",
+          "Page content visible and interactive"
+        ],
+        "automation_decision": {
+          "decision": "AUTOMATED",
+          "confidence": "100%",
+          "justification": "Simple page navigation and URL verification. Playwright can click links, verify URL changes, and inspect page content.",
+          "automation_type": "E2E"
+        },
+        "functional_coverage": {
+          "percentage": 100,
+          "covered_aspects": ["Link navigation", "Page loading", "Content display"],
+          "gaps_impacting": []
+        },
+        "risk_coverage": {
+          "broken_links": "Verify href attributes are correct",
+          "page_load_failures": "Verify pages load without errors",
+          "navigation_persistence": "Verify navigation works from both pages"
+        },
+        "scenarios": [
+          {
+            "scenario_id": "NAV-S001",
+            "scenario_name": "Navigate from users page to registration page",
+            "requirement_id": "REQ-013",
+            "gherkin": "Given user is on /users page\nWhen user clicks navigation link 'Registro' (or home link)\nThen page navigates to http://localhost:3000/\nAnd server serves index.html\nAnd registration form is visible\nAnd page title/heading indicates registration page",
+            "preconditions": ["User is on /users page"],
+            "steps": [
+              "1. Navigate to http://localhost:3000/users",
+              "2. Verify page loads (users table visible)",
+              "3. Locate navigation link text='Registro' or href='/'",
+              "4. Click the link",
+              "5. Wait for page navigation",
+              "6. Verify URL is http://localhost:3000/",
+              "7. Verify registration form element is visible",
+              "8. Verify form has fields: name, email, phone",
+              "9. Verify 'Registrarse' button is visible"
+            ],
+            "test_data": {
+              "start_url": "http://localhost:3000/users",
+              "target_url": "http://localhost:3000/",
+              "nav_link_text": "Registro",
+              "nav_link_href": "/"
+            },
+            "success_assertions": [
+              "Navigation link present on /users page",
+              "Clicking link navigates to /",
+              "index.html served",
+              "Registration form visible",
+              "Form is ready for user input"
+            ]
+          },
+          {
+            "scenario_id": "NAV-S002",
+            "scenario_name": "Navigate from registration page to users page",
+            "requirement_id": "REQ-014",
+            "gherkin": "Given user is on / (registration page)\nWhen user clicks navigation link 'Ver Usuarios' (or users link)\nThen page navigates to http://localhost:3000/users\nAnd server serves users.html\nAnd users table is rendered\nAnd API GET /api/users is called\nAnd page displays either empty state or user list",
+            "preconditions": ["User is on / (registration) page"],
+            "steps": [
+              "1. Navigate to http://localhost:3000/",
+              "2. Verify page loads (registration form visible)",
+              "3. Locate navigation link text='Ver Usuarios' or href='/users'",
+              "4. Click the link",
+              "5. Wait for page navigation",
+              "6. Verify URL is http://localhost:3000/users",
+              "7. Verify users table element is rendered",
+              "8. Wait for GET /api/users API call to complete",
+              "9. Verify page displays either 'No hay usuarios registrados' or user list"
+            ],
+            "test_data": {
+              "start_url": "http://localhost:3000/",
+              "target_url": "http://localhost:3000/users",
+              "nav_link_text": "Ver Usuarios",
+              "nav_link_href": "/users"
+            },
+            "success_assertions": [
+              "Navigation link present on / page",
+              "Clicking link navigates to /users",
+              "users.html served",
+              "Users table rendered",
+              "GET /api/users called",
+              "Page displays correct content (empty state or user list)"
+            ]
+          },
+          {
+            "scenario_id": "NAV-S003",
+            "scenario_name": "Verify navigation links are persistent across pages",
+            "requirement_id": "REQ-013, REQ-014",
+            "gherkin": "Given navigation links exist on registration page\nWhen user is on any page\nThen navigation section is visible with links to both Registration and Users pages\nAnd links are clickable and functional\nAnd user can navigate back and forth between pages repeatedly",
+            "preconditions": ["Server is running"],
+            "steps": [
+              "1. Navigate to http://localhost:3000/",
+              "2. Verify navigation section is visible",
+              "3. Verify 'Registro' link exists (href='/')",
+              "4. Verify 'Ver Usuarios' link exists (href='/users')",
+              "5. Click 'Ver Usuarios' → verify page changes to /users",
+              "6. Verify navigation section still visible on /users page",
+              "7. Click 'Registro' → verify page changes to /",
+              "8. Repeat navigation 3-4 times to verify consistency"
+            ],
+            "test_data": {
+              "pages": ["/", "/users"],
+              "nav_iterations": 3
+            },
+            "success_assertions": [
+              "Navigation section present on all pages",
+              "Both links are functional",
+              "Links navigate to correct pages",
+              "Navigation works bidirectionally",
+              "Navigation persists across multiple navigations",
+              "No broken links or 404 errors"
+            ]
+          }
+        ]
+      },
+      {
+        "suite_id": "SUITE-005",
+        "suite_name": "API Contract Suite",
+        "area": "API Contract Tests",
+        "requirements_covered": ["REQ-015", "REQ-016", "REQ-017", "REQ-018"],
+        "description": "Tests API response formats, HTTP status codes, error handling, and data contracts",
+        "api_involved": ["POST /api/register", "GET /api/users", "GET /api/users/:id", "PUT /api/users/:id", "DELETE /api/users/:id"],
+        "pages_involved": [],
+        "preconditions": [
+          "Server running at http://localhost:3000",
+          "All API endpoints accessible",
+          "Test data prepared for API calls"
+        ],
+        "postconditions": [
+          "API responses validated against contract",
+          "No unexpected status codes or formats"
+        ],
+        "automation_decision": {
+          "decision": "AUTOMATED",
+          "confidence": "100%",
+          "justification": "Direct API testing with fetch/axios. All tests are HTTP requests and JSON response validation. No browser UI needed. Can run as integration tests.",
+          "automation_type": "API Integration"
+        },
+        "functional_coverage": {
+          "percentage": 100,
+          "covered_aspects": ["HTTP status codes", "Response body format", "Content-Type headers", "Error messages"],
+          "gaps_impacting": ["GAP-005 (limited error scenarios - 200/400/404 only)"]
+        },
+        "risk_coverage": {
+          "content_type_validation": "Verify application/json",
+          "response_structure": "Verify required fields present",
+          "error_messages": "Verify consistency and clarity",
+          "status_codes": "Verify correct codes per scenario"
+        },
+        "scenarios": [
+          {
+            "scenario_id": "API-S001",
+            "scenario_name": "POST /api/register returns correct status and format",
+            "requirement_id": "REQ-015",
+            "gherkin": "Given valid registration payload {name: 'Test User', email: 'test@example.com', phone: '555-0000'}\nWhen POST /api/register is called\nThen response status is 200 OK\nAnd response Content-Type header is 'application/json'\nAnd response body contains: {success: true, message, user}\nAnd user object includes: {id (numeric), name, email, phone, registeredAt}\nAnd user.id is unique and non-zero\nAnd user.registeredAt is formatted timestamp",
+            "preconditions": ["API server running", "No user with test@example.com exists"],
+            "steps": [
+              "1. Prepare payload: {name: 'API Test User', email: 'api-test@example.com', phone: '555-5555'}",
+              "2. Send POST /api/register with JSON body",
+              "3. Verify response status is 200",
+              "4. Verify response header Content-Type: application/json",
+              "5. Parse response JSON",
+              "6. Verify response has key 'success' with value true",
+              "7. Verify response has key 'message' with non-empty string",
+              "8. Verify response has key 'user' with object value",
+              "9. Verify user object has keys: id, name, email, phone, registeredAt",
+              "10. Verify user.id is number > 0",
+              "11. Verify user.name == 'API Test User'",
+              "12. Verify user.email == 'api-test@example.com'",
+              "13. Verify user.phone == '555-5555'",
+              "14. Verify user.registeredAt is non-empty string (ISO or locale date)"
+            ],
+            "test_data": {
+              "payload": {"name": "API Test User", "email": "api-test@example.com", "phone": "555-5555"},
+              "expected_status": 200,
+              "expected_content_type": "application/json",
+              "expected_response_keys": ["success", "message", "user"]
+            },
+            "success_assertions": [
+              "Response status is 200",
+              "Content-Type is application/json",
+              "Response body is valid JSON",
+              "Response contains success=true",
+              "Response contains non-empty message",
+              "User object has all required fields",
+              "User ID is numeric and > 0",
+              "User data matches submitted payload",
+              "registeredAt is non-empty timestamp"
+            ]
+          },
+          {
+            "scenario_id": "API-S002",
+            "scenario_name": "POST /api/register returns 400 for validation errors",
+            "requirement_id": "REQ-016",
+            "gherkin": "Given invalid registration payloads:\n  A) {name: '', email: 'test@example.com', phone: '555-0000'} (missing name)\n  B) {name: 'Test', email: '', phone: '555-0000'} (missing email)\n  C) {name: '', email: '', phone: '555-0000'} (missing both)\nWhen POST /api/register is called with each payload\nThen response status is 400 Bad Request\nAnd response body contains: {error: 'Name and email are required'}\nAnd no user is created",
+            "preconditions": ["API server running"],
+            "steps": [
+              "Test Case A (Missing name):",
+              "1. Prepare payload: {name: '', email: 'test@example.com', phone: '555-0000'}",
+              "2. Send POST /api/register",
+              "3. Verify response status is 400",
+              "4. Verify response body is JSON with error message",
+              "5. Verify GET /api/users does not contain user with email='test@example.com'",
+              "Test Case B (Missing email):",
+              "1. Prepare payload: {name: 'Test User', email: '', phone: '555-0000'}",
+              "2. Send POST /api/register",
+              "3. Verify response status is 400",
+              "4. Verify error message present",
+              "Test Case C (Missing both):",
+              "1. Prepare payload: {name: '', email: '', phone: '555-0000'}",
+              "2. Send POST /api/register",
+              "3. Verify response status is 400"
+            ],
+            "test_data": [
+              {"payload": {"name": "", "email": "test@example.com", "phone": "555-0000"}, "expected_status": 400},
+              {"payload": {"name": "Test", "email": "", "phone": "555-0000"}, "expected_status": 400},
+              {"payload": {"name": "", "email": "", "phone": "555-0000"}, "expected_status": 400}
+            ],
+            "success_assertions": [
+              "Response status is 400 for all invalid payloads",
+              "Response contains error message",
+              "Error message is 'Name and email are required'",
+              "No user created with invalid payload",
+              "GET /api/users unchanged"
+            ]
+          },
+          {
+            "scenario_id": "API-S003",
+            "scenario_name": "GET /api/users returns array (empty or populated)",
+            "requirement_id": "REQ-017",
+            "gherkin": "Given any state of users in system (empty or populated)\nWhen GET /api/users is called\nThen response status is 200 OK\nAnd response Content-Type is 'application/json'\nAnd response body is JSON array []\nAnd if empty: response is []\nAnd if populated: each element is {id, name, email, phone, registeredAt}",
+            "preconditions": ["API server running"],
+            "steps": [
+              "Test Case A (Empty users):",
+              "1. Send GET /api/users when no users registered",
+              "2. Verify response status is 200",
+              "3. Verify Content-Type: application/json",
+              "4. Parse response JSON",
+              "5. Verify response is array type",
+              "6. Verify response is empty []",
+              "Test Case B (Populated users):",
+              "1. Register 2 test users via POST /api/register",
+              "2. Send GET /api/users",
+              "3. Verify response status is 200",
+              "4. Parse response JSON",
+              "5. Verify response is array",
+              "6. Verify response.length == 2",
+              "7. Verify each element has keys: id, name, email, phone, registeredAt"
+            ],
+            "test_data": {
+              "empty_case": {"expected_response": []},
+              "populated_case": {
+                "users": [
+                  {"name": "User A", "email": "usera@example.com", "phone": "555-1111"},
+                  {"name": "User B", "email": "userb@example.com", "phone": "555-2222"}
+                ]
+              }
+            },
+            "success_assertions": [
+              "Response status is 200 in all cases",
+              "Content-Type is application/json",
+              "Response is valid JSON array",
+              "Empty case returns []",
+              "Populated case returns array with user objects",
+              "Each user object has all required fields"
+            ]
+          },
+          {
+            "scenario_id": "API-S004",
+            "scenario_name": "GET /api/users/:id returns user or 404",
+            "requirement_id": "REQ-018",
+            "gherkin": "Given a user exists with id=123\nWhen GET /api/users/123 is called\nThen response status is 200 OK\nAnd response body is user object {id, name, email, phone, registeredAt}\nGiven no user exists with id=99999\nWhen GET /api/users/99999 is called\nThen response status is 404 Not Found\nAnd response body is {error: 'User not found'}",
+            "preconditions": ["API server running with at least one user"],
+            "steps": [
+              "Test Case A (Existing user):",
+              "1. Register a test user, extract user.id from response",
+              "2. Send GET /api/users/{user.id}",
+              "3. Verify response status is 200",
+              "4. Parse response JSON",
+              "5. Verify response is user object",
+              "6. Verify response.id == user.id",
+              "7. Verify response contains all user fields",
+              "Test Case B (Non-existent user):",
+              "1. Generate invalid user ID (e.g., 9999999)",
+              "2. Send GET /api/users/9999999",
+              "3. Verify response status is 404",
+              "4. Parse response JSON",
+              "5. Verify response contains error key",
+              "6. Verify error value is 'User not found'"
+            ],
+            "test_data": {
+              "existing_user": {"name": "Existing User", "email": "existing@example.com"},
+              "non_existent_id": 9999999
+            },
+            "success_assertions": [
+              "Existing user: status 200, valid user object returned",
+              "Non-existent user: status 404, error message returned",
+              "Response format consistent for both cases",
+              "No unexpected status codes"
+            ]
+          },
+          {
+            "scenario_id": "API-S005",
+            "scenario_name": "PUT /api/users/:id validates and updates user",
+            "requirement_id": "REQ-016",
+            "gherkin": "Given user exists with id=123\nWhen PUT /api/users/123 is called with {name: 'Updated', email: 'updated@example.com', phone: '555-9999'}\nThen response status is 200 OK\nAnd response body is {success: true, message: '...', user: {...updated data...}}\nWhen PUT /api/users/123 is called with {name: '', email: 'test@example.com'} (empty name)\nThen response status is 400\nAnd response body is {error: 'Name and email are required'}\nWhen PUT /api/users/9999999 is called (non-existent user)\nThen response status is 404\nAnd response body is {error: 'User not found'}",
+            "preconditions": ["API server running with at least one user"],
+            "steps": [
+              "Test Case A (Valid update):",
+              "1. Register user, get user.id",
+              "2. Send PUT /api/users/{user.id} with {name: 'Updated Name', email: 'new@example.com', phone: '555-9999'}",
+              "3. Verify response status is 200",
+              "4. Verify response.success == true",
+              "5. Verify response.user.name == 'Updated Name'",
+              "6. Verify GET /api/users/{user.id} returns updated data",
+              "Test Case B (Invalid update - missing name):",
+              "1. Send PUT /api/users/{user.id} with {name: '', email: 'valid@example.com', phone: '555-9999'}",
+              "2. Verify response status is 400",
+              "3. Verify error message present",
+              "Test Case C (Non-existent user):",
+              "1. Send PUT /api/users/9999999 with valid payload",
+              "2. Verify response status is 404"
+            ],
+            "test_data": {
+              "user_to_update": {"name": "Original", "email": "original@example.com"},
+              "update_payload": {"name": "Updated", "email": "updated@example.com", "phone": "555-9999"},
+              "invalid_payload": {"name": "", "email": "valid@example.com"}
+            },
+            "success_assertions": [
+              "Valid update: status 200, user updated",
+              "Invalid update (missing name): status 400",
+              "Non-existent user: status 404",
+              "Data verified via subsequent GET request"
+            ]
+          }
+        ]
+      }
+    ],
+    "coverage_model": {
+      "overall_functional_coverage": 85,
+      "coverage_by_suite": [
+        {
+          "suite_id": "SUITE-001",
+          "suite_name": "Registration Form Validation Suite",
+          "requirements_total": 5,
+          "requirements_covered": 5,
+          "coverage_percentage": 100,
+          "coverage_details": {
+            "direct_coverage": 100,
+            "gap_blocked_coverage": 0,
+            "assumptions_required": ["HTML5 email validation assumed sufficient (GAP-001)"]
+          }
+        },
+        {
+          "suite_id": "SUITE-002",
+          "suite_name": "User Listing Suite",
+          "requirements_total": 3,
+          "requirements_covered": 3,
+          "coverage_percentage": 100,
+          "coverage_details": {
+            "direct_coverage": 100,
+            "gap_blocked_coverage": 0,
+            "assumptions_required": ["In-memory data assumed stable (GAP-003)"]
+          }
+        },
+        {
+          "suite_id": "SUITE-003",
+          "suite_name": "User Management Suite",
+          "requirements_total": 4,
+          "requirements_covered": 4,
+          "coverage_percentage": 100,
+          "coverage_details": {
+            "direct_coverage": 100,
+            "gap_blocked_coverage": 0,
+            "assumptions_required": ["No auth assumed (GAP-004)", "In-memory data (GAP-003)"]
+          }
+        },
+        {
+          "suite_id": "SUITE-004",
+          "suite_name": "Navigation Suite",
+          "requirements_total": 2,
+          "requirements_covered": 2,
+          "coverage_percentage": 100,
+          "coverage_details": {
+            "direct_coverage": 100,
+            "gap_blocked_coverage": 0,
+            "assumptions_required": []
+          }
+        },
+        {
+          "suite_id": "SUITE-005",
+          "suite_name": "API Contract Suite",
+          "requirements_total": 4,
+          "requirements_covered": 4,
+          "coverage_percentage": 100,
+          "coverage_details": {
+            "direct_coverage": 100,
+            "gap_blocked_coverage": 0,
+            "assumptions_required": ["Limited error codes: 200/400/404 only (GAP-005)"]
+          }
+        }
+      ],
+      "risk_coverage_by_gap": [
+        {
+          "gap_id": "GAP-001",
+          "severity": "CRITICAL",
+          "title": "Email validation beyond HTML5",
+          "mitigation_in_suites": [
+            "SUITE-001: Registration Form tests HTML5 email validation only",
+            "SUITE-005: API Contract tests 400 response for empty email"
+          ],
+          "coverage_status": "PARTIAL",
+          "recommendation": "Email format validation tests deferred to future iteration. Current tests assume HTML5 `type=email` is sufficient. Flag for dev team to implement backend email validation + duplicate prevention."
+        },
+        {
+          "gap_id": "GAP-002",
+          "severity": "CRITICAL",
+          "title": "No rate limiting on API endpoints",
+          "mitigation_in_suites": [],
+          "coverage_status": "BLOCKED",
+          "recommendation": "Rate limiting tests OUT OF SCOPE for this iteration. Cannot test protection against registration spam or endpoint abuse. Flag for dev team to implement rate limiting before production. Load testing suite deferred."
+        },
+        {
+          "gap_id": "GAP-003",
+          "severity": "HIGH",
+          "title": "In-memory storage with no persistence",
+          "mitigation_in_suites": [
+            "All suites: Designed for stateless/in-memory behavior",
+            "Setup/teardown: Each suite run starts with fresh state"
+          ],
+          "coverage_status": "ACCEPTED",
+          "recommendation": "Test suite assumes in-memory storage. All tests use isolated state. Persistence testing deferred to prod iteration. Flag for dev team to implement persistent storage."
+        },
+        {
+          "gap_id": "GAP-004",
+          "severity": "HIGH",
+          "title": "No authentication or authorization",
+          "mitigation_in_suites": [
+            "SUITE-003: User Management tests assume single user can edit any user",
+            "All suites: No login required assumption"
+          ],
+          "coverage_status": "ACCEPTED",
+          "recommendation": "Auth testing OUT OF SCOPE. Current tests verify API functionality without auth layer. Security/isolation tests deferred to future iteration when auth implemented."
+        },
+        {
+          "gap_id": "GAP-005",
+          "severity": "HIGH",
+          "title": "Limited error messages and status codes",
+          "mitigation_in_suites": [
+            "SUITE-005: API Contract tests 200/400/404 status codes only"
+          ],
+          "coverage_status": "ACCEPTED",
+          "recommendation": "Error scenario tests limited to observed status codes (200, 400, 404). No 500 error testing. Flag for dev team to document error scenarios + implement additional status codes."
+        }
+      ]
+    },
+    "automation_selection": {
+      "summary": "All 5 suites are 100% automatable with Playwright E2E framework. No manual steps required.",
+      "rationale": "web-test-playwright project uses Playwright for E2E automation. All test scenarios involve browser interactions, form submissions, API calls, and DOM inspection - all Playwright-native capabilities.",
+      "by_suite": [
+        {
+          "suite_id": "SUITE-001",
+          "automation_feasibility": "AUTOMATED",
+          "confidence": "100%",
+          "framework": "Playwright E2E",
+          "steps_breakdown": {
+            "form_interactions": "Fill inputs, click buttons (100% automatable)",
+            "api_verification": "Intercept/verify POST request (100% automatable)",
+            "ui_assertions": "Check DOM elements, text content, classes (100% automatable)"
+          },
+          "no_manual_steps": true,
+          "estimated_execution_time": "~15 minutes (5 scenarios × 3 min average)"
+        },
+        {
+          "suite_id": "SUITE-002",
+          "automation_feasibility": "AUTOMATED",
+          "confidence": "100%",
+          "framework": "Playwright E2E",
+          "steps_breakdown": {
+            "page_navigation": "Navigate to /users (100% automatable)",
+            "table_inspection": "Query table rows, verify content (100% automatable)",
+            "empty_state_verification": "Check visibility of empty message (100% automatable)"
+          },
+          "no_manual_steps": true,
+          "estimated_execution_time": "~12 minutes (4 scenarios × 3 min average)"
+        },
+        {
+          "suite_id": "SUITE-003",
+          "automation_feasibility": "AUTOMATED",
+          "confidence": "100%",
+          "framework": "Playwright E2E",
+          "steps_breakdown": {
+            "modal_operations": "Open/close modals, fill forms (100% automatable)",
+            "confirmation_dialogs": "Handle browser confirm() dialogs (100% automatable via page.on('dialog'))",
+            "api_verification": "Verify PUT/DELETE requests (100% automatable)",
+            "table_updates": "Wait for and verify table changes (100% automatable)"
+          },
+          "no_manual_steps": true,
+          "estimated_execution_time": "~20 minutes (6 scenarios × 3-4 min average, includes dialog handling)"
+        },
+        {
+          "suite_id": "SUITE-004",
+          "automation_feasibility": "AUTOMATED",
+          "confidence": "100%",
+          "framework": "Playwright E2E",
+          "steps_breakdown": {
+            "link_clicks": "Click navigation links (100% automatable)",
+            "url_verification": "Verify page.url() changes (100% automatable)",
+            "content_verification": "Check page content loaded (100% automatable)"
+          },
+          "no_manual_steps": true,
+          "estimated_execution_time": "~8 minutes (3 scenarios × 2-3 min average)"
+        },
+        {
+          "suite_id": "SUITE-005",
+          "automation_feasibility": "AUTOMATED",
+          "confidence": "100%",
+          "framework": "Playwright API Testing (direct HTTP calls) or E2E with intercepts",
+          "steps_breakdown": {
+            "http_requests": "POST/GET/PUT/DELETE calls (100% automatable)",
+            "json_parsing": "Verify response structure (100% automatable)",
+            "status_code_verification": "Assert response.status (100% automatable)"
+          },
+          "no_manual_steps": true,
+          "estimated_execution_time": "~10 minutes (5 scenarios × 2 min average)",
+          "implementation_option": "Can run as direct API tests (faster) or E2E with fetch intercepts (more integrated)"
+        }
+      ],
+      "total_estimated_execution_time": "~65 minutes (23 scenarios total)"
+    },
+    "preconditions_and_dependencies": {
+      "execution_order": [
+        {
+          "order": 1,
+          "suite_id": "SUITE-004",
+          "suite_name": "Navigation Suite",
+          "rationale": "Navigation tests don't depend on user data. Run first as sanity check.",
+          "preconditions": ["Server running"]
+        },
+        {
+          "order": 2,
+          "suite_id": "SUITE-001",
+          "suite_name": "Registration Form Validation Suite",
+          "rationale": "Must run before Listing/Management since they depend on created users.",
+          "preconditions": ["Server running", "Fresh state (no pre-existing users)"]
+        },
+        {
+          "order": 3,
+          "suite_id": "SUITE-002",
+          "suite_name": "User Listing Suite",
+          "rationale": "Depends on users created in Registration suite.",
+          "preconditions": ["SUITE-001 completed", "3+ users in system"]
+        },
+        {
+          "order": 4,
+          "suite_id": "SUITE-003",
+          "suite_name": "User Management Suite",
+          "rationale": "Depends on users created in Registration suite. Uses same users as Listing.",
+          "preconditions": ["SUITE-001 completed", "3+ users in system"]
+        },
+        {
+          "order": 5,
+          "suite_id": "SUITE-005",
+          "suite_name": "API Contract Suite",
+          "rationale": "Can run independently. Tests API contracts directly without UI.",
+          "preconditions": ["Server running"]
+        }
+      ],
+      "data_dependency_chain": "Registration (SUITE-001) → Listing (SUITE-002) + Management (SUITE-003) → Shared users",
+      "shared_data_model": "Users created in SUITE-001 registration scenarios are used in SUITE-002 table display and SUITE-003 edit/delete operations",
+      "state_management": "Each test run should start with clean slate (no users). Setup fixtures create users, teardown clears or re-seeds state. In-memory storage assumes no cross-test data pollution."
+    },
+    "gap_evaluation": {
+      "critical_gaps_blocking_coverage": [
+        {
+          "gap_id": "GAP-001",
+          "title": "Email validation beyond HTML5",
+          "blocks_coverage": "PARTIAL",
+          "impact": "Cannot test backend email format validation (RFC 5322, domain checks, duplicate prevention)",
+          "test_suite_impact": "SUITE-001 (Registration) can test HTML5 validation only",
+          "mitigation": "Current suite tests HTML5 email type and API 400 response for empty email. Backend validation testing deferred.",
+          "escalation_required": true,
+          "escalation_type": "Flag to dev team for backend implementation"
+        },
+        {
+          "gap_id": "GAP-002",
+          "title": "No rate limiting on API endpoints",
+          "blocks_coverage": "COMPLETE",
+          "impact": "Cannot test DDoS protection, registration spam prevention, or load/stress behavior",
+          "test_suite_impact": "Rate limiting tests completely out of scope. Load testing deferred.",
+          "mitigation": "Current suites test happy path and validation errors only. No stress/load tests included.",
+          "escalation_required": true,
+          "escalation_type": "Flag to dev team for critical production requirement"
+        }
+      ],
+      "high_gaps_with_workarounds": [
+        {
+          "gap_id": "GAP-003",
+          "title": "In-memory storage with no persistence",
+          "blocks_coverage": "NO (workaround available)",
+          "workaround": "Design tests for stateless/in-memory behavior. Use setup/teardown fixtures to ensure clean state between test runs.",
+          "test_suite_impact": "All suites designed assuming in-memory storage",
+          "coverage_achievable": 85%
+        },
+        {
+          "gap_id": "GAP-004",
+          "title": "No authentication or authorization",
+          "blocks_coverage": "NO (auth tests out of scope)",
+          "workaround": "Scope out user isolation, access control tests. Current tests assume single user can access all data.",
+          "test_suite_impact": "SUITE-003 (Management) tests assume no auth barriers",
+          "coverage_achievable": 85%
+        }
+      ],
+      "overall_coverage_verdict": "85% coverage achievable. 2 CRITICAL gaps (email validation, rate limiting) prevent 100% coverage but don't block basic regression testing. Recommend prioritizing dev team fixes before production iteration."
+    },
+    "next_agent_instructions": {
+      "must_validate": [
+        "Verify 5 test suites cover all 18 requirements (REQ-001 through REQ-018)",
+        "Verify each suite has 3+ scenarios with specific test data and expected results",
+        "Verify automation decisions are justified for each suite (all E2E with Playwright)",
+        "Verify coverage model reflects 85% functional coverage (17/18 requirements testeable)",
+        "Verify gap evaluation identifies CRITICAL blockers (email validation, rate limiting) vs. acceptable workarounds (in-memory state)",
+        "Verify precondition chain is logical: Registration→Listing→Management with shared user data",
+        "Verify trazability: each scenario maps to specific Gherkin requirement (REQ-xxx)"
+      ],
+      "can_skip": [
+        "No need to re-extract requirements; Planner accepts 18 requirements from test_documentation",
+        "No need to implement test cases; Planner only designs suites, not code",
+        "No need to run tests; Planner only plans, Prioritization validates feasibility, Execution runs"
+      ],
+      "decision_points": [
+        "PRIORITIZATION MUST DECIDE: Execute suites in dependency order (Navigation→Registration→Listing→Management→API)? Or parallelize where possible?",
+        "PRIORITIZATION MUST DECIDE: Can we achieve 80%+ coverage as-is, or do we need dev team fixes to GAP-001 (email) or GAP-002 (rate limiting) first?",
+        "PRIORITIZATION MUST DECIDE: Is in-memory state isolation via setup/teardown sufficient (GAP-003)? Or block tests until persistent storage implemented?",
+        "PRIORITIZATION MUST DECIDE: Should we include security tests (XSS injection in SUITE-005) or defer until GAP-004 (auth) addressed?",
+        "PRIORITIZATION MUST DECIDE: API Contract Suite (SUITE-005) - run as direct HTTP tests (faster, cleaner) or E2E with Playwright intercepts (more integrated)?",
+        "PRIORITIZATION MUST DECIDE: Estimated 65 min total execution time - is this acceptable? Should we reduce scope or parallelize?"
+      ]
+    },
+    "feedback_hooks": {
+      "if_gaps_found": {
+        "escalate_to": "test_documentation",
+        "note": "If Prioritization identifies additional gaps during suite assessment that are not in the 12 documented gaps, escalate to test_documentation for source verification"
+      },
+      "if_coverage_impossible": {
+        "escalate_to": "orchestrator",
+        "note": "If Prioritization determines that 85% coverage is insufficient and CRITICAL gaps (email validation, rate limiting) cannot be worked around, escalate to orchestrator for dev team communication before proceeding"
+      },
+      "if_conflict_detected": {
+        "escalate_to": "test_documentation",
+        "conflict_resolution_strategy": "If Prioritization finds conflicts in requirement interpretation (e.g., email validation rules from REQ-002 vs. REQ-015 differ), escalate to test_documentation to verify against source code (server.js) and clarify with dev team"
+      }
+    },
+    "validation_checklist": {
+      "checklist_items": {
+        "five_plus_suites_defined": {
+          "status": true,
+          "evidence": "SUITE-001 (Registration), SUITE-002 (Listing), SUITE-003 (Management), SUITE-004 (Navigation), SUITE-005 (API Contracts)"
+        },
+        "each_suite_has_three_plus_scenarios": {
+          "status": true,
+          "evidence": "SUITE-001 has 5, SUITE-002 has 4, SUITE-003 has 6, SUITE-004 has 3, SUITE-005 has 5. Total 23 scenarios."
+        },
+        "scenarios_have_specific_test_data": {
+          "status": true,
+          "evidence": "Each scenario includes test_data field with input values and expected outputs"
+        },
+        "scenarios_have_gherkin_format": {
+          "status": true,
+          "evidence": "All scenarios include gherkin field with Given/When/Then format"
+        },
+        "coverage_model_complete": {
+          "status": true,
+          "evidence": "coverage_model includes overall (85%), per-suite percentages, and risk coverage by gap"
+        },
+        "automation_decisions_justified": {
+          "status": true,
+          "evidence": "Each suite has automation_decision with justification and estimated execution time"
+        },
+        "all_requirements_covered": {
+          "status": true,
+          "evidence": "requirements_covered arrays map all 18 REQ-xxx to appropriate suites"
+        },
+        "gap_evaluation_complete": {
+          "status": true,
+          "evidence": "gap_evaluation section addresses all 12 gaps with mitigation strategies"
+        },
+        "preconditions_documented": {
+          "status": true,
+          "evidence": "preconditions_and_dependencies section defines execution order and data chain"
+        },
+        "trazability_verified": {
+          "status": true,
+          "evidence": "Each scenario requirement_id links to REQ-xxx from test_documentation"
+        },
+        "handoff_schema_compliant": {
+          "status": true,
+          "evidence": "Handoff JSON includes all required sections per schema: metadata, context, executive_summary, artifacts_references, delta_changes, validation_checklist, next_agent_instructions, feedback_hooks"
+        }
+      }
+    }
+  }
+}
