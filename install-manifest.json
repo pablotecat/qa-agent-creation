@@ -96,12 +96,96 @@
       "required": true
     },
     {
+      "id": "runtime-instruction-orchestrator-report",
+      "source": "./runtime-mirror/.github/instructions/qa-orchestrator-report.instructions.md",
+      "destination": ".github/instructions/qa-orchestrator-report.instructions.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-instruction-test-documentation-report",
+      "source": "./runtime-mirror/.github/instructions/qa-test-documentation-report.instructions.md",
+      "destination": ".github/instructions/qa-test-documentation-report.instructions.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-instruction-test-planner-report",
+      "source": "./runtime-mirror/.github/instructions/qa-test-planner-report.instructions.md",
+      "destination": ".github/instructions/qa-test-planner-report.instructions.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-instruction-test-prioritization-report",
+      "source": "./runtime-mirror/.github/instructions/qa-test-prioritization-report.instructions.md",
+      "destination": ".github/instructions/qa-test-prioritization-report.instructions.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
       "id": "runtime-prompt-entry",
       "source": "./runtime-mirror/.github/prompts/prompt-to-agent.md",
       "destination": ".github/prompts/prompt-to-agent.md",
       "classification": "runtime",
       "required": true,
       "editable_after_copy": true
+    },
+    {
+      "id": "runtime-skill-orchestrator-report",
+      "source": "./runtime-mirror/.github/skills/qa-orchestrator-report/SKILL.md",
+      "destination": ".github/skills/qa-orchestrator-report/SKILL.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-skill-orchestrator-report-example",
+      "source": "./runtime-mirror/.github/skills/qa-orchestrator-report/examples/example-output.md",
+      "destination": ".github/skills/qa-orchestrator-report/examples/example-output.md",
+      "classification": "runtime",
+      "required": false
+    },
+    {
+      "id": "runtime-skill-test-documentation-report",
+      "source": "./runtime-mirror/.github/skills/qa-test-documentation-report/SKILL.md",
+      "destination": ".github/skills/qa-test-documentation-report/SKILL.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-skill-test-documentation-report-example",
+      "source": "./runtime-mirror/.github/skills/qa-test-documentation-report/examples/example-output.md",
+      "destination": ".github/skills/qa-test-documentation-report/examples/example-output.md",
+      "classification": "runtime",
+      "required": false
+    },
+    {
+      "id": "runtime-skill-test-planner-report",
+      "source": "./runtime-mirror/.github/skills/qa-test-planner-report/SKILL.md",
+      "destination": ".github/skills/qa-test-planner-report/SKILL.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-skill-test-planner-report-example",
+      "source": "./runtime-mirror/.github/skills/qa-test-planner-report/examples/example-output.md",
+      "destination": ".github/skills/qa-test-planner-report/examples/example-output.md",
+      "classification": "runtime",
+      "required": false
+    },
+    {
+      "id": "runtime-skill-test-prioritization-report",
+      "source": "./runtime-mirror/.github/skills/qa-test-prioritization-report/SKILL.md",
+      "destination": ".github/skills/qa-test-prioritization-report/SKILL.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-skill-test-prioritization-report-example",
+      "source": "./runtime-mirror/.github/skills/qa-test-prioritization-report/examples/example-output.md",
+      "destination": ".github/skills/qa-test-prioritization-report/examples/example-output.md",
+      "classification": "runtime",
+      "required": false
     },
     {
       "id": "bootstrap-install-prompt",
