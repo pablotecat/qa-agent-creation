@@ -87,7 +87,7 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 ## Formato Mínimo de Salida
 
 ```
-./tests/Documentation/handoffs/{session_id}/
+./tests/Documentation/handoffs/session_{session_N}_{session_id}/
 ├── test_planner-to-test_prioritization-attempt-{retry_count}-{timestamp}.json
 └── test_planner-execution-summary.md
 ```

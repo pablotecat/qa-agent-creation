@@ -175,7 +175,7 @@ Secciones específicas por agente:
 ├── ORCHESTRATION_FINAL_SUMMARY.md
 ├── escalation_log.md
 └── handoffs/
-    └── {session_id}/
+  └── session_{session_N}_{session_id}/
         ├── manifest.json
         ├── retry_checkpoint.json
         ├── {from}-to-{to}-attempt-{retry_count}-{timestamp}.json

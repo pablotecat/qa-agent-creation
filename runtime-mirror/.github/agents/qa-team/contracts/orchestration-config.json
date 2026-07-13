@@ -3,7 +3,9 @@
     "mode": "sequential",
     "prerequisite_resolution_default": "pre_resolve",
     "max_attempts": 3,
-    "persistence_required_before_routing": true
+    "persistence_required_before_routing": true,
+    "session_folder_pattern": "session_{session_N}_{session_id}",
+    "session_counter_file": "./tests/Documentation/handoffs/session-counter.json"
   },
   "validation": {
     "precedence_mode": "V1",

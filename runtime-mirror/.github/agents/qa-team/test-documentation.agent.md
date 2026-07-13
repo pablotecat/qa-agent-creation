@@ -88,7 +88,7 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 ## Formato Mínimo de Salida
 
 ```
-./tests/Documentation/handoffs/{session_id}/
+./tests/Documentation/handoffs/session_{session_N}_{session_id}/
 ├── test_documentation-to-test_planner-attempt-{retry_count}-{timestamp}.json
 └── test_documentation-analysis-report.md
 ```

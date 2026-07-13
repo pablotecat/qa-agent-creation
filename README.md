@@ -86,7 +86,7 @@ Los ejemplos son estrictamente bootstrap-only.
 - El Orchestrator debe cargar en runtime:
   - `.github/agents/qa-team/contracts/handoff-schema.json`
   - `.github/agents/qa-team/contracts/orchestration-config.json`
-- El Orchestrator persiste handoffs en `./tests/Documentation/handoffs/{session_id}/` antes de enrutar.
+- El Orchestrator persiste handoffs en `./tests/Documentation/handoffs/session_{session_N}_{session_id}/` antes de enrutar.
 - El Orchestrator puede generar handoffs fragmentados solo como nuevos JSON derivados con trazabilidad al handoff origen.
 - No son parte del estándar `README.md` dentro de `handoffs/`, `execution-summary.json` por agente ni `validation-report.md` por agente.
 
@@ -98,7 +98,7 @@ Los ejemplos son estrictamente bootstrap-only.
 |-- ORCHESTRATION_FINAL_SUMMARY.md
 |-- escalation_log.md
 `-- handoffs/
-    `-- {session_id}/
+  `-- session_{session_N}_{session_id}/
         |-- manifest.json
         |-- retry_checkpoint.json
         |-- test_documentation-to-test_planner-attempt-{retry_count}-{timestamp}.json

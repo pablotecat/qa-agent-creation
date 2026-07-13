@@ -1,7 +1,6 @@
 # Objetivo
 
 Implementar agentes para un equipo de QA en modo Orchestra con instalacion determinista.
-Solo el QA Orchestrator es invocable por el usuario; el resto de agentes se ejecuta por enrutamiento interno.
 
 # Alcance de esta version
 
@@ -22,11 +21,12 @@ Solo el QA Orchestrator es invocable por el usuario; el resto de agentes se ejec
 - Los contratos runtime se ubican en `.github/agents/qa-team/contracts/`.
 - Las instrucciones runtime se ubican en `.github/instructions/`.
 - El prompt inicial de ejecucion se ubica en `.github/prompts/prompt-to-agent.md`.
-- La ruta canonica de persistencia de handoffs es `./tests/Documentation/handoffs/{session_id}/`.
+- La ruta canonica de persistencia de handoffs es `./tests/Documentation/handoffs/session_{session_N}_{session_id}/`.
+- `session_N` DEBE ser incremental por proyecto actual (1..N) y asignarse al inicio de cada nueva sesion.
 
 # Politica de sobrescritura (interactiva global por ejecucion)
 
-Antes de copiar cualquier archivo runtime, el agente instalador DEBE preguntar al usuario una unica opcion global:
+Antes de copiar cualquier archivo runtime, si ya existen los agentes en la carpeta .github del proyecto, el agente instalador DEBE preguntar al usuario una unica opcion global:
 
 - `fail_if_exists`
 - `overwrite`
@@ -116,7 +116,7 @@ Paso 1: Crear QA Orchestrator
 
 1. Bootstrap de contexto compartido
 2. Validacion previa al routing
-3. Persistencia de handoffs recibidos en `./tests/Documentation/handoffs/{session_id}/`
+3. Persistencia de handoffs recibidos en `./tests/Documentation/handoffs/session_{session_N}_{session_id}/`
 4. Manejo de `manifest.json` y `retry_checkpoint.json` por sesion
 5. Retry policy con `max_attempts=3`
 6. Manejo de errores y logging

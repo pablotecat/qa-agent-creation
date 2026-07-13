@@ -122,7 +122,7 @@ Toda escalada DEBE incluir:
 
 Toda transicion (nominal o de escalada) DEBE cumplir:
 
-1. Orquestador persiste el handoff recibido en `./tests/Documentation/handoffs/{session_id}/`.
+1. Orquestador persiste el handoff recibido en `./tests/Documentation/handoffs/session_{session_N}_{session_id}/`.
 2. Orquestador actualiza `manifest.json` y `retry_checkpoint.json`.
 3. Solo despues de persistencia exitosa se considera valida la transicion.
 

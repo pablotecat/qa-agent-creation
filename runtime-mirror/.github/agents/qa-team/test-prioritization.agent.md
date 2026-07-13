@@ -84,7 +84,7 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 ## Formato Mínimo de Salida
 
 ```
-./tests/Documentation/handoffs/{session_id}/
+./tests/Documentation/handoffs/session_{session_N}_{session_id}/
 ├── test_prioritization-to-orchestrator-attempt-{retry_count}-{timestamp}.json
 └── validation-report.md
 ```
