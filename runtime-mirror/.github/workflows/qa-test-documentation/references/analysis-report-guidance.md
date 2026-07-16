@@ -1,11 +1,4 @@
----
-name: qa-test-documentation-report
-description: "Genera el reporte markdown de test_documentation con el estilo de test/documentation. Usar cuando el rol de análisis de requisitos deba producir un reporte completo, trazable y listo para handoff."
-argument-hint: "session id, timestamp, status, output path"
-user-invocable: true
----
-
-# Skill de Reporte Test Documentation
+# Guía de Reporte Test Documentation
 
 Genera un archivo markdown para el rol de análisis de requisitos.
 
@@ -15,7 +8,7 @@ Genera un archivo markdown para el rol de análisis de requisitos.
 
 ## Secciones Requeridas
 
-La convención sigue la estructura declarada en `examples/example-output.md`: metadatos, secciones base y cierre son siempre obligatorios; las secciones contextuales se incluyen solo cuando aplican al análisis realizado.
+La convención sigue la estructura y formato declarados en `examples/analysis-report-example.md`: metadatos, secciones base y cierre son siempre obligatorios; las secciones contextuales se incluyen solo cuando aplican al análisis realizado.
 
 ### Metadatos (siempre)
 - Session ID
@@ -68,7 +61,7 @@ La convención sigue la estructura declarada en `examples/example-output.md`: me
 
 ## Ejemplo Completo
 
-- Ver [example full output](./examples/example-output.md)
+- Ver [example full output](./examples/analysis-report-example.md)
 
 ## Puerta de Calidad
 

@@ -153,16 +153,16 @@
       "required": false
     },
     {
-      "id": "runtime-skill-test-documentation-report",
-      "source": "./runtime-mirror/.github/skills/qa-test-documentation-workflow/qa-test-documentation-report/SKILL.md",
-      "destination": ".github/skills/qa-test-documentation-workflow/qa-test-documentation-report/SKILL.md",
+      "id": "runtime-workflow-test-documentation-references-guidance",
+      "source": "./runtime-mirror/.github/workflows/qa-test-documentation/references/analysis-report-guidance.md",
+      "destination": ".github/workflows/qa-test-documentation/references/analysis-report-guidance.md",
       "classification": "runtime",
       "required": true
     },
     {
-      "id": "runtime-skill-test-documentation-report-example",
-      "source": "./runtime-mirror/.github/skills/qa-test-documentation-workflow/qa-test-documentation-report/examples/example-output.md",
-      "destination": ".github/skills/qa-test-documentation-workflow/qa-test-documentation-report/examples/example-output.md",
+      "id": "runtime-workflow-test-documentation-references-example",
+      "source": "./runtime-mirror/.github/workflows/qa-test-documentation/references/examples/analysis-report-example.md",
+      "destination": ".github/workflows/qa-test-documentation/references/examples/analysis-report-example.md",
       "classification": "runtime",
       "required": false
     },

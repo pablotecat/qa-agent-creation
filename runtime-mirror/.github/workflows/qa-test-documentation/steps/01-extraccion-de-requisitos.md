@@ -22,10 +22,10 @@ Durante este paso tu unico objetivo es leer y extraer. Olvidate de todo lo demas
 
 ## Que NO hacer en este paso
 
-- No clasifiques ni analices la severidad de los gaps todavia (eso ocurre en el Paso 2).
-- No agrupes requisitos por area o modulo (eso ocurre en el Paso 3).
-- No normalices el formato final de los requisitos (eso ocurre en el Paso 4).
-- No generes el handoff JSON ni el reporte markdown (eso ocurre en el Paso 5).
+- No clasifiques ni analices la severidad de los gaps.
+- No agrupes requisitos por area o modulo.
+- No normalices el formato final de los requisitos.
+- No generes el handoff JSON ni el reporte markdown.
 
 ## Checklist de completitud
 
