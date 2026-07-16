@@ -137,7 +137,7 @@ Aplicar V1 antes de cualquier routing:
 ## Criterios de Finalización
 
 ✅ `manifest.json` existe con `status_global` final (no `in_progress`)
-✅ Todos los handoffs persistidos con naming correcto: `{from}-to-{to}-attempt-{retry_count}-{timestamp}.json`
+✅ Todos los handoffs persistidos con naming correcto: `{agent}-handoff-{timestamp}.json`
 ✅ `retry_checkpoint.json` refleja el estado final de todos los `correlation_id`
 ✅ `HANDOFF_Summary.md` tiene una entrada por cada transición
 ✅ `ORCHESTRATION_FINAL_SUMMARY.md` existe con conclusiones consolidadas
