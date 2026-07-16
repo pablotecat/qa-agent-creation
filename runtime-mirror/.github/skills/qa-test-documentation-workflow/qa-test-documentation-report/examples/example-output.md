@@ -3,17 +3,17 @@
 ## Convención Unificada (secciones y campos)
 
 - Metadatos: `Session ID`, `Agente`, `Fecha/Hora`, `Estado`
-- Secciones base: `Resumen Ejecutivo`, `Checklist de Validación`, `Artefactos Generados`, `Próximo Paso`
-- Cierre: `Estado de Handoff`, `Resultado de Validación`, `Siguiente Agente`, `Correlation ID`
+- Secciones base: `Resumen Ejecutivo`, `Checklist de Validación`, `Artefactos Generados`, `Notas de Cierre para Revisión Humana`
+- Cierre: `Estado de Handoff`, `Resultado de Validación`, `Correlation ID`
 
-## Ejemplo 1 - Formato Completo
+## Ejemplo - Formato Completo
 
 # Test Documentation - Análisis Completado
 
 **Session ID:** <SESSION_ID>
 **Agente:** test_documentation
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
-**Estado:** ✅ COMPLETED - Ready for test_planner
+**Estado:** ✅ COMPLETED
 
 ---
 
@@ -86,7 +86,7 @@ Errors:   <ERROR_SCHEMAS>
 
 ---
 
-## 🎯 Decisiones Pendientes para test_planner
+## 🎯 Decisiones Pendientes
 
 1. <DECISION_POINT_1>
 2. <DECISION_POINT_2>
@@ -106,104 +106,21 @@ Errors:   <ERROR_SCHEMAS>
 
 ## 📁 Artefactos Generados
 
-- **Handoff JSON:** `test_documentation-to-test_planner-attempt-<RETRY>-<TIMESTAMP>.json`
+- **Handoff JSON:** `test_documentation-handoff-<TIMESTAMP>.json`
 - **Manifest:** Updated with handoff registry and status history
 - **This Summary:** `test_documentation-analysis-report.md`
 
 ---
 
-## 🚀 Próximo Paso
+## 🚀 Notas de Cierre para Revisión Humana
 
-**Para test_planner:**
+> Esta sección es informativa para revisión humana. Ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline.
+
 - Revisar los <REQ_COUNT> requisitos normalizados
 - Evaluar los <GAP_COUNT> gaps identificados
-- Diseñar suites por área con cobertura realista
 
 ---
 
 **Estado de Handoff:** ✅ READY FOR HANDOFF
 **Resultado de Validación:** ✅ PASSED
-**Siguiente Agente:** test_planner
-**Correlation ID:** <SESSION_ID>.test_documentation-to-test_planner.<RETRY>
-
-## Ejemplo 2 - Formato Compacto
-
-# Test Documentation - Resumen Compacto
-
-**Session ID:** <SESSION_ID>
-**Agente:** test_documentation
-**Fecha/Hora:** <ISO_8601_TIMESTAMP>
-**Estado:** ✅ COMPLETED
-
-Fuentes: <SOURCE_1>, <SOURCE_2>, <SOURCE_3>, <SOURCE_4>
-
-## Áreas Funcionales
-- <AREA_1>
-- <AREA_2>
-- <AREA_3>
-
-## Gaps Clave
-- <GAP_SUMMARY_1>
-- <GAP_SUMMARY_2>
-- <GAP_SUMMARY_3>
-
-## Foco Recomendado para Handoff
-- Test Planner: <PLANNER_FOCUS_1>
-- Test Prioritization: <PRIORITIZATION_FOCUS_1>
-
-## Ejemplo 3 - Completo con Riesgo Alto
-
-# Test Documentation - Análisis Completado
-
-**Session ID:** <SESSION_ID>
-**Agente:** test_documentation
-**Fecha/Hora:** <ISO_8601_TIMESTAMP>
-**Estado:** ⚠️ COMPLETED WITH WARNINGS - Escalation recommended
-
----
-
-## 📊 Resumen Ejecutivo
-
-### Estado del Análisis
-- **Requisitos Extraídos:** <REQ_COUNT>
-- **Gaps Identificados:** <GAP_COUNT>
-- **Áreas de Testing:** <AREA_COUNT>
-- **Trazabilidad:** <TRACEABILITY_PERCENT>%
-
-### Hallazgos Críticos
-```
-🔴 CRITICAL: <BLOCKER_FINDING_1>
-🔴 CRITICAL: <BLOCKER_FINDING_2>
-🟡 HIGH: <HIGH_FINDING>
-```
-
----
-
-## ⚠️ Gaps Críticos Identificados
-
-| Gap ID | Severidad | Categoría | Título | Impacto en Testing | Recomendación |
-|--------|-----------|-----------|--------|-------------------|---------------|
-| GAP-<NNN> | CRITICAL | <CATEGORY> | <TITLE> | <IMPACT> | Escalar a <ESCALATION_TARGET> |
-
----
-
-## ✅ Checklist de Validación
-
-- [x] Requisitos extraídos
-- [x] Gaps clasificados
-- [ ] Dependencias completas documentadas (pendiente)
-
----
-
-## 🚀 Próximo Paso
-
-**Para test_planner:**
-- Continuar con planificación parcial
-- Solicitar aclaración para <MISSING_CONTEXT>
-
----
-
-**Estado de Handoff:** ⚠️ READY WITH WARNINGS
-**Resultado de Validación:** ⚠️ WARNING
-**Siguiente Agente:** test_planner
-**Correlation ID:** <SESSION_ID>.test_documentation-to-test_planner.<RETRY>
+**Correlation ID:** <SESSION_ID>.test_documentation.<RETRY>

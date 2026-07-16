@@ -1,0 +1,73 @@
+---
+name: qa-handoff-creation
+description: "Skill compartida para la creacion del handoff JSON minimo de cualquier agente productor QA. Usar cuando se indique en el flujo de trabajo correspondiente."
+argument-hint: "nombre del agente productor, session id, y rutas de summary_md/work_log_md ya generados"
+user-invocable: false
+---
+
+# Skill de Creacion de Handoff
+
+Genera el handoff JSON minimo de cualquier agente productor QA. Esta skill es compartida: no pertenece a un agente en particular, se referencia parametrizando `{agent}` con el nombre del agente que la invoca (ej. `test_documentation`).
+
+> Nota: el handoff es un recibo minimo de validacion para el Orquestador, no un payload de contenido. Todo el contenido de trabajo vive en el markdown de resumen del agente (`summary_md`), no en este JSON.
+
+## Nombre del Handoff JSON
+
+El nombre del archivo no debe incluir el agente destino. Solo debe identificar al agente productor y la fecha-hora de generacion.
+
+Patron: `{agent}-handoff-{timestamp}.json` — definido en `.github/agents/qa-team/contracts/orchestration-config.json` (`naming.handoff_filename_pattern`).
+
+## Formato minimo de salida
+
+```
+./tests/Documentation/handoffs/session_{session_N}_{session_id}/
+├── {agent}-handoff-{timestamp}.json
+├── {agent}-analysis-report.md (o el nombre de resumen definido por rol)
+└── {agent}-work-log.md
+```
+
+## Campos Requeridos
+
+Los tipos, patrones y reglas exactas viven en `.github/agents/qa-team/contracts/handoff-schema.json` (fuente canonica). Resumen de proposito de cada campo:
+
+- `agent`: nombre del agente productor.
+- `session_id`: identificador uuid de la sesion de orquestacion.
+- `timestamp`: fecha-hora ISO8601 de generacion del handoff.
+- `correlation_id`: identificador de trazabilidad, patron `{session_id}.{agent}.{retry_count}`.
+- `retry_count`: numero de intento sobre este `correlation_id` (0-3).
+- `status`: `completed`, `blocked` o `partial`.
+- `assigned_task.task_id`: eco literal del identificador de instruccion emitido por el Orquestador.
+- `assigned_task.scope_received`: eco textual de lo que el agente entendio que se le pedia.
+- `work_performed.sections_touched`: secciones del documento de trabajo que se completaron.
+- `work_performed.sections_untouched`: secciones que no aplicaban o quedaron pendientes.
+- `checks`: mapa de booleanos con validaciones objetivas propias del agente.
+- `counts`: mapa de conteos objetivos propios del agente.
+- `summary_md`: ruta al markdown de trabajo completo del agente.
+- `work_log_md`: ruta al log de ejecucion por paso del agente.
+
+## Ejemplo Completo
+
+- Ver [example handoff](./examples/example-handoff.json)
+
+> Nota: las claves concretas dentro de `checks` y `counts` en el ejemplo (`gherkin_format_valid`, `requirements`, etc.) pertenecen a `test_documentation`, unico agente productor existente hoy. Son ilustrativas, no un catalogo fijo: cada agente define las suyas propias segun lo que objetivamente haya verificado o contado.
+
+## Pasos de Creacion
+
+1. Con el documento de trabajo (`summary_md`) y el log de ejecucion (`work_log_md`) ya generados y persistidos, crea el handoff JSON siguiendo `HANDOFF_SPECIFICATION.md` y validando contra `handoff-schema.json`.
+2. Reporta solo hechos objetivos (`assigned_task`, `work_performed`, `checks`, `counts`). Nunca incluyas aqui un juicio propio de cumplimiento de alcance: eso lo calcula el Orquestador.
+3. Usa el nombre de archivo definido en esta skill, sustituyendo `{agent}` por tu propio nombre de agente.
+4. Persiste el archivo en la carpeta de sesion correspondiente, junto al resumen y al log de trabajo.
+
+## Puerta de Calidad
+
+Antes de dar la tarea por finalizada, recorrer este checklist y confirmar que se cumple en su totalidad:
+
+- [ ] El nombre de archivo sigue el patron `{agent}-handoff-{timestamp}.json`.
+- [ ] Estan presentes todos los campos requeridos por `handoff-schema.json`.
+- [ ] `assigned_task.scope_received` es un eco fiel de la instruccion recibida, sin juicio de cumplimiento propio.
+- [ ] `work_performed` refleja exactamente las secciones tocadas en `summary_md`.
+- [ ] `checks` y `counts` son hechos objetivos, no interpretaciones.
+- [ ] `summary_md` y `work_log_md` apuntan a archivos ya generados y persistidos.
+- [ ] `correlation_id` sigue el patron `{session_id}.{agent}.{retry_count}`.
+
+Si algun punto no se cumple, la tarea no debe marcarse como finalizada.

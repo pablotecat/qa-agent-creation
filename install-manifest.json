@@ -103,13 +103,6 @@
       "required": true
     },
     {
-      "id": "runtime-instruction-test-documentation-report",
-      "source": "./runtime-mirror/.github/instructions/qa-test-documentation-report.instructions.md",
-      "destination": ".github/instructions/qa-test-documentation-report.instructions.md",
-      "classification": "runtime",
-      "required": true
-    },
-    {
       "id": "runtime-instruction-test-planner-report",
       "source": "./runtime-mirror/.github/instructions/qa-test-planner-report.instructions.md",
       "destination": ".github/instructions/qa-test-planner-report.instructions.md",
@@ -146,16 +139,30 @@
       "required": false
     },
     {
+      "id": "runtime-skill-handoff-creation",
+      "source": "./runtime-mirror/.github/skills/qa-handoff-creation/SKILL.md",
+      "destination": ".github/skills/qa-handoff-creation/SKILL.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-skill-handoff-creation-example",
+      "source": "./runtime-mirror/.github/skills/qa-handoff-creation/examples/example-handoff.json",
+      "destination": ".github/skills/qa-handoff-creation/examples/example-handoff.json",
+      "classification": "runtime",
+      "required": false
+    },
+    {
       "id": "runtime-skill-test-documentation-report",
-      "source": "./runtime-mirror/.github/skills/qa-test-documentation-report/SKILL.md",
-      "destination": ".github/skills/qa-test-documentation-report/SKILL.md",
+      "source": "./runtime-mirror/.github/skills/qa-test-documentation-workflow/qa-test-documentation-report/SKILL.md",
+      "destination": ".github/skills/qa-test-documentation-workflow/qa-test-documentation-report/SKILL.md",
       "classification": "runtime",
       "required": true
     },
     {
       "id": "runtime-skill-test-documentation-report-example",
-      "source": "./runtime-mirror/.github/skills/qa-test-documentation-report/examples/example-output.md",
-      "destination": ".github/skills/qa-test-documentation-report/examples/example-output.md",
+      "source": "./runtime-mirror/.github/skills/qa-test-documentation-workflow/qa-test-documentation-report/examples/example-output.md",
+      "destination": ".github/skills/qa-test-documentation-workflow/qa-test-documentation-report/examples/example-output.md",
       "classification": "runtime",
       "required": false
     },

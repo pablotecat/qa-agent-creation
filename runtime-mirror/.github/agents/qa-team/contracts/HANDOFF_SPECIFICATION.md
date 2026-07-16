@@ -2,94 +2,52 @@
 
 ## Objetivo
 
-Este contrato define el único formato admitido para transiciones especializadas entre agentes QA.
+Este contrato define el único formato admitido para transiciones entre agentes QA.
 
-- Cada transición especializada produce exactamente un archivo JSON de handoff.
-- Cada agente trabajador produce exactamente un archivo Markdown de resumen humano.
-- El Orquestador puede enrutar handoffs completos o generar handoffs fragmentados derivados, pero nunca muta el payload de un handoff ya recibido.
-- El contrato base es obligatorio y los bloques enriquecidos extra están permitidos.
+- Cada transición produce exactamente un archivo JSON de handoff: un **recibo mínimo de validación**, no un payload de contenido.
+- Cada agente trabajador produce, además, exactamente un Markdown de trabajo (fuente de verdad del contenido) y un Markdown de log de ejecución (auditoría interna).
+- El Orquestador valida, persiste y decide el siguiente paso; nunca muta el payload de un handoff ya recibido.
+- El contrato base es obligatorio. No se admiten bloques adicionales fuera de lo definido en `handoff-schema.json` (`additionalProperties: false`).
 
 ## Principios
 
-- **JSON único por transición:** toda la información estructurada que el siguiente agente necesite debe vivir en el handoff JSON, aunque el payload sea extenso.
-- **Markdown único por agente:** el resumen humano se persiste con naming específico por rol definido en este contrato y en la skill del agente.
+- **JSON mínimo por transición:** el handoff JSON solo contiene lo necesario para que el Orquestador valide y enrute — no duplica contenido de trabajo.
+- **Markdown como documento de trabajo:** todo el contenido sustantivo (requisitos, gaps, decisiones, hallazgos) vive únicamente en el Markdown de resumen del agente.
+- **Markdown de log como auditoría:** cada agente registra su ejecución paso a paso en un log separado, independiente del resumen de trabajo.
+- **El productor no decide el flujo:** un agente trabajador nunca conoce ni sugiere el siguiente agente del pipeline; solo reporta hechos objetivos sobre su propia contribución (`assigned_task`, `work_performed`).
+- **El Orquestador calcula el cumplimiento:** cualquier veredicto sobre si el trabajo cumplió el alcance encargado (`scope_compliance`) lo calcula el Orquestador comparando su instrucción original contra los hechos reportados — nunca el propio agente productor.
 - **Persistencia previa al routing:** ninguna transición es válida hasta que el Orquestador haya persistido el JSON del handoff.
-- **Fragmentación trazable:** si el Orquestador envía solo una parte del contexto, debe crear un nuevo JSON derivado con metadata propia y aviso explícito de contexto parcial.
 - **Sin artefactos redundantes:** este estándar excluye `README.md` dentro de `handoffs/` y `execution-summary.json` por agente.
 
 ## Ownership de Contenido vs Persistencia
 
-- **Agente productor:** crea el contenido del handoff y conserva autoría en `metadata.from_agent` y `delta_changes.updated_by`.
-- **Orquestador QA:** valida, persiste y enruta handoffs; también puede crear handoffs fragmentados derivados cuando el siguiente agente no necesita el payload completo.
-- **Regla de no mutación:** el Orquestador no altera un handoff recibido. Si necesita fragmentarlo, crea un handoff nuevo con su propia `metadata`, nueva `correlation_id` y referencia explícita al handoff origen.
-- **Regla de completitud:** todo agente receptor debe pedir el handoff completo o contexto adicional antes de inferir información ausente de un fragmento.
+- **Agente productor:** crea el handoff JSON (recibo mínimo), el Markdown de trabajo y el Markdown de log; solo reporta hechos observables, nunca un juicio de cumplimiento sobre sí mismo.
+- **Orquestador QA:** valida el recibo contra el schema, persiste los artefactos, calcula `scope_compliance` en sus propios metaartefactos (`manifest.json`) y decide el siguiente paso.
+- **Regla de no mutación:** el Orquestador no altera un handoff recibido.
 
 ## Estructura Base JSON
 
 ```json
 {
   "handoff": {
-    "metadata": {
-      "from_agent": "string",
-      "to_agent": "string",
-      "session_id": "uuid",
-      "timestamp": "ISO8601",
-      "retry_count": 0,
-      "correlation_id": "{session_id}.{from_agent}-to-{to_agent}.{retry_count}",
-      "handoff_kind": "full|fragment"
+    "agent": "test_documentation",
+    "session_id": "uuid",
+    "timestamp": "ISO8601",
+    "correlation_id": "{session_id}.{agent}.{retry_count}",
+    "retry_count": 0,
+    "status": "completed|blocked|partial",
+    "assigned_task": {
+      "task_id": "eco del identificador de instrucción emitido por el Orquestador",
+      "scope_received": "eco textual de lo que el agente entendió que se le pedía"
     },
-    "context": {
-      "user_request_id": "solicitud_qa original",
-      "phase": "planning_layer",
-      "status": "ready_for_handoff|escalated|failed|completed"
+    "work_performed": {
+      "sections_touched": ["secciones del documento de trabajo que se completaron"],
+      "sections_untouched": ["secciones que no aplicaban o quedaron pendientes"]
     },
-    "executive_summary": {
-      "state_snapshot": "descripción compacta del estado actual",
-      "critical_findings": ["hallazgos que afectan al siguiente agente"],
-      "recommendation": "qué debe enfatizar el siguiente agente"
-    },
-    "artifacts_references": {
-      "path_pattern": "ruta base de la sesión",
-      "summary_md": "ruta al markdown de resumen del agente",
-      "raw_data": ["rutas o identificadores de los artefactos fuente usados"],
-      "version_hash": "checksum o identificador de integridad"
-    },
-    "delta_changes": {
-      "added": ["items nuevos"],
-      "modified": ["items actualizados"],
-      "removed": ["items eliminados"],
-      "updated_by": "nombre del agente productor",
-      "rationale": "breve explicación de cambios"
-    },
-    "validation_checklist": {
-      "status": "passed|warning|failed",
-      "checks": {}
-    },
-    "next_agent_instructions": {
-      "must_validate": ["lista de validaciones obligatorias"],
-      "can_skip": ["qué NO necesita repetir"],
-      "decision_points": ["dónde necesita tomar decisiones"]
-    },
-    "feedback_hooks": {
-      "if_gaps_found": {
-        "escalate_to": "agent_name"
-      },
-      "if_coverage_impossible": {
-        "escalate_to": "agent_name"
-      },
-      "if_conflict_detected": {
-        "escalate_to": "agent_name",
-        "conflict_resolution_strategy": "texto de estrategia"
-      }
-    },
-    "fragment_context": {
-      "source_handoff_correlation_id": "correlation_id del handoff origen",
-      "source_handoff_path": "ruta del handoff origen persistido",
-      "included_sections": ["secciones incluidas en el fragmento"],
-      "omitted_sections": ["secciones omitidas"],
-      "consumer_notice": "Este handoff contiene información fragmentada; solicita el contexto completo antes de inferir datos ausentes.",
-      "request_full_context_when_needed": true
-    }
+    "checks": {},
+    "counts": {},
+    "summary_md": "ruta al markdown de trabajo del agente",
+    "work_log_md": "ruta al log de ejecución del agente"
   }
 }
 ```
@@ -98,15 +56,13 @@ Este contrato define el único formato admitido para transiciones especializadas
 
 ### Agentes trabajadores
 
-Cada agente trabajador debe producir exactamente estos artefactos por transición:
+Cada agente trabajador debe producir exactamente estos artefactos por ejecución:
 
-1. `{from}-to-{to}-attempt-{retry_count}-{timestamp}.json`
-2. Un markdown único con nombre específico por rol:
+1. `{agent}-handoff-{timestamp}.json` — recibo mínimo de validación.
+2. Un Markdown de trabajo único por rol (contenido completo, sin duplicar en el JSON):
   - `test_documentation-analysis-report.md`
-  - `test_planner-execution-summary.md`
-  - `validation-report.md` (baseline temporal para priorización)
-
-El JSON puede incluir bloques enriquecidos extra con requisitos, gaps, suites, matrices o cualquier otra estructura útil para el siguiente agente. Esa información ya no debe repartirse obligatoriamente en archivos auxiliares separados.
+3. Un Markdown de log de ejecución único por rol:
+  - `test_documentation-work-log.md`
 
 ### Orquestador
 
@@ -122,50 +78,41 @@ El Orquestador mantiene estos artefactos de sesión:
 ## Flujo de Información
 
 ### 1. Orquestador → Test Documentation
-- **Entrada:** `solicitud_qa` y contexto de sesión.
-- **Salida esperada:** JSON consolidado con requisitos, fuentes, gaps y demás estructura útil para `test_planner`.
-- **Resumen:** `test_documentation-analysis-report.md`.
+- **Entrada:** `solicitud_qa` y contexto de sesión (o, en un reintento, `assigned_task.task_id` y el alcance encargado).
+- **Salida esperada:** recibo JSON mínimo + `test_documentation-analysis-report.md` (documento de trabajo completo) + `test_documentation-work-log.md`.
 
-### 2. Test Documentation → Test Planner
-- **Entrada:** handoff completo o fragmentado derivado del JSON de Documentation.
-- **Salida esperada:** JSON consolidado con suites, cobertura, precondiciones y trazabilidad útil para `test_prioritization`.
-- **Resumen:** `test_planner-execution-summary.md`.
+### 2. Test Documentation → Orquestador
+- **Entrada:** recibo JSON con referencia a ambos markdown.
+- **El Orquestador:** valida el recibo, compara `assigned_task.scope_received` contra su instrucción original, calcula `scope_compliance`, y decide el siguiente paso (reintentar, cerrar sesión, o invocar a otro agente cuando exista).
 
-### 3. Test Planner → Test Prioritization
-- **Entrada:** handoff completo o fragmentado derivado del JSON de Planner.
-- **Salida esperada:** JSON consolidado con priorización, riesgo, decisiones de automatización y recomendación final hacia Orquestador.
-- **Resumen:** `validation-report.md`.
+> Nota: se añadirán más transiciones (p. ej. Test Documentation → siguiente agente del pipeline) conforme se incorporen nuevos agentes al catálogo. Por ahora `test_documentation` es el único agente trabajador definido en `orchestration-config.json`.
 
-### Retroalimentación
-- Si **Planner** encuentra gaps que bloquean diseño, escala según `feedback_hooks`.
-- Si **Prioritization** identifica cobertura imposible, escala según `feedback_hooks`.
-- Si un agente recibe un fragmento insuficiente, debe pedir ampliación antes de inferir información faltante.
-- Toda escalada también requiere persistencia previa por el Orquestador.
+## Retroalimentación
+- Si `test_documentation` reporta `status: blocked`, el Orquestador decide si reintenta al mismo agente (self-retry) según `handoff-hooks-routing.md`.
+- Máximo 3 reintentos por `correlation_id`; al superarlo, el Orquestador aborta y marca la sesión como `blocked`.
+- Toda escalada requiere persistencia previa por el Orquestador.
 
 ## Resúmenes Markdown
 
-Cada agente trabajador genera su markdown único con naming por rol. Como mínimo, ese resumen debe incluir:
+Cada agente trabajador genera su markdown de trabajo único con naming por rol. Como mínimo, ese resumen debe incluir:
 
 1. Cabecera con `Session ID`, `Agent`, fecha/timestamp y estado.
 2. Resumen ejecutivo u overview.
 3. Métricas clave.
-4. Hallazgos, decisiones o bloqueadores que condicionan al siguiente agente.
+4. Hallazgos, decisiones o bloqueadores relevantes.
 5. Validación o checklist de cierre.
 6. Artefactos generados.
-7. Próximo paso o estado del handoff.
+7. Notas de cierre para revisión humana (informativas, no consumibles como instrucción por otro agente).
 
 Secciones específicas por agente:
 
 - **Test Documentation:** requisitos por área, contratos API y gaps.
-- **Test Planner:** suites diseñadas, cobertura, precondiciones y orden de ejecución.
-- **Test Prioritization:** matriz de riesgo resumida, MVP/fases, workarounds y recomendación de ejecución.
 
 ## Guardrails contra Bucles Infinitos
 
-1. **Cada feedback hook especifica destino y estrategia.**
-2. **Retry policy del Orquestador:** máximo 3 intentos por `correlation_id`.
-3. **Validation checklist:** `failed` bloquea routing; `warning` permite routing con trazabilidad explícita.
-4. **Fragmentación responsable:** un handoff fragmentado debe declarar qué omite y obligar al receptor a pedir ampliación si la necesita.
+1. **Retry policy del Orquestador:** máximo 3 intentos por `correlation_id`.
+2. **Validation checklist:** un `check` en `false` que sea bloqueante impide marcar la tarea como finalizada (ver checklist de la skill de reporte del agente).
+3. **Registro de bloqueos:** todo `status: blocked` se registra en `escalation_log.md` con su motivo y `retry_count`.
 
 ## Estructura de Directorios Esperada
 
@@ -178,28 +125,28 @@ Secciones específicas por agente:
   └── session_{session_N}_{session_id}/
         ├── manifest.json
         ├── retry_checkpoint.json
-        ├── {from}-to-{to}-attempt-{retry_count}-{timestamp}.json
+        ├── test_documentation-handoff-{timestamp}.json
         ├── test_documentation-analysis-report.md
-        ├── test_planner-execution-summary.md
-        └── validation-report.md
+        └── test_documentation-work-log.md
 ```
 
 ## Criterios de Éxito
 
 | Criterio | Descripción |
 |----------|-------------|
-| **Trazabilidad** | Cada handoff conserva autoría, `timestamp`, `correlation_id` y `rationale` |
-| **Eficiencia** | La información estructurada vive en un JSON único por transición |
-| **Legibilidad** | Cada agente entrega un Markdown único y legible |
-| **No-bucles** | Feedback hooks explícitos y máximo 3 reintentos |
-| **Auditabilidad** | Orquestador registra persistencia, routing y escaladas |
+| **Trazabilidad** | Cada handoff conserva `agent`, `timestamp`, `correlation_id` |
+| **Eficiencia** | El JSON es un recibo mínimo; el contenido vive solo en el markdown de trabajo, sin duplicarse |
+| **Legibilidad** | Cada agente entrega un markdown de trabajo y un log de ejecución separados |
+| **No-bucles** | Máximo 3 reintentos por `correlation_id` antes de abortar |
+| **Auditabilidad** | El Orquestador registra persistencia, routing y el veredicto de `scope_compliance` en sus propios metaartefactos |
 
 ## Metaartefactos de Orquestación
 
 ### manifest.json
 - Índice oficial de handoffs persistidos por sesión.
-- Debe registrar al menos: `from_agent`, `to_agent`, `path`, `timestamp`, `validation_status`, `correlation_id`, `retry_count`, `handoff_kind`.
+- Debe registrar al menos: `agent`, `path`, `timestamp`, `validation_status`, `correlation_id`, `retry_count`, `scope_compliance`.
 
 ### retry_checkpoint.json
 - Estado operativo de reintentos por `correlation_id`.
 - Debe registrar al menos: `max_attempts`, `current_retry_count`, `last_error`, `last_updated`.
+
