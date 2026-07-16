@@ -1,11 +1,11 @@
 ---
-name: qa-test-documentation-workflow
-description: Skill operativa del agente test_documentation para extraccion, normalizacion y handoff
+name: qa-test-documentation
+description: Workflow operativo del agente test_documentation para extraccion, normalizacion y handoff
 argument-hint: solicitud QA y fuentes de requisitos
 user-invocable: false
 ---
 
-Skill de workflow para test_documentation. El flujo operativo se encuentra dividido en archivos dentro de ./workflow/.
+Workflow para test_documentation. El flujo operativo se encuentra dividido en archivos dentro de ./steps/. DEBES seguir la secuencia de pasos y las reglas de cada uno. Tras ejecutar cada paso DEBES documentar el Log de Trabajo en `test_documentation-work-log.md`.
 
 ## Instrucciones de Log de Trabajo
 

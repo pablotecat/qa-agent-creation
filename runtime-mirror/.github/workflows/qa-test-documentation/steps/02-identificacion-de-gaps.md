@@ -21,9 +21,9 @@ Durante este paso tu unico objetivo es detectar y clasificar gaps. No sigas busc
 
 ## Que NO hacer en este paso
 
-- No extraigas nuevos requisitos de fuentes no revisadas (eso quedo cerrado en el Paso 1).
-- No agrupes requisitos ni gaps por area (eso ocurre en el Paso 3).
-- No generes el handoff JSON ni el reporte markdown (eso ocurre en el Paso 5).
+- No extraigas nuevos requisitos de fuentes no revisadas.
+- No agrupes requisitos ni gaps por area.
+- No generes el handoff JSON ni el reporte markdown.
 
 ## Checklist de completitud
 

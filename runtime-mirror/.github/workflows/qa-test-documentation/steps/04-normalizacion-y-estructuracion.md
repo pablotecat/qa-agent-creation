@@ -21,8 +21,8 @@ Durante este paso tu unico objetivo es normalizar redaccion y estructura. No rea
 
 ## Que NO hacer en este paso
 
-- No cambies el agrupamiento por area definido en el Paso 3.
-- No generes ni persistas los archivos finales de handoff (eso ocurre en el Paso 5).
+- No cambies el agrupamiento por area definido anteriormente.
+- No generes ni persistas los archivos finales de handoff.
 - No repriorices ni reclasifiques gaps.
 
 ## Checklist de completitud

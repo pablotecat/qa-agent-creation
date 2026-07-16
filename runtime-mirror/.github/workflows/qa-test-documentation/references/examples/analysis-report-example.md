@@ -1,4 +1,4 @@
-﻿# Ejemplos de test_documentation-analysis-report.md
+# Ejemplos de test_documentation-analysis-report.md
 
 ## Convención Unificada (secciones y campos)
 
