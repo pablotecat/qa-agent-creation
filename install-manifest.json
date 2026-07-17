@@ -40,16 +40,16 @@
       "required": true
     },
     {
-      "id": "runtime-contract-handoff-spec",
-      "source": "./runtime-mirror/.github/agents/contracts/handoff-specification.md",
-      "destination": ".github/agents/contracts/handoff-specification.md",
+      "id": "runtime-skill-handoff-spec",
+      "source": "./runtime-mirror/.github/skills/qa-handoff-creation/assets/handoff-specification.md",
+      "destination": ".github/skills/qa-handoff-creation/assets/handoff-specification.md",
       "classification": "runtime",
       "required": true
     },
     {
-      "id": "runtime-contract-handoff-schema",
-      "source": "./runtime-mirror/.github/agents/contracts/handoff-schema.json",
-      "destination": ".github/agents/contracts/handoff-schema.json",
+      "id": "runtime-skill-handoff-schema",
+      "source": "./runtime-mirror/.github/skills/qa-handoff-creation/assets/handoff-schema.json",
+      "destination": ".github/skills/qa-handoff-creation/assets/handoff-schema.json",
       "classification": "runtime",
       "required": true
     },
@@ -118,8 +118,8 @@
     },
     {
       "id": "runtime-skill-handoff-creation-example",
-      "source": "./runtime-mirror/.github/skills/qa-handoff-creation/examples/example-handoff.json",
-      "destination": ".github/skills/qa-handoff-creation/examples/example-handoff.json",
+      "source": "./runtime-mirror/.github/skills/qa-handoff-creation/assets/example-handoff.json",
+      "destination": ".github/skills/qa-handoff-creation/assets/example-handoff.json",
       "classification": "runtime",
       "required": false
     },

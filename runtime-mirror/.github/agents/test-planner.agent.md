@@ -40,12 +40,6 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 - Decision de cobertura model
 - Decision de precondiciones por suite
 
-## Fuentes Canónicas Obligatorias
-
-1. `.github/agents/contracts/handoff-schema.json`
-2. `.github/agents/contracts/handoff-specification.md`
-
-
 ## Fases de Ejecución
 
 ### Fase 1: Análisis del Handoff de Entrada
@@ -74,7 +68,7 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 - Documentar relaciones e impactos
 
 ### Fase 6: Generación de Handoff
-- Crear JSON de handoff siguiendo `handoff-specification.md`
+- Crear JSON de handoff siguiendo la skill `qa-handoff-creation`
 - Incluir `executive_summary` con complejidad de suites
 - Consolidar suites, cobertura, precondiciones y trazabilidad dentro del mismo JSON
 - Generar `test_planner-execution-summary.md` usando `qa-test-planner-report/SKILL.md`

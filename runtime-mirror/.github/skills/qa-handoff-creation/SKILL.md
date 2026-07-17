@@ -29,7 +29,7 @@ Patron: `{agent}-handoff-{timestamp}.json` — definido en esta skill.
 
 ## Campos Requeridos
 
-Los tipos, patrones y reglas exactas viven en `.github/agents/contracts/handoff-schema.json` (fuente canonica). Resumen de proposito de cada campo:
+Los tipos, patrones y reglas exactas viven en `assets/handoff-schema.json` (fuente canonica). Resumen de proposito de cada campo:
 
 - `agent`: nombre del agente productor.
 - `session_id`: identificador uuid de la sesion.
@@ -46,13 +46,13 @@ Los tipos, patrones y reglas exactas viven en `.github/agents/contracts/handoff-
 
 ## Ejemplo Completo
 
-- Ver [example handoff](./examples/example-handoff.json)
+- Ver [example handoff](./assets/example-handoff.json)
 
 > Nota: las claves concretas dentro de `checks` y `counts` en el ejemplo (`gherkin_format_valid`, `requirements`, etc.) pertenecen a `test_documentation`, unico agente productor existente hoy. Son ilustrativas, no un catalogo fijo: cada agente define las suyas propias segun lo que objetivamente haya verificado o contado.
 
 ## Pasos de Creacion
 
-1. Con el documento de trabajo (`summary_md`) y el log de ejecucion (`work_log_md`) ya generados y persistidos, crea el handoff JSON siguiendo `handoff-specification.md` y validando contra `handoff-schema.json`.
+1. Con el documento de trabajo (`summary_md`) y el log de ejecucion (`work_log_md`) ya generados y persistidos, crea el handoff JSON siguiendo `assets/handoff-specification.md` y validando contra `assets/handoff-schema.json`.
 2. Reporta solo hechos objetivos (`assigned_task`, `work_performed`, `checks`, `counts`). Nunca incluyas aqui un juicio propio de cumplimiento de alcance: eso lo decide quien consume el handoff.
 3. Usa el nombre de archivo definido en esta skill, sustituyendo `{agent}` por tu propio nombre de agente.
 4. Persiste el archivo en la subcarpeta `agent-{agent}/` dentro de la carpeta de sesion correspondiente, junto al resumen y al log de trabajo.
@@ -62,7 +62,7 @@ Los tipos, patrones y reglas exactas viven en `.github/agents/contracts/handoff-
 Antes de dar la tarea por finalizada, recorrer este checklist y confirmar que se cumple en su totalidad:
 
 - [ ] El nombre de archivo sigue el patron `{agent}-handoff-{timestamp}.json`.
-- [ ] Estan presentes todos los campos requeridos por `handoff-schema.json`.
+- [ ] Estan presentes todos los campos requeridos por `assets/handoff-schema.json`.
 - [ ] `assigned_task.scope_received` es un eco fiel de la instruccion recibida, sin juicio de cumplimiento propio.
 - [ ] `work_performed` refleja exactamente las secciones tocadas en `summary_md`.
 - [ ] `checks` y `counts` son hechos objetivos, no interpretaciones.

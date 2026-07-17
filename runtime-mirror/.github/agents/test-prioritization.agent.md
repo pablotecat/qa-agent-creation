@@ -39,12 +39,6 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 - Decision de prioridad basada en riesgo
 - Decision de orden de ejecucion
 
-## Fuentes Canónicas Obligatorias
-
-1. `.github/agents/contracts/handoff-schema.json`
-2. `.github/agents/contracts/handoff-specification.md`
-
-
 ## Fases de Ejecución
 
 ### Fase 1: Análisis de Riesgo por Suite
@@ -149,7 +143,6 @@ El formato y las secciones obligatorias de `validation-report.md` se definen en:
 ✅ Balance cobertura vs esfuerzo documentado
 ✅ Orden de prioridad claro
 ✅ Trade-offs auditados
-✅ Handoff validado contra `handoff-schema.json`
 ✅ `validation-report.md` generado
 
 ## Guardrails Operativos

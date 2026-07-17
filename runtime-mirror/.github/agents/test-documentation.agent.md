@@ -20,11 +20,6 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 - solicitud_qa (user request)
 - requisitos en formato libre (docs, specs, UI flows)
 
-## Fuentes Canónicas Obligatorias
-
-1. `.github/agents/contracts/handoff-schema.json`
-2. `.github/agents/contracts/handoff-specification.md`
-
 ## Flujo de trabajo
 
 - Workflow asociado: `.github/workflows/qa-test-documentation/WORKFLOW.md`
@@ -39,8 +34,7 @@ En el modelo de pipeline manual, el agente es responsable de:
 
 1. Crear la carpeta de sesión si no existe: `./tests/Documentation/sessions/session_{session_N}_{session_id}/agent-test_documentation/`.
 2. Persistir su propio handoff JSON, analysis report y work log en esa carpeta.
-3. Validar su handoff contra `handoff-schema.json` antes de entregarlo.
-4. Inicializar `session-counter.json` si es la primera sesión del proyecto.
+3. Inicializar `session-counter.json` si es la primera sesión del proyecto.
 
 ## Pendiente
 
