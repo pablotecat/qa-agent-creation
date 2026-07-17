@@ -29,7 +29,7 @@ Patron: `{agent}-handoff-{timestamp}.json` — definido en esta skill.
 
 ## Campos Requeridos
 
-Los tipos, patrones y reglas exactas viven en `.github/agents/qa-team/contracts/handoff-schema.json` (fuente canonica). Resumen de proposito de cada campo:
+Los tipos, patrones y reglas exactas viven en `.github/agents/contracts/handoff-schema.json` (fuente canonica). Resumen de proposito de cada campo:
 
 - `agent`: nombre del agente productor.
 - `session_id`: identificador uuid de la sesion.

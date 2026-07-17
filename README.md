@@ -86,14 +86,14 @@ Los artefactos generados por los agentes durante una sesión se organizan en la 
 |-- runtime-mirror/
 |   |-- .github/
 |   |   |-- agents/
-|   |   |   |-- qa-team/
-|   |   |   |   |-- test-documentation.agent.md
-|   |   |   |   |-- test-planner.agent.md
-|   |   |   |   |-- test-prioritization.agent.md
-|   |   |   |   `-- contracts/
-|   |   |   |       |-- HANDOFF_SPECIFICATION.md
-|   |   |   |       |-- handoff-schema.json
-|   |   |   |       `-- test-documentation.contract.md
+|   |   |-- agents/
+|   |   |   |-- test-documentation.agent.md
+|   |   |   |-- test-planner.agent.md
+|   |   |   |-- test-prioritization.agent.md
+|   |   |   `-- contracts/
+|   |   |       |-- HANDOFF_SPECIFICATION.md
+|   |   |       |-- handoff-schema.json
+|   |   |       `-- test-documentation.contract.md
 |   |   |-- instructions/
 |   |   |   `-- qa-handoff-format.instructions.md
 |   |   |-- skills/

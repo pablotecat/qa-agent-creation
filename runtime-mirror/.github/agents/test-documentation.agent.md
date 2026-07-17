@@ -22,8 +22,8 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 
 ## Fuentes Canónicas Obligatorias
 
-1. `.github/agents/qa-team/contracts/handoff-schema.json`
-2. `.github/agents/qa-team/contracts/HANDOFF_SPECIFICATION.md`
+1. `.github/agents/contracts/handoff-schema.json`
+2. `.github/agents/contracts/HANDOFF_SPECIFICATION.md`
 
 ## Flujo de trabajo
 
@@ -31,7 +31,7 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 
 ## Contrato
 
-- Contrato asociado: `.github/agents/qa-team/contracts/test-documentation.contract.md`
+- Contrato asociado: `.github/agents/contracts/test-documentation.contract.md`
 
 ## Auto-persistencia
 

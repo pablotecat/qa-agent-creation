@@ -42,8 +42,8 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 
 ## Fuentes Canónicas Obligatorias
 
-1. `.github/agents/qa-team/contracts/handoff-schema.json`
-2. `.github/agents/qa-team/contracts/HANDOFF_SPECIFICATION.md`
+1. `.github/agents/contracts/handoff-schema.json`
+2. `.github/agents/contracts/HANDOFF_SPECIFICATION.md`
 
 
 ## Fases de Ejecución

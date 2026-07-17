@@ -16,8 +16,8 @@ antes de la migración.
 | `qa-orchestrator.agent.md` | `.github/agents/` | rama preserve |
 | `qa-orchestrator-policy.instructions.md` | `.github/instructions/` | rama preserve |
 | `qa-routing-guardrails.instructions.md` | `.github/instructions/` | rama preserve |
-| `orchestration-config.json` | `.github/agents/qa-team/contracts/` | rama preserve |
-| `handoff-hooks-routing.md` | `.github/agents/qa-team/contracts/` | rama preserve |
+| `orchestration-config.json` | `.github/agents/contracts/` (then `qa-team/contracts/`) | rama preserve |
+| `handoff-hooks-routing.md` | `.github/agents/contracts/` (then `qa-team/contracts/`) | rama preserve |
 | `prompt-to-agent.md` | `.github/prompts/` | rama preserve |
 | `qa-orchestrator-report/SKILL.md` | `.github/skills/` | rama preserve |
 | `qa-orchestrator-report/examples/` | `.github/skills/` | rama preserve |

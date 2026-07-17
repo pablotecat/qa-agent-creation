@@ -20,36 +20,36 @@
   "entries": [
     {
       "id": "runtime-doc-agent",
-      "source": "./runtime-mirror/.github/agents/qa-team/test-documentation.agent.md",
-      "destination": ".github/agents/qa-team/test-documentation.agent.md",
+      "source": "./runtime-mirror/.github/agents/test-documentation.agent.md",
+      "destination": ".github/agents/test-documentation.agent.md",
       "classification": "runtime",
       "required": true
     },
     {
       "id": "runtime-planner-agent",
-      "source": "./runtime-mirror/.github/agents/qa-team/test-planner.agent.md",
-      "destination": ".github/agents/qa-team/test-planner.agent.md",
+      "source": "./runtime-mirror/.github/agents/test-planner.agent.md",
+      "destination": ".github/agents/test-planner.agent.md",
       "classification": "runtime",
       "required": true
     },
     {
       "id": "runtime-prioritization-agent",
-      "source": "./runtime-mirror/.github/agents/qa-team/test-prioritization.agent.md",
-      "destination": ".github/agents/qa-team/test-prioritization.agent.md",
+      "source": "./runtime-mirror/.github/agents/test-prioritization.agent.md",
+      "destination": ".github/agents/test-prioritization.agent.md",
       "classification": "runtime",
       "required": true
     },
     {
       "id": "runtime-contract-handoff-spec",
-      "source": "./runtime-mirror/.github/agents/qa-team/contracts/HANDOFF_SPECIFICATION.md",
-      "destination": ".github/agents/qa-team/contracts/HANDOFF_SPECIFICATION.md",
+      "source": "./runtime-mirror/.github/agents/contracts/HANDOFF_SPECIFICATION.md",
+      "destination": ".github/agents/contracts/HANDOFF_SPECIFICATION.md",
       "classification": "runtime",
       "required": true
     },
     {
       "id": "runtime-contract-handoff-schema",
-      "source": "./runtime-mirror/.github/agents/qa-team/contracts/handoff-schema.json",
-      "destination": ".github/agents/qa-team/contracts/handoff-schema.json",
+      "source": "./runtime-mirror/.github/agents/contracts/handoff-schema.json",
+      "destination": ".github/agents/contracts/handoff-schema.json",
       "classification": "runtime",
       "required": true
     },
@@ -62,8 +62,8 @@
     },
     {
       "id": "runtime-contract-test-documentation",
-      "source": "./runtime-mirror/.github/agents/qa-team/contracts/test-documentation.contract.md",
-      "destination": ".github/agents/qa-team/contracts/test-documentation.contract.md",
+      "source": "./runtime-mirror/.github/agents/contracts/test-documentation.contract.md",
+      "destination": ".github/agents/contracts/test-documentation.contract.md",
       "classification": "runtime",
       "required": true
     },
