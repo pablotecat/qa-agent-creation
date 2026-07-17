@@ -64,12 +64,13 @@ Si hay contradicción entre documentos, prevalece el orden anterior.
 ### Inicio de sesión
 
 1. Generar `session_id` en formato UUID v4.
-2. Calcular `session_N` incremental por proyecto leyendo `./tests/Documentation/handoffs/session-counter.json` (si no existe, usar `0`).
+2. Calcular `session_N` incremental por proyecto leyendo `./tests/Documentation/sessions/session-counter.json` (si no existe, usar `0`).
 3. Asignar `session_N = last_session_n + 1` y persistir inmediatamente el nuevo contador.
-4. Crear carpeta de sesión canónica `./tests/Documentation/handoffs/session_{session_N}_{session_id}/`.
-5. Inicializar `manifest.json` y `retry_checkpoint.json` para la sesión en la carpeta canónica.
-6. Preparar `HANDOFF_Summary.md` para trazabilidad de transiciones.
-7. Preparar `ORCHESTRATION_FINAL_SUMMARY.md` para el cierre consolidado.
+4. Crear carpeta de sesión canónica `./tests/Documentation/sessions/session_{session_N}_{session_id}/`.
+5. Crear subcarpeta `agent-orchestrator/` dentro de la carpeta de sesión.
+6. Inicializar `manifest.json` y `retry_checkpoint.json` para la sesión en `./tests/Documentation/sessions/session_{session_N}_{session_id}/agent-orchestrator/`.
+7. Preparar `HANDOFF_Summary.md` para trazabilidad de transiciones.
+8. Preparar `ORCHESTRATION_FINAL_SUMMARY.md` para el cierre consolidado.
 
 ### Análisis de intención y entrada
 

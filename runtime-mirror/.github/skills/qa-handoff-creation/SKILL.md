@@ -20,10 +20,16 @@ Patron: `{agent}-handoff-{timestamp}.json` — definido en `.github/agents/qa-te
 ## Formato minimo de salida
 
 ```
-./tests/Documentation/handoffs/session_{session_N}_{session_id}/
-├── {agent}-handoff-{timestamp}.json
-├── {agent}-analysis-report.md (o el nombre de resumen definido por rol)
-└── {agent}-work-log.md
+./tests/Documentation/sessions/session_{session_N}_{session_id}/
+├── agent-orchestrator/
+│   ├── manifest.json
+│   ├── retry_checkpoint.json
+│   └── ...
+├── agent-{agent}/
+│   ├── {agent}-handoff-{timestamp}.json
+│   ├── {agent}-analysis-report.md (o el nombre de resumen definido por rol)
+│   └── {agent}-work-log.md
+└── ...
 ```
 
 ## Campos Requeridos
@@ -56,7 +62,7 @@ Los tipos, patrones y reglas exactas viven en `.github/agents/qa-team/contracts/
 1. Con el documento de trabajo (`summary_md`) y el log de ejecucion (`work_log_md`) ya generados y persistidos, crea el handoff JSON siguiendo `HANDOFF_SPECIFICATION.md` y validando contra `handoff-schema.json`.
 2. Reporta solo hechos objetivos (`assigned_task`, `work_performed`, `checks`, `counts`). Nunca incluyas aqui un juicio propio de cumplimiento de alcance: eso lo calcula el Orquestador.
 3. Usa el nombre de archivo definido en esta skill, sustituyendo `{agent}` por tu propio nombre de agente.
-4. Persiste el archivo en la carpeta de sesion correspondiente, junto al resumen y al log de trabajo.
+4. Persiste el archivo en la subcarpeta `agent-{agent}/` dentro de la carpeta de sesion correspondiente, junto al resumen y al log de trabajo.
 
 ## Puerta de Calidad
 

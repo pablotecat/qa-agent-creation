@@ -11,6 +11,6 @@ applyTo: ".github/agents/**/*.agent.md"
 - Si `validation_checklist.status=failed`, no enrutes.
 - Si `validation_checklist.status=warning`, el enrutamiento está permitido solo con trazabilidad explícita.
 - Mantén `delta_changes.updated_by` igual al agente especializado productor.
-- No estandarices `README.md` dentro de `handoffs/` ni `execution-summary.json` por agente.
+- No estandarices `README.md` dentro de `sessions/` ni `execution-summary.json` por agente.
 - El Orquestador persiste los handoffs recibidos pero nunca modifica `from_agent`, `to_agent`, `updated_by` ni payloads previamente persistidos.
 - Si el Orquestador envía un fragmento, debe crear un handoff nuevo y válido contra schema con `metadata.handoff_kind=fragment` y `fragment_context`.

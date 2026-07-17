@@ -48,6 +48,41 @@ La opcion elegida se aplica globalmente a toda la instalacion.
 - `install-prompt.md` solo gobierna la instalacion.
 - Despues de copiar los archivos runtime, la operacion QA queda definida por los artefactos instalados en `.github/`.
 
+## Estructura canónica de salida
+
+Los artefactos generados por los agentes durante una sesión de orquestación se organizan en la siguiente estructura cuyo fin es facilitar debuguear:
+
+```text
+./tests/Documentation/
+├── HANDOFF_Summary.md
+├── ORCHESTRATION_FINAL_SUMMARY.md
+├── escalation_log.md
+└── sessions/
+    ├── session-counter.json
+    └── session_{session_N}_{session_id}/
+          ├── agent-orchestrator/
+          │     ├── manifest.json
+          │     ├── retry_checkpoint.json
+          │     └── ORCHESTRATION_FINAL_SUMMARY.md
+          ├── agent-test_documentation/
+          │     ├── test_documentation-handoff-{timestamp}.json
+          │     ├── test_documentation-analysis-report.md
+          │     └── test_documentation-work-log.md
+          ├── agent-test_planner/
+          │     ├── test_planner-handoff-{timestamp}.json
+          │     └── test_planner-execution-summary.md
+          └── agent-test_prioritization/
+                ├── test_prioritization-handoff-{timestamp}.json
+                └── validation-report.md
+```
+
+### Convenciones
+
+- Cada agente crea su subcarpeta `agent-{agente}/` dentro de la sesión.
+- Los archivos globales de trazabilidad (`HANDOFF_Summary.md`, `escalation_log.md`) permanecen en la raíz de `Documentation/`.
+- El `session-counter.json` vive directamente en `sessions/`.
+- La configuración canónica de rutas está en `orchestration-config.json` (`session_base_path`, `session_counter_file`).
+
 ## Estructura del repositorio
 
 ```text

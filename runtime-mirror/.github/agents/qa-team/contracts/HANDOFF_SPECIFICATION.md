@@ -17,7 +17,7 @@ Este contrato define el único formato admitido para transiciones entre agentes 
 - **El productor no decide el flujo:** un agente trabajador nunca conoce ni sugiere el siguiente agente del pipeline; solo reporta hechos objetivos sobre su propia contribución (`assigned_task`, `work_performed`).
 - **El Orquestador calcula el cumplimiento:** cualquier veredicto sobre si el trabajo cumplió el alcance encargado (`scope_compliance`) lo calcula el Orquestador comparando su instrucción original contra los hechos reportados — nunca el propio agente productor.
 - **Persistencia previa al routing:** ninguna transición es válida hasta que el Orquestador haya persistido el JSON del handoff.
-- **Sin artefactos redundantes:** este estándar excluye `README.md` dentro de `handoffs/` y `execution-summary.json` por agente.
+- **Sin artefactos redundantes:** este estándar excluye `README.md` dentro de `sessions/` y `execution-summary.json` por agente.
 
 ## Ownership de Contenido vs Persistencia
 
@@ -121,13 +121,17 @@ Secciones específicas por agente:
 ├── HANDOFF_Summary.md
 ├── ORCHESTRATION_FINAL_SUMMARY.md
 ├── escalation_log.md
-└── handoffs/
-  └── session_{session_N}_{session_id}/
-        ├── manifest.json
-        ├── retry_checkpoint.json
-        ├── test_documentation-handoff-{timestamp}.json
-        ├── test_documentation-analysis-report.md
-        └── test_documentation-work-log.md
+└── sessions/
+    ├── session-counter.json
+    └── session_{session_N}_{session_id}/
+          ├── agent-orchestrator/
+          │     ├── manifest.json
+          │     ├── retry_checkpoint.json
+          │     └── ORCHESTRATION_FINAL_SUMMARY.md
+          └── agent-test_documentation/
+                ├── test_documentation-handoff-{timestamp}.json
+                ├── test_documentation-analysis-report.md
+                └── test_documentation-work-log.md
 ```
 
 ## Criterios de Éxito

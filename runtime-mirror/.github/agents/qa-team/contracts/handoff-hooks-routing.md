@@ -24,7 +24,7 @@ Con un único agente trabajador (`test_documentation`) en el catálogo, todavía
 
 Toda transición (nominal o de reintento) DEBE cumplir:
 
-1. El Orquestador persiste el handoff recibido en `./tests/Documentation/handoffs/session_{session_N}_{session_id}/`.
+1. El Orquestador persiste el handoff recibido en `./tests/Documentation/sessions/session_{session_N}_{session_id}/agent-{agent}/`.
 2. El Orquestador actualiza `manifest.json` y `retry_checkpoint.json`.
 3. Solo después de persistencia exitosa se considera válida la transición.
 

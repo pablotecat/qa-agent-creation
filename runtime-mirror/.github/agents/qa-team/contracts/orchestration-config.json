@@ -5,7 +5,8 @@
     "max_attempts": 3,
     "persistence_required_before_routing": true,
     "session_folder_pattern": "session_{session_N}_{session_id}",
-    "session_counter_file": "./tests/Documentation/handoffs/session-counter.json"
+    "session_base_path": "./tests/Documentation/sessions",
+    "session_counter_file": "./tests/Documentation/sessions/session-counter.json"
   },
   "validation": {
     "precedence_mode": "V1",

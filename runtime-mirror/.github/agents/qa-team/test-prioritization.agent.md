@@ -84,9 +84,10 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 ## Formato Mínimo de Salida
 
 ```
-./tests/Documentation/handoffs/session_{session_N}_{session_id}/
-├── test_prioritization-to-orchestrator-attempt-{retry_count}-{timestamp}.json
-└── validation-report.md
+./tests/Documentation/sessions/session_{session_N}_{session_id}/
+├── agent-test_prioritization/
+│   ├── test_prioritization-to-orchestrator-attempt-{retry_count}-{timestamp}.json
+│   └── validation-report.md
 ```
 
 ### Estructura Recomendada dentro del Handoff JSON
