@@ -1,22 +1,22 @@
 # QA Agent Creation
 
-Repositorio de instalacion para agentes QA en modo Orchestra, con instalacion determinista basada en `install-manifest.json` y runtime mirror.
+Repositorio de instalacion para agentes QA con pipeline manual, con instalacion determinista basada en `install-manifest.json` y runtime mirror.
 
 ## Objetivo
 
 Construir e instalar un paquete runtime de agentes QA donde:
 
-- Solo QA Orchestrator es invocable por el usuario.
+- Todos los agentes son invocables directamente por el usuario.
+- El pipeline se ejecuta de forma secuencial manual: test_documentation → test_planner → test_prioritization.
 - El runtime final queda en estructura estandar de `.github/`.
 
 ## Alcance actual
 
 Implementado/documentado para:
 
-- QA Orchestrator
-- Test Documentation Agent
-- Test Planner Agent
-- Test Prioritization Agent
+- Test Documentation Agent (completo)
+- Test Planner Agent (borrador)
+- Test Prioritization Agent (borrador)
 
 No implementado en esta version:
 
@@ -50,38 +50,32 @@ La opcion elegida se aplica globalmente a toda la instalacion.
 
 ## Estructura canónica de salida
 
-Los artefactos generados por los agentes durante una sesión de orquestación se organizan en la siguiente estructura cuyo fin es facilitar debuguear:
+Los artefactos generados por los agentes durante una sesión se organizan en la siguiente estructura cuyo fin es facilitar debuguear:
 
 ```text
 ./tests/Documentation/
-├── HANDOFF_Summary.md
-├── ORCHESTRATION_FINAL_SUMMARY.md
-├── escalation_log.md
 └── sessions/
     ├── session-counter.json
     └── session_{session_N}_{session_id}/
-          ├── agent-orchestrator/
-          │     ├── manifest.json
-          │     ├── retry_checkpoint.json
-          │     └── ORCHESTRATION_FINAL_SUMMARY.md
           ├── agent-test_documentation/
           │     ├── test_documentation-handoff-{timestamp}.json
           │     ├── test_documentation-analysis-report.md
           │     └── test_documentation-work-log.md
           ├── agent-test_planner/
           │     ├── test_planner-handoff-{timestamp}.json
-          │     └── test_planner-execution-summary.md
+          │     ├── test_planner-execution-summary.md
+          │     └── test_planner-work-log.md
           └── agent-test_prioritization/
                 ├── test_prioritization-handoff-{timestamp}.json
-                └── validation-report.md
+                ├── test_prioritization-prioritization-report.md
+                └── test_prioritization-work-log.md
 ```
 
 ### Convenciones
 
 - Cada agente crea su subcarpeta `agent-{agente}/` dentro de la sesión.
-- Los archivos globales de trazabilidad (`HANDOFF_Summary.md`, `escalation_log.md`) permanecen en la raíz de `Documentation/`.
 - El `session-counter.json` vive directamente en `sessions/`.
-- La configuración canónica de rutas está en `orchestration-config.json` (`session_base_path`, `session_counter_file`).
+- El primer agente en ejecutarse (test_documentation) inicializa la carpeta de sesión y el counter si no existen.
 
 ## Estructura del repositorio
 
@@ -89,11 +83,9 @@ Los artefactos generados por los agentes durante una sesión de orquestación se
 .
 |-- install-prompt.md
 |-- install-manifest.json
-|-- prompt-to-agent.md
 |-- runtime-mirror/
 |   |-- .github/
 |   |   |-- agents/
-|   |   |   |-- qa-orchestrator.agent.md
 |   |   |   |-- qa-team/
 |   |   |   |   |-- test-documentation.agent.md
 |   |   |   |   |-- test-planner.agent.md
@@ -101,14 +93,15 @@ Los artefactos generados por los agentes durante una sesión de orquestación se
 |   |   |   |   `-- contracts/
 |   |   |   |       |-- HANDOFF_SPECIFICATION.md
 |   |   |   |       |-- handoff-schema.json
-|   |   |   |       |-- handoff-hooks-routing.md
-|   |   |   |       `-- orchestration-config.json
+|   |   |   |       `-- test-documentation.contract.md
 |   |   |-- instructions/
-|   |   |   |-- qa-handoff-format.instructions.md
-|   |   |   |-- qa-routing-guardrails.instructions.md
-|   |   |   `-- qa-orchestrator-policy.instructions.md
-|   |   `-- prompts/
-|   |       `-- prompt-to-agent.md
+|   |   |   `-- qa-handoff-format.instructions.md
+|   |   |-- skills/
+|   |   |   |-- qa-handoff-creation/
+|   |   |   |-- qa-test-planner-report/
+|   |   |   |-- qa-test-prioritization-report/
+|   |   `-- workflows/
+|   |       `-- qa-test-documentation/
 ```
 
 ## Bootstrap vs Runtime
@@ -117,13 +110,3 @@ Los artefactos generados por los agentes durante una sesión de orquestación se
 - Bootstrap (no se copia): `install-prompt.md` y `README.md` de este repositorio instalador.
 
 Los ejemplos son estrictamente bootstrap-only.
-
-## Nota operativa
-
-`runtime-mirror/.github/prompts/prompt-to-agent.md` se instala como `.github/prompts/prompt-to-agent.md`.
-
-La semantica operativa de agentes, handoffs, routing y persistencia vive en los archivos runtime copiados al proyecto destino.
-
-## Licencia
-
-Pendiente de definir.

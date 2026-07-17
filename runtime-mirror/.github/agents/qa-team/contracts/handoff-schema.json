@@ -13,8 +13,6 @@
         "agent",
         "session_id",
         "timestamp",
-        "correlation_id",
-        "retry_count",
         "status",
         "assigned_task",
         "work_performed",
@@ -36,15 +34,6 @@
           "type": "string",
           "format": "date-time"
         },
-        "correlation_id": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\\.[a-z][a-z0-9_]{2,30}\\.[0-3]$"
-        },
-        "retry_count": {
-          "type": "integer",
-          "minimum": 0,
-          "maximum": 3
-        },
         "status": {
           "type": "string",
           "enum": ["completed", "blocked", "partial"]
@@ -53,11 +42,11 @@
           "type": "object",
           "additionalProperties": false,
           "required": ["task_id", "scope_received"],
-          "description": "Hechos que el agente reporta sobre el encargo recibido. El agente NUNCA autoevalua su cumplimiento; eso lo calcula el Orquestador comparando estos campos contra su propia instruccion original.",
+          "description": "Hechos que el agente reporta sobre el encargo recibido. El agente NUNCA autoevalua su cumplimiento; eso lo decide quien consume el handoff comparando estos campos contra la solicitud original.",
           "properties": {
             "task_id": {
               "type": "string",
-              "description": "Eco literal del identificador de instruccion emitido por el Orquestador."
+              "description": "Identificador de la instruccion o tarea recibida."
             },
             "scope_received": {
               "type": "string",

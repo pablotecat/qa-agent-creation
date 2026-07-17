@@ -19,13 +19,6 @@
   },
   "entries": [
     {
-      "id": "runtime-orchestrator-agent",
-      "source": "./runtime-mirror/.github/agents/qa-orchestrator.agent.md",
-      "destination": ".github/agents/qa-orchestrator.agent.md",
-      "classification": "runtime",
-      "required": true
-    },
-    {
       "id": "runtime-doc-agent",
       "source": "./runtime-mirror/.github/agents/qa-team/test-documentation.agent.md",
       "destination": ".github/agents/qa-team/test-documentation.agent.md",
@@ -61,37 +54,9 @@
       "required": true
     },
     {
-      "id": "runtime-contract-hooks-routing",
-      "source": "./runtime-mirror/.github/agents/qa-team/contracts/handoff-hooks-routing.md",
-      "destination": ".github/agents/qa-team/contracts/handoff-hooks-routing.md",
-      "classification": "runtime",
-      "required": true
-    },
-    {
-      "id": "runtime-contract-orchestration-config",
-      "source": "./runtime-mirror/.github/agents/qa-team/contracts/orchestration-config.json",
-      "destination": ".github/agents/qa-team/contracts/orchestration-config.json",
-      "classification": "runtime",
-      "required": true
-    },
-    {
       "id": "runtime-instruction-handoff-format",
       "source": "./runtime-mirror/.github/instructions/qa-handoff-format.instructions.md",
       "destination": ".github/instructions/qa-handoff-format.instructions.md",
-      "classification": "runtime",
-      "required": true
-    },
-    {
-      "id": "runtime-instruction-routing-guardrails",
-      "source": "./runtime-mirror/.github/instructions/qa-routing-guardrails.instructions.md",
-      "destination": ".github/instructions/qa-routing-guardrails.instructions.md",
-      "classification": "runtime",
-      "required": true
-    },
-    {
-      "id": "runtime-instruction-orchestrator-policy",
-      "source": "./runtime-mirror/.github/instructions/qa-orchestrator-policy.instructions.md",
-      "destination": ".github/instructions/qa-orchestrator-policy.instructions.md",
       "classification": "runtime",
       "required": true
     },
@@ -145,28 +110,6 @@
       "required": true
     },
     {
-      "id": "runtime-prompt-entry",
-      "source": "./runtime-mirror/.github/prompts/prompt-to-agent.md",
-      "destination": ".github/prompts/prompt-to-agent.md",
-      "classification": "runtime",
-      "required": true,
-      "editable_after_copy": true
-    },
-    {
-      "id": "runtime-skill-orchestrator-report",
-      "source": "./runtime-mirror/.github/skills/qa-orchestrator-report/SKILL.md",
-      "destination": ".github/skills/qa-orchestrator-report/SKILL.md",
-      "classification": "runtime",
-      "required": true
-    },
-    {
-      "id": "runtime-skill-orchestrator-report-example",
-      "source": "./runtime-mirror/.github/skills/qa-orchestrator-report/examples/example-output.md",
-      "destination": ".github/skills/qa-orchestrator-report/examples/example-output.md",
-      "classification": "runtime",
-      "required": false
-    },
-    {
       "id": "runtime-skill-handoff-creation",
       "source": "./runtime-mirror/.github/skills/qa-handoff-creation/SKILL.md",
       "destination": ".github/skills/qa-handoff-creation/SKILL.md",
@@ -186,13 +129,6 @@
       "destination": ".github/workflows/qa-test-documentation/references/analysis-report-guidance.md",
       "classification": "runtime",
       "required": true
-    },
-    {
-      "id": "runtime-workflow-test-documentation-references-example",
-      "source": "./runtime-mirror/.github/workflows/qa-test-documentation/references/examples/analysis-report-example.md",
-      "destination": ".github/workflows/qa-test-documentation/references/examples/analysis-report-example.md",
-      "classification": "runtime",
-      "required": false
     },
     {
       "id": "runtime-skill-test-planner-report",
@@ -219,6 +155,13 @@
       "id": "runtime-skill-test-prioritization-report-example",
       "source": "./runtime-mirror/.github/skills/qa-test-prioritization-report/examples/example-output.md",
       "destination": ".github/skills/qa-test-prioritization-report/examples/example-output.md",
+      "classification": "runtime",
+      "required": false
+    },
+    {
+      "id": "runtime-orchestration-recovery",
+      "source": "./runtime-mirror/.github/ORCHESTRATION-RECOVERY.md",
+      "destination": ".github/ORCHESTRATION-RECOVERY.md",
       "classification": "runtime",
       "required": false
     },

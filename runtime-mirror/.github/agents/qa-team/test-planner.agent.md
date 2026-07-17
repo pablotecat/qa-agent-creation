@@ -2,8 +2,8 @@
 name: Test Planner Agent
 description: Diseña suites de prueba, modelamiento de cobertura y definición de precondiciones
 tools: [read, search, edit]
-user-invocable: false
-argument-hint: Handoff de Orquestador con requisitos consolidados, dependencias y gaps
+user-invocable: true
+argument-hint: Handoff de test_documentation con requisitos consolidados, dependencias y gaps
 ---
 
 # Test Planner Agent
@@ -19,8 +19,8 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 ## Interface
 
 ### Inputs
-- handoff JSON consolidado de Documentation
-- posibles handoffs fragmentados derivados por el Orquestador
+- handoff JSON consolidado de test_documentation
+- analysis report markdown de test_documentation
 
 ### Outputs
 - handoff JSON único con suites, cobertura, precondiciones, trazabilidad y decisiones de diseño
@@ -44,16 +44,13 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 
 1. `.github/agents/qa-team/contracts/handoff-schema.json`
 2. `.github/agents/qa-team/contracts/HANDOFF_SPECIFICATION.md`
-3. `.github/agents/qa-team/contracts/handoff-hooks-routing.md`
 
 
 ## Fases de Ejecución
 
 ### Fase 1: Análisis del Handoff de Entrada
-- Leer el handoff JSON consolidado recibido
-- Si `metadata.handoff_kind=fragment`, revisar `fragment_context` antes de planificar
+- Leer el handoff JSON consolidado recibido de test_documentation
 - Entender dependencias, gaps y requisitos por área
-- Escalar para pedir el handoff completo si el fragmento no basta
 
 ### Fase 2: Diseño de Suites
 - Agrupar requisitos y escenarios en suites lógicas
@@ -81,15 +78,13 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 - Incluir `executive_summary` con complejidad de suites
 - Consolidar suites, cobertura, precondiciones y trazabilidad dentro del mismo JSON
 - Generar `test_planner-execution-summary.md` usando `qa-test-planner-report/SKILL.md`
-- Actualizar `./tests/Documentation/HANDOFF_Summary.md`
-- Pasar Orquestador para validación
 
 ## Formato Mínimo de Salida
 
 ```
 ./tests/Documentation/sessions/session_{session_N}_{session_id}/
 ├── agent-test_planner/
-│   ├── test_planner-to-test_prioritization-attempt-{retry_count}-{timestamp}.json
+│   ├── test_planner-handoff-{timestamp}.json
 │   └── test_planner-execution-summary.md
 ```
 
@@ -150,9 +145,8 @@ El formato y las secciones obligatorias de `test_planner-execution-summary.md` s
 ✅ Precondiciones definidas por suite
 ✅ Trazabilidad estructural verificada
 ✅ Dependencies documentadas
-✅ Handoff validado por Orquestador
+✅ Handoff generado y validado contra schema
 ✅ `test_planner-execution-summary.md` generado
-✅ `./tests/Documentation/HANDOFF_Summary.md` actualizado
 
 ## Guardrails Operativos
 
@@ -161,22 +155,17 @@ El formato y las secciones obligatorias de `test_planner-execution-summary.md` s
 🛑 **NO evaluar riesgo:** otros agentes lo hacen
 🛑 **NO depender de `.gherkin`, `coverage_model.json` o `preconditions.md` como archivos obligatorios separados**
 🛑 **NO abandonar si hay gaps:** Reportar en `next_agent_instructions.decision_points`
-🛑 **NO inferir un fragmento insuficiente:** pedir el handoff completo o contexto adicional
+🛑 **NO inferir contexto insuficiente:** pedir input adicional al usuario
 
 ## Manejo de Retroalimentación
 
 Si encuentras gaps que bloquean el diseño de cobertura:
-- Crear handoff con `if_gaps_found` → escalate_to: test_documentation
-- Especificar en `rationale` qué gap impide avanzar
-- Test Documentation re-procesará y te enviará nuevo handoff
-- El control de retry policy y abort pertenece al Orquestador
+- Reportar el gap en el handoff JSON con `status: blocked` o `status: partial`
+- Especificar en `work_performed.sections_untouched` qué no se pudo completar
+- El usuario decide si reinvoca test_documentation para obtener más contexto
 
 Si cobertura es imposible de alcanzar:
-- Crear handoff con `if_coverage_impossible` → escalate_to: self
+- Crear handoff con `status: partial`
 - Re-diseñar suites con cobertura pragmática (ej: 85% instead of 100%)
 - Justificar decisión en `next_agent_instructions.decision_points`
-
-Si recibes un handoff fragmentado insuficiente:
-- Solicita el handoff completo o un fragmento ampliado antes de rediseñar cobertura
-- Explica en `delta_changes.rationale` qué información faltó
 

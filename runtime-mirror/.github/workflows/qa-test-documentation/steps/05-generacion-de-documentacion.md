@@ -2,7 +2,7 @@
 
 ## Objetivo del Paso
 
-Generar la documentacion final del analisis (reporte markdown) y, a partir de ella ya completa, el handoff JSON minimo delegado a la skill dedicada. El paso concluye con ambos artefactos persistidos correctamente; la validacion y el siguiente paso son responsabilidad del Orquestador.
+Generar la documentacion final del analisis (reporte markdown) y, a partir de ella ya completa, el handoff JSON minimo delegado a la skill dedicada. El paso concluye con ambos artefactos persistidos correctamente; la validacion del handoff se hace contra el schema antes de entregar.
 
 ## Modelo Recomendado
 
