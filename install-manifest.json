@@ -96,23 +96,51 @@
       "required": true
     },
     {
-      "id": "runtime-instruction-orchestrator-report",
-      "source": "./runtime-mirror/.github/instructions/qa-orchestrator-report.instructions.md",
-      "destination": ".github/instructions/qa-orchestrator-report.instructions.md",
+      "id": "runtime-contract-test-documentation",
+      "source": "./runtime-mirror/.github/agents/qa-team/contracts/test-documentation.contract.md",
+      "destination": ".github/agents/qa-team/contracts/test-documentation.contract.md",
       "classification": "runtime",
       "required": true
     },
     {
-      "id": "runtime-instruction-test-planner-report",
-      "source": "./runtime-mirror/.github/instructions/qa-test-planner-report.instructions.md",
-      "destination": ".github/instructions/qa-test-planner-report.instructions.md",
+      "id": "runtime-workflow-test-documentation",
+      "source": "./runtime-mirror/.github/workflows/qa-test-documentation/WORKFLOW.md",
+      "destination": ".github/workflows/qa-test-documentation/WORKFLOW.md",
       "classification": "runtime",
       "required": true
     },
     {
-      "id": "runtime-instruction-test-prioritization-report",
-      "source": "./runtime-mirror/.github/instructions/qa-test-prioritization-report.instructions.md",
-      "destination": ".github/instructions/qa-test-prioritization-report.instructions.md",
+      "id": "runtime-workflow-test-documentation-step-01",
+      "source": "./runtime-mirror/.github/workflows/qa-test-documentation/steps/01-extraccion-de-requisitos.md",
+      "destination": ".github/workflows/qa-test-documentation/steps/01-extraccion-de-requisitos.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-workflow-test-documentation-step-02",
+      "source": "./runtime-mirror/.github/workflows/qa-test-documentation/steps/02-identificacion-de-gaps.md",
+      "destination": ".github/workflows/qa-test-documentation/steps/02-identificacion-de-gaps.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-workflow-test-documentation-step-03",
+      "source": "./runtime-mirror/.github/workflows/qa-test-documentation/steps/03-particionado-por-area.md",
+      "destination": ".github/workflows/qa-test-documentation/steps/03-particionado-por-area.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-workflow-test-documentation-step-04",
+      "source": "./runtime-mirror/.github/workflows/qa-test-documentation/steps/04-normalizacion-y-estructuracion.md",
+      "destination": ".github/workflows/qa-test-documentation/steps/04-normalizacion-y-estructuracion.md",
+      "classification": "runtime",
+      "required": true
+    },
+    {
+      "id": "runtime-workflow-test-documentation-step-05",
+      "source": "./runtime-mirror/.github/workflows/qa-test-documentation/steps/05-generacion-de-documentacion.md",
+      "destination": ".github/workflows/qa-test-documentation/steps/05-generacion-de-documentacion.md",
       "classification": "runtime",
       "required": true
     },
