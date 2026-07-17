@@ -52,7 +52,7 @@ Los tipos, patrones y reglas exactas viven en `.github/agents/contracts/handoff-
 
 ## Pasos de Creacion
 
-1. Con el documento de trabajo (`summary_md`) y el log de ejecucion (`work_log_md`) ya generados y persistidos, crea el handoff JSON siguiendo `HANDOFF_SPECIFICATION.md` y validando contra `handoff-schema.json`.
+1. Con el documento de trabajo (`summary_md`) y el log de ejecucion (`work_log_md`) ya generados y persistidos, crea el handoff JSON siguiendo `handoff-specification.md` y validando contra `handoff-schema.json`.
 2. Reporta solo hechos objetivos (`assigned_task`, `work_performed`, `checks`, `counts`). Nunca incluyas aqui un juicio propio de cumplimiento de alcance: eso lo decide quien consume el handoff.
 3. Usa el nombre de archivo definido en esta skill, sustituyendo `{agent}` por tu propio nombre de agente.
 4. Persiste el archivo en la subcarpeta `agent-{agent}/` dentro de la carpeta de sesion correspondiente, junto al resumen y al log de trabajo.

@@ -41,8 +41,8 @@
     },
     {
       "id": "runtime-contract-handoff-spec",
-      "source": "./runtime-mirror/.github/agents/contracts/HANDOFF_SPECIFICATION.md",
-      "destination": ".github/agents/contracts/HANDOFF_SPECIFICATION.md",
+      "source": "./runtime-mirror/.github/agents/contracts/handoff-specification.md",
+      "destination": ".github/agents/contracts/handoff-specification.md",
       "classification": "runtime",
       "required": true
     },

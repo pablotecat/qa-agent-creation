@@ -23,7 +23,7 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 ## Fuentes Canónicas Obligatorias
 
 1. `.github/agents/contracts/handoff-schema.json`
-2. `.github/agents/contracts/HANDOFF_SPECIFICATION.md`
+2. `.github/agents/contracts/handoff-specification.md`
 
 ## Flujo de trabajo
 

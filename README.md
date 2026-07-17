@@ -91,7 +91,7 @@ Los artefactos generados por los agentes durante una sesión se organizan en la 
 |   |   |   |-- test-planner.agent.md
 |   |   |   |-- test-prioritization.agent.md
 |   |   |   `-- contracts/
-|   |   |       |-- HANDOFF_SPECIFICATION.md
+|   |   |       |-- handoff-specification.md
 |   |   |       |-- handoff-schema.json
 |   |   |       `-- test-documentation.contract.md
 |   |   |-- instructions/

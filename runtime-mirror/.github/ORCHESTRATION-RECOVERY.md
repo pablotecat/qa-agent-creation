@@ -27,7 +27,7 @@ antes de la migración.
 | Archivo | Cambio principal | Revertible desde |
 |---------|-----------------|-----------------|
 | `handoff-schema.json` | Eliminados `correlation_id` y `retry_count`; actualizada descripción de `assigned_task` | rama preserve |
-| `HANDOFF_SPECIFICATION.md` | Reescrita para pipeline manual; eliminados metaartefactos de orquestación | rama preserve |
+| `handoff-specification.md` (was `HANDOFF_SPECIFICATION.md`) | Reescrita para pipeline manual; eliminados metaartefactos de orquestación | rama preserve |
 | `test-documentation.agent.md` | `user-invocable: true`; sección de auto-persistencia; eliminada ref a handoff-hooks-routing | rama preserve |
 | `test-planner.agent.md` | `user-invocable: true`; eliminadas refs a Orquestador y fragmentos | rama preserve |
 | `test-prioritization.agent.md` | `user-invocable: true`; eliminadas refs a Orquestador y fragmentos | rama preserve |
