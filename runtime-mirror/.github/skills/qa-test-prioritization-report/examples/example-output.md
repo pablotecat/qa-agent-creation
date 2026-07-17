@@ -25,8 +25,8 @@
 - [x] to_agent: "<TO_AGENT>" (pattern: ^[a-z][a-z0-9_]{2,30}$)
 - [x] session_id: "<SESSION_ID>" (UUID format)
 - [x] timestamp: "<ISO_8601_TIMESTAMP>" (ISO 8601)
-- [x] retry_count: <RETRY_COUNT> (integer, 0-3 range)
-- [x] correlation_id: "<CORRELATION_ID>" (correct pattern)
+- [x] session_id: "<SESSION_ID>" (UUID format)
+- [x] timestamp: "<ISO_8601_TIMESTAMP>" (ISO 8601)
 
 ### Context - Required Fields
 - [x] user_request_id: "<USER_REQUEST_ID>" (string)
@@ -74,10 +74,9 @@
 
 ## 🚀 Estado de Handoff
 
-✅ **This handoff is READY FOR SUBMISSION to orchestrator**
+✅ **This handoff is READY**
 
 **Resultado de Validación:** ✅ VALIDATION PASSED - READY FOR HANDOFF
-**Siguiente Agente:** orchestrator
 
 ## Ejemplo 2 - Validación con WARNING
 
@@ -94,9 +93,8 @@
 ## ⚠️ Validación contra Handoff Schema
 
 ### Metadata - Required Fields
-- [x] from_agent valid
-- [x] to_agent valid
-- [x] correlation_id valid
+- [x] agent valid
+- [x] session_id valid
 
 ### Advisory Findings
 - [ ] <OPTIONAL_BLOCK_1> missing (non-blocking)
@@ -118,8 +116,7 @@
 
 ⚠️ **READY WITH WARNINGS**
 
-**Resultado de Validación:** ⚠️ VALIDATION WARNING - ROUTE WITH TRACE
-**Siguiente Agente:** orchestrator
+**Resultado de Validación:** ⚠️ VALIDATION WARNING - PROCEED WITH TRACE
 
 ## Ejemplo 3 - Validación FAILED
 
@@ -136,9 +133,8 @@
 ## ❌ Validación contra Handoff Schema
 
 ### Blocking Errors
-- [ ] metadata.correlation_id invalid
-- [ ] validation_checklist.status missing
-- [ ] next_agent_instructions missing
+- [ ] status field missing
+- [ ] assigned_task missing
 
 ---
 
@@ -155,9 +151,8 @@
 
 ❌ **NOT READY FOR SUBMISSION**
 
-### Orchestrator Actions Required
-1. ❌ Reject handoff
-2. ⏳ Request corrected retry from producer
-3. ⏳ Increment retry_count and log escalation
+### Acciones Requeridas
+1. ❌ Rechazar handoff
+2. ⏳ Solicitar corrección al agente productor
 
-**Resultado de Validación:** ❌ VALIDATION FAILED - DO NOT ROUTE
+**Resultado de Validación:** ❌ VALIDATION FAILED - DO NOT PROCEED

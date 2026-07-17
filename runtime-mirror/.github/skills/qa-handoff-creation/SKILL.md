@@ -9,40 +9,33 @@ user-invocable: false
 
 Genera el handoff JSON minimo de cualquier agente productor QA. Esta skill es compartida: no pertenece a un agente en particular, se referencia parametrizando `{agent}` con el nombre del agente que la invoca (ej. `test_documentation`).
 
-> Nota: el handoff es un recibo minimo de validacion para el Orquestador, no un payload de contenido. Todo el contenido de trabajo vive en el markdown de resumen del agente (`summary_md`), no en este JSON.
+> Nota: el handoff es un recibo minimo de validacion para quien consume el resultado del agente, no un payload de contenido. Todo el contenido de trabajo vive en el markdown de resumen del agente (`summary_md`), no en este JSON.
 
 ## Nombre del Handoff JSON
 
 El nombre del archivo no debe incluir el agente destino. Solo debe identificar al agente productor y la fecha-hora de generacion.
 
-Patron: `{agent}-handoff-{timestamp}.json` — definido en `.github/agents/qa-team/contracts/orchestration-config.json` (`naming.handoff_filename_pattern`).
+Patron: `{agent}-handoff-{timestamp}.json` — definido en esta skill.
 
 ## Formato minimo de salida
 
 ```
 ./tests/Documentation/sessions/session_{session_N}_{session_id}/
-├── agent-orchestrator/
-│   ├── manifest.json
-│   ├── retry_checkpoint.json
-│   └── ...
-├── agent-{agent}/
-│   ├── {agent}-handoff-{timestamp}.json
-│   ├── {agent}-analysis-report.md (o el nombre de resumen definido por rol)
-│   └── {agent}-work-log.md
-└── ...
+└── agent-{agent}/
+    ├── {agent}-handoff-{timestamp}.json
+    ├── {agent}-analysis-report.md (o el nombre de resumen definido por rol)
+    └── {agent}-work-log.md
 ```
 
 ## Campos Requeridos
 
-Los tipos, patrones y reglas exactas viven en `.github/agents/qa-team/contracts/handoff-schema.json` (fuente canonica). Resumen de proposito de cada campo:
+Los tipos, patrones y reglas exactas viven en `assets/handoff-schema.json` (fuente canonica). Resumen de proposito de cada campo:
 
 - `agent`: nombre del agente productor.
-- `session_id`: identificador uuid de la sesion de orquestacion.
+- `session_id`: identificador uuid de la sesion.
 - `timestamp`: fecha-hora ISO8601 de generacion del handoff.
-- `correlation_id`: identificador de trazabilidad, patron `{session_id}.{agent}.{retry_count}`.
-- `retry_count`: numero de intento sobre este `correlation_id` (0-3).
 - `status`: `completed`, `blocked` o `partial`.
-- `assigned_task.task_id`: eco literal del identificador de instruccion emitido por el Orquestador.
+- `assigned_task.task_id`: identificador de la instruccion o tarea recibida.
 - `assigned_task.scope_received`: eco textual de lo que el agente entendio que se le pedia.
 - `work_performed.sections_touched`: secciones del documento de trabajo que se completaron.
 - `work_performed.sections_untouched`: secciones que no aplicaban o quedaron pendientes.
@@ -53,14 +46,14 @@ Los tipos, patrones y reglas exactas viven en `.github/agents/qa-team/contracts/
 
 ## Ejemplo Completo
 
-- Ver [example handoff](./examples/example-handoff.json)
+- Ver [example handoff](./assets/example-handoff.json)
 
 > Nota: las claves concretas dentro de `checks` y `counts` en el ejemplo (`gherkin_format_valid`, `requirements`, etc.) pertenecen a `test_documentation`, unico agente productor existente hoy. Son ilustrativas, no un catalogo fijo: cada agente define las suyas propias segun lo que objetivamente haya verificado o contado.
 
 ## Pasos de Creacion
 
-1. Con el documento de trabajo (`summary_md`) y el log de ejecucion (`work_log_md`) ya generados y persistidos, crea el handoff JSON siguiendo `HANDOFF_SPECIFICATION.md` y validando contra `handoff-schema.json`.
-2. Reporta solo hechos objetivos (`assigned_task`, `work_performed`, `checks`, `counts`). Nunca incluyas aqui un juicio propio de cumplimiento de alcance: eso lo calcula el Orquestador.
+1. Con el documento de trabajo (`summary_md`) y el log de ejecucion (`work_log_md`) ya generados y persistidos, crea el handoff JSON siguiendo `assets/handoff-specification.md` y validando contra `assets/handoff-schema.json`.
+2. Reporta solo hechos objetivos (`assigned_task`, `work_performed`, `checks`, `counts`). Nunca incluyas aqui un juicio propio de cumplimiento de alcance: eso lo decide quien consume el handoff.
 3. Usa el nombre de archivo definido en esta skill, sustituyendo `{agent}` por tu propio nombre de agente.
 4. Persiste el archivo en la subcarpeta `agent-{agent}/` dentro de la carpeta de sesion correspondiente, junto al resumen y al log de trabajo.
 
@@ -69,11 +62,10 @@ Los tipos, patrones y reglas exactas viven en `.github/agents/qa-team/contracts/
 Antes de dar la tarea por finalizada, recorrer este checklist y confirmar que se cumple en su totalidad:
 
 - [ ] El nombre de archivo sigue el patron `{agent}-handoff-{timestamp}.json`.
-- [ ] Estan presentes todos los campos requeridos por `handoff-schema.json`.
+- [ ] Estan presentes todos los campos requeridos por `assets/handoff-schema.json`.
 - [ ] `assigned_task.scope_received` es un eco fiel de la instruccion recibida, sin juicio de cumplimiento propio.
 - [ ] `work_performed` refleja exactamente las secciones tocadas en `summary_md`.
 - [ ] `checks` y `counts` son hechos objetivos, no interpretaciones.
 - [ ] `summary_md` y `work_log_md` apuntan a archivos ya generados y persistidos.
-- [ ] `correlation_id` sigue el patron `{session_id}.{agent}.{retry_count}`.
 
 Si algun punto no se cumple, la tarea no debe marcarse como finalizada.

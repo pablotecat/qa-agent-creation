@@ -190,7 +190,7 @@ SUITE-<NNN> (<NAME>)
 ## Feedback Hooks y Puntos de Escalación
 
 ### if_coverage_impossible
-- **Escalate to:** orchestrator
+- **Escalate to:** usuario (decide siguiente paso)
 - **Condition:** <CONDITION>
 - **Note:** <NOTE>
 

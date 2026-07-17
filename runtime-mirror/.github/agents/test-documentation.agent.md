@@ -2,7 +2,7 @@
 name: test_documentation
 description: Agente de documentacion QA que extrae y normaliza requisitos para handoff consolidado
 tools: [read, search, edit]
-user-invocable: false
+user-invocable: true
 argument-hint: solicitud_qa y fuentes de requisitos (docs, specs, flujos UI/API)
 ---
 
@@ -20,22 +20,24 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 - solicitud_qa (user request)
 - requisitos en formato libre (docs, specs, UI flows)
 
-## Fuentes Canónicas Obligatorias
-
-1. `.github/agents/qa-team/contracts/handoff-schema.json`
-2. `.github/agents/qa-team/contracts/HANDOFF_SPECIFICATION.md`
-3. `.github/agents/qa-team/contracts/handoff-hooks-routing.md`
-
 ## Flujo de trabajo
 
 - Workflow asociado: `.github/workflows/qa-test-documentation/WORKFLOW.md`
 
 ## Contrato
 
-- Contrato asociado: `.github/agents/qa-team/contracts/test-documentation.contract.md`
+- Contrato asociado: `.github/agents/contracts/test-documentation.contract.md`
+
+## Auto-persistencia
+
+En el modelo de pipeline manual, el agente es responsable de:
+
+1. Crear la carpeta de sesión si no existe: `./tests/Documentation/sessions/session_{session_N}_{session_id}/agent-test_documentation/`.
+2. Persistir su propio handoff JSON, analysis report y work log en esa carpeta.
+3. Inicializar `session-counter.json` si es la primera sesión del proyecto.
 
 ## Pendiente
 
-- Manejo de retroalimentación entre agentes: se definirá cuando se incorporen más agentes al catálogo y se decida si la consulta es directa entre agentes o siempre mediada por el Orquestador.
+- Manejo de retroalimentación entre agentes: se definirá cuando se incorporen más agentes al catálogo y se decida si la consulta es directa entre agentes o siempre mediada por el usuario.
 
 

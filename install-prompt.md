@@ -17,7 +17,7 @@ Instalar de forma determinista los archivos runtime de agentes QA definidos en e
 
 - Este documento solo gobierna la instalacion.
 - Tras copiar los archivos runtime, la autoridad operativa pasa a los artefactos instalados en `.github/`.
-- El instalador no debe redefinir contratos de handoff, reglas de routing, politicas del orquestador ni flujos multiagente.
+- El instalador no debe redefinir contratos de handoff, reglas de validacion ni flujos multiagente.
 
 # Politica de sobrescritura (interactiva global por ejecucion)
 

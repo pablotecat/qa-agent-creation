@@ -111,7 +111,7 @@ Esta skill usa el estilo de `validation-report` como baseline temporal para repo
 ```markdown
 ## Artefactos Generados
 
-- test_prioritization-to-orchestrator-attempt-<n>-<timestamp>.json
+- test_prioritization-handoff-<timestamp>.json
 - validation-report.md
 ```
 
@@ -119,7 +119,7 @@ Esta skill usa el estilo de `validation-report` como baseline temporal para repo
 ```markdown
 ## Proximo Paso
 
-**Siguiente Responsable:** orchestrator
+**Siguiente Responsable:** usuario (decide siguiente paso)
 **Accion:** consolidar y cerrar planning layer
 ```
 
