@@ -1,11 +1,11 @@
 ---
 name: qa-test-documentation
-description: Workflow operativo del agente test_documentation para extraccion, normalizacion y handoff
+description: Workflow operativo del agente documentation.QATesting para extraccion, normalizacion y handoff
 argument-hint: solicitud QA y fuentes de requisitos
 user-invocable: false
 ---
 
-Workflow para test_documentation. El flujo operativo se encuentra dividido en archivos dentro de ./steps/. DEBES seguir la secuencia de pasos y las reglas de cada uno. Tras ejecutar cada paso DEBES documentar el Log de Trabajo en `test_documentation-work-log.md`.
+Workflow para documentation.QATesting. El flujo operativo se encuentra dividido en archivos dentro de ./steps/. DEBES seguir la secuencia de pasos y las reglas de cada uno. Tras ejecutar cada paso DEBES documentar el Log de Trabajo en `documentation.QATesting-work-log.md`, usando la plantilla Tabla de Log como único formato.
 
 ## Instrucciones de Log de Trabajo
 

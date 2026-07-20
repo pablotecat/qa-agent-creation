@@ -1,9 +1,9 @@
 ---
-name: Test Planner Agent
+name: planner.QATesting
 description: Diseña suites de prueba, modelamiento de cobertura y definición de precondiciones
 tools: [read, search, edit]
 user-invocable: true
-argument-hint: Handoff de test_documentation con requisitos consolidados, dependencias y gaps
+argument-hint: Handoff de documentation.QATesting con requisitos consolidados, dependencias y gaps
 ---
 
 # Test Planner Agent
@@ -19,12 +19,12 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 ## Interface
 
 ### Inputs
-- handoff JSON consolidado de test_documentation
-- analysis report markdown de test_documentation
+- handoff JSON consolidado de documentation.QATesting
+- analysis report markdown de documentation.QATesting
 
 ### Outputs
 - handoff JSON único con suites, cobertura, precondiciones, trazabilidad y decisiones de diseño
-- `test_planner-execution-summary.md` con resumen humano completo y legible, usando `qa-test-planner-report/SKILL.md`
+- `planner.QATesting-execution-summary.md` con resumen humano completo y legible, usando `qa-test-planner-report/SKILL.md`
 
 ## Non-goals
 
@@ -43,7 +43,7 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 ## Fases de Ejecución
 
 ### Fase 1: Análisis del Handoff de Entrada
-- Leer el handoff JSON consolidado recibido de test_documentation
+- Leer el handoff JSON consolidado recibido de documentation.QATesting
 - Entender dependencias, gaps y requisitos por área
 
 ### Fase 2: Diseño de Suites
@@ -71,15 +71,15 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 - Crear JSON de handoff siguiendo la skill `qa-handoff-creation`
 - Incluir `executive_summary` con complejidad de suites
 - Consolidar suites, cobertura, precondiciones y trazabilidad dentro del mismo JSON
-- Generar `test_planner-execution-summary.md` usando `qa-test-planner-report/SKILL.md`
+- Generar `planner.QATesting-execution-summary.md` usando `qa-test-planner-report/SKILL.md`
 
 ## Formato Mínimo de Salida
 
 ```
 ./tests/Documentation/sessions/session_{session_N}_{session_id}/
-├── agent-test_planner/
-│   ├── test_planner-handoff-{timestamp}.json
-│   └── test_planner-execution-summary.md
+├── agent-planner.QATesting/
+│   ├── planner.QATesting-handoff-{timestamp}.json
+│   └── planner.QATesting-execution-summary.md
 ```
 
 ### Estructura Recomendada dentro del Handoff JSON
@@ -128,7 +128,7 @@ Transformas requisitos normalizados en un plan de prueba estructurado: suites de
 
 ### Formato del Markdown de Resumen
 
-El formato y las secciones obligatorias de `test_planner-execution-summary.md` se definen en:
+El formato y las secciones obligatorias de `planner.QATesting-execution-summary.md` se definen en:
 
 - `.github/skills/qa-test-planner-report/SKILL.md`
 
@@ -140,7 +140,7 @@ El formato y las secciones obligatorias de `test_planner-execution-summary.md` s
 ✅ Trazabilidad estructural verificada
 ✅ Dependencies documentadas
 ✅ Handoff generado y validado contra schema
-✅ `test_planner-execution-summary.md` generado
+✅ `planner.QATesting-execution-summary.md` generado
 
 ## Guardrails Operativos
 
@@ -156,7 +156,7 @@ El formato y las secciones obligatorias de `test_planner-execution-summary.md` s
 Si encuentras gaps que bloquean el diseño de cobertura:
 - Reportar el gap en el handoff JSON con `status: blocked` o `status: partial`
 - Especificar en `work_performed.sections_untouched` qué no se pudo completar
-- El usuario decide si reinvoca test_documentation para obtener más contexto
+- El usuario decide si reinvoca documentation.QATesting para obtener más contexto
 
 Si cobertura es imposible de alcanzar:
 - Crear handoff con `status: partial`

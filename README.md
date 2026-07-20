@@ -7,7 +7,7 @@ Repositorio de instalacion para agentes QA con pipeline manual, con instalacion 
 Construir e instalar un paquete runtime de agentes QA donde:
 
 - Todos los agentes son invocables directamente por el usuario.
-- El pipeline se ejecuta de forma secuencial manual: test_documentation → test_planner → test_prioritization.
+- El pipeline se ejecuta de forma secuencial manual: documentation.QATesting → planner.QATesting → prioritization.QATesting.
 - El runtime final queda en estructura estandar de `.github/`.
 
 ## Alcance actual
@@ -57,25 +57,25 @@ Los artefactos generados por los agentes durante una sesión se organizan en la 
 └── sessions/
     ├── session-counter.json
     └── session_{session_N}_{session_id}/
-          ├── agent-test_documentation/
-          │     ├── test_documentation-handoff-{timestamp}.json
-          │     ├── test_documentation-analysis-report.md
-          │     └── test_documentation-work-log.md
-          ├── agent-test_planner/
-          │     ├── test_planner-handoff-{timestamp}.json
-          │     ├── test_planner-execution-summary.md
-          │     └── test_planner-work-log.md
-          └── agent-test_prioritization/
-                ├── test_prioritization-handoff-{timestamp}.json
-                ├── test_prioritization-prioritization-report.md
-                └── test_prioritization-work-log.md
+          ├── agent-documentation.QATesting/
+          │     ├── documentation.QATesting-handoff-{timestamp}.json
+          │     ├── documentation.QATesting-analysis-report.md
+          │     └── documentation.QATesting-work-log.md
+          ├── agent-planner.QATesting/
+          │     ├── planner.QATesting-handoff-{timestamp}.json
+          │     ├── planner.QATesting-execution-summary.md
+          │     └── planner.QATesting-work-log.md
+          └── agent-prioritization.QATesting/
+                ├── prioritization.QATesting-handoff-{timestamp}.json
+                ├── prioritization.QATesting-prioritization-report.md
+                └── prioritization.QATesting-work-log.md
 ```
 
 ### Convenciones
 
 - Cada agente crea su subcarpeta `agent-{agente}/` dentro de la sesión.
 - El `session-counter.json` vive directamente en `sessions/`.
-- El primer agente en ejecutarse (test_documentation) inicializa la carpeta de sesión y el counter si no existen.
+- El primer agente en ejecutarse (documentation.QATesting) inicializa la carpeta de sesión y el counter si no existen.
 
 ## Estructura del repositorio
 
@@ -87,11 +87,11 @@ Los artefactos generados por los agentes durante una sesión se organizan en la 
 |   |-- .github/
 |   |   |-- agents/
 |   |   |-- agents/
-|   |   |   |-- test-documentation.agent.md
-|   |   |   |-- test-planner.agent.md
-|   |   |   |-- test-prioritization.agent.md
+|   |   |   |-- documentation.QATesting.agent.md
+|   |   |   |-- planner.QATesting.agent.md
+|   |   |   |-- prioritization.QATesting.agent.md
 |   |   |   `-- contracts/
-|   |   |       `-- test-documentation.contract.md
+|   |   |       `-- documentation.QATesting.contract.md
 |   |   |-- instructions/
 |   |   |   `-- qa-handoff-format.instructions.md
 |   |   |-- skills/
