@@ -1,5 +1,5 @@
 ---
-name: test_documentation
+name: documentation.QATesting
 description: Agente de documentacion QA que extrae y normaliza requisitos para handoff consolidado
 tools: [read, search, edit]
 user-invocable: true
@@ -26,7 +26,7 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 
 ## Contrato
 
-- Contrato asociado: `.github/agents/contracts/test-documentation.contract.md`
+- Contrato asociado: `.github/instructions/documentation.QATesting.contract.md`
 
 ## Guardarrailes Operativos
 

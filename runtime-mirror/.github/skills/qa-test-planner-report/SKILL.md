@@ -1,6 +1,6 @@
 ---
 name: qa-test-planner-report
-description: "Genera el reporte markdown de test_planner con el estilo de test/documentation. Usar cuando planificación deba entregar suites, cobertura, precondiciones y decisiones de ejecución."
+description: "Genera el reporte markdown de planner.QATesting con el estilo de test/documentation. Usar cuando planificación deba entregar suites, cobertura, precondiciones y decisiones de ejecución."
 argument-hint: "session id, timestamp, status, output path"
 user-invocable: true
 ---
@@ -11,7 +11,7 @@ Genera un archivo markdown para el rol de planificación.
 
 ## Nombre de Archivo de Salida Requerido
 
-- `test_planner-execution-summary.md`
+- `planner.QATesting-execution-summary.md`
 
 ## Secciones Requeridas
 
@@ -33,7 +33,7 @@ Genera un archivo markdown para el rol de planificación.
 # Test Planner Agent - Resumen de Ejecucion
 
 **Session ID:** <uuid>
-**Agente:** test_planner
+**Agente:** planner.QATesting
 **Timestamp:** <ISO-8601>
 **Estado:** ✅ COMPLETED
 ```
@@ -108,15 +108,15 @@ Genera un archivo markdown para el rol de planificación.
 ```markdown
 ## Artefactos Generados
 
-- test_planner-to-test_prioritization-attempt-<n>-<timestamp>.json
-- test_planner-execution-summary.md
+- planner.QATesting-to-prioritization.QATesting-attempt-<n>-<timestamp>.json
+- planner.QATesting-execution-summary.md
 ```
 
 ### 10) Proximos Pasos
 ```markdown
 ## Proximos Pasos para Priorizacion
 
-**Siguiente Responsable:** test_prioritization
+**Siguiente Responsable:** prioritization.QATesting
 - Validar postura de riesgo y corte MVP
 - Confirmar recomendacion go/no-go
 ```

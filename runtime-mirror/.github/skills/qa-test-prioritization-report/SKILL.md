@@ -1,6 +1,6 @@
 ---
 name: qa-test-prioritization-report
-description: "Genera el reporte markdown de test_prioritization con el estilo de test/documentation. Usar cuando priorización deba entregar scoring de riesgo, corte MVP y recomendación de ejecución."
+description: "Genera el reporte markdown de prioritization.QATesting con el estilo de test/documentation. Usar cuando priorización deba entregar scoring de riesgo, corte MVP y recomendación de ejecución."
 argument-hint: "session id, timestamp, status, output path"
 user-invocable: true
 ---
@@ -37,7 +37,7 @@ Esta skill usa el estilo de `validation-report` como baseline temporal para repo
 # Test Prioritization - Validation Report
 
 **Session ID:** <uuid>
-**Agente:** test_prioritization
+**Agente:** prioritization.QATesting
 **Timestamp:** <ISO-8601>
 **Estado:** ✅ COMPLETED
 ```
@@ -111,7 +111,7 @@ Esta skill usa el estilo de `validation-report` como baseline temporal para repo
 ```markdown
 ## Artefactos Generados
 
-- test_prioritization-handoff-<timestamp>.json
+- prioritization.QATesting-handoff-<timestamp>.json
 - validation-report.md
 ```
 

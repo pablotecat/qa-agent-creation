@@ -1,4 +1,4 @@
-﻿# Ejemplos de test_planner-execution-summary.md
+﻿# Ejemplos de planner.QATesting-execution-summary.md
 
 ## Convención Unificada (secciones y campos)
 
@@ -11,7 +11,7 @@
 # Test Planner Agent - Resumen de Ejecución
 
 **Session ID:** <SESSION_ID>
-**Agente:** test_planner
+**Agente:** planner.QATesting
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
 **Estado:** ✅ COMPLETED
 
@@ -19,7 +19,7 @@
 
 ## 📊 Resumen Ejecutivo
 
-El agente **test_planner** ha completado su responsabilidad en la fase de Planning Layer del pipeline QA.
+El agente **planner.QATesting** ha completado su responsabilidad en la fase de Planning Layer del pipeline QA.
 
 ### Métricas Clave
 
@@ -115,8 +115,8 @@ SUITE-<NNN> (<NAME>)
 
 ## 📁 Artefactos Generados
 
-- **Main:** `test_planner-to-test_prioritization-attempt-<RETRY>-<TIMESTAMP>.json`
-- **This file:** `test_planner-execution-summary.md`
+- **Main:** `planner.QATesting-to-prioritization.QATesting-attempt-<RETRY>-<TIMESTAMP>.json`
+- **This file:** `planner.QATesting-execution-summary.md`
 
 ---
 
@@ -126,7 +126,7 @@ SUITE-<NNN> (<NAME>)
 1. <MUST_VALIDATE_1>
 2. <MUST_VALIDATE_2>
 
-### Puntos de Decisión para test_prioritization
+### Puntos de Decisión para prioritization.QATesting
 1. <DECISION_POINT_1>
 2. <DECISION_POINT_2>
 
@@ -135,7 +135,7 @@ SUITE-<NNN> (<NAME>)
 # Test Planner - Resumen Compacto
 
 **Session ID:** <SESSION_ID>
-**Agente:** test_planner
+**Agente:** planner.QATesting
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
 **Estado:** ✅ COMPLETED
 
@@ -159,7 +159,7 @@ SUITE-<NNN> (<NAME>)
 # Test Planner Agent - Resumen de Ejecución
 
 **Session ID:** <SESSION_ID>
-**Agente:** test_planner
+**Agente:** planner.QATesting
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
 **Estado:** ⚠️ COMPLETED WITH WARNINGS
 
@@ -198,5 +198,5 @@ SUITE-<NNN> (<NAME>)
 
 ## 📁 Artefactos Generados
 
-- `test_planner-to-test_prioritization-attempt-<RETRY>-<TIMESTAMP>.json`
-- `test_planner-execution-summary.md`
+- `planner.QATesting-to-prioritization.QATesting-attempt-<RETRY>-<TIMESTAMP>.json`
+- `planner.QATesting-execution-summary.md`

@@ -28,9 +28,9 @@ antes de la migración.
 |---------|-----------------|-----------------|
 | `handoff-schema.json` | Eliminados `correlation_id` y `retry_count`; actualizada descripción de `assigned_task` | rama preserve |
 | `handoff-specification.md` (was `HANDOFF_SPECIFICATION.md`) | Reescrita para pipeline manual; eliminados metaartefactos de orquestación | rama preserve |
-| `test-documentation.agent.md` | `user-invocable: true`; sección de auto-persistencia; eliminada ref a handoff-hooks-routing | rama preserve |
-| `test-planner.agent.md` | `user-invocable: true`; eliminadas refs a Orquestador y fragmentos | rama preserve |
-| `test-prioritization.agent.md` | `user-invocable: true`; eliminadas refs a Orquestador y fragmentos | rama preserve |
+| `documentation.QATesting.agent.md` | `user-invocable: true`; sección de auto-persistencia; eliminada ref a handoff-hooks-routing | rama preserve |
+| `planner.QATesting.agent.md` | `user-invocable: true`; eliminadas refs a Orquestador y fragmentos | rama preserve |
+| `prioritization.QATesting.agent.md` | `user-invocable: true`; eliminadas refs a Orquestador y fragmentos | rama preserve |
 | `qa-handoff-format.instructions.md` | Eliminadas reglas de routing y fragmentación | rama preserve |
 | `qa-handoff-creation/SKILL.md` | Eliminados `correlation_id`, `retry_count`; refs a Orquestador | rama preserve |
 | `example-handoff.json` | Eliminados `correlation_id`, `retry_count` | rama preserve |
@@ -42,7 +42,7 @@ antes de la migración.
 
 ## Qué se mantuvo intacto
 
-- `test-documentation.contract.md` (non-goals y guardrails son modelo-agnósticos)
+- `documentation.QATesting.contract.md` (non-goals y guardrails son modelo-agnósticos)
 - `WORKFLOW.md` + 5 pasos del workflow de documentation
 - `analysis-report-guidance.md` y `analysis-report-template.md`
 - `handoff-schema.json` (campos restantes: `agent`, `session_id`, `timestamp`, `status`, etc.)

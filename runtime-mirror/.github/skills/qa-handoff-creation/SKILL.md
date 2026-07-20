@@ -7,7 +7,7 @@ user-invocable: false
 
 # Skill de Creacion de Handoff
 
-Genera el handoff JSON minimo de cualquier agente productor QA. Esta skill es compartida: no pertenece a un agente en particular, se referencia parametrizando `{agent}` con el nombre del agente que la invoca (ej. `test_documentation`).
+Genera el handoff JSON minimo de cualquier agente productor QA. Esta skill es compartida: no pertenece a un agente en particular, se referencia parametrizando `{agent}` con el nombre del agente que la invoca (ej. `documentation.QATesting`).
 
 > Nota: el handoff es un recibo minimo de validacion para quien consume el resultado del agente, no un payload de contenido. Todo el contenido de trabajo vive en el markdown de resumen del agente (`summary_md`), no en este JSON.
 
@@ -48,7 +48,7 @@ Los tipos, patrones y reglas exactas viven en `assets/handoff-schema.json` (fuen
 
 - Ver [example handoff](./assets/example-handoff.json)
 
-> Nota: las claves concretas dentro de `checks` y `counts` en el ejemplo (`gherkin_format_valid`, `requirements`, etc.) pertenecen a `test_documentation`, unico agente productor existente hoy. Son ilustrativas, no un catalogo fijo: cada agente define las suyas propias segun lo que objetivamente haya verificado o contado.
+> Nota: las claves concretas dentro de `checks` y `counts` en el ejemplo (`gherkin_format_valid`, `requirements`, etc.) pertenecen a `documentation.QATesting`, unico agente productor existente hoy. Son ilustrativas, no un catalogo fijo: cada agente define las suyas propias segun lo que objetivamente haya verificado o contado.
 
 ## Pasos de Creacion
 

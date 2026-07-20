@@ -4,19 +4,21 @@ Genera un archivo markdown para el rol de análisis de requisitos.
 
 ## Nombre de Archivo de Salida Requerido
 
-- `test_documentation-analysis-report.md`
+- `documentation.QATesting-analysis-report.md`
 
 ## Secciones Requeridas
 
-La convención sigue la estructura y formato declarados en `examples/analysis-report-example.md`: metadatos, secciones base y cierre son siempre obligatorios; las secciones contextuales se incluyen solo cuando aplican al análisis realizado.
+DEBES utilizar la estructura y formato de la plantilla `assets/analysis-report-template.md`, no es un ejemplo, es el formato OBLIGATORIO a seguir.
 
-### Metadatos (siempre)
+A continuación se explica cada sección y si es obligatoria incluirla.
+
+### Metadatos (obligatoria)
 - Session ID
 - Agente
 - Fecha/Hora
 - Estado
 
-### Secciones Base (siempre)
+### Secciones Base (obligatoria)
 
 1. Resumen Ejecutivo
 - Estado del análisis
@@ -35,7 +37,7 @@ La convención sigue la estructura y formato declarados en `examples/analysis-re
 - Puntos que un revisor humano podría querer mirar a continuación
 - **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline
 
-### Cierre (siempre)
+### Cierre (obligatoria)
 - Estado de Handoff
 - Resultado de Validación
 - Correlation ID
@@ -59,9 +61,9 @@ La convención sigue la estructura y formato declarados en `examples/analysis-re
 - Decisiones Pendientes para Planificación
   - Preguntas abiertas para la planificación siguiente
 
-## Ejemplo Completo
+## Plantilla
 
-- Ver [example full output](./examples/analysis-report-example.md)
+- Ver [template full output](./assets/analysis-report-template.md)
 
 ## Puerta de Calidad
 

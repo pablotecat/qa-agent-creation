@@ -1,5 +1,5 @@
 ---
-name: test-documentation-contract
+name: documentation.QATesting-contract
 description: Contrato operativo para non-goals, owned decisions y guardarrailes del agente documentation.QATesting
 owner-agent: documentation.QATesting
 ---

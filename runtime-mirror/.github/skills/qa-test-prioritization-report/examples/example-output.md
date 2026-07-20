@@ -1,4 +1,4 @@
-﻿# Ejemplos de validation-report.md (test_prioritization)
+﻿# Ejemplos de validation-report.md (prioritization.QATesting)
 
 ## Convención Unificada (secciones y campos)
 
@@ -12,7 +12,7 @@
 
 **Session ID:** <SESSION_ID>
 **Archivo:** <HANDOFF_FILENAME>.json
-**Agente:** test_prioritization
+**Agente:** prioritization.QATesting
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
 **Estado:** ✅ PASSED
 
@@ -84,7 +84,7 @@
 
 **Session ID:** <SESSION_ID>
 **Archivo:** <HANDOFF_FILENAME>.json
-**Agente:** test_prioritization
+**Agente:** prioritization.QATesting
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
 **Estado:** ⚠️ WARNING
 
@@ -124,7 +124,7 @@
 
 **Session ID:** <SESSION_ID>
 **Archivo:** <HANDOFF_FILENAME>.json
-**Agente:** test_prioritization
+**Agente:** prioritization.QATesting
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
 **Estado:** ❌ FAILED
 

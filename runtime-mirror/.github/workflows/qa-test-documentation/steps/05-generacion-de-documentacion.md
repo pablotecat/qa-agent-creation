@@ -15,8 +15,8 @@ Durante este paso tu unico objetivo es ensamblar, validar y persistir el entrega
 
 ## Secuencia
 
-1. Genera test_documentation-analysis-report.md siguiendo la guía `.github/workflows/qa-test-documentation/references/analysis-report-guidance.md`.
-2. Con el reporte ya completo, genera el handoff JSON usando la skill compartida `qa-handoff-creation` (`.github/skills/qa-handoff-creation/SKILL.md`), sustituyendo `{agent}` por `test_documentation`.
+1. Genera documentation.QATesting-analysis-report.md siguiendo la guía `.github/workflows/qa-test-documentation/references/analysis-report-guidance.md`.
+2. Con el reporte ya completo, genera el handoff JSON usando la skill compartida `qa-handoff-creation` (`.github/skills/qa-handoff-creation/SKILL.md`), sustituyendo `{agent}` por `documentation.QATesting`.
 3. Actualiza ./tests/Documentation/HANDOFF_Summary.md.
 4. Revisa consistencia y trazabilidad entre el handoff JSON generado y el resumen markdown.
 
@@ -30,7 +30,7 @@ Durante este paso tu unico objetivo es ensamblar, validar y persistir el entrega
 
 ## Checklist de completitud
 
-- [ ] Se genero test_documentation-analysis-report.md con el formato esperado.
+- [ ] Se genero documentation.QATesting-analysis-report.md con el formato esperado.
 - [ ] El handoff JSON fue generado por la skill de handoff asociada.
 - [ ] El handoff refleja fielmente los hechos del reporte (`work_performed`, `checks`, `counts`).
 - [ ] Se actualizo ./tests/Documentation/HANDOFF_Summary.md.

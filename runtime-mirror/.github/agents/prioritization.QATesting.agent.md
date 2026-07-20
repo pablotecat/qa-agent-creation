@@ -1,9 +1,9 @@
 ---
-name: Test Prioritization Agent
+name: prioritization.QATesting
 description: Evalúa riesgo, selecciona automatización y justifica priorización auditadamente
 tools: [read, search, edit]
 user-invocable: true
-argument-hint: Handoff de test_planner con suites, cobertura y precondiciones consolidadas
+argument-hint: Handoff de planner.QATesting con suites, cobertura y precondiciones consolidadas
 ---
 
 # Test Prioritization Agent
@@ -19,8 +19,8 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 ## Interface
 
 ### Inputs
-- handoff JSON consolidado de test_planner
-- execution summary markdown de test_planner
+- handoff JSON consolidado de planner.QATesting
+- execution summary markdown de planner.QATesting
 
 ### Outputs
 - handoff JSON único con evaluación de riesgo, selección de automatización, balance cobertura/esfuerzo y recomendación final
@@ -42,7 +42,7 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 ## Fases de Ejecución
 
 ### Fase 1: Análisis de Riesgo por Suite
-- Leer el handoff JSON consolidado recibido de test_planner
+- Leer el handoff JSON consolidado recibido de planner.QATesting
 - Clasificar cada suite por complejidad técnica
 - Evaluar impacto si suite falla (bloqueante, crítica, etc.)
 - Asignar score de riesgo (1-10)
@@ -75,8 +75,8 @@ Evaluas cada suite y escenario según riesgo, impacto y factibilidad de automati
 
 ```
 ./tests/Documentation/sessions/session_{session_N}_{session_id}/
-└── agent-test_prioritization/
-    ├── test_prioritization-handoff-{timestamp}.json
+└── agent-prioritization.QATesting/
+    ├── prioritization.QATesting-handoff-{timestamp}.json
     └── validation-report.md
 ```
 
@@ -159,7 +159,7 @@ El formato y las secciones obligatorias de `validation-report.md` se definen en:
 Si encuentras que cobertura es imposible de balancear:
 - Reportar en el handoff con `status: blocked` o `status: partial`
 - Especificar en `work_performed.sections_untouched` qué no se pudo completar
-- El usuario decide si reinvoca test_planner para rediseñar suites
+- El usuario decide si reinvoca planner.QATesting para rediseñar suites
 
 Si hay conflicto entre riesgo y automatización:
 - Documentar `conflict_resolution_strategy` en el handoff

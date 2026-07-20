@@ -1,4 +1,4 @@
-# Ejemplos de test_documentation-analysis-report.md
+# Ejemplos de documentation.QATesting-analysis-report.md
 
 ## Convención Unificada (secciones y campos)
 
@@ -11,7 +11,7 @@
 # Test Documentation - Análisis Completado
 
 **Session ID:** <SESSION_ID>
-**Agente:** test_documentation
+**Agente:** documentation.QATesting
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
 **Estado:** ✅ COMPLETED
 
@@ -106,9 +106,9 @@ Errors:   <ERROR_SCHEMAS>
 
 ## 📁 Artefactos Generados
 
-- **Handoff JSON:** `test_documentation-handoff-<TIMESTAMP>.json`
+- **Handoff JSON:** `documentation.QATesting-handoff-<TIMESTAMP>.json`
 - **Manifest:** Updated with handoff registry and status history
-- **This Summary:** `test_documentation-analysis-report.md`
+- **This Summary:** `documentation.QATesting-analysis-report.md`
 
 ---
 
@@ -123,4 +123,4 @@ Errors:   <ERROR_SCHEMAS>
 
 **Estado de Handoff:** ✅ READY FOR HANDOFF
 **Resultado de Validación:** ✅ PASSED
-**Correlation ID:** <SESSION_ID>.test_documentation.<RETRY>
+**Correlation ID:** <SESSION_ID>.documentation.QATesting.<RETRY>
