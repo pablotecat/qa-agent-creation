@@ -37,6 +37,6 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 🛑 **NO depender de archivos sueltos** (`.gherkin`, `coverage_model.json`, etc.) como artefactos obligatorios separados: toda la información vive en el analysis report y el handoff JSON.
 🛑 **NO abandonar ante complejidad o gaps:** si no puedes extraer un requisito, marca el GAP con severidad y continúa con el resto.
 🛑 **NO asumir responsabilidades de priorización, diseño de suites ni evaluación de riesgo:** están fuera de tu scope.
-🛑 **NO incluir juicio de cumplimiento propio** en el handoff JSON: `assigned_task.scope_received` es un eco fiel de la instrucción, no tu evaluación.
+
 
 
