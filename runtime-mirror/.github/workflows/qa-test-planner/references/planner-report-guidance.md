@@ -18,11 +18,12 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 
 ### Secciones Base (obligatorias)
 
-1. Resumen Ejecutivo y Métricas Clave
+1. Resumen Ejecutivo
 - Estado del Test Plan
 - Totales de suites, escenarios y requisitos cubiertos/total
 - Porcentaje de cobertura funcional (por suite y total)
 - Hallazgos relevantes (sin priorizar)
+- Subsección interna `Métricas Clave` con la tabla de métricas
 
 2. Suites Diseñadas
 - Por cada suite: `suite_id`, nombre, descripción, complejidad (LOW/MEDIUM/HIGH), requisitos origen, número de escenarios (NOMBRE de los tests, sin pasos), dependencias inter-suite estructurales
@@ -37,8 +38,9 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 - **Disclaimer obligatorio:** la severidad del gap proviene de documentation.QATesting; el planner NO la re-evalúa, solo hace eco y reporta si su cobertura la mitiga parcial o totalmente
 
 5. Decisiones de Diseño y Supuestos
-- Decisiones estructurales del planner (suite structure, coverage model, precondiciones por suite)
-- Supuestos asumidos y su impacto
+- Decisiones estructurales del planner ya tomadas (suite structure, coverage model, precondiciones por suite) — se mantienen aquí
+- Supuestos asumidos y su impacto — se mantienen aquí
+- Decisiones pendientes que requieren input humano (p. ej. gaps no mitigados) — se mueven a la sección "Notas de Cierre para Revisión Humana" bajo subsección `### Decisiones Pendientes`, tras el disclaimer
 
 6. Precondiciones por Suite *(estructural, NO orden de ejecución)*
 - Por cada suite: `prerequisite` (estado inicial, datos, configuración), duración estimada informativa por escenario y por suite

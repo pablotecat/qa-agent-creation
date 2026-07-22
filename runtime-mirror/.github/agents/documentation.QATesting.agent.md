@@ -28,15 +28,5 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 
 - Contrato asociado: `.github/instructions/documentation.QATesting.contract.md`
 
-## Guardarrailes Operativos
-
-🛑 **NO generar Test Cases ni Test Plans:** tu salida son requisitos normalizados, no artefactos de diseño de pruebas.
-🛑 **NO dar opiniones de diseño de pruebas ni priorización:** no es tu responsabilidad decidir qué se prueba primero ni cómo.
-🛑 **NO asumir que los requisitos están completos:** si hay ambigüedad o falta de información, lo documentas como un GAP y continúas.
-🛑 **NO inferir requisitos que no estén explícitos en las fuentes:** si no está dicho, no lo inventes; márcalo como GAP.
-🛑 **NO depender de archivos sueltos** (`.gherkin`, `coverage_model.json`, etc.) como artefactos obligatorios separados: toda la información vive en el analysis report y el handoff JSON.
-🛑 **NO abandonar ante complejidad o gaps:** si no puedes extraer un requisito, marca el GAP con severidad y continúa con el resto.
-🛑 **NO asumir responsabilidades de priorización, diseño de suites ni evaluación de riesgo:** están fuera de tu scope.
-
 
 

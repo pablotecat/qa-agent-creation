@@ -1,25 +1,14 @@
-# Ejemplo de `planner.QATesting-execution-summary.md`
-
-## Convención Unificada (secciones y campos)
-
-- Metadatos: `Session ID`, `Agente`, `Fecha/Hora`, `Estado`
-- Secciones base: `Resumen Ejecutivo y Métricas Clave`, `Suites Diseñadas`, `Análisis de Cobertura`, `Cobertura de Riesgo por Gap (eco)`, `Decisiones de Diseño y Supuestos`, `Precondiciones por Suite (estructural)`, `Checklist de Validación`, `Artefactos Generados`, `Notas de Cierre para Revisión Humana`
-- Cierre: `Estado de Handoff`, `Resultado de Validación`, `Correlation ID`
-
----
-
-## Ejemplo - Formato Completo
-
 # Test Planner Agent - Resumen de Ejecución
 
 **Session ID:** <SESSION_ID>
 **Agente:** planner.QATesting
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
-**Estado:** ✅ COMPLETED
+**Estado de Ejecución:** ✅ COMPLETED
+**Modelo Usado:** <MODEL_NAME>
 
 ---
 
-## 📊 Resumen Ejecutivo y Métricas Clave
+## 📊 Resumen Ejecutivo
 
 El agente **planner.QATesting** ha completado el Test Plan estructural a partir del handoff de documentation.QATesting.
 Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; esa responsabilidad corresponde a prioritization.QATesting.
@@ -35,6 +24,25 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 | Gaps Recibidos (eco) | <TOTAL_GAPS> | ✅ |
 | Gaps Mitigados por Cobertura | <MITIGATED_COUNT> | ✅ |
 | Gaps No Mitigados | <UNMITIGATED_COUNT> | ⚠️ si > 0 |
+
+### Hallazgos Críticos (Gaps No Mitigados)
+> Solo se listan aquí los gaps UNMITIGATED (con eco de severidad de documentation.QATesting). Los MITIGATED figuran en la sección "Cobertura de Riesgo por Gap".
+
+```
+🔴 UNMITIGATED (severidad MEDIUM): GAP-002 - Sin cobertura posible; falta de especificación
+```
+
+### Índice del Documento
+- [Resumen Ejecutivo](#-resumen-ejecutivo)
+- [Suites Diseñadas](#-suites-diseñadas)
+- [Análisis de Cobertura](#-análisis-de-cobertura)
+- [Cobertura de Riesgo por Gap](#-cobertura-de-riesgo-por-gap-eco-informativo)
+- [Decisiones de Diseño y Supuestos](#-decisiones-de-diseño-y-supuestos)
+- [Precondiciones por Suite](#-precondiciones-por-suite-estructural-no-orden-de-ejecución)
+- [Checklist de Validación](#-checklist-de-validación)
+- [Artefactos Generados](#-artefactos-generados)
+- [Notas de Cierre para Revisión Humana](#-notas-de-cierre-para-revisión-humana)
+- [Cierre](#-cierre)
 
 ---
 
@@ -98,15 +106,19 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 
 ## 🎯 Decisiones de Diseño y Supuestos
 
-### Decisión 1: Agrupación por área funcional
+> Esta sección documenta las decisiones estructurales ya tomadas y los supuestos asumidos por el planner. Las decisiones pendientes que requieren input humano (p. ej. gaps no mitigados) figuran en "Notas de Cierre para Revisión Humana → Decisiones Pendientes".
+
+### Decisiones Tomadas
+
+#### Decisión 1: Agrupación por área funcional
 - **Decisión:** Agrupar requisitos por área funcional (registration, listing) en vez de por tipo de test.
 - **Impacto:** Cada suite es cohesiva; facilita la trazabilidad suite↔requisito.
 
-### Decisión 2: Cobertura obsesiva por suite
+#### Decisión 2: Cobertura obsesiva por suite
 - **Decisión:** Cada suite busca 100% de cobertura de sus requisitos origen.
 - **Impacto:** El porcentaje total se mantiene alto; los gaps quedan aislados por suite.
 
-### Supuesto asumido
+### Supuestos Asumidos
 - Se asume que el handoff de documentation.QATesting es canónico; no se re-validan requisitos.
 
 ---
@@ -129,15 +141,15 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 
 ## ✅ Checklist de Validación
 
-- [x] Todas las suites están diseñadas y son cohesivas por área funcional.
-- [x] Cada suite lista solo NOMBRES de tests (sin pasos de prueba).
-- [x] Cobertura modelada (% por suite y total).
-- [x] Precondiciones estructurales definidas por suite (no se prescribe orden).
-- [x] Trazabilidad suite↔requisito verificada (en `Análisis de Cobertura`).
-- [x] Dependencias inter-suite estructurales documentadas (no es orden de ejecución).
-- [x] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
-- [x] NO se ha evaluado riesgo ni automatización (solo eco de severidad de gaps con disclaimer).
-- [x] Gaps no mitigados escalados a decisión del usuario vía `next_agent_instructions.decision_points`.
+- [ ] Todas las suites están diseñadas y son cohesivas por área funcional.
+- [ ] Cada suite lista solo NOMBRES de tests (sin pasos de prueba).
+- [ ] Cobertura modelada (% por suite y total).
+- [ ] Precondiciones estructurales definidas por suite (no se prescribe orden).
+- [ ] Trazabilidad suite↔requisito verificada (en `Análisis de Cobertura`).
+- [ ] Dependencias inter-suite estructurales documentadas (no es orden de ejecución).
+- [ ] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
+- [ ] NO se ha evaluado riesgo ni automatización (solo eco de severidad de gaps con disclaimer).
+- [ ] Gaps no mitigados reportados en "Notas de Cierre → Decisiones Pendientes" del reporte markdown; handoff JSON con `status: blocked|partial` y `work_performed.sections_untouched` señalado.
 
 ---
 
@@ -153,11 +165,15 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 
 > Esta sección es informativa para revisión humana. Ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline.
 
-- Revisar la decisión de mantener GAP-002 como unmitigated; ¿se invoca a documentation.QATesting para más contexto o se acepta la limitación?
 - Validar la asunción de que la agrupación por área funcional es la correcta para esta release.
 - Confirmar que las duraciones informativas no condicionan decisiones implícitas de priorización.
 
+### Decisiones Pendientes
+1. GAP-002 (unmitigated): ¿se invoca a documentation.QATesting para más contexto o se acepta la limitación?
+
 ---
+
+## 🏁 Cierre
 
 **Estado de Handoff:** ✅ READY FOR HANDOFF
 **Resultado de Validación:** ✅ PASSED

@@ -1,25 +1,16 @@
-# Ejemplos de documentation.QATesting-analysis-report.md
-
-## Convención Unificada (secciones y campos)
-
-- Metadatos: `Session ID`, `Agente`, `Fecha/Hora`, `Estado`
-- Secciones base: `Resumen Ejecutivo`, `Checklist de Validación`, `Artefactos Generados`, `Notas de Cierre para Revisión Humana`
-- Cierre: `Estado de Handoff`, `Resultado de Validación`, `Correlation ID`
-
-## Ejemplo - Formato Completo
-
 # Test Documentation - Análisis Completado
 
 **Session ID:** <SESSION_ID>
 **Agente:** documentation.QATesting
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
-**Estado:** ✅ COMPLETED
+**Estado de Ejecución:** ✅ COMPLETED
+**Modelo Usado:** <MODEL_NAME>
 
 ---
 
 ## 📊 Resumen Ejecutivo
 
-### Estado del Análisis
+### Métricas Clave
 - **Requisitos Extraídos:** <REQ_COUNT> (normalizados en Gherkin)
 - **Gaps Identificados:** <GAP_COUNT> (<CRITICAL_COUNT> CRITICAL, <HIGH_COUNT> HIGH, <MEDIUM_COUNT> MEDIUM, <LOW_COUNT> LOW)
 - **Áreas de Testing:** <AREA_COUNT> (<AREA_1>, <AREA_2>, <AREA_3>, <AREA_4>, <AREA_5>)
@@ -27,18 +18,34 @@
 - **Trazabilidad:** <TRACEABILITY_PERCENT>% verificada a código fuente
 
 ### Hallazgos Críticos
+> Solo se listan aquí los gaps CRITICAL y HIGH. MEDIUM y LOW figuran en la sección "Gaps Identificados (Detalle por Severidad)".
+
 ```
 🔴 CRITICAL: <CRITICAL_FINDING_1>
 🔴 CRITICAL: <CRITICAL_FINDING_2>
 🟡 HIGH: <HIGH_FINDING_1>
 🟡 HIGH: <HIGH_FINDING_2>
-🟡 MEDIUM: <MEDIUM_FINDING_1>
-🟢 LOW: <LOW_FINDING_1>
 ```
+
+### Índice del Documento
+- [Resumen Ejecutivo](#-resumen-ejecutivo)
+- [Requisitos Normalizados por Área](#-requisitos-normalizados-por-área)
+- [API Endpoints Documentados](#-api-endpoints-documentados)
+- [Gaps Identificados (Detalle por Severidad)](#-gaps-identificados-detalle-por-severidad)
+- [Checklist de Validación](#-checklist-de-validación)
+- [Artefactos Generados](#-artefactos-generados)
+- [Notas de Cierre para Revisión Humana](#-notas-de-cierre-para-revisión-humana)
+- [Cierre](#-cierre)
 
 ---
 
 ## 📋 Requisitos Normalizados por Área
+
+### Resumen de Áreas
+- <AREA_NAME_1>: <REQ_AREA_1_COUNT> requisitos, <GAPS_AREA_1_COUNT> gaps
+- <AREA_NAME_2>: <REQ_AREA_2_COUNT> requisitos, <GAPS_AREA_2_COUNT> gaps
+
+---
 
 ### Area 1: <AREA_NAME_1> (<REQ_AREA_1_COUNT> requisitos)
 | ID | Título | Gherkin | Fuente |
@@ -77,38 +84,34 @@ Errors:   <ERROR_SCHEMAS>
 
 ---
 
-## ⚠️ Gaps Críticos Identificados
+## ⚠️ Gaps Identificados (Detalle por Severidad)
+
+> Detalle completo de todos los gaps identificados, ordenados por severidad descendente. El Resumen Ejecutivo solo lista CRITICAL y HIGH; esta sección los amplía e incluye MEDIUM y LOW.
 
 | Gap ID | Severidad | Categoría | Título | Impacto en Testing | Recomendación |
 |--------|-----------|-----------|--------|-------------------|---------------|
 | GAP-<NNN> | CRITICAL | <CATEGORY_1> | <GAP_TITLE_1> | <TEST_IMPACT_1> | <RECOMMENDATION_1> |
 | GAP-<NNN> | HIGH | <CATEGORY_2> | <GAP_TITLE_2> | <TEST_IMPACT_2> | <RECOMMENDATION_2> |
-
----
-
-## 🎯 Decisiones Pendientes
-
-1. <DECISION_POINT_1>
-2. <DECISION_POINT_2>
-3. <DECISION_POINT_3>
+| GAP-<NNN> | MEDIUM | <CATEGORY_3> | <GAP_TITLE_3> | <TEST_IMPACT_3> | <RECOMMENDATION_3> |
+| GAP-<NNN> | LOW | <CATEGORY_4> | <GAP_TITLE_4> | <TEST_IMPACT_4> | <RECOMMENDATION_4> |
 
 ---
 
 ## ✅ Checklist de Validación
 
-- [x] All requirements extracted from source code
-- [x] Gherkin syntax validation (Given/When/Then format)
-- [x] Source traceability verified
-- [x] Gaps identified and classified by severity
-- [x] No test cases created (documentation-only scope)
+- [ ] All requirements extracted from source code
+- [ ] Gherkin syntax validation (Given/When/Then format)
+- [ ] Source traceability verified
+- [ ] Gaps identified and classified by severity
+- [ ] No test cases created (documentation-only scope)
 
 ---
 
 ## 📁 Artefactos Generados
 
 - **Handoff JSON:** `documentation.QATesting-handoff-<TIMESTAMP>.json`
-- **Manifest:** Updated with handoff registry and status history
 - **This Summary:** `documentation.QATesting-analysis-report.md`
+- **Work Log:** `documentation.QATesting-work-log.md`
 
 ---
 
@@ -119,7 +122,14 @@ Errors:   <ERROR_SCHEMAS>
 - Revisar los <REQ_COUNT> requisitos normalizados
 - Evaluar los <GAP_COUNT> gaps identificados
 
+### Decisiones Pendientes
+1. <DECISION_POINT_1>
+2. <DECISION_POINT_2>
+3. <DECISION_POINT_3>
+
 ---
+
+## 🏁 Cierre
 
 **Estado de Handoff:** ✅ READY FOR HANDOFF
 **Resultado de Validación:** ✅ PASSED

@@ -22,8 +22,8 @@ Durante este paso tu unico objetivo es agrupar y mapear dependencias. No reabras
 ## Que NO hacer en este paso
 
 - No reclasifiques la severidad de los gaps.
-- No definas el formato final de cada requisito dentro del JSON.
-- No generes los archivos de salida del handoff.
+- No definas el formato final de cada requisito.
+- No generes el handoff JSON ni el reporte markdown.
 
 ## Checklist de completitud
 
