@@ -1,8 +1,10 @@
 ---
-name: qa-test-planner
+name: qa-test-planner-workflow
 description: Workflow operativo del agente planner.QATesting para diseño de suites, cobertura, precondiciones y handoff
 argument-hint: Handoff de documentation.QATesting con requisitos consolidados, dependencias y gaps
 user-invocable: false
+compatibility: 
+  - agents: [planner.QATesting]
 ---
 
 Workflow para planner.QATesting. El flujo operativo se encuentra dividido en archivos dentro de ./steps/. DEBES seguir la secuencia de pasos y las reglas de cada uno. Tras ejecutar cada paso DEBES documentar el Log de Trabajo en `planner.QATesting-work-log.md`, usando la plantilla Tabla de Log como único formato.

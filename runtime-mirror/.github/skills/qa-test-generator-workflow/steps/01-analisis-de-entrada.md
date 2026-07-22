@@ -25,9 +25,9 @@ Durante este paso tu unico objetivo es leer y entender. No diseñes Test Cases t
 ## Que NO hacer en este paso
 
 - No diseñes Test Cases ni redactes pasos todavía.
-- No particiones por Acceptance Criteria todavía (eso es el paso 02).
-- No marques provisionales todavía (eso es el paso 04).
-- No revises trazabilidad todavía (eso es el paso 05).
+- No particiones por Acceptance Criteria todavía.
+- No marques provisionales todavía.
+- No revises trazabilidad todavía.
 - No generes el handoff JSON ni el documento de Test Cases todavía.
 - No re-evalues la severidad de los gaps del documento de entrada; solo haz eco de ellos.
 - No nombres agentes específicos del pipeline como predecesores o sucesores: solo recibes un documento de planificación o requisitos.
