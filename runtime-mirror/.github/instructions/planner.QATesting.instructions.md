@@ -1,7 +1,7 @@
 ---
 name: planner.QATesting-contract
 description: Contrato operativo para non-goals, owned decisions y guardarrailes del agente planner.QATesting
-owner-agent: planner.QATesting
+applyTo: **/planner.QATesting.agent.md
 ---
 
 # Test Planner Contract

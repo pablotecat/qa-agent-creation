@@ -1,7 +1,7 @@
 ---
 name: generator.QATesting-contract
 description: Contrato operativo para non-goals, owned decisions y guardarrailes del agente generator.QATesting
-owner-agent: generator.QATesting
+applyTo: **/generator.QATesting.agent.md
 ---
 
 # Test Generator Contract
