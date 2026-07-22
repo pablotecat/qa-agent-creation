@@ -52,9 +52,9 @@ El pipeline QA es manual: no existe ningun orquestador que pueda invocar a docum
 Si encuentras gaps que bloquean el diseño de cobertura:
 - Reportar el gap en el handoff JSON con `status: blocked` o `status: partial`.
 - Especificar en `work_performed.sections_untouched` qué no se pudo completar.
-- Registrar el punto de decision en `next_agent_instructions.decision_points` para que el usuario decida si reinvoca documentation.QATesting para obtener mas contexto.
+- Documentar el punto de decisión en `planner.QATesting-execution-summary.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes", para que el usuario decida si reinvoca documentation.QATesting para obtener mas contexto.
 
 Si cobertura es imposible de alcanzar:
 - Crear handoff con `status: partial`.
 - Re-diseñar suites con cobertura pragmática (ej: 85% en lugar de 100%).
-- Justificar la decisión en `next_agent_instructions.decision_points`.
+- Justificar la decisión en `planner.QATesting-execution-summary.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes".
