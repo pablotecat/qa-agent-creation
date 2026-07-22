@@ -22,11 +22,8 @@ Extraer requisitos desde cualquier fuente (documentación, especificación técn
 
 ## Flujo de trabajo
 
-- Workflow asociado: `.github/workflows/qa-test-documentation/WORKFLOW.md`
+- Workflow asociado: `.github/skills/qa-test-documentation-workflow/SKILL.md`
 
 ## Contrato
 
 - Contrato asociado: `.github/instructions/documentation.QATesting.contract.md`
-
-
-

@@ -23,7 +23,7 @@ Transformas requisitos normalizados en un Test Plan estructurado: TÍTULO del te
 
 ## Flujo de trabajo
 
-- Workflow asociado: `.github/workflows/qa-test-planner/WORKFLOW.md`
+- Workflow asociado: `.github/skills/qa-test-planner-workflow/SKILL.md`
 
 ## Contrato
 

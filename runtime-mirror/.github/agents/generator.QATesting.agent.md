@@ -23,7 +23,7 @@ Crear Test Cases ejecutables a partir de un documento de planificación o de req
 
 ## Flujo de trabajo
 
-- Workflow asociado: `.github/workflows/qa-test-generator/WORKFLOW.md`
+- Workflow asociado: `.github/skills/qa-test-generator-workflow/SKILL.md`
 
 ## Contrato
 

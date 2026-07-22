@@ -1,8 +1,10 @@
 ---
-name: qa-test-generator
+name: qa-test-generator-workflow
 description: Workflow operativo del agente generator.QATesting para la creación de Test Cases con pasos numerados Given/When/Then
 argument-hint: Handoff del planner o analysis-report de documentation con requisitos, suites y nombres de tests
 user-invocable: false
+compatibility: 
+  - agents: [generator.QATesting]
 ---
 
 Workflow para generator.QATesting. El flujo operativo se encuentra dividido en archivos dentro de ./steps/. DEBES seguir la secuencia de pasos y las reglas de cada uno. Tras ejecutar cada paso DEBES documentar el Log de Trabajo en `generator.QATesting-work-log.md`, usando la plantilla Tabla de Log como único formato.
