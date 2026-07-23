@@ -19,14 +19,6 @@ Durante este paso tu unico objetivo es documentar trazabilidad estructural. No d
 3. Documenta relaciones e impactos estructurales entre suites (qué suite impacta a cuál y por qué).
 4. Verifica que la trazabilidad sea bidireccional: desde suite→requisito y desde requisito→suite.
 
-## Que NO hacer en este paso
-
-- No diseñes nuevas suites ni replantees las del Paso 2.
-- No replantees el coverage model del Paso 3.
-- No replantees las precondiciones del Paso 4.
-- No re-evalues severidad de gaps ni replanees mitigaciones.
-- No generes el handoff JSON ni el reporte markdown todavía.
-
 ## Checklist de completitud
 
 - [ ] Trazabilidad suite→requisito documento para cada suite.

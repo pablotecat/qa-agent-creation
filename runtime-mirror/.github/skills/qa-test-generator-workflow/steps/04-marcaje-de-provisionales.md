@@ -31,15 +31,6 @@ Este paso está separado del paso 03 (Diseño) para permitir en el futuro amplia
 
 Mientras tanto, la lógica actual es heurística: marca todo lo que no esté claro por falta de definición en el documento de entrada.
 
-## Que NO hacer en este paso
-
-- No rediseñes los pasos (eso fue el paso 03). Aquí solo marcas.
-- No generes expecteds en pasos previos; el Expected Result nuclear ya está en el último Then y no se toca aquí.
-- No particiones por AC ni cambies IDs (paso 02).
-- No revises trazabilidad global todavía (paso 05).
-- No generes el handoff JSON ni el documento de Test Cases todavía.
-- No detengas el flujo: si un paso no está claro y ya está marcado como PROVISIONAL, continúa al siguiente.
-
 ## Checklist de completitud
 
 - [ ] Todos los Test Cases del paso 03 han sido recorridos.

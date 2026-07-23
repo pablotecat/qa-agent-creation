@@ -18,16 +18,7 @@ Durante este paso tu unico objetivo es modelar cobertura. No diseñes nuevas sui
 2. Calcula `coverage_percentage` por suite y `coverage_percentage` total.
 3. Identifica requisitos no cubiertos (`uncovered_requirements`) y relacionados con los gaps del handoff entrante.
 4. Documenta qué gaps quedan mitigados por cobertura (`gaps_mitigated`) y cuáles no (`gaps_unmitigated`).
-5. Si cobertura es imposible de alcanzar, marca GAP y deja registro para decisión posterior (ver sección "Manejo de Bloqueos y Retroalimentacion" de WORKFLOW.md).
-
-## Que NO hacer en este paso
-
-- No diseñes nuevas suites ni replantees las del Paso 2.
-- No definas precondiciones por suite (Paso 4).
-- No documentes trazabilidad estructural	suite→requisito ni escenario→criterio (Paso 5, relación-enhanced).
-- No re-evalues la severidad de los gaps (provienen de documentation.QATesting; aqui solo haces eco).
-- No priorices ni decidas qué gaps son más importantes para ejecución.
-- No generes el handoff JSON ni el reporte markdown todavía.
+5. Si cobertura es imposible de alcanzar, marca GAP y deja registro para decisión posterior (ver sección "Manejo de Bloqueos y Retroalimentación" de SKILL.md).
 
 ## Checklist de completitud
 

@@ -20,15 +20,6 @@ Durante este paso tu unico objetivo es diseñar suites cohesivas. No modeles cob
 4. Lista las dependencias inter-suite estructurales (`suite_dependencies`): qué suite depende de qué (sin prescribir orden de ejecución).
 5. Estima `estimated_total_duration_seconds` por suite como dato estrictamente informativo (no se usa para decidir orden).
 
-## Que NO hacer en este paso
-
-- No modeles cobertura ni calcules porcentajes (Paso 3).
-- No definas precondiciones por suite (Paso 4).
-- No documentes trazabilidad suite→requisito ni escenario→criterio (Paso 5).
-- No priorices, ni clasifiques en Smoke/Regresion/Exploratory.
-- No escribas pasos de tests; solo nombres de tests.
-- No definas un orden de ejecución dentro ni entre suites.
-
 ## Checklist de completitud
 
 - [ ] Las suites son cohesivas por área funcional.

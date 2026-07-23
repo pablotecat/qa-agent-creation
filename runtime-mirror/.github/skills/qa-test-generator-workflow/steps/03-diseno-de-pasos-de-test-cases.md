@@ -29,15 +29,6 @@ Para cada Test Case del índice del paso 02:
    - No te detengas: avanza al siguiente paso o al siguiente Test Case.
 6. Respeta el `Original ID` y los IDs derivados ya fijados en el paso 02: no los renombres ni los rederivados aquí.
 
-## Que NO hacer en este paso
-
-- No marques pasos como PROVISIONAL todavía (eso es el paso 04). Aquí solo escribes la acción provisional; el marcaje va después.
-- No revises trazabilidad global todavía (paso 05).
-- No generes el handoff JSON ni el documento de Test Cases todavía.
-- No cambies el particionado por AC ni los IDs (ya fijados en el paso 02). Si detectas inconsistencia en IDs, vuelve al paso 02 y corrige allí (no en este paso).
-- No generes Expected Result en pasos previos Given/When: solo el último Then lleva el Expected Result nuclear.
-- No nombres agentes específicos del pipeline como predecesores o sucesores.
-
 ## Checklist de completitud
 
 - [ ] Para cada Test Case se definieron los Prerrequisitos.

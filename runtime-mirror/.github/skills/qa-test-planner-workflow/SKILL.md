@@ -1,51 +1,26 @@
 ---
 name: qa-test-planner-workflow
-description: Workflow operativo del agente planner.QATesting para diseño de suites, cobertura, precondiciones y handoff
+description: Workflow del agente planner.QATesting para diseñar suites, cobertura y precondiciones estructurales con handoff.
+disable-model-invocation: true
 argument-hint: Handoff de documentation.QATesting con requisitos consolidados, dependencias y gaps
 user-invocable: false
 compatibility: 
   - agents: [planner.QATesting]
 ---
 
-Workflow para planner.QATesting. El flujo operativo se encuentra dividido en archivos dentro de ./steps/. DEBES seguir la secuencia de pasos y las reglas de cada uno. Tras ejecutar cada paso DEBES documentar el Log de Trabajo en `planner.QATesting-work-log.md`, usando la plantilla Tabla de Log como único formato.
+Workflow para `planner.QATesting`: genera suites, cobertura y precondiciones estructurales con handoff consolidado. El flujo operativo se divide en archivos bajo `./steps/`. DEBES seguir la secuencia de pasos y las reglas de cada uno.
 
-## Instrucciones de Log de Trabajo
+## Mapa de pasos
 
-Objetivo:
-- Registrar evidencia de ejecucion por paso del workflow para auditar decisiones y facilitar handoff.
+`01 Análisis de Handoff de Entrada` → `02 Diseño de Suites` → `03 Modelamiento de Cobertura` → `04 Definición de Precondiciones` → `05 Trazabilidad Estructural` → `06 Generación de Handoff y Reporte`
 
-Reglas:
-- Crear un log por ejecucion del agente, usando la tabla de abajo como unico formato.
-- Las filas son fijas: una fila por cada paso del workflow (01 a 06), en ese orden.
-- No añadir, eliminar ni reordenar filas.
-- Rellenar cada celda de la fila al cerrar ese paso, antes de avanzar al siguiente.
-- No dejar celdas vacias: usar "N/A" o "none" cuando no aplique.
-- Registrar hechos observables (horas, artefactos, decisiones), no opiniones.
-- Si un paso queda bloqueado o parcial, documentarlo en "Comentarios / Bloqueos" y detener el avance hasta resolverlo o escalarlo.
+## Guardarrail de entregables
 
-Estados permitidos (columna Estado):
-- in_progress
-- completed
-- blocked
-- partial
+El único paso que escribe entregables (handoff JSON, execution summary, work-log, `HANDOFF_Summary.md`) es el paso 06. Los pasos 01–05 solo construyen estado interno: asimilar handoff de entrada, diseñar suites, modelar cobertura, definir precondiciones estructurales, trazar relaciones.
 
-## Tabla de Log (Plantilla)
+## Log de Trabajo
 
-| Paso | Hora inicio | Hora fin | Tiempo dedicado | Modelo usado | Estado | Checklist completado | Skill usada | Artefactos generados | Comentarios / Bloqueos |
-|------|-------------|----------|------------------|--------------|--------|-----------------------|-------------|------------------------|--------------------------|
-| 01 - Analisis de Handoff de Entrada | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 02 - Diseno de Suites | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 03 - Modelamiento de Cobertura | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 04 - Definicion de Precondiciones | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 05 - Trazabilidad Estructural | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 06 - Generacion de Handoff y Reporte | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-
-Notas de columnas:
-- Tiempo dedicado: diferencia entre hora inicio y hora fin del paso, en minutos y segundos.
-- Checklist completado: proporcion de items marcados frente al total del checklist de ese paso (ej. 5/5).
-- Skill usada: nombre de las skills, instrucciones u otros recursos consultados o aplicados durante ese paso (ej. nombres de archivo o de skill); "N/A" si no se uso ninguno.
-- Artefactos generados: rutas de archivos creados o actualizados durante ese paso.
-- Comentarios / Bloqueos: gaps, decisiones relevantes o motivo de bloqueo; "none" si no aplica.
+Tras cerrar cada paso, documenta una fila en `planner.QATesting-work-log.md` siguiendo la plantilla canónica en `references/work-log-template.md` (formato único; no uses otro).
 
 ## Manejo de Bloqueos y Retroalimentacion
 

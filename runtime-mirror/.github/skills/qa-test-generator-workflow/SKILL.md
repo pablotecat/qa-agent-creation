@@ -1,51 +1,30 @@
 ---
 name: qa-test-generator-workflow
-description: Workflow operativo del agente generator.QATesting para la creación de Test Cases con pasos numerados Given/When/Then
+description: Workflow del agente generator.QATesting para crear Test Cases con pasos numerados Given/When/Then y handoff consolidado.
+disable-model-invocation: true
 argument-hint: Handoff del planner o analysis-report de documentation con requisitos, suites y nombres de tests
 user-invocable: false
 compatibility: 
   - agents: [generator.QATesting]
 ---
 
-Workflow para generator.QATesting. El flujo operativo se encuentra dividido en archivos dentro de ./steps/. DEBES seguir la secuencia de pasos y las reglas de cada uno. Tras ejecutar cada paso DEBES documentar el Log de Trabajo en `generator.QATesting-work-log.md`, usando la plantilla Tabla de Log como único formato.
+Workflow para `generator.QATesting`: diseña Test Cases con pasos numerados Given/When/Then y entrega handoff consolidado. El flujo operativo se divide en archivos bajo `./steps/`. DEBES seguir la secuencia de pasos y las reglas de cada uno.
 
-## Instrucciones de Log de Trabajo
+## Mapa de pasos
 
-Objetivo:
-- Registrar evidencia de ejecucion por paso del workflow para auditar decisiones y facilitar handoff.
+`01 Análisis de Entrada` → `02 Particionado por Acceptance Criteria (verificación de IDs en origen)` → `03 Diseño de Pasos de Test Cases` → `04 Marcaje de Provisionales` → `05 Revisión de Trazabilidad` → `06 Generación de Handoff y Reporte`
 
-Reglas:
-- Crear un log por ejecucion del agente, usando la tabla de abajo como unico formato.
-- Las filas son fijas: una fila por cada paso del workflow (01 a 06), en ese orden.
-- No añadir, eliminar ni reordenar filas.
-- Rellenar cada celda de la fila al cerrar ese paso, antes de avanzar al siguiente.
-- No dejar celdas vacias: usar "N/A" o "none" cuando no aplique.
-- Registrar hechos observables (horas, artefactos, decisiones), no opiniones.
-- Si un paso queda bloqueado o parcial, documentarlo en "Comentarios / Bloqueos" y detener el avance hasta resolverlo o escalarlo.
+## Guardarrail de entregables
 
-Estados permitidos (columna Estado):
-- in_progress
-- completed
-- blocked
-- partial
+El único paso que escribe entregables (handoff JSON, `generator.QATesting-test-cases.md`, work-log, `HANDOFF_Summary.md`) es el paso 06. Los pasos 01–05 solo construyen estado interno: asimilar entrada, particionar por AC, redactar pasos, marcar provisionales, verificar trazabilidad.
 
-## Tabla de Log (Plantilla)
+## Invariante canónica: verificación de IDs en splits
 
-| Paso | Hora inicio | Hora fin | Tiempo dedicado | Modelo usado | Estado | Checklist completado | Skill usada | Artefactos generados | Comentarios / Bloqueos |
-|------|-------------|----------|------------------|--------------|--------|-----------------------|-------------|------------------------|--------------------------|
-| 01 - Analisis de Entrada | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 02 - Particionado por Acceptance Criteria | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 03 - Diseno de Pasos de Test Cases | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 04 - Marcaje de Provisionales | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 05 - Revision de Trazabilidad | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
-| 06 - Generacion de Handoff y Reporte | <HH:MM:ss> | <HH:MM:ss> | <mm:ss> | <nombre modelo> | <in_progress\|completed\|blocked\|partial> | <n/n> | <lista o N/A> | <lista o N/A> | <detalle o none> |
+La verificación de IDs en splits (presencia de `Original ID` + patrón de IDs derivados `{original_id}a`, `{original_id}b`, ...) se hace **en el paso 02, en el origen del split**. No se reabren pasos posteriores para corregir IDs: si una verificación posterior (p. ej. en el paso 05) detecta inconsistencia, se vuelve al paso 02 a corregir; los pasos 03 en adelante no corrigen IDs.
 
-Notas de columnas:
-- Tiempo dedicado: diferencia entre hora inicio y hora fin del paso, en minutos y segundos.
-- Checklist completado: proporcion de items marcados frente al total del checklist de ese paso (ej. 5/5).
-- Skill usada: nombre de las skills, instrucciones u otros recursos consultados o aplicados durante ese paso (ej. nombres de archivo o de skill); "N/A" si no se uso ninguno.
-- Artefactos generados: rutas de archivos creados o actualizados durante ese paso.
-- Comentarios / Bloqueos: gaps, decisiones relevantes o motivo de bloqueo; "none" si no aplica.
+## Log de Trabajo
+
+Tras cerrar cada paso, documenta una fila en `generator.QATesting-work-log.md` siguiendo la plantilla canónica en `references/work-log-template.md` (formato único; no uses otro).
 
 ## Manejo de Bloqueos y Retroalimentacion
 
@@ -64,4 +43,3 @@ Si algún paso no se puede redactar con certeza por falta de definición:
 Si la cobertura de Acceptance Criteria es imposible de alcanzar:
 - Crear handoff con `status: partial`.
 - Documentar la limitación en `generator.QATesting-test-cases.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes".
-- No reabrir pasos anteriores si una verificación falla en el paso 02: la verificación de IDs (Original ID preservado y patrón de IDs hijo en splits) se hace en el paso 02 en el origen del split. Si la verificación falla, se corrige en ese mismo paso, no en pasos posteriores.

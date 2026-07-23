@@ -14,7 +14,7 @@ Durante este paso tu unico objetivo es ensamblar, validar y persistir el entrega
 
 ## Secuencia
 
-1. Genera `generator.QATesting-test-cases.md` siguiendo la guía `.github/workflows/qa-test-generator/references/generator-report-guidance.md` y la plantilla OBLIGATORIA `references/assets/test-case-template.md` (anatomía B: Prerrequisitos + pasos numerados Given/When/Then sin expecteds inline en los pasos previos + último paso Then con Expected Result nuclear).
+1. Genera `generator.QATesting-test-cases.md` siguiendo la guía `.github/skills/qa-test-generator-workflow/references/generator-report-guidance.md` y la plantilla OBLIGATORIA `references/assets/test-case-template.md` (anatomía B: Prerrequisitos + pasos numerados Given/When/Then sin expecteds inline en los pasos previos + último paso Then con Expected Result nuclear).
 2. Con el documento ya completo, genera el handoff JSON usando la skill compartida `qa-handoff-creation` (`.github/skills/qa-handoff-creation/SKILL.md`), sustituyendo `{agent}` por `generator`. Patrón de nombre: `generator.QATesting-handoff-{timestamp}.json`.
 3. Actualiza `./tests/Documentation/HANDOFF_Summary.md`.
 4. Revisa consistencia y trazabilidad entre el handoff JSON generado y el documento markdown (`work_performed`, `checks`, `counts`):
@@ -22,16 +22,6 @@ Durante este paso tu unico objetivo es ensamblar, validar y persistir el entrega
    - `counts`: mapa de conteos objetivos (p. ej. `test_cases_total`, `test_cases_splitted`, `steps_provisional_total`, `acceptance_criteria_covered`, `acceptance_criteria_uncovered`, `mode_planner_handoff` o `mode_documentation_directo`).
 5. Valida el handoff JSON contra `assets/handoff-schema.json` (de la skill compartida `qa-handoff-creation`).
 6. Si la validación falla o la consistencia JSON↔MD está rota, corrige el handoff JSON (no los Test Cases): los Test Cases ya están diseñados y verificados en los pasos anteriores.
-
-## Que NO hacer en este paso
-
-- No redactes nuevos pasos ni marques nuevos provisionales (pasos 03 y 04 ya cerrados).
-- No replantees la trazabilidad (paso 05 ya cerrado).
-- No replantees el particionado por AC ni los IDs (paso 02 ya cerrado).
-- No definas tu mismo la estructura o el nombre del documento markdown: eso vive en la guía de report asociada.
-- No definas tu mismo la estructura o el nombre del handoff JSON: eso vive en la skill de handoff asociada.
-- No omitas la validación de consistencia entre JSON y markdown antes de entregar.
-- No nombres agentes específicos del pipeline como sucesores o predecesores.
 
 ## Checklist de completitud
 

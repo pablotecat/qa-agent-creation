@@ -20,14 +20,6 @@ Durante este paso tu unico objetivo es leer y entender. No diseñes suites todav
 4. Reconoce los gaps reportados por documentation.QATesting y su severidad (eco, no re-evaluacion).
 5. Detecta si el handoff es insuficiente para diseñar cobertura (falta de requisitos, dependencias rotas, etc.); si es así, marca el GAP preliminar y continua sin detenerte.
 
-## Que NO hacer en este paso
-
-- No diseñes suites ni agrupes escenarios todavía.
-- No modeles cobertura ni calcules porcentajes.
-- No definas precondiciones ni trazabilidad estructural.
-- No replanees ni re-evalues la severidad de los gaps (eso proviene de documentation.QATesting).
-- No generes el handoff JSON ni el reporte markdown.
-
 ## Checklist de completitud
 
 - [ ] Se leyó el handoff JSON y el analysis report de documentation.QATesting.

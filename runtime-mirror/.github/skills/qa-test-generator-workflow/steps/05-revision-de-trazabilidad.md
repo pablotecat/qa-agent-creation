@@ -17,7 +17,7 @@ Durante este paso tu unico objetivo es verificar trazabilidad bidireccional. No 
 1. Para cada Test Case, verifica:
    - `TEST-ID` presente y único en el índice del paso 02.
    - `Original ID` presente y preservado (incluidos los Test Case que son hijos de splits, donde `Original ID` debe ser el mismo del escenario original).
-   - IDs derivados en splits siguen el patrón `{original_id}a`, `{original_id}b`, ... (eco de la verificación ya hecha en el paso 02; aquí solo confirmas).
+   - IDs derivados en splits siguen el patrón `{original_id}a`, `{original_id}b`, ... (eco de la verificación ya hecha en el paso 02; aquí no se corrigen IDs, se vuelve al paso 02 si hay inconsistencia).
    - `Acceptance Criteria cubierto` presente y mapea a un AC explícito en el documento de entrada.
    - `Suite / Área` presente y consistente con el documento de entrada.
 2. Verifica la trazabilidad bidireccional:
@@ -29,15 +29,6 @@ Durante este paso tu unico objetivo es verificar trazabilidad bidireccional. No 
    - Test Cases sin `Original ID` o con IDs que no respetan el patrón de split (en cuyo caso se debe volver al paso 02 a corregir; este paso no corrige IDs).
 4. Los hallazgos se recopilan en un listado de pendientes de trazabilidad que se reflejará en el documento de Test Cases (paso 06) y en el handoff JSON como `checks` y `counts`.
 5. No detengas el flujo: los pendientes se documentan y se continúa al paso 06.
-
-## Que NO hacer en este paso
-
-- No rediseñes Test Cases ni redactes pasos (paso 03).
-- No marques provisionales (paso 04).
-- No partas por AC ni cambies IDs (paso 02). Si detectas inconsistencia en IDs, vuelve al paso 02 a corregir; no corrijas aquí.
-- No generes el handoff JSON ni el documento de Test Cases todavía.
-- No inventes Acceptance Criteria que no estén explícitos; márcalos como pendiente de trazabilidad.
-- No detengas el flujo por pendientes de trazabilidad: se documentan y se continúa.
 
 ## Checklist de completitud
 

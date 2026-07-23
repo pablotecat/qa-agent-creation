@@ -20,14 +20,6 @@ Durante este paso tu unico objetivo es definir precondiciones estructurales. No 
 4. NO clasifiques suites en Smoke/Regresion/Exploratory.
 5. NO definas orden de ejecución ni secuencia entre suites.
 
-## Que NO hacer en este paso
-
-- No definas ORDEN de ejecución entre suites (esa es responsabilidad de prioritization.QATesting).
-- No clasifiques en Smoke/Regresion/Exploratory.
-- No uses las duraciones estimadas para decidir prioridad o secuencia.
-- No modeles cobertura ni diseñes nuevas suites.
-- No generes el handoff JSON ni el reporte markdown todavía.
-
 ## Checklist de completitud
 
 - [ ] Cada suite tiene su `prerequisite` estructural documentado.

@@ -31,14 +31,6 @@ Durante este paso tu unico objetivo es particionar por Acceptance Criteria y ver
 4. Registra un índice de pares `[TEST-ID, Original ID, Acceptance Criteria cubierto, Suite/Área]` para usar en el paso 05 (Revisión de Trazabilidad).
 5. Si no es posible partir un escenario por falta de ACs explícitos, márcalo como GAP preliminar y déjalo pendiente de resolución (no redactar pasos sin AC).
 
-## Que NO hacer en este paso
-
-- No redactes pasos ni Prerrequisitos todavía (paso 03).
-- No marques provisionales todavía (paso 04).
-- No revises trazabilidad global todavía (paso 05).
-- No generes el handoff JSON ni el documento de Test Cases todavía.
-- No reabra pasos posteriores para corregir IDs: la verificación de IDs se hace aquí, en el origen del split.
-
 ## Checklist de completitud
 
 - [ ] Cada escenario del documento de entrada (o cada AC en modo documentation/requisitos directos) tiene al menos un Test Case provisional asignado.
