@@ -1,17 +1,13 @@
 {
-  "name": "@qatesting/install",
-  "version": "1.0.0",
-  "description": "Instala los agentes QA de GitHub Copilot en el proyecto destino (.github/)",
+  "name": "@pablotecat/qa-agents",
+  "version": "1.1.0",
+  "description": "Instala los agentes QA de GitHub Copilot (.github/) descargándolos desde el repo pablotecat/qa-agent-creation en GitHub.",
   "type": "module",
   "bin": {
-    "qa-install": "bin/install.mjs"
+    "qa-agents": "bin/install.mjs"
   },
   "files": [
     "bin/",
-    "agents/",
-    "instructions/",
-    "prompts/",
-    "skills/",
     "README.md"
   ],
   "engines": {
@@ -30,9 +26,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/potero/qa-agent-creation.git"
+    "url": "git+https://github.com/pablotecat/qa-agent-creation.git"
   },
-  "author": "QATesting",
+  "author": "Pablo Otero Catrufo",
   "license": "MIT",
   "sideEffects": false
 }
