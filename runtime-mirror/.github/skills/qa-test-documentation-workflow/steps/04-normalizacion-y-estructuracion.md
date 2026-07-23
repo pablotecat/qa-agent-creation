@@ -16,19 +16,13 @@ Durante este paso tu unico objetivo es normalizar redaccion y estructura. No rea
 
 1. Convierte cada requisito a una redaccion consistente (ej. formato Given/When/Then).
 2. Normaliza los criterios de aceptacion al mismo formato.
-3. Aplica la estructura recomendada dentro del handoff JSON a cada area.
+3. Aplica a cada área la estructura interna normalizada (requisitos + gaps asignados + dependencias), lista para ensamblar el reporte en paso 05.
 4. Verifica legibilidad, cobertura semantica y trazabilidad de cada requisito a su fuente original.
-
-## Que NO hacer en este paso
-
-- No cambies el agrupamiento por area definido anteriormente.
-- No generes el handoff JSON ni el reporte markdown.
-- No repriorices ni reclasifiques gaps.
 
 ## Checklist de completitud
 
 - [ ] Requisitos y criterios fueron normalizados de forma consistente.
-- [ ] Se aplico la estructura recomendada del handoff JSON.
+- [ ] Cada área tiene su estructura interna normalizada (requisitos + gaps asignados + dependencias), lista para ensamblar el reporte en paso 05.
 - [ ] Se verifico legibilidad y cobertura semantica.
 - [ ] La trazabilidad a fuentes originales esta completa.
 - [ ] El paso 4 esta completo antes de continuar.

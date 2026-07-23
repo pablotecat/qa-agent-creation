@@ -109,8 +109,10 @@ Errors:   <ERROR_SCHEMAS>
 
 ## 📁 Artefactos Generados
 
+Todos los artefactos se persisten en `./tests/Documentation/sessions/session_{session_N}_{session_id}/agent-documentation.QATesting/`:
+
 - **Handoff JSON:** `documentation.QATesting-handoff-<TIMESTAMP>.json`
-- **This Summary:** `documentation.QATesting-analysis-report.md`
+- **Analysis Report:** `documentation.QATesting-analysis-report.md` (este archivo)
 - **Work Log:** `documentation.QATesting-work-log.md`
 
 ---

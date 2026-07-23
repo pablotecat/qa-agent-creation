@@ -1,6 +1,7 @@
 ---
 name: qa-handoff-creation
-description: "Skill compartida para la creacion del handoff JSON minimo de cualquier agente productor QA. Usar cuando se indique en el flujo de trabajo correspondiente."
+description: "Skill compartida para generar el handoff JSON minimo de cualquier agente productor QA."
+disable-model-invocation: true
 argument-hint: "nombre del agente productor, session id, y rutas de summary_md/work_log_md ya generados"
 user-invocable: false
 compatibility: 

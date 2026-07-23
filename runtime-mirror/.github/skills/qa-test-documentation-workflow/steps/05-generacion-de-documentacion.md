@@ -15,24 +15,23 @@ Durante este paso tu unico objetivo es ensamblar, validar y persistir el entrega
 
 ## Secuencia
 
-1. Genera documentation.QATesting-analysis-report.md siguiendo la guía `.github/workflows/qa-test-documentation/references/analysis-report-guidance.md`.
+1. Genera documentation.QATesting-analysis-report.md siguiendo la guía `.github/skills/qa-test-documentation-workflow/references/analysis-report-guidance.md`.
 2. Con el reporte ya completo, genera el handoff JSON usando la skill compartida `qa-handoff-creation` (`.github/skills/qa-handoff-creation/SKILL.md`), sustituyendo `{agent}` por `documentation.QATesting`.
 3. Actualiza ./tests/Documentation/HANDOFF_Summary.md.
 4. Revisa consistencia y trazabilidad entre el handoff JSON generado y el resumen markdown.
 
-## Que NO hacer en este paso
+## Restricciones operativas
 
-- No extraigas nuevos requisitos ni gaps en este punto.
-- No modifiques el agrupamiento por area ni la normalizacion ya aplicada.
-- No definas tu mismo la estructura o el nombre del reporte en markdown: eso vive en la guía de report asociada.
-- No definas tu mismo la estructura o el nombre del handoff JSON: eso vive en la skill de handoff asociada.
-- No omitas la validacion de consistencia entre JSON y markdown antes de entregar.
+- Trabaja sobre los requisitos, gaps y agrupamiento producidos en los pasos 01–04. Si detectas un faltante en este punto, regístralo como "decisión pendiente" en el reporte (sección Notas de Cierre) y continúa; no vuelvas a las fuentes originales.
+- La estructura y el nombre del reporte markdown: siguen la guía `references/analysis-report-guidance.md` (no los definas tú).
+- La estructura y el nombre del handoff JSON: siguen la skill `qa-handoff-creation` (no los definas tú).
+- La validación de consistencia entre JSON y markdown es parte del entregable.
 
 ## Checklist de completitud
 
 - [ ] Se genero documentation.QATesting-analysis-report.md con el formato esperado.
 - [ ] El handoff JSON fue generado por la skill de handoff asociada.
-- [ ] El handoff refleja fielmente los hechos del reporte (`work_performed`, `checks`, `counts`).
+- [ ] Los counts (req/gap/área/endpoint) reportados en el markdown coinciden numéricamente con los del handoff JSON; el `status` del handoff coincide con el estado del análisis.
 - [ ] Se actualizo ./tests/Documentation/HANDOFF_Summary.md.
 - [ ] Se verifico consistencia y trazabilidad entre JSON y markdown.
 - [ ] El paso 5 esta completo y el workflow puede cerrarse.

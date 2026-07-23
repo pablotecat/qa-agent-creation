@@ -20,17 +20,10 @@ Durante este paso tu unico objetivo es leer y extraer. Olvidate de todo lo demas
 4. Lista precondiciones y dependencias detectadas.
 5. Si encuentras ambiguedad o falta de informacion, anotala brevemente como GAP preliminar y continua sin detenerte.
 
-## Que NO hacer en este paso
-
-- No clasifiques ni analices la severidad de los gaps.
-- No agrupes requisitos por area o modulo.
-- No normalices el formato final de los requisitos.
-- No generes el handoff JSON ni el reporte markdown.
-
 ## Checklist de completitud
 
 - [ ] Se revisaron todas las fuentes relevantes (documentacion, especificacion tecnica, UI y API).
-- [ ] Se identificaron features, user stories y funcionalidades.
+- [ ] Cada feature/user story de las fuentes tiene al menos un criterio de aceptación (explícito o inferido) registrado.
 - [ ] Se extrajeron criterios de aceptacion explicitos e implicitos.
 - [ ] Se listaron precondiciones y dependencias.
 - [ ] Se registraron ambiguedades o faltantes como GAP sin detener el flujo.

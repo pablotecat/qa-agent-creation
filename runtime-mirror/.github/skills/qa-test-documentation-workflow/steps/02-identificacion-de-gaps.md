@@ -19,12 +19,6 @@ Durante este paso tu unico objetivo es detectar y clasificar gaps. No sigas busc
 3. Clasifica cada gap detectado por severidad (CRITICAL, HIGH, MEDIUM, LOW).
 4. Documenta el impacto y una recomendacion breve por cada gap.
 
-## Que NO hacer en este paso
-
-- No extraigas nuevos requisitos de fuentes no revisadas.
-- No agrupes requisitos ni gaps por area.
-- No generes el handoff JSON ni el reporte markdown.
-
 ## Checklist de completitud
 
 - [ ] Se revisaron los requisitos extraidos en el paso anterior.

@@ -19,15 +19,9 @@ Durante este paso tu unico objetivo es agrupar y mapear dependencias. No reabras
 3. Mapea las dependencias entre areas (que area depende de cual y por que).
 4. Consolida el agrupamiento resultante como estructura interna, lista para normalizar.
 
-## Que NO hacer en este paso
-
-- No reclasifiques la severidad de los gaps.
-- No definas el formato final de cada requisito.
-- No generes el handoff JSON ni el reporte markdown.
-
 ## Checklist de completitud
 
 - [ ] Los requisitos fueron agrupados por funcionalidad o modulo.
 - [ ] Se mapearon dependencias entre areas.
-- [ ] La consolidacion por area quedo reflejada en el handoff JSON.
+- [ ] La consolidación por área quedó reflejada en la estructura interna (requisitos agrupados + gaps asignados + dependencias mapeadas), lista para normalizar en el paso 4.
 - [ ] El paso 3 esta completo antes de continuar.
