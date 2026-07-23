@@ -32,7 +32,7 @@ La copia es **idempotente y con overwrite forzado**: re-ejecutar el comando no f
 Si solo necesitas las skills (archivos `SKILL.md`) y no los agentes/instrucciones/prompts, puedes usar el CLI estándar [`skills`](https://skills.sh/), que instala en la ruta que tu agente espera (`.agents/skills/` o `.copilot/skills/` para GitHub Copilot):
 
 ```bash
-npx skills add pablotecat/qa-agent-creation
+npx skills add pablotecat/qa-agents
 ```
 
 Esto copia únicamente las carpetas con `SKILL.md`. Es compatible con 70+ agentes. No instala los `.agent.md`, `.instructions.md` ni `prompts/`.
