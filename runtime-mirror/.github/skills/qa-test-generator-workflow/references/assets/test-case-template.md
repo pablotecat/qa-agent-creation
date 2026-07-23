@@ -41,18 +41,19 @@ Repite un bloque como el siguiente por cada Test Case. Sustituye los `<PLACEHOLD
 3. **Prerrequisitos:** lista. Estado inicial, datos y configuración necesarios antes de ejecutar el Test Case. Puede estar vacía si no aplica.
 
 4. **Pasos numerados:** secuencia `Given` / `When` / `Then` (pueden aparecer varios pasos de cada tipo según la prueba).
-   - Los pasos previos (`Given` y `When`) **NO llevan Expected Result inline**. Solo el último paso `Then` lleva el Expected Result nuclear.
-   - El **ÚLTIMO paso ES OBLIGATORIAMENTE un `Then`** cuyo **Expected Result (nuclear)** es el resultado nuclear del Test Case. No es una sección aparte; vive dentro del último paso.
-   - Puede haber `Then` intermedios opcionales (paso 4 en el ejemplo), pero el último paso de la secuencia debe ser el `Then` nuclear.
+   - Los pasos previos (`Given` y `When`) **NO llevan Expected Result inline**.
+   - El **ÚLTIMO paso ES OBLIGATORIAMENTE un `Then`**.   
+   
+5. **Expected Result (nuclear)** es el resultado nuclear del Test Case. Es una sección aparte; no vive dentro del último paso. Es muy explícita con lo esperado del tests, es la comprobación atómica y nuclear de la prueba.
 
-5. **Pasos PROVISIONAL:** Si un paso (incluido un Prerrequisito) no está claro por falta de definición en el documento de entrada, el marcaje explícito `🟡 PROVISIONAL/NO DEFINIDO` con motivo se incluye en el propio paso (lo decide el paso 04 del workflow). La acción provisional se escribe en el paso 03 del workflow.
+6. **Pasos PROVISIONAL:** Si un paso (incluido un Prerrequisito) no está claro por falta de definición en el documento de entrada, el marcaje explícito `🟡 PROVISIONAL` con motivo se incluye en el propio paso (lo decide el paso 04 del workflow). La acción provisional se escribe en el paso 03 del workflow.
 
-6. **IDs en splits:** Si un escenario del documento de entrada se splitea en N Test Cases por cubrir N Acceptance Criteria:
+7. **IDs en splits:** Si un escenario del documento de entrada se splitea en N Test Cases por cubrir N Acceptance Criteria:
    - `TEST-ID` deriva como `<original_id>a`, `<original_id>b`, ... (respetando el orden de los ACs).
    - `Original ID` se conserva con el valor `<original_id>` en todos los Test Case hijos.
 
-7. **Prueba un único AC:** En la medida de lo posible, un Test Case prueba un único Acceptance Criteria. Si el documento de entrada cubre N ACs en un solo escenario, **splitear** en N Test Cases (regla 6).
+8. **Prueba un único AC:** En la medida de lo posible, un Test Case prueba un único Acceptance Criteria. Si el documento de entrada cubre N ACs en un solo escenario, **splitear** en N Test Cases (regla 6).
 
-8. **No priorizar, no clasificar, no automatizar:** la plantilla no incluye campos de prioridad, criticidad, tier (Smoke/Regresión/Exploratory) ni automatización. Esos son Non-goals del agente.
+9. **No priorizar, no clasificar, no automatizar:** la plantilla no incluye campos de prioridad, criticidad, tier (Smoke/Regresión/Exploratory) ni automatización. Esos son Non-goals del agente.
 
-9. **No nombrar agentes del pipeline:** la plantilla no referencia predecesores ni sucesores específicos del pipeline. Solo hace trazabilidad al documento de entrada vía `Original ID` y `Acceptance Criteria cubierto`.
+10. **No nombrar agentes del pipeline:** la plantilla no referencia predecesores ni sucesores específicos del pipeline. Solo hace trazabilidad al documento de entrada vía `Original ID` y `Acceptance Criteria cubierto`.

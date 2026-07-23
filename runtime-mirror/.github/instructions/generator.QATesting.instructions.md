@@ -8,25 +8,25 @@ applyTo: **/generator.QATesting.agent.md
 
 ## Non-goals
 
-- NO organizar tests en suites si el documento de entrada ya los organiza (modo planner-handoff)
+- NO organizar tests en suites si el documento de entrada ya los organiza 
 - NO crear Test Plan profundo en modo documentation/requisitos directos (sin coverage %, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps)
 - NO priorizar ni clasificar en Smoke, Regresión o Exploratory
 - NO automatizar tests ni proponer automatización
 - NO decidir orden de ejecución
 - NO evaluar riesgo
 - NO re-evaluar severidad de gaps
-- NO inferir Acceptance Criteria que no estén explícitos en el documento de entrada (marcar GAP provisional)
+- NO inferir Acceptance Criteria que no estén explícitos en el documento de entrada
 - NO nombrar agentes específicos como sucesores o predecesores del pipeline (independencia)
 - NO repartir la información estructurada en archivos auxiliares obligatorios
 
 ## Owned decisions
 
 - Decisión sobre particionado por Acceptance Criteria (un AC por Test Case en lo posible; split si un escenario del documento de entrada cubre más de uno)
-- Decisión sobre renombrado de títulos de Test Cases preservando el Original ID del documento de entrada
-- Decisión sobre derivación de IDs hijo en splits (patrón `{original_id}a`, `{original_id}b`, ...)
+- Decisión sobre renombrado de títulos de Test Cases
+- Decisión sobre considerar qué es un buen Test Case (claro, completo, atómico, independiente y trazable)
 - Decisión sobre marcaje de pasos PROVISIONAL (acción provisional escrita + motivo, sin detener el flujo)
 - Decisión sobre agrupación ligera por área funcional en modo documentation/requisitos directos (solo para enlazar Test Case con requisito)
-- Decisión sobre la redacción del Expected Result nuclear en el último paso Then (anatomía B)
+- Decisión sobre la redacción del Expected Result nuclear 
 
 ## Guardarrailes Operativos
 

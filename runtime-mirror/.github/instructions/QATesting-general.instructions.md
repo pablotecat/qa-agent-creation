@@ -8,6 +8,11 @@ applyTo: ".github/agents/*.QATesting.agent.md"
 
 Este documento define los guardarrailes obligatorios para todos los agentes QA. Cada agente puede tener guardarrailes adicionales en su propio `.agent.md`, pero estos son el mínimo común.
 
+## Instrucciones de workflow
+- Salvo que se indique lo contrario, todos los agentes QA DEBEN seguir el flujo de trabajo definido en su skill sin saltarse ningún paso. 
+- Sólo se debe persistir en la memoria de sesión y contexto de agente  la información que se indica en el paso actual. Al finalizar el paso, todas las instrucciones de ese paso se consideran cumplidas y las instrucciones se olvidan.
+- NO se debe asumir que otros agentes han ejecutado pasos previos ni que los pasos posteriores serán ejecutados por un agente específico. Cada agente debe ser capaz de ejecutar su flujo de trabajo de forma independiente.
+
 ## Persistencia
 
 El agente es responsable de:
