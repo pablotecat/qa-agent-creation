@@ -61,7 +61,7 @@ Salida esperada:
   rama:   main
 
   ↓ clonando repo...
-  ✓ agents         → .github/agents/  (4 archivos)
+  ✓ agents         → .github/agents/  (3 archivos)
   ✓ instructions   → .github/instructions/  (4 archivos)
   ✓ prompts        → .github/prompts/  (1 archivo)
   ✓ skills         → .github/skills/  (N archivos)
@@ -75,12 +75,12 @@ Los agentes QA están disponibles en .github/. Ya puedes invocarlos desde GitHub
 
 | Carpeta | Archivos | Descripción |
 |---------|----------|-------------|
-| `agents/` | 4 | Agentes `*.QATesting.agent.md`: `documentation`, `generator`, `planner`, `prioritization` |
+| `agents/` | 3 | Agentes `*.QATesting.agent.md`: `documentation`, `planner`, `generator` (los archivos marcados como `old.*` se excluyen de la copia) |
 | `instructions/` | 4 | Instrucciones `*.QATesting.instructions.md` por agente + `QATesting-general` |
 | `prompts/` | 1 | Prompts de inicialización (`test-documentation-init.md`) |
 | `skills/` | 5 dirs | `qa-handoff-creation`, `qa-test-documentation-workflow`, `qa-test-generator-workflow`, `qa-test-planner-workflow`, `qa-test-prioritization-report` (cada una con `SKILL.md` + `steps/`/`references/`/`examples/`/`assets/`) |
 
-Los agentes son **invocables directamente** por el usuario. El pipeline QA se ejecuta de forma secuencial manual: `documentation.QATesting` → `planner.QATesting` → `prioritization.QATesting`.
+Los agentes son **invocables directamente** por el usuario. El pipeline QA se ejecuta de forma secuencial manual: `documentation.QATesting` → `planner.QATesting` → `generator.QATesting`.
 
 ## Artefactos de sesión
 

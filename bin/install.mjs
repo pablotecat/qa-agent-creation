@@ -7,7 +7,7 @@
 import { existsSync, cpSync, statSync, readdirSync, rmSync } from "node:fs";
 import { execSync } from "node:child_process";
 import { tmpdir } from "node:os";
-import { resolve, join, relative } from "node:path";
+import { resolve, join, relative, basename } from "node:path";
 
 // Repo fuente del runtime (debe ser público para clonar sin auth).
 const SOURCE_REPO = "https://github.com/pablotecat/qa-agent-creation.git";
@@ -68,12 +68,14 @@ function shallowClone(repoUrl, branch, targetDir) {
   );
 }
 
-function countFiles(entryPath) {
+function countFiles(entryPath, shouldCount = () => true) {
   // Cuenta archivos (no directorios) de forma recursiva; ignora errores de lectura.
+  // Respeta el filtro `shouldCount(src)` para excluir archivos (ej. vestigiales 'old.*').
   let count = 0;
   const stack = [entryPath];
   while (stack.length > 0) {
     const cur = stack.pop();
+    if (!shouldCount(cur)) continue;
     let stat;
     try {
       stat = statSync(cur);
@@ -151,6 +153,12 @@ function main() {
   }
 
   // Overwrite forzado idempotente: force:true + recursive:true.
+  // Excluir archivos marcados como vestigiales (prefijo 'old.') para no propagarlos a destinos.
+  const isNotVestigial = (src) => {
+    const base = basename(src);
+    return !base.startsWith("old.");
+  };
+
   let totalFiles = 0;
   let copiedDirs = 0;
 
@@ -163,9 +171,10 @@ function main() {
         force: true,
         errorOnExist: false,
         preserveTimestamps: true,
+        filter: (s) => isNotVestigial(s),
       });
       copiedDirs += 1;
-      const files = countFiles(src);
+      const files = countFiles(src, isNotVestigial);
       totalFiles += files;
       console.log(
         `  ✓ ${dir.padEnd(14)} → ${relative(process.cwd(), dst)}  (${files} ${files === 1 ? "archivo" : "archivos"})`
