@@ -1,0 +1,38 @@
+{
+  "name": "@qatesting/install",
+  "version": "1.0.0",
+  "description": "Instala los agentes QA de GitHub Copilot en el proyecto destino (.github/)",
+  "type": "module",
+  "bin": {
+    "qa-install": "bin/install.mjs"
+  },
+  "files": [
+    "bin/",
+    "agents/",
+    "instructions/",
+    "prompts/",
+    "skills/",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=16.7.0"
+  },
+  "scripts": {
+    "start": "node bin/install.mjs"
+  },
+  "keywords": [
+    "copilot",
+    "qa",
+    "testing",
+    "agents",
+    "github-copilot",
+    "installation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/potero/qa-agent-creation.git"
+  },
+  "author": "QATesting",
+  "license": "MIT",
+  "sideEffects": false
+}
