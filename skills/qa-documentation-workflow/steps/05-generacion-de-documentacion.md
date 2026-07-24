@@ -10,8 +10,20 @@ Usa el modelo de razonamiento mas potente disponible. Este paso produce el entre
 
 ## Enfoque Exclusivo
 
-Durante este paso tu unico objetivo es ensamblar, validar y persistir el entregable final. No extraigas mas contenido de las fuentes originales ni sigas normalizando redaccion.
+Durante este paso tu ÚNICO objetivo es ensamblar, validar y persistir el entregable final. Olvidate de todo lo demás.
 
+## Resolución de output
+
+Esta skill resuelve el directorio de salida (`output_dir`) así:
+
+1. **Path explícito en la invocación**: si el usuario o el agente invocador indica un destino (patrones como `to <path>`, `save [to] <path>`, `en <path>`), úsalo como `output_dir`.
+2. **Default**: en caso contrario o error, `output_dir` = `./qa-tmp/qa-documentation-workflow/<timestamp>/` (relativo al cwd del workspace; `<timestamp>` en ISO8601 compacto `YYYYMMDD-HHMMSS`).
+3. Si el usuario pide explícitamente no generar documentación, en lugar de generarla escríbela en el chat.
+
+### Artefactos a escribir (salvo que el usuario indique lo contrario)
+
+- Reporte `QA.documentation-analysis-report.md` → en `output_dir`.
+- Work-log `QA.documentation-work-log.md` → en `output_dir`.
 
 ## Secuencia
 
@@ -20,8 +32,8 @@ Durante este paso tu unico objetivo es ensamblar, validar y persistir el entrega
 
 ## Restricciones operativas
 
-- Trabaja sobre los requisitos, gaps y agrupamiento producidos en los pasos 01–04. Si detectas un faltante en este punto, regístralo como "decisión pendiente" en el reporte (sección Notas de Cierre) y continúa; no vuelvas a las fuentes originales.
-- La estructura y el nombre del reporte markdown: siguen la guía `references/analysis-report-guidance.md` (no los definas tú).
+- Trabaja sobre los requisitos, gaps y agrupamiento producidos en los pasos 01–04. Si detectas un faltante en este punto, regístralo como "decisión pendiente" en el reporte (sección Notas de Cierre) y continúa.
+- La estructura y el nombre del reporte markdown: siguen la guía `references/analysis-report-guidance.md`.
 
 ## Checklist de completitud
 

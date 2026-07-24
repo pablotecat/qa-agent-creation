@@ -10,7 +10,7 @@ Usa el modelo de razonamiento mas potente disponible para este paso. Es la fase 
 
 ## Enfoque Exclusivo
 
-Durante este paso tu unico objetivo es leer y extraer. Olvidate de todo lo demas: no pienses en como vas a entregar la informacion al siguiente agente, ni en como se van a clasificar, agrupar o normalizar los requisitos.
+Durante este paso tu ÚNICO objetivo es leer y extraer. Olvidate de todo lo demás.
 
 ## Secuencia
 

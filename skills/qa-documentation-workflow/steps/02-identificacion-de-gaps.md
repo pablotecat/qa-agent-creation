@@ -10,7 +10,7 @@ Usa un modelo con buena capacidad de razonamiento y juicio critico. La calidad d
 
 ## Enfoque Exclusivo
 
-Durante este paso tu unico objetivo es detectar y clasificar gaps. No sigas buscando nuevos requisitos ni te distraigas pensando en el agrupamiento por area.
+Durante este paso tu ÚNICO objetivo es detectar y clasificar gaps. Olvidate de todo lo demás.
 
 ## Secuencia
 

@@ -12,36 +12,18 @@ Workflow de documentación QA: extrae, normaliza y entrega requisitos consolidad
 
 ## Mapa de pasos
 
+DEBES leer y ejecutar los pasos en orden:
+
 `01 Extracción de Requisitos` → `02 Identificación de Gaps` → `03 Particionado por Área` → `04 Normalización y Estructuración` → `05 Generación de Reporte`
-
-## Guardarrail de entregables (reporte final)
-
-El único paso que escribe el **entregable final** (el reporte `QA.documentation-analysis-report.md`) es el paso 05. Los pasos 01–04 solo construyen estado interno: extraer requisitos, identificar gaps, agrupar por área, normalizar redacción.
-
-> **No confundir con el work-log**: el work-log **no** es un entregable final, es **traza incremental de ejecución**. Se define en la sección siguiente.
 
 ## Log de Trabajo (traza incremental)
 
-El work-log `QA.documentation-work-log.md` es **traza incremental**. Se escribe **una fila tras cada paso, dentro de ese paso**, siguiendo la plantilla canónica en `references/work-log-template.md` (formato único; no uses otro).
+El work-log `QA.documentation-work-log.md` es **traza incremental**. Se escribe **una fila tras cada paso, dentro de ese paso**, siguiendo las instrucciones de `references/work-log-guidance.md`.
 
-## Resolución de output
-
-Esta skill resuelve el directorio de salida (`output_dir`) así:
-
-1. **Path explícito en la invocación**: si el usuario o el agente invocador indica un destino (patrones como `to <path>`, `save [to] <path>`, `en <path>`), úsalo como `output_dir`.
-2. **Keyword `preview` o `no-save`**: si la invocación la contiene, **modo chat-only**: no se escribe nada a disco; el reporte se muestra por chat y se anuncia que no se persistió.
-3. **Default**: en caso contrario, `output_dir` = `./qa-tmp/qa-documentation-workflow/<timestamp>/` (relativo al cwd del workspace; `<timestamp>` en ISO8601 compacto `YYYYMMDD-HHMMSS`).
-
-### Artefactos a escribir (salvo modo chat-only)
-
-- Reporte `QA.documentation-analysis-report.md` → en `output_dir`.
-- Work-log `QA.documentation-work-log.md` → en `output_dir`.
 
 ### Feedback al usuario
 
-- Tras escribir a disco: responde en chat **exactamente una línea seca** con el formato `<nombre-del-workflow> OK. Reporte: <ruta>. Work-log: <ruta>.` Prohibido mostrar cualquier parte del contenido de los archivos (ni el reporte ni el work-log). El usuario abrirá el archivo para leerlo.
-- En modo chat-only (`preview`/`no-save`): muestra el reporte `QA.documentation-analysis-report.md` **completo** por chat y anuncia en una línea que no se persistió.
+- Mientras ejecutas cada paso: salvo que el usuario indique lo contrario, no escribas nada en el chat, salvo errores o decisiones pendientes.
+- Cuando termines cada paso: responde en chat **exactamente una línea seca** con el formato `<nombre-del-paso> OK.`
+- Cuando termines de escribir archivos: responde en chat **exactamente una línea seca** con el formato `<nombre-del-workflow> OK; reporte: <ruta>; work-log: <ruta>`.
 
-### Errores recuperables
-
-Si el `output_dir` indicado no se puede escribir (permisos, path inválido): no preguntes; anuncia el error y cae al default `qa-tmp/` si es posible, o a chat-only si no. Solo en este caso se informa al usuario.

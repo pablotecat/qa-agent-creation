@@ -40,7 +40,6 @@ A continuación se explica cada sección y si es obligatoria incluirla.
 ### Cierre (obligatoria)
 - Estado de Handoff
 - Resultado de Validación
-- Correlation ID
 
 ### Secciones Contextuales (incluir solo si aplican)
 

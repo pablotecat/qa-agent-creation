@@ -109,15 +109,9 @@ Errors:   401 Unauthorized (credenciales incorrectas)
 
 ## 📁 Artefactos Generados
 
-La ruta de persistencia la define el invocador vía `to <path>` (default `./qa-tmp/qa-documentation-workflow/<timestamp>/`, ver "Resolución de output" en `SKILL.md`). Esta skill no bifurca por modo de invocación.
-
-Artefactos que **esta skill** siempre escribe (salvo chat-only):
-
+Ruta `./qa-tmp/qa-documentation-workflow/<timestamp>/`
 - **Analysis Report:** `QA.documentation-analysis-report.md` (este archivo)
 - **Work Log:** `QA.documentation-work-log.md`
-
-Artefacto **opcional** (no lo genera esta skill; lo gestiona el invocador vía `qa-handoff-creation` si se desea):
-
 - **Handoff JSON:** `QA.documentation-handoff-<TIMESTAMP>.json`
 
 ---

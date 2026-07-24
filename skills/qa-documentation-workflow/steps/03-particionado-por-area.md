@@ -10,7 +10,7 @@ Un modelo estandar es suficiente: esta es una tarea de organizacion estructural 
 
 ## Enfoque Exclusivo
 
-Durante este paso tu unico objetivo es agrupar y mapear dependencias. No reabras la extraccion de requisitos ni la clasificacion de gaps.
+Durante este paso tu ÚNICO objetivo es agrupar y mapear dependencias. Olvidate de todo lo demás.
 
 ## Secuencia
 
@@ -23,5 +23,5 @@ Durante este paso tu unico objetivo es agrupar y mapear dependencias. No reabras
 
 - [ ] Los requisitos fueron agrupados por funcionalidad o modulo.
 - [ ] Se mapearon dependencias entre areas.
-- [ ] La consolidación por área quedó reflejada en la estructura interna (requisitos agrupados + gaps asignados + dependencias mapeadas), lista para normalizar en el paso 4.
+- [ ] La consolidación por área quedó reflejada en la estructura interna (requisitos agrupados + gaps asignados + dependencias mapeadas).
 - [ ] El paso 3 esta completo antes de continuar.
