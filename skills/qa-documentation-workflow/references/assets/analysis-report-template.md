@@ -109,11 +109,21 @@ Errors:   <ERROR_SCHEMAS>
 
 ## 📁 Artefactos Generados
 
-Todos los artefactos se persisten en `./tests/Documentation/sessions/session_{session_N}_{session_id}/QA-documentation-agent/`:
+La ruta de persistencia depende del modo de invocación (ver "Resolución de output" en `SKILL.md`):
 
-- **Handoff JSON:** `QA.documentation-handoff-<TIMESTAMP>.json`
+- **Modo agente** (`QA.documentation`): `./tests/Documentation/sessions/session_{session_N}_{session_id}/QA-documentation-agent/`
+- **Standalone con path explícito**: el path indicado por el usuario.
+- **Standalone sin path explícito (default)**: `./qa-tmp/qa-documentation-workflow/<timestamp>/`
+- **Standalone con keyword `preview`/`no-save`**: sin persistencia; el reporte se muestra por chat.
+
+Artefactos que **esta skill** siempre escribe (salvo chat-only):
+
 - **Analysis Report:** `QA.documentation-analysis-report.md` (este archivo)
 - **Work Log:** `QA.documentation-work-log.md`
+
+Artefacto **opcional** (no lo genera esta skill; lo gestiona el invocador vía `qa-handoff-creation` si se desea):
+
+- **Handoff JSON:** `QA.documentation-handoff-<TIMESTAMP>.json`
 
 ---
 

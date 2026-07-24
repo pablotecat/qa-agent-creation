@@ -149,15 +149,27 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 - [ ] Dependencias inter-suite estructurales documentadas (no es orden de ejecución).
 - [ ] NO se ha priorizado ni clasificado en Smoke/Regresión/Exploratory.
 - [ ] NO se ha evaluado riesgo ni automatización (solo eco de severidad de gaps con disclaimer).
-- [ ] Gaps no mitigados reportados en "Notas de Cierre → Decisiones Pendientes" del reporte markdown; handoff JSON con `status: blocked|partial` y `work_performed.sections_untouched` señalado.
+- [ ] Gaps no mitigados reportados en "Notas de Cierre → Decisiones Pendientes" del reporte markdown; el estado del resultado es `blocked|partial` (para que, si el invocador decide generar handoff vía `qa-handoff-creation`, se refleje en ese JSON y en su `work_performed.sections_untouched`).
 
 ---
 
 ## 📁 Artefactos Generados
 
-- **Handoff JSON:** `QA.planner-handoff-<TIMESTAMP>.json` (generado por la skill `qa-handoff-creation`)
+La ruta de persistencia depende del modo de invocación (ver "Resolución de output" en `SKILL.md`):
+
+- **Modo agente** (`QA.planner`): `./tests/Documentation/sessions/session_{session_N}_{session_id}/QA-planner-agent/`
+- **Standalone con path explícito**: el path indicado por el usuario.
+- **Standalone sin path explícito (default)**: `./qa-tmp/qa-planner-workflow/<timestamp>/`
+- **Standalone con keyword `preview`/`no-save`**: sin persistencia; el reporte se muestra por chat.
+
+Artefactos que **esta skill** siempre escribe (salvo chat-only):
+
 - **This file:** `QA.planner-execution-summary.md`
 - **Work log:** `QA.planner-work-log.md`
+
+Artefacto **opcional** (no lo genera esta skill; lo gestiona el invocador vía `qa-handoff-creation` si se desea):
+
+- **Handoff JSON:** `QA.planner-handoff-<TIMESTAMP>.json`
 
 ---
 

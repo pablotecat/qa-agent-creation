@@ -86,10 +86,22 @@ Los agentes son **invocables directamente** por el usuario. Las skills de workfl
 
 Cada skill de workflow produce su reporte markdown de forma autónoma. La generación del handoff JSON es **opcional** y la gestiona el invocador (agente o usuario) vía la skill `qa-handoff-creation`, una vez cerrado el workflow.
 
-- **Vía agente** (Modo 1, recomendado para el pipeline QA): el agente ejecuta su flujo en dos pasos — (1) la skill de workflow correspondiente y (2) `qa-handoff-creation` para emitir el recibo de validación. El pipeline se ejecuta de forma secuencial manual: `QA.documentation` → `QA.planner` → `QA.generator`.
+- **Vía agente** (Modo 1, recomendado para el pipeline QA): el agente ejecuta su flujo en dos pasos — (1) la skill de workflow correspondiente y (2) `qa-handoff-creation` para emitir el recibo de validación. El pipeline se ejecuta de forma secuencial manual: `QA.documentation` → `QA.planner` → `QA.generator`. Los artefactos se persisten bajo la estructura de sesión del agente (`./tests/Documentation/sessions/...`).
 - **Vía skill standalone** (sin agente): invoca directamente la skill de workflow con un slash command. Obtiene el reporte markdown sin handoff. Útil cuando no se necesita el recibo QA entre agentes.
 
-> Nota: ejecutar una skill de workflow sin agente **no** inicializa la carpeta de sesión ni el contador (`session-counter.json`). El invocador debe gestionar la ruta de salida manualmente. El desacople completo de la gestión de sesión está pendiente.
+### Resolución de output en modo standalone
+
+Cuando una skill de workflow se invoca sin agente, la skill resuelve la ruta de salida así:
+
+1. **`to <path>`** (o `save [to] <path>`, `en <path>`) → el reporte y el work-log se escriben en el path indicado.
+2. **`preview` o `no-save`** → modo chat-only: el reporte se muestra por chat, no se escribe nada a disco.
+3. En caso contrario → default `./qa-tmp/<skill-name>/<timestamp>/` (relativo al cwd del workspace).
+
+Ejemplo: `/qa-documentation-workflow <solicitud QA y fuentes>` escribe a `./qa-tmp/qa-documentation-workflow/20260724-153020/`. Para chat-only: `/qa-documentation-workflow preview <solicitud>`.
+
+> Nota: el modo standalone **no** inicializa la estructura de sesión (`session-counter.json`, carpeta `session_{N}_{id}/`) — esa gestión la realiza solo el agente. El default `qa-tmp/` es un fallback funcional, no un reemplazo de la sesión estructurada. Recomendable añadir `qa-tmp/` al `.gitignore` del proyecto destino.
+
+> Coexistencia de paths: si generas un reporte standalone y luego quieres que un agente lo consuma, pasa el path explícito al agente (no lo encontrará en su carpeta de sesión esperada).
 
 ## Artefactos de sesión
 

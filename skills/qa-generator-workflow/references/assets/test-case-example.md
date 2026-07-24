@@ -151,9 +151,21 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 
 ## 📁 Artefactos Generados
 
-- **Handoff JSON:** `QA.generator-handoff-<TIMESTAMP>.json` (generado por la skill `qa-handoff-creation`)
+La ruta de persistencia depende del modo de invocación (ver "Resolución de output" en `SKILL.md`):
+
+- **Modo agente** (`QA.generator`): `./tests/Documentation/sessions/session_{session_N}_{session_id}/QA-generator-agent/`
+- **Standalone con path explícito**: el path indicado por el usuario.
+- **Standalone sin path explícito (default)**: `./qa-tmp/qa-generator-workflow/<timestamp>/`
+- **Standalone con keyword `preview`/`no-save`**: sin persistencia; el reporte se muestra por chat.
+
+Artefactos que **esta skill** siempre escribe (salvo chat-only):
+
 - **This file:** `QA.generator-test-cases.md`
 - **Work log:** `QA.generator-work-log.md`
+
+Artefacto **opcional** (no lo genera esta skill; lo gestiona el invocador vía `qa-handoff-creation` si se desea):
+
+- **Handoff JSON:** `QA.generator-handoff-<TIMESTAMP>.json`
 
 ---
 

@@ -2,7 +2,7 @@
 name: qa-generator-workflow
 description: Workflow para crear Test Cases con pasos numerados Given/When/Then desde planificación o requisitos. Usar para generar QA.generator-test-cases.md.
 disable-model-invocation: true
-argument-hint: Handoff del planner o analysis-report de documentation con requisitos, suites y nombres de tests
+argument-hint: "Handoff del planner o analysis-report de documentation con requisitos, suites y nombres de tests. Opcional: 'to <path>' para destino, o 'preview'/'no-save' para chat-only."
 user-invocable: true
 compatibility: 
   - agents: [QA.generator]
@@ -31,9 +31,8 @@ Tras cerrar cada paso, documenta una fila en `QA.generator-work-log.md` siguiend
 El pipeline QA es manual: no existe ningun orquestador que pueda invocar al agente que produjo el documento de entrada por ti. Si detectas que el documento de entrada es insuficiente para crear Test Cases (falta de Acceptance Criteria, escenarios sin contexto, requisitos ambiguos, etc.) o que la cobertura de ACs es imposible de alcanzar, NO intentes reinvocar al agente origen NI ejecutar sus instrucciones o workflow. Tu unica responsabilidad es dejar registrado el problema y dejar la decision en manos del usuario.
 
 Si encuentras gaps que bloquean la creación de Test Cases:
-- Reportar el gap en el handoff JSON con `status: blocked` o `status: partial`.
-- Especificar en `work_performed.sections_untouched` qué no se pudo completar.
-- Documentar el punto de decisión en `QA.generator-test-cases.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes", para que el usuario decida si reinvoca al agente origen para obtener más contexto.
+- Documenta el bloqueo en el reporte `QA.generator-test-cases.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes", indicando que el estado del resultado es `blocked` o `partial` (para que, si el invocador decide generar handoff vía `qa-handoff-creation`, se refleje allí).
+- Especifica en esa misma sección qué no se pudo completar (equivalente a `work_performed.sections_untouched`), para que el usuario decida si reinvoca al agente origen para obtener más contexto.
 
 Si algún paso no se puede redactar con certeza por falta de definición:
 - Escribir una acción provisional en el paso afectado.
@@ -41,5 +40,29 @@ Si algún paso no se puede redactar con certeza por falta de definición:
 - No detener el flujo: avanzar al siguiente Test Case o al siguiente paso.
 
 Si la cobertura de Acceptance Criteria es imposible de alcanzar:
-- Crear handoff con `status: partial`.
+- Documenta en el reporte `QA.generator-test-cases.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes", que el estado del resultado es `partial` (para que, si el invocador decide generar handoff vía `qa-handoff-creation`, se refleje allí).
 - Documentar la limitación en `QA.generator-test-cases.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes".
+
+## Resolución de output (uso standalone)
+
+**Los Agentes Ignoran esta sección**.
+
+Cuando esta skill se invoca sin un agente (`QA.generator`), resuelve el directorio de salida (`output_dir`) así:
+
+1. **Path explícito en la invocación**: si el usuario indica un destino (patrones como `to <path>`, `save [to] <path>`, `en <path>`), úsalo como `output_dir`.
+2. **Keyword `preview` o `no-save`**: si la invocación la contiene, **modo chat-only**: no se escribe nada a disco; el reporte se muestra por chat y se anuncia que no se persistió.
+3. **Default**: en caso contrario, `output_dir` = `./qa-tmp/qa-generator-workflow/<timestamp>/` (relativo al cwd del workspace; `<timestamp>` en ISO8601 compacto `YYYYMMDD-HHMMSS`).
+
+### Artefactos a escribir (salvo modo chat-only)
+
+- Reporte `QA.generator-test-cases.md` → en `output_dir`.
+- Work-log `QA.generator-work-log.md` → en `output_dir`.
+
+### Feedback al usuario
+
+- Tras escribir: anuncia en chat la ruta del reporte y una línea con la ruta del work-log (silenciosa) + un resumen breve del reporte (primeras ~20 líneas o digest).
+- En modo chat-only: muestra el reporte completo por chat y anuncia que no se persistió.
+
+### Errores recuperables
+
+Si el `output_dir` indicado no se puede escribir (permisos, path inválido): no preguntes; anuncia el error y cae al default `qa-tmp/` si es posible, o a chat-only si no. Solo en este caso se informa al usuario.
