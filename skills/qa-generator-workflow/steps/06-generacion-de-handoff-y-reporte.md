@@ -1,8 +1,8 @@
-# Paso 6: Generacion de Handoff y Reporte
+# Paso 6: Generacion de Reporte
 
 ## Objetivo del Paso
 
-Generar el entregable final del agente: el documento markdown `QA.generator-test-cases.md` y, a partir de él ya completo, el handoff JSON mínimo delegado a la skill compartida. El paso concluye con ambos artefactos persistidos correctamente; la validación del handoff se hace contra el schema antes de entregar. Este paso solo persiste lo ya diseñado, marcado y verificado; no redacta pasos, ni marca provisionales, ni revisa trazabilidad (eso ya se hizo en 03, 04, 05).
+Generar el documento markdown `QA.generator-test-cases.md` y persistirlo correctamente. Este paso solo persiste lo ya diseñado, marcado y verificado; no redacta pasos, ni marca provisionales, ni revisa trazabilidad (eso ya se hizo en 03, 04, 05).
 
 ## Modelo Recomendado
 
@@ -14,21 +14,14 @@ Durante este paso tu unico objetivo es ensamblar, validar y persistir el entrega
 
 ## Secuencia
 
-1. Genera `QA.generator-test-cases.md` siguiendo la guía `.github/skills/qa-generator-workflow/references/generator-report-guidance.md` y la plantilla OBLIGATORIA `references/assets/test-case-template.md` (anatomía B: Prerrequisitos + pasos numerados Given/When/Then sin expecteds inline en los pasos previos + último paso Then con Expected Result nuclear).
-2. Con el documento ya completo, genera el handoff JSON usando la skill compartida `qa-handoff-creation` (`.github/skills/qa-handoff-creation/SKILL.md`), sustituyendo `{agent}` por `QA.generator`. Patrón de nombre: `QA.generator-handoff-{timestamp}.json`.
-3. Actualiza `./tests/Documentation/HANDOFF_Summary.md`.
-4. Revisa consistencia y trazabilidad entre el handoff JSON generado y el documento markdown (`work_performed`, `checks`, `counts`):
-   - `checks`: mapa de booleanos con validaciones objetivas (p. ej. `original_id_preserved`, `splits_follow_pattern`, `every_test_has_ac`, `every_test_has_nuclear_then`, `every_step_clear_or_provisional`).
-   - `counts`: mapa de conteos objetivos (p. ej. `test_cases_total`, `test_cases_splitted`, `steps_provisional_total`, `acceptance_criteria_covered`, `acceptance_criteria_uncovered`, `mode_planner_handoff` o `mode_documentation_directo`).
-5. Valida el handoff JSON contra `assets/handoff-schema.json` (de la skill compartida `qa-handoff-creation`).
-6. Si la validación falla o la consistencia JSON↔MD está rota, corrige el handoff JSON (no los Test Cases): los Test Cases ya están diseñados y verificados en los pasos anteriores.
+1. Genera `QA.generator-test-cases.md` siguiendo la guía `references/generator-report-guidance.md` de esta skill y la plantilla OBLIGATORIA `references/assets/test-case-template.md` (anatomía B: Prerrequisitos + pasos numerados Given/When/Then sin expecteds inline en los pasos previos + último paso Then con Expected Result nuclear).
+2. Revisa la consistencia y trazabilidad internas del documento, sobre estos ejes:
+   - `original_id_preserved`, `splits_follow_pattern` (verificado en paso 02, reconfirmado aquí).
+   - `every_test_has_ac`, `every_test_has_nuclear_then`, `every_step_clear_or_provisional`.
+   - Conteos: `test_cases_total`, `test_cases_splitted`, `steps_provisional_total`, `acceptance_criteria_covered`, `acceptance_criteria_uncovered`, `mode_planner_handoff` o `mode_documentation_directo`.
 
 ## Checklist de completitud
 
 - [ ] Se generó `QA.generator-test-cases.md` con el formato esperado por la guía y la plantilla OBLIGATORIA.
-- [ ] El handoff JSON fue generado por la skill `qa-handoff-creation` con el patrón de nombre correcto.
-- [ ] El handoff refleja fielmente los hechos del documento (`work_performed`, `checks`, `counts`).
-- [ ] Se actualizó `./tests/Documentation/HANDOFF_Summary.md`.
-- [ ] Se verificó consistencia y trazabilidad entre JSON y markdown.
-- [ ] El handoff valida contra `assets/handoff-schema.json` (de la skill compartida).
+- [ ] Se verificó consistencia y trazabilidad internas del documento (IDs, splits, ACs, pasos provisionales, conteos).
 - [ ] El paso 6 está completo y el workflow puede cerrarse.

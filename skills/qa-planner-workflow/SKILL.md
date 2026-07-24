@@ -1,22 +1,22 @@
 ---
 name: qa-planner-workflow
-description: Workflow del agente QA.planner para diseñar suites, cobertura y precondiciones estructurales con handoff.
+description: Workflow para diseñar suites de prueba, cobertura y precondiciones estructurales.
 disable-model-invocation: true
 argument-hint: Handoff de QA.documentation con requisitos consolidados, dependencias y gaps
-user-invocable: false
+user-invocable: true
 compatibility: 
   - agents: [QA.planner]
 ---
 
-Workflow para `QA.planner`: genera suites, cobertura y precondiciones estructurales con handoff consolidado. El flujo operativo se divide en archivos bajo `./steps/`. DEBES seguir la secuencia de pasos y las reglas de cada uno.
+Workflow de planificación QA: genera suites, cobertura y precondiciones estructurales y entrega el reporte `QA.planner-execution-summary.md` El flujo operativo se divide en archivos bajo `./steps/`. DEBES seguir la secuencia de pasos y las reglas de cada uno.
 
 ## Mapa de pasos
 
-`01 Análisis de Handoff de Entrada` → `02 Diseño de Suites` → `03 Modelamiento de Cobertura` → `04 Definición de Precondiciones` → `05 Trazabilidad Estructural` → `06 Generación de Handoff y Reporte`
+`01 Análisis de Handoff de Entrada` → `02 Diseño de Suites` → `03 Modelamiento de Cobertura` → `04 Definición de Precondiciones` → `05 Trazabilidad Estructural` → `06 Generación de Reporte`
 
 ## Guardarrail de entregables
 
-El único paso que escribe entregables (handoff JSON, execution summary, work-log, `HANDOFF_Summary.md`) es el paso 06. Los pasos 01–05 solo construyen estado interno: asimilar handoff de entrada, diseñar suites, modelar cobertura, definir precondiciones estructurales, trazar relaciones.
+El único paso que escribe entregables (`QA.planner-execution-summary.md`, work-log) es el paso 06. Los pasos 01–05 solo construyen estado interno: asimilar handoff de entrada, diseñar suites, modelar cobertura, definir precondiciones estructurales, trazar relaciones.
 
 ## Log de Trabajo
 

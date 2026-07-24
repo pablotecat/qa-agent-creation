@@ -1,8 +1,8 @@
-# Paso 6: Generacion de Handoff y Reporte
+# Paso 6: Generacion de Reporte
 
 ## Objetivo del Paso
 
-Generar el entregable final del planner: el reporte markdown `QA.planner-execution-summary.md` y, a partir de él ya completo, el handoff JSON minimo delegado a la skill dedicada. El paso concluye con ambos artefactos persistidos correctamente; la validación del handoff se hace contra el schema antes de entregar.
+Generar el reporte markdown `QA.planner-execution-summary.md` y persistirlo correctamente.
 
 ## Modelo Recomendado
 
@@ -14,16 +14,11 @@ Durante este paso tu unico objetivo es ensamblar, validar y persistir el entrega
 
 ## Secuencia
 
-1. Genera `QA.planner-execution-summary.md` siguiendo la guía `.github/skills/qa-planner-workflow/references/planner-report-guidance.md`.
-2. Con el reporte ya completo, genera el handoff JSON usando la skill compartida `qa-handoff-creation` (`.github/skills/qa-handoff-creation/SKILL.md`), sustituyendo `{agent}` por `QA.planner`.
-3. Actualiza `./tests/Documentation/HANDOFF_Summary.md`.
-4. Revisa consistencia y trazabilidad entre el handoff JSON generado y el resumen markdown (`work_performed`, `checks`, `counts`).
+1. Genera `QA.planner-execution-summary.md` siguiendo la guía `references/planner-report-guidance.md` de esta skill.
+2. Revisa la consistencia y trazabilidad internas del reporte (suites, escenarios, requisitos cubiertos, porcentaje de cobertura, estado del plan): `work_performed`, `checks`, `counts` deben ser internamente consistentes en el markdown.
 
 ## Checklist de completitud
 
 - [ ] Se generó `QA.planner-execution-summary.md` con el formato esperado por la guía.
-- [ ] El handoff JSON fue generado por la skill de handoff asociada.
-- [ ] Los counts (suites/escenarios/requisitos cubiertos/porcentaje de cobertura) reportados en el markdown coinciden numéricamente con los del handoff JSON; el `status` del handoff coincide con el estado del plan.
-- [ ] Se actualizó `./tests/Documentation/HANDOFF_Summary.md`.
-- [ ] Se verificó consistencia y trazabilidad entre JSON y markdown.
+- [ ] Los counts (suites/escenarios/requisitos cubiertos/porcentaje de cobertura) del reporte son internamente consistentes y el estado del plan queda reflejado en el reporte.
 - [ ] El paso 6 esta completo y el workflow puede cerrarse.

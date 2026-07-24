@@ -5,12 +5,14 @@ disable-model-invocation: true
 argument-hint: "nombre del agente productor, session id, y rutas de summary_md/work_log_md ya generados"
 user-invocable: false
 compatibility: 
-  - agents: [QA.documentation, QA.planner, QA.prioritization]
+  - agents: [QA.documentation, QA.generator, QA.planner, QA.prioritization]
 ---
 
 # Skill de Creacion de Handoff
 
 Genera el handoff JSON minimo de cualquier agente productor QA. Esta skill es compartida: no pertenece a un agente en particular, se referencia parametrizando `{agent}` con el nombre del agente que la invoca (ej. `QA.documentation`).
+
+> **Opcionalidad:** esta skill NO es prerrequisito de ningún workflow. Las skills de workflow (`qa-documentation-workflow`, `qa-generator-workflow`, `qa-planner-workflow`) generan su reporte markdown de forma autónoma; el handoff JSON solo se crea si el invocador (agente o usuario) decide llamar a esta skill una vez cerrado el workflow.
 
 > Nota: el handoff es un recibo minimo de validacion para quien consume el resultado del agente, no un payload de contenido. Todo el contenido de trabajo vive en el markdown de resumen del agente (`summary_md`), no en este JSON.
 
@@ -59,6 +61,7 @@ Los tipos, patrones y reglas exactas viven en `assets/handoff-schema.json` (fuen
 2. Reporta solo hechos objetivos (`assigned_task`, `work_performed`, `checks`, `counts`). Nunca incluyas aqui un juicio propio de cumplimiento de alcance: eso lo decide quien consume el handoff.
 3. Usa el nombre de archivo definido en esta skill, sustituyendo `{agent}` por tu propio nombre de agente.
 4. Persiste el archivo en la subcarpeta `QA-{agent}-agent/` dentro de la carpeta de sesion correspondiente, junto al resumen y al log de trabajo.
+5. Actualiza `./tests/Documentation/HANDOFF_Summary.md` con la entrada del handoff recién generado (agente productor, `session_id`, `timestamp`, `status`, rutas a `summary_md`/`work_log_md`).
 
 ## Puerta de Calidad
 
@@ -70,5 +73,6 @@ Antes de dar la tarea por finalizada, recorrer este checklist y confirmar que se
 - [ ] `work_performed` refleja exactamente las secciones tocadas en `summary_md`.
 - [ ] `checks` y `counts` son hechos objetivos, no interpretaciones.
 - [ ] `summary_md` y `work_log_md` apuntan a archivos ya generados y persistidos.
+- [ ] Se actualizo `./tests/Documentation/HANDOFF_Summary.md` con la entrada del handoff.
 
 Si algun punto no se cumple, la tarea no debe marcarse como finalizada.

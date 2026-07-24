@@ -1,8 +1,8 @@
-# Paso 5: Generacion de Documentacion
+# Paso 5: Generacion de Reporte
 
 ## Objetivo del Paso
 
-Generar la documentacion final del analisis (reporte markdown) y, a partir de ella ya completa, el handoff JSON minimo delegado a la skill dedicada. El paso concluye con ambos artefactos persistidos correctamente; la validacion del handoff se hace contra el schema antes de entregar.
+Generar el reporte markdown final del analisis y persistirlo correctamente, tras una revision de consistencia interna. Este paso produce el entregable principal del workflow.
 
 ## Modelo Recomendado
 
@@ -15,23 +15,16 @@ Durante este paso tu unico objetivo es ensamblar, validar y persistir el entrega
 
 ## Secuencia
 
-1. Genera QA.documentation-analysis-report.md siguiendo la guía `.github/skills/qa-documentation-workflow/references/analysis-report-guidance.md`.
-2. Con el reporte ya completo, genera el handoff JSON usando la skill compartida `qa-handoff-creation` (`.github/skills/qa-handoff-creation/SKILL.md`), sustituyendo `{agent}` por `QA.documentation`.
-3. Actualiza ./tests/Documentation/HANDOFF_Summary.md.
-4. Revisa consistencia y trazabilidad entre el handoff JSON generado y el resumen markdown.
+1. Genera `QA.documentation-analysis-report.md` siguiendo la guía `references/analysis-report-guidance.md` de esta skill.
+2. Revisa la consistencia y trazabilidad internas del reporte (requisitos, gaps, agrupamiento por area, conteos por area/endpoint, estado del analisis).
 
 ## Restricciones operativas
 
 - Trabaja sobre los requisitos, gaps y agrupamiento producidos en los pasos 01–04. Si detectas un faltante en este punto, regístralo como "decisión pendiente" en el reporte (sección Notas de Cierre) y continúa; no vuelvas a las fuentes originales.
 - La estructura y el nombre del reporte markdown: siguen la guía `references/analysis-report-guidance.md` (no los definas tú).
-- La estructura y el nombre del handoff JSON: siguen la skill `qa-handoff-creation` (no los definas tú).
-- La validación de consistencia entre JSON y markdown es parte del entregable.
 
 ## Checklist de completitud
 
-- [ ] Se genero QA.documentation-analysis-report.md con el formato esperado.
-- [ ] El handoff JSON fue generado por la skill de handoff asociada.
-- [ ] Los counts (req/gap/área/endpoint) reportados en el markdown coinciden numéricamente con los del handoff JSON; el `status` del handoff coincide con el estado del análisis.
-- [ ] Se actualizo ./tests/Documentation/HANDOFF_Summary.md.
-- [ ] Se verifico consistencia y trazabilidad entre JSON y markdown.
+- [ ] Se genero `QA.documentation-analysis-report.md` con el formato esperado.
+- [ ] Los counts (req/gap/área/endpoint) del reporte son internamente consistentes y el estado del analisis queda reflejado en el reporte.
 - [ ] El paso 5 esta completo y el workflow puede cerrarse.

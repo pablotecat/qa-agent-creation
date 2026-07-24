@@ -1,22 +1,22 @@
 ---
 name: qa-generator-workflow
-description: Workflow del agente QA.generator para crear Test Cases con pasos numerados Given/When/Then y handoff consolidado.
+description: Workflow para crear Test Cases con pasos numerados Given/When/Then desde planificación o requisitos. Usar para generar QA.generator-test-cases.md.
 disable-model-invocation: true
 argument-hint: Handoff del planner o analysis-report de documentation con requisitos, suites y nombres de tests
-user-invocable: false
+user-invocable: true
 compatibility: 
   - agents: [QA.generator]
 ---
 
-Workflow para `QA.generator`: diseña Test Cases con pasos numerados Given/When/Then y entrega handoff consolidado. El flujo operativo se divide en archivos bajo `./steps/`. DEBES seguir la secuencia de pasos y las reglas de cada uno.
+Workflow de generación de Test Cases: diseña Test Cases con pasos numerados Given/When/Then y entrega el documento `QA.generator-test-cases.md`. El flujo operativo se divide en archivos bajo `./steps/`. DEBES seguir la secuencia de pasos y las reglas de cada uno.
 
 ## Mapa de pasos
 
-`01 Análisis de Entrada` → `02 Particionado por Acceptance Criteria (verificación de IDs en origen)` → `03 Diseño de Pasos de Test Cases` → `04 Marcaje de Provisionales` → `05 Revisión de Trazabilidad` → `06 Generación de Handoff y Reporte`
+`01 Análisis de Entrada` → `02 Particionado por Acceptance Criteria (verificación de IDs en origen)` → `03 Diseño de Pasos de Test Cases` → `04 Marcaje de Provisionales` → `05 Revisión de Trazabilidad` → `06 Generación de Reporte`
 
 ## Guardarrail de entregables
 
-El único paso que escribe entregables (handoff JSON, `QA.generator-test-cases.md`, work-log, `HANDOFF_Summary.md`) es el paso 06. Los pasos 01–05 solo construyen estado interno: asimilar entrada, particionar por AC, redactar pasos, marcar provisionales, verificar trazabilidad.
+El único paso que escribe entregables (`QA.generator-test-cases.md`, work-log) es el paso 06. Los pasos 01–05 solo construyen estado interno: asimilar entrada, particionar por AC, redactar pasos, marcar provisionales, verificar trazabilidad.
 
 ## Invariante canónica: verificación de IDs en splits
 

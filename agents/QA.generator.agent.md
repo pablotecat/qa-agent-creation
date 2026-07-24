@@ -24,5 +24,6 @@ Crear Test Cases ejecutables a partir de un documento de planificación o de req
 
 ## Flujo de trabajo
 
-- Workflow asociado: `.github/skills/qa-generator-workflow/SKILL.md`
+1. DEBES ejecutar esta skill: `.github/skills/qa-generator-workflow/SKILL.md`
+2. DEBES crear un handoff usando esta skill: `.github/skills/qa-handoff-creation/SKILL.md`
 

@@ -80,7 +80,16 @@ Los agentes QA están disponibles en .github/. Ya puedes invocarlos desde GitHub
 | `prompts/` | 1 | Prompts de inicialización (`test-documentation-init.md`) |
 | `skills/` | 5 dirs | `qa-handoff-creation`, `qa-documentation-workflow`, `qa-generator-workflow`, `qa-planner-workflow`, `qa-test-prioritization-report` (cada una con `SKILL.md` + `steps/`/`references/`/`examples/`/`assets/`) |
 
-Los agentes son **invocables directamente** por el usuario. El pipeline QA se ejecuta de forma secuencial manual: `QA.documentation` → `QA.planner` → `QA.generator`.
+Los agentes son **invocables directamente** por el usuario. Las skills de workflow (`qa-documentation-workflow`, `qa-generator-workflow`, `qa-planner-workflow`) también son **invocables de forma autónoma** mediante slash command, sin necesidad de pasar por un agente.
+
+## Invocación
+
+Cada skill de workflow produce su reporte markdown de forma autónoma. La generación del handoff JSON es **opcional** y la gestiona el invocador (agente o usuario) vía la skill `qa-handoff-creation`, una vez cerrado el workflow.
+
+- **Vía agente** (Modo 1, recomendado para el pipeline QA): el agente ejecuta su flujo en dos pasos — (1) la skill de workflow correspondiente y (2) `qa-handoff-creation` para emitir el recibo de validación. El pipeline se ejecuta de forma secuencial manual: `QA.documentation` → `QA.planner` → `QA.generator`.
+- **Vía skill standalone** (sin agente): invoca directamente la skill de workflow con un slash command. Obtiene el reporte markdown sin handoff. Útil cuando no se necesita el recibo QA entre agentes.
+
+> Nota: ejecutar una skill de workflow sin agente **no** inicializa la carpeta de sesión ni el contador (`session-counter.json`). El invocador debe gestionar la ruta de salida manualmente. El desacople completo de la gestión de sesión está pendiente.
 
 ## Artefactos de sesión
 
