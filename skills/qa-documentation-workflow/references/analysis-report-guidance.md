@@ -14,7 +14,7 @@ A continuación se explica cada sección y si es obligatoria incluirla.
 
 ### Metadatos (obligatoria)
 - Session ID
-- Agente
+- Productor
 - Fecha/Hora
 - Estado
 
@@ -35,7 +35,7 @@ A continuación se explica cada sección y si es obligatoria incluirla.
 
 4. Notas de Cierre para Revisión Humana
 - Puntos que un revisor humano podría querer mirar a continuación
-- **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline
+- **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún consumidor (agente downstream o usuario) debe tomarla como instrucción ni inferir de ella el siguiente paso del pipeline
 
 ### Cierre (obligatoria)
 - Estado de Handoff

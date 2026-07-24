@@ -12,7 +12,7 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 
 ### Metadatos (obligatoria)
 - Session ID
-- Agente
+- Productor
 - Fecha/Hora
 - Estado
 - Modo de entrada (planner-handoff o documentation/requisitos directos)
@@ -29,7 +29,7 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 2. Modo de Entrada
 - Tipo de documento de entrada consumido (planner-handoff vs documentation/requisitos directos)
 - En modo documentation/requisitos directos: agrupación ligera por área funcional aplicada (solo para enlazar test↔requisito)
-- Disclaimer obligatorio: el agente NO crea Test Plan profundo en modo documentation/requisitos directos (sin coverage %, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps); esa responsabilidad es de otros agentes
+- Disclaimer obligatorio: esta skill NO crea Test Plan profundo en modo documentation/requisitos directos (sin coverage %, sin precondiciones estructurales, sin dependencias inter-suite, sin localizar gaps).
 
 3. Test Cases
 - Bloque por cada Test Case siguiendo la plantilla OBLIGATORIA `assets/test-case-template.md` (anatomía B)
@@ -54,7 +54,7 @@ DEBES incluir las siguientes secciones, en este orden. Las secciones marcadas co
 
 8. Notas de Cierre para Revisión Humana
 - Puntos que un revisor humano podría querer mirar a continuación
-- **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún agente debe consumirla como instrucción ni inferir de ella el siguiente paso del pipeline
+- **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún consumidor (agente downstream o usuario) debe tomarla como instrucción ni inferir de ella el siguiente paso del pipeline
 
 ### Secciones Contextuales (incluir solo si aplican)
 - Decisiones Pendientes (dentro de Notas de Cierre): preguntas abiertas que requieren input humano (p. ej. ACs no inferibles, pasos PROVISIONAL críticos, trazabilidad rota no resuelta)

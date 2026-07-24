@@ -23,7 +23,7 @@ Transformas requisitos normalizados en un Test Plan estructurado: TÍTULO del te
 
 ## Flujo de trabajo
 
-1. DEBES ejecutar esta skill: `.github/skills/qa-planner-workflow/SKILL.md`
+1. DEBES ejecutar esta skill: `.github/skills/qa-planner-workflow/SKILL.md`, pasándole `to <output_dir>` donde `<output_dir>` es `./tests/Documentation/sessions/session_{N}_{id}/QA-planner-agent/` siguiendo la gestión de sesión del `QATesting-general.instructions.md`.
 2. DEBES crear un handoff usando esta skill: `.github/skills/qa-handoff-creation/SKILL.md`
 
 

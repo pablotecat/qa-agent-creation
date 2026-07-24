@@ -14,13 +14,15 @@ Workflow de planificación QA: genera suites, cobertura y precondiciones estruct
 
 `01 Análisis de Handoff de Entrada` → `02 Diseño de Suites` → `03 Modelamiento de Cobertura` → `04 Definición de Precondiciones` → `05 Trazabilidad Estructural` → `06 Generación de Reporte`
 
-## Guardarrail de entregables
+## Guardarrail de entregables (reporte final)
 
-El único paso que escribe entregables (`QA.planner-execution-summary.md`, work-log) es el paso 06. Los pasos 01–05 solo construyen estado interno: asimilar handoff de entrada, diseñar suites, modelar cobertura, definir precondiciones estructurales, trazar relaciones.
+El único paso que escribe el **entregable final** (el reporte `QA.planner-execution-summary.md`) es el paso 06. Los pasos 01–05 solo construyen estado interno: asimilar handoff de entrada, diseñar suites, modelar cobertura, definir precondiciones estructurales, trazar relaciones.
 
-## Log de Trabajo
+> **No confundir con el work-log**: el work-log **no** es un entregable final, es **traza incremental de ejecución**. Se define en la sección siguiente.
 
-Tras cerrar cada paso, documenta una fila en `QA.planner-work-log.md` siguiendo la plantilla canónica en `references/work-log-template.md` (formato único; no uses otro).
+## Log de Trabajo (traza incremental)
+
+El work-log `QA.planner-work-log.md` es **traza incremental**. Se escribe **una fila tras cada paso, dentro de ese paso**, siguiendo la plantilla canónica en `references/work-log-template.md` (formato único; no uses otro).
 
 ## Manejo de Bloqueos y Retroalimentacion
 
@@ -28,22 +30,22 @@ El pipeline QA es manual: no existe ningun orquestador que pueda invocar a QA.do
 
 Si encuentras gaps que bloquean el diseño de cobertura:
 - Documenta el bloqueo en el reporte `QA.planner-execution-summary.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes", indicando que el estado del resultado es `blocked` o `partial` (para que, si el invocador decide generar handoff vía `qa-handoff-creation`, se refleje allí).
-- Especifica en esa misma sección qué no se pudo completar (equivalente a `work_performed.sections_untouched`), para que el usuario decida si reinvoca QA.documentation para obtener mas contexto.
+- Especifica en esa misma sección qué no se pudo completar (equivalente a `work_performed.sections_untouched`), para que el usuario decida si reinvoca el origen para obtener mas contexto.
 
 Si cobertura es imposible de alcanzar:
 - Documenta en el reporte `QA.planner-execution-summary.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes", que el estado del resultado es `partial` (para que, si el invocador decide generar handoff vía `qa-handoff-creation`, se refleje allí).
 - Re-diseñar suites con cobertura pragmática (ej: 85% en lugar de 100%).
 - Justificar la decisión en `QA.planner-execution-summary.md`, sección "Notas de Cierre para Revisión Humana → Decisiones Pendientes".
 
-## Resolución de output (uso standalone)
+## Resolución de output
 
-**Los Agentes Ignoran esta sección**.
+Esta skill resuelve el directorio de salida (`output_dir`) así:
 
-Cuando esta skill se invoca sin un agente (`QA.planner`), resuelve el directorio de salida (`output_dir`) así:
-
-1. **Path explícito en la invocación**: si el usuario indica un destino (patrones como `to <path>`, `save [to] <path>`, `en <path>`), úsalo como `output_dir`.
+1. **Path explícito en la invocación**: si el usuario o el agente invocador indica un destino (patrones como `to <path>`, `save [to] <path>`, `en <path>`), úsalo como `output_dir`.
 2. **Keyword `preview` o `no-save`**: si la invocación la contiene, **modo chat-only**: no se escribe nada a disco; el reporte se muestra por chat y se anuncia que no se persistió.
 3. **Default**: en caso contrario, `output_dir` = `./qa-tmp/qa-planner-workflow/<timestamp>/` (relativo al cwd del workspace; `<timestamp>` en ISO8601 compacto `YYYYMMDD-HHMMSS`).
+
+> **Nota para agentes**: si esta skill se invoca desde un agente `QA.*`, el agente DEBE pasar su path de sesión como `to <path>` (p. ej. `./tests/Documentation/sessions/session_{N}_{id}/QA-planner-agent/`). La skill no infiere el path de sesión del agente; es responsabilidad del invocador pasárselo.
 
 ### Artefactos a escribir (salvo modo chat-only)
 
@@ -52,8 +54,8 @@ Cuando esta skill se invoca sin un agente (`QA.planner`), resuelve el directorio
 
 ### Feedback al usuario
 
-- Tras escribir: anuncia en chat la ruta del reporte y una línea con la ruta del work-log (silenciosa) + un resumen breve del reporte (primeras ~20 líneas o digest).
-- En modo chat-only: muestra el reporte completo por chat y anuncia que no se persistió.
+- Tras escribir a disco: responde en chat **exactamente una línea seca** con el formato `<nombre-del-workflow> OK. Reporte: <ruta>. Work-log: <ruta>.` Prohibido mostrar cualquier parte del contenido de los archivos (ni el reporte ni el work-log). El usuario abrirá el archivo para leerlo.
+- En modo chat-only (`preview`/`no-save`): muestra el reporte `QA.planner-execution-summary.md` **completo** por chat y anuncia en una línea que no se persistió.
 
 ### Errores recuperables
 

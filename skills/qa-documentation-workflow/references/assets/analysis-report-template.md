@@ -1,7 +1,7 @@
 # Test Documentation - Análisis Completado
 
 **Session ID:** <SESSION_ID>
-**Agente:** QA.documentation
+**Productor:** <rol> (si invoca agente, su nombre ej. `QA.documentation`; si invoca usuario standalone, `qa-documentation-workflow`)
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
 **Estado de Ejecución:** ✅ COMPLETED
 **Modelo Usado:** <MODEL_NAME>
@@ -109,12 +109,7 @@ Errors:   <ERROR_SCHEMAS>
 
 ## 📁 Artefactos Generados
 
-La ruta de persistencia depende del modo de invocación (ver "Resolución de output" en `SKILL.md`):
-
-- **Modo agente** (`QA.documentation`): `./tests/Documentation/sessions/session_{session_N}_{session_id}/QA-documentation-agent/`
-- **Standalone con path explícito**: el path indicado por el usuario.
-- **Standalone sin path explícito (default)**: `./qa-tmp/qa-documentation-workflow/<timestamp>/`
-- **Standalone con keyword `preview`/`no-save`**: sin persistencia; el reporte se muestra por chat.
+La ruta de persistencia la define el invocador vía `to <path>` (default `./qa-tmp/qa-documentation-workflow/<timestamp>/`, ver "Resolución de output" en `SKILL.md`). Esta skill no bifurca por modo de invocación.
 
 Artefactos que **esta skill** siempre escribe (salvo chat-only):
 
@@ -145,4 +140,3 @@ Artefacto **opcional** (no lo genera esta skill; lo gestiona el invocador vía `
 
 **Estado de Handoff:** ✅ READY FOR HANDOFF
 **Resultado de Validación:** ✅ PASSED
-**Correlation ID:** <SESSION_ID>.QA.documentation.<RETRY>

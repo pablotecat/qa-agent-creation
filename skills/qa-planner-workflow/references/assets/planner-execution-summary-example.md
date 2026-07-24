@@ -1,7 +1,7 @@
 # Test Planner Agent - Resumen de Ejecución
 
 **Session ID:** <SESSION_ID>
-**Agente:** QA.planner
+**Productor:** <rol> (si invoca agente, su nombre ej. `QA.planner`; si invoca usuario standalone, `qa-planner-workflow`)
 **Fecha/Hora:** <ISO_8601_TIMESTAMP>
 **Estado de Ejecución:** ✅ COMPLETED
 **Modelo Usado:** <MODEL_NAME>
@@ -10,7 +10,7 @@
 
 ## 📊 Resumen Ejecutivo
 
-El agente **QA.planner** ha completado el Test Plan estructural a partir del handoff de QA.documentation.
+La skill `qa-planner-workflow` ha completado el Test Plan estructural a partir del handoff de entrada (típicamente producido por `QA.documentation` o equivalente).
 Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; esa responsabilidad corresponde a priorización.
 
 ### Métricas Clave
@@ -155,12 +155,7 @@ Este reporte NO prioriza ni clasifica suites en Smoke/Regresión/Exploratory; es
 
 ## 📁 Artefactos Generados
 
-La ruta de persistencia depende del modo de invocación (ver "Resolución de output" en `SKILL.md`):
-
-- **Modo agente** (`QA.planner`): `./tests/Documentation/sessions/session_{session_N}_{session_id}/QA-planner-agent/`
-- **Standalone con path explícito**: el path indicado por el usuario.
-- **Standalone sin path explícito (default)**: `./qa-tmp/qa-planner-workflow/<timestamp>/`
-- **Standalone con keyword `preview`/`no-save`**: sin persistencia; el reporte se muestra por chat.
+La ruta de persistencia la define el invocador vía `to <path>` (default `./qa-tmp/qa-planner-workflow/<timestamp>/`, ver "Resolución de output" en `SKILL.md`). Esta skill no bifurca por modo de invocación.
 
 Artefactos que **esta skill** siempre escribe (salvo chat-only):
 
@@ -189,4 +184,3 @@ Artefacto **opcional** (no lo genera esta skill; lo gestiona el invocador vía `
 
 **Estado de Handoff:** ✅ READY FOR HANDOFF
 **Resultado de Validación:** ✅ PASSED
-**Correlation ID:** <SESSION_ID>.QA.planner.<RETRY>

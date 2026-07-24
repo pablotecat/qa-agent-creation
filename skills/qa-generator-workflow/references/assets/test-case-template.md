@@ -54,6 +54,6 @@ Repite un bloque como el siguiente por cada Test Case. Sustituye los `<PLACEHOLD
 
 8. **Prueba un único AC:** En la medida de lo posible, un Test Case prueba un único Acceptance Criteria. Si el documento de entrada cubre N ACs en un solo escenario, **splitear** en N Test Cases (regla 6).
 
-9. **No priorizar, no clasificar, no automatizar:** la plantilla no incluye campos de prioridad, criticidad, tier (Smoke/Regresión/Exploratory) ni automatización. Esos son Non-goals del agente.
+9. **No priorizar, no clasificar, no automatizar:** la plantilla no incluye campos de prioridad, criticidad, tier (Smoke/Regresión/Exploratory) ni automatización. Esos son Non-goals de esta skill.
 
 10. **No nombrar agentes del pipeline:** la plantilla no referencia predecesores ni sucesores específicos del pipeline. Solo hace trazabilidad al documento de entrada vía `Original ID` y `Acceptance Criteria cubierto`.

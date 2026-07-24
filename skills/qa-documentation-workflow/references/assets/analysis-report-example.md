@@ -1,9 +1,9 @@
 # Test Documentation - Análisis Completado
 
-> **EJEMPLO ILUSTRATIVO** — Este archivo es un ejemplo mock para mostrar cómo debe lucir el output de `QA.documentation`. No corresponde a una sesión real ni a un feature real. La estructura canónica está en `analysis-report-template.md`; este archivo es referencial.
+> **EJEMPLO ILUSTRATIVO** — Este archivo es un ejemplo mock para mostrar cómo debe lucir el output de la skill `qa-documentation-workflow`. No corresponde a una sesión real ni a un feature real. La estructura canónica está en `analysis-report-template.md`; este archivo es referencial.
 
 **Session ID:** 3f2a1b8c-d4e5-4f6a-9b7c-1a2b3c4d5e6f
-**Agente:** QA.documentation
+**Productor:** QA.documentation (ejemplo)
 **Fecha/Hora:** 2026-07-23T14:32:11.000Z
 **Estado de Ejecución:** ✅ COMPLETED
 **Modelo Usado:** GLM 5.2
@@ -109,12 +109,7 @@ Errors:   401 Unauthorized (credenciales incorrectas)
 
 ## 📁 Artefactos Generados
 
-La ruta de persistencia depende del modo de invocación (ver "Resolución de output" en `SKILL.md`):
-
-- **Modo agente** (`QA.documentation`): `./tests/Documentation/sessions/session_{session_N}_{session_id}/QA-documentation-agent/`
-- **Standalone con path explícito**: el path indicado por el usuario.
-- **Standalone sin path explícito (default)**: `./qa-tmp/qa-documentation-workflow/<timestamp>/`
-- **Standalone con keyword `preview`/`no-save`**: sin persistencia; el reporte se muestra por chat.
+La ruta de persistencia la define el invocador vía `to <path>` (default `./qa-tmp/qa-documentation-workflow/<timestamp>/`, ver "Resolución de output" en `SKILL.md`). Esta skill no bifurca por modo de invocación.
 
 Artefactos que **esta skill** siempre escribe (salvo chat-only):
 
@@ -144,4 +139,3 @@ Artefacto **opcional** (no lo genera esta skill; lo gestiona el invocador vía `
 
 **Estado de Handoff:** ✅ READY FOR HANDOFF
 **Resultado de Validación:** ✅ PASSED
-**Correlation ID:** 3f2a1b8c-d4e5-4f6a-9b7c-1a2b3c4d5e6f.QA.documentation.1

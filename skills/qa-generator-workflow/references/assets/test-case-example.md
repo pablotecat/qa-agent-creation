@@ -1,11 +1,11 @@
 # Test Generator Agent - Set de Test Cases (Ejemplo)
 
-> Este es un **ejemplo completo** de salida del agente `QA.generator`. No es plantilla; la plantilla OBLIGATORIA está en `assets/test-case-template.md`.
+> Este es un **ejemplo completo** de salida de la skill `qa-generator-workflow`. No es plantilla; la plantilla OBLIGATORIA está en `assets/test-case-template.md`.
 >
-> Fuente de entrada simulada: `QA.planner-execution-summary-example.md` (modo planner-handoff). En este ejemplo se ha spliteado `registration_001` en `registration_001a` y `registration_001b` porque el escenario cubría dos Acceptance Criteria. También se incluye un paso marcado `🟡 PROVISIONAL/NO DEFINIDO` para ilustrar el marcaje.
+> Fuente de entrada simulada: `execution-summary-example.md` (modo planner-handoff). En este ejemplo se ha spliteado `registration_001` en `registration_001a` y `registration_001b` porque el escenario cubría dos Acceptance Criteria. También se incluye un paso marcado `🟡 PROVISIONAL/NO DEFINIDO` para ilustrar el marcaje.
 
 **Session ID:** `<SESSION_ID>`
-**Agente:** QA.generator
+**Productor:** QA.generator (ejemplo)
 **Fecha/Hora:** `<ISO_8601_TIMESTAMP>`
 **Estado de Ejecución:** ✅ COMPLETED
 **Modo de entrada:** planner-handoff
@@ -151,12 +151,7 @@ El agente **QA.generator** ha generado el set de Test Cases a partir del documen
 
 ## 📁 Artefactos Generados
 
-La ruta de persistencia depende del modo de invocación (ver "Resolución de output" en `SKILL.md`):
-
-- **Modo agente** (`QA.generator`): `./tests/Documentation/sessions/session_{session_N}_{session_id}/QA-generator-agent/`
-- **Standalone con path explícito**: el path indicado por el usuario.
-- **Standalone sin path explícito (default)**: `./qa-tmp/qa-generator-workflow/<timestamp>/`
-- **Standalone con keyword `preview`/`no-save`**: sin persistencia; el reporte se muestra por chat.
+La ruta de persistencia la define el invocador vía `to <path>` (default `./qa-tmp/qa-generator-workflow/<timestamp>/`, ver "Resolución de output" en `SKILL.md`). Esta skill no bifurca por modo de invocación.
 
 Artefactos que **esta skill** siempre escribe (salvo chat-only):
 
