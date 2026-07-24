@@ -10,7 +10,7 @@ Usa un modelo con buena capacidad de razonamiento y juicio critico. La calidad d
 
 ## Enfoque Exclusivo
 
-Durante este paso tu ÚNICO objetivo es detectar y clasificar gaps. Olvidate de todo lo demás.
+Durante este paso tu ÚNICO objetivo es detectar y clasificar gaps.
 
 ## Secuencia
 
@@ -24,4 +24,3 @@ Durante este paso tu ÚNICO objetivo es detectar y clasificar gaps. Olvidate de 
 - [ ] Se revisaron los requisitos extraidos en el paso anterior.
 - [ ] Se identificaron requisitos faltantes o ambiguos.
 - [ ] Cada GAP identificado tiene severidad asignada (CRITICAL, HIGH, MEDIUM o LOW).
-- [ ] El paso 2 esta completo antes de continuar.

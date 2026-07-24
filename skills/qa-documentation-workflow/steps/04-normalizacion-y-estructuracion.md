@@ -10,7 +10,7 @@ Usa un modelo con buena capacidad de estructuracion y consistencia. La calidad d
 
 ## Enfoque Exclusivo
 
-Durante este paso tu ÚNICO objetivo es normalizar redaccion y estructura. Olvidate de todo lo demás.
+Durante este paso tu ÚNICO objetivo es normalizar redaccion y estructura.
 
 ## Secuencia
 
@@ -27,4 +27,3 @@ Durante este paso tu ÚNICO objetivo es normalizar redaccion y estructura. Olvid
 - [ ] Se verifico legibilidad y cobertura semantica.
 - [ ] La trazabilidad a fuentes originales esta completa.
 - [ ] No existen Tests duplicados.
-- [ ] El paso 4 esta completo antes de continuar.

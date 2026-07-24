@@ -1,9 +1,8 @@
 ---
 name: qa-documentation-workflow
-description: Workflow para extraer, normalizar y entregar requisitos QA. Usar para generar analysis-report consolidado.
+description: Extrae, normaliza y entrega requisitos QA consolidados en un analysis-report markdown.
 disable-model-invocation: true
 argument-hint: "solicitud QA y fuentes de requisitos. Opcional: 'to <path>' para destino, o 'preview'/'no-save' para chat-only."
-user-invocable: true
 compatibility: 
   - agents: [QA.documentation]
 ---
@@ -23,7 +22,7 @@ El work-log `QA.documentation-work-log.md` es **traza incremental**. Se escribe 
 
 ### Feedback al usuario
 
-- Mientras ejecutas cada paso: salvo que el usuario indique lo contrario, no escribas nada en el chat, salvo errores o decisiones pendientes.
+- Mientras ejecutas cada paso: salvo que el usuario indique lo contrario, escribe en el chat solo para reportar errores o decisiones pendientes; de lo contrario, mantén silencio.
 - Cuando termines cada paso: responde en chat **exactamente una línea seca** con el formato `<nombre-del-paso> OK.`
 - Cuando termines de escribir archivos: responde en chat **exactamente una línea seca** con el formato `<nombre-del-workflow> OK; reporte: <ruta>; work-log: <ruta>`.
 

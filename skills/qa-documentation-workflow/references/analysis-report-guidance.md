@@ -10,15 +10,15 @@ Genera un archivo markdown para el rol de análisis de requisitos.
 
 DEBES utilizar la estructura y formato de la plantilla `assets/analysis-report-template.md`, no es un ejemplo, es el formato OBLIGATORIO a seguir.
 
-A continuación se explica cada sección y si es obligatoria incluirla.
+A continuación se explica cada sección:
 
-### Metadatos (obligatoria)
+### Metadatos
 - Session ID
 - Productor
 - Fecha/Hora
 - Estado
 
-### Secciones Base (obligatoria)
+### Secciones Base
 
 1. Resumen Ejecutivo
 - Estado del análisis
@@ -37,11 +37,11 @@ A continuación se explica cada sección y si es obligatoria incluirla.
 - Puntos que un revisor humano podría querer mirar a continuación
 - **Disclaimer obligatorio:** esta sección es informativa para revisión humana; ningún consumidor (agente downstream o usuario) debe tomarla como instrucción ni inferir de ella el siguiente paso del pipeline
 
-### Cierre (obligatoria)
+### Cierre
 - Estado de Handoff
 - Resultado de Validación
 
-### Secciones Contextuales (incluir solo si aplican)
+### Secciones Contextuales
 
 - Requisitos Normalizados por Área
   - Título del área
@@ -75,4 +75,3 @@ Antes de dar la tarea por finalizada, recorrer este checklist y confirmar que se
 - [ ] Los conteos de requisitos y gaps son consistentes con el handoff JSON.
 - [ ] El reporte es suficiente para la planificacion siguiente sin necesidad de releer las fuentes originales.
 
-Si algun punto no se cumple, la tarea no debe marcarse como finalizada.

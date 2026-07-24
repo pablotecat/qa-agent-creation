@@ -10,7 +10,7 @@ Usa el modelo de razonamiento mas potente disponible para este paso. Es la fase 
 
 ## Enfoque Exclusivo
 
-Durante este paso tu ÚNICO objetivo es leer y extraer. Olvidate de todo lo demás.
+Durante este paso tu ÚNICO objetivo es leer y extraer.
 
 ## Secuencia
 
@@ -27,4 +27,3 @@ Durante este paso tu ÚNICO objetivo es leer y extraer. Olvidate de todo lo dem�
 - [ ] Se extrajeron criterios de aceptacion explicitos e implicitos.
 - [ ] Se listaron precondiciones y dependencias.
 - [ ] Se registraron ambiguedades o faltantes como GAP sin detener el flujo.
-- [ ] El paso 1 esta completo antes de continuar.

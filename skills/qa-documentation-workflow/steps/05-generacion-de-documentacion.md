@@ -10,7 +10,7 @@ Usa el modelo de razonamiento mas potente disponible. Este paso produce el entre
 
 ## Enfoque Exclusivo
 
-Durante este paso tu ÚNICO objetivo es ensamblar, validar y persistir el entregable final. Olvidate de todo lo demás.
+Durante este paso tu ÚNICO objetivo es ensamblar, validar y persistir el entregable final.
 
 ## Resolución de output
 
@@ -39,4 +39,3 @@ Esta skill resuelve el directorio de salida (`output_dir`) así:
 
 - [ ] Se genero `QA.documentation-analysis-report.md` con el formato esperado.
 - [ ] Los counts (req/gap/área/endpoint) del reporte son internamente consistentes y el estado del analisis queda reflejado en el reporte.
-- [ ] El paso 5 esta completo y el workflow puede cerrarse.
