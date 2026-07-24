@@ -5,12 +5,12 @@ disable-model-invocation: true
 argument-hint: "nombre del agente productor, session id, y rutas de summary_md/work_log_md ya generados"
 user-invocable: false
 compatibility: 
-  - agents: [documentation.QATesting, planner.QATesting, prioritization.QATesting]
+  - agents: [QA.documentation, QA.planner, QA.prioritization]
 ---
 
 # Skill de Creacion de Handoff
 
-Genera el handoff JSON minimo de cualquier agente productor QA. Esta skill es compartida: no pertenece a un agente en particular, se referencia parametrizando `{agent}` con el nombre del agente que la invoca (ej. `documentation.QATesting`).
+Genera el handoff JSON minimo de cualquier agente productor QA. Esta skill es compartida: no pertenece a un agente en particular, se referencia parametrizando `{agent}` con el nombre del agente que la invoca (ej. `QA.documentation`).
 
 > Nota: el handoff es un recibo minimo de validacion para quien consume el resultado del agente, no un payload de contenido. Todo el contenido de trabajo vive en el markdown de resumen del agente (`summary_md`), no en este JSON.
 
@@ -24,7 +24,7 @@ Patron: `{agent}-handoff-{timestamp}.json` — definido en esta skill.
 
 ```
 ./tests/Documentation/sessions/session_{session_N}_{session_id}/
-└── agent-{agent}/
+└── QA-{agent}-agent/
     ├── {agent}-handoff-{timestamp}.json
     ├── {agent}-analysis-report.md (o el nombre de resumen definido por rol)
     └── {agent}-work-log.md
@@ -51,14 +51,14 @@ Los tipos, patrones y reglas exactas viven en `assets/handoff-schema.json` (fuen
 
 - Ver [example handoff](./assets/example-handoff.json)
 
-> Nota: las claves concretas dentro de `checks` y `counts` en el ejemplo (`gherkin_format_valid`, `requirements`, etc.) pertenecen a `documentation.QATesting`, unico agente productor existente hoy. Son ilustrativas, no un catalogo fijo: cada agente define las suyas propias segun lo que objetivamente haya verificado o contado.
+> Nota: las claves concretas dentro de `checks` y `counts` en el ejemplo (`gherkin_format_valid`, `requirements`, etc.) pertenecen a `QA.documentation`, unico agente productor existente hoy. Son ilustrativas, no un catalogo fijo: cada agente define las suyas propias segun lo que objetivamente haya verificado o contado.
 
 ## Pasos de Creacion
 
 1. Con el documento de trabajo (`summary_md`) y el log de ejecucion (`work_log_md`) ya generados y persistidos, crea el handoff JSON siguiendo `assets/handoff-specification.md` y validando contra `assets/handoff-schema.json`.
 2. Reporta solo hechos objetivos (`assigned_task`, `work_performed`, `checks`, `counts`). Nunca incluyas aqui un juicio propio de cumplimiento de alcance: eso lo decide quien consume el handoff.
 3. Usa el nombre de archivo definido en esta skill, sustituyendo `{agent}` por tu propio nombre de agente.
-4. Persiste el archivo en la subcarpeta `agent-{agent}/` dentro de la carpeta de sesion correspondiente, junto al resumen y al log de trabajo.
+4. Persiste el archivo en la subcarpeta `QA-{agent}-agent/` dentro de la carpeta de sesion correspondiente, junto al resumen y al log de trabajo.
 
 ## Puerta de Calidad
 

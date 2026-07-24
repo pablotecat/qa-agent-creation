@@ -1,7 +1,7 @@
 ---
 description: "Guardarrailes y reglas operativas comunes para todos los agentes QA del pipeline manual."
 name: "QA Agents General"
-applyTo: ".github/agents/*.QATesting.agent.md"
+applyTo: ".github/agents/QA.*.agent.md"
 ---
 
 # Guardarrailes Generales para Agentes QA
