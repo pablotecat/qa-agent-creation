@@ -1,9 +1,9 @@
-# @pablotecat/qa-agents
+# qa-agents
 
 Paquete npm que instala los **agentes QA de GitHub Copilot** en cualquier proyecto. El runtime no va dentro del paquete: el binario lo **descarga desde GitHub** (`pablotecat/qa-agent-creation`) en cada ejecución para obtener siempre la última versión. Los agentes, skills, instrucciones y prompts quedan disponibles en `.github/` del proyecto destino, listos para ser invocados desde Copilot.
 
 ```bash
-npx @pablotecat/qa-agents
+npx qa-agents
 ```
 
 ## Dos modos de instalación
@@ -15,7 +15,7 @@ Este proyecto admite dos formas de instalación, según lo que necesites:
 Instala **todo** el runtime (agentes + instrucciones + prompts + skills) en `.github/`:
 
 ```bash
-npx @pablotecat/qa-agents
+npx qa-agents
 ```
 
 Copia recursivamente a `./.github/`:
@@ -47,16 +47,16 @@ Esto copia únicamente las carpetas con `SKILL.md`. Es compatible con 70+ agente
 
 ```bash
 # En la raíz de tu proyecto destino:
-npx @pablotecat/qa-agents
+npx qa-agents
 
 # Especificar una rama alternativa:
-npx @pablotecat/qa-agents --branch develop
+npx qa-agents --branch develop
 ```
 
 Salida esperada:
 
 ```
-@pablotecat/qa-agents — instalando runtime QA en .github/
+qa-agents — instalando runtime QA en .github/
   fuente: https://github.com/pablotecat/qa-agent-creation.git
   rama:   main
 
@@ -94,7 +94,7 @@ El paquete publicado **solo** contiene el binario y el README; el runtime se des
 .
 ├── bin/
 │   └── install.mjs     # binario ESM (Node ≥16.7, fs.cpSync) expuesto como `qa-agents`
-├── package.json        # name: @pablotecat/qa-agents, files: [bin/, README.md]
+├── package.json        # name: qa-agents, files: [bin/, README.md]
 └── README.md
 ```
 
@@ -118,11 +118,11 @@ Para iterar sobre el runtime sin publicar en npm ni en GitHub, puedes copiar loc
 
 ```bash
 npm login
-npm publish --access public    # scoped package, requiere --access public
+npm publish                       # unscoped package, público por defecto
 ```
 
 Para verificar qué se incluirá en el tarball antes de publicar:
 
 ```bash
-npm publish --dry-run --access public
+npm publish --dry-run
 ```

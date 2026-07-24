@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// @pablotecat/qa-agents — Descarga el runtime de agentes QA desde GitHub y lo copia a .github/.
+// qa-agents — Descarga el runtime de agentes QA desde GitHub y lo copia a .github/.
 // El runtime NO va dentro del paquete npm: se descarga con shallow clone para obtener siempre
 // la última versión del repo pablotecat/qa-agent-creation. Overwrite forzado idempotente.
 // Sin dependencias npm externas; requiere `git` instalado. Node >= 16.7 (fs.cpSync).
@@ -34,7 +34,7 @@ function parseArgs(argv) {
       return { branch: next };
     }
     if (arg === "--help" || arg === "-h") {
-      console.log(`Uso: npx @pablotecat/qa-agents [--branch <rama>]
+      console.log(`Uso: npx qa-agents [--branch <rama>]
 
 Descarga el runtime QA (agentes, instrucciones, prompts, skills) desde
 ${SOURCE_REPO} (rama "${DEFAULT_BRANCH}" por defecto) y lo copia a ./.github/.
@@ -100,7 +100,7 @@ function main() {
   const { branch } = parseArgs(process.argv);
 
   console.log(
-    `@pablotecat/qa-agents — instalando runtime QA en .github/\n` +
+    `qa-agents — instalando runtime QA en .github/\n` +
       `  fuente: ${SOURCE_REPO}\n` +
       `  rama:   ${branch}\n`
   );
