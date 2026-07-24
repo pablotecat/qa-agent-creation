@@ -45,8 +45,6 @@ Esta skill resuelve el directorio de salida (`output_dir`) así:
 2. **Keyword `preview` o `no-save`**: si la invocación la contiene, **modo chat-only**: no se escribe nada a disco; el reporte se muestra por chat y se anuncia que no se persistió.
 3. **Default**: en caso contrario, `output_dir` = `./qa-tmp/qa-planner-workflow/<timestamp>/` (relativo al cwd del workspace; `<timestamp>` en ISO8601 compacto `YYYYMMDD-HHMMSS`).
 
-> **Nota para agentes**: si esta skill se invoca desde un agente `QA.*`, el agente DEBE pasar su path de sesión como `to <path>` (p. ej. `./tests/Documentation/sessions/session_{N}_{id}/QA-planner-agent/`). La skill no infiere el path de sesión del agente; es responsabilidad del invocador pasárselo.
-
 ### Artefactos a escribir (salvo modo chat-only)
 
 - Reporte `QA.planner-execution-summary.md` → en `output_dir`.

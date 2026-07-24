@@ -18,6 +18,3 @@ Thumbs.db
 # Environment
 .env
 .env.local
-
-# npm secrets: nunca commitear tokens
-.npmrc
